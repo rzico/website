@@ -1,0 +1,44 @@
+
+.navFixed{
+  position:fixed !important;
+  top:0px;
+}
+
+.topic .nav {
+    width: 100%;
+    position: relative;
+    z-index: 1;
+    background: #fafafc;
+    height: 36px;
+    border-bottom: .5px solid #e2e4e9;
+}
+.topic .nav ul {
+    white-space: nowrap;
+    width: 100%;
+    padding-right: 60px;
+    box-sizing: border-box;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.topic .nav ul li {
+    box-sizing: border-box;
+    display: inline-block;
+    margin: 0 15px;
+    color: #333;
+    font-size: 15px;
+    line-height: 37px;
+    height: 37px;
+    list-style: none;
+    position: relative;
+    cursor: pointer;
+    outline: 0;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.topic .nav ul li.active {
+    color: #2f92ff;
+    border-bottom: 1px;
+    border-style: solid;
+    border-color:#2f92ff ;
+}

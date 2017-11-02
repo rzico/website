@@ -1,0 +1,152 @@
+.container,
+.page {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0
+}
+body, html {
+  height: 100%;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-text-size-adjust: 100% !important;
+  overflow: hidden;
+}
+
+.page, body {
+  background-color: #fff
+}
+
+.container {
+  overflow: hidden;
+  height: 100%;
+}
+
+.page {
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  box-sizing: border-box;
+}
+
+@-webkit-keyframes slideIn {
+  from {
+    -webkit-transform: translate3d(100%, 0, 0);
+    transform: translate3d(100%, 0, 0)
+  }
+  to {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0)
+  }
+}
+
+@keyframes slideIn {
+  from {
+    -webkit-transform: translate3d(100%, 0, 0);
+    transform: translate3d(100%, 0, 0)
+  }
+  to {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0)
+  }
+}
+
+@-webkit-keyframes slideOut {
+  from {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0)
+  }
+  to {
+    -webkit-transform: translate3d(100%, 0, 0);
+    transform: translate3d(100%, 0, 0)
+  }
+}
+
+@keyframes slideOut {
+  from {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0)
+  }
+  to {
+    -webkit-transform: translate3d(100%, 0, 0);
+    transform: translate3d(100%, 0, 0)
+  }
+}
+
+.page.slideIn {
+  -webkit-animation: slideIn .3s forwards;
+  animation: slideIn .3s forwards
+}
+
+.page.slideOut {
+  -webkit-animation: slideOut .3s forwards;
+  animation: slideOut .3s forwards
+}
+
+body {
+  overflow-x: hidden;
+}
+
+.slide-transition {
+  transition: transform 0.3s ease;
+  width: 100%;
+}
+
+.slide-enter, .slide-leave {
+  transform: translateX(100%);
+}
+
+.clearfix {
+  zoom: 1;
+}
+
+.fg {
+  position: relative;
+  box-sizing: border-box;
+  padding: 0 10px;
+  text-align: center;
+}
+
+.fr {
+  float: right !important;
+}
+
+.fl {
+  float: left !important;
+}
+
+.icon28 {
+  font-size: 28px;
+  line-height: 28px;
+  color:#ff5545;
+}
+
+.icon32 {
+  font-size: 32px;
+  line-height: 32px;
+  color:#ff5545;
+}
+
+.icon48 {
+  font-size: 48px;
+  color:#ff5545;
+  line-height: 48px;
+}
+
+.baseColor {
+  color:#ff5545;
+}
+
+.baseBgColor {
+  background-color:#ff5545;
+}
+
+.button {
+  background-color:#ff5545;
+  color:#eee;
+}
+
+.mask {
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 9999;
+}
+

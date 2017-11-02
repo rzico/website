@@ -1,0 +1,40 @@
+
+.music-icon {
+  width:32px;
+  height:32px;
+  position: fixed;
+  top: 59px;
+  z-index: 1;
+  right: 19px;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 50%;
+  -webkit-animation: musicIcon 2s infinite linear;
+  animation: musicIcon 2s infinite linear;
+}
+
+.music-icon .icon-music {
+  width:32px ;
+  height: 32px ;
+  color: #fff;
+  font-size: 32px;
+  line-height: 100%;
+}
+
+/*定义动画*/
+@-webkit-keyframes musicIcon { /*兼容性写法。spin是关键帧的动画名称*/
+  from { /*动画起始状态*/
+    -webkit-transform: rotate(0deg);
+  }
+  to { /*动画结束状态*/
+    -webkit-transform: rotate(360deg);
+  }
+}
+@keyframes musicIcon {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
