@@ -1,11 +1,16 @@
 <template>
-  <div class="page slideIn topic" @scroll="onscroll" offset-accuracy="0">
-  <v-loadmore :top-method="loadTop" :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" :auto-fill="false" ref="loadmore">
-    <metaInfo :topic="topic" :isFixed = "isfixed"></metaInfo>
-    <list ref="list"></list>
-  </v-loadmore>
+  <div>
+    <div class="page slideIn topic" @scroll="onscroll" offset-accuracy="0">
+    <v-loadmore :top-method="loadTop" :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" :auto-fill="false" ref="loadmore">
+      <metaInfo :topic="topic" :isFixed = "isfixed"></metaInfo>
+      <navbar :isFixed = "isfixed" :navs="catalogs" :idx="idx" @navChange="navChange"></navbar>
+      <list ref="list" :idx="idx"></list>
+    </v-loadmore>
+    </div>
+    <div class="topic">
+      <navbar  v-if="isfixed" :navs="catalogs" :isFixed = "isfixed" :idx="idx" @navChange="navChange"></navbar>
+    </div>
   </div>
-
 </template>
 <style scoped>
   @import '../less/c1001.less';
@@ -22,7 +27,9 @@
           return {
             allLoaded: false, //是否可以上拉属性，false可以上拉，true为禁止上拉，就是不让往上划加载数据了
             topic:{},
-            isfixed:false,
+            idx:0,
+            catalogs:[{id:0,name:"全部"}],
+            isfixed:false
           }
         },
         components: {
@@ -38,6 +45,7 @@
             function (response) {
               if (response.type=="success") {
                 _this.topic = response.data;
+                _this.catalogs = response.data.catalogs;
                 //设置分享标题
                 utils.setConfig({
                   title:_this.topic.name+"的"+utils.getConfig().siteName+"专栏",
@@ -54,7 +62,7 @@
         },
        methods:{
          loadTop:function() { //组件提供的下拉触发方法
-           this.$refs.list.loadTop();
+           this.$refs.list.loadTop(this.idx);
            this.$refs.loadmore.onTopLoaded();// 固定方法，查询完要调用一次，用于重新定位
          },
          loadBottom:function() {
@@ -69,6 +77,10 @@
              this.isfixed = false;
            }
          },
+         navChange:function (id) {
+             this.idx = id;
+           this.loadTop(id);
+         }
        }
     }
 

@@ -3,8 +3,6 @@
     <div class="mask bg" :style="'background-image: url('+topic.logo+')'"></div>
     <div class="field">
       <div class="avatar bg" :style="'background-image: url('+topic.logo+')'">
-        <div class="badge enterprise"></div>
-        <div class="author" style="display:none"></div>
       </div>
       <span class="profile">
         <div class="nickname oneline">{{topic.name}}</div>

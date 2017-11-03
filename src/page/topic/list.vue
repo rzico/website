@@ -36,29 +36,32 @@
         pageStart:0,
         pageSize:10,
         pageList:[],
-        catalogId:"",
         allLoaded:false
       }
     },
+    props:{
+      idx:{default:0}
+    },
     mounted() {
-      this.loadTop();
+      this.loadTop(0);
     },
     methods:{
-      loadTop:function() { //组件提供的下拉触发方法
+      loadTop:function(idx) { //组件提供的下拉触发方法
         this.pageStart =0;
         console.log("loadtop");
         //下拉加载
-        this.load();
+        this.load(idx);
       },
       loadBottom:function() {
         console.log("loadBottom");
         // 上拉加载
-        this.load();// 上拉触发的分页查询
+        this.load(this.idx);// 上拉触发的分页查询
       },
-      load:function () {
+      load:function (idx) {
         var _this = this;
         let id = utils.getUrlParameter("id");
-        GET('website/article/list.jhtml?id='+id+"&articleCatalogId="+_this.catalogId+"&pageStart="+_this.pageStart+"&pageSize="+_this.pageSize).then(
+        _this.idx = idx;
+        GET('website/article/list.jhtml?id='+id+"&articleCatalogId="+idx+"&pageStart="+_this.pageStart+"&pageSize="+_this.pageSize).then(
           function (response) {
             if (response.type=="success") {
               if (_this.pageStart==0) {

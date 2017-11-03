@@ -19,8 +19,6 @@ export function AUTH(redirectURL,func) {
         if (data.data.loginStatus && !utils.isNull(redirectURL) && data.data.authed) {
             logined = true;
         }
-        alert(logined);
-        alert(JSON.stringify(data));
         if (logined) {
           func(true);
         }
