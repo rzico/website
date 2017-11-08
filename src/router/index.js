@@ -3,6 +3,7 @@ import VueResource from 'vue-resource'
 import Router from 'vue-router'
 import Login from '../page/login'
 import Index from '../page/index'
+import Member from '../page/member'
 import T1001 from '../page/t1001'
 import T1002 from '../page/t1002'
 import C1001 from '../page/c1001'
@@ -19,6 +20,12 @@ var router = new Router({
       name: 'index',
       meta: {requireAuth:false},
       component: Index
+    },
+    {
+      path: '/member',
+      name: 'member',
+      meta: {requireAuth:false},
+      component: Member
     },
     {
       path: '/login',

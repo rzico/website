@@ -1,25 +1,27 @@
 <template>
-<div class="page slideIn">
-    <download_bar></download_bar>
-    <div class="article">
+  <div class="container">
+    <div class="page slideIn">
+      <download_bar></download_bar>
+      <div class="article">
         <div class="bg">
         </div>
         <div class="main">
-            <article_meta :article="watchArticle"></article_meta>
-            <music :musicData="watchMusicData"></music>
-            <article_content :templates="watchTemplates" :htmlStr="htmlStr"></article_content>
-            <reward :article="watchArticle"  @showDialog="showRewardDialog"></reward>
-            <report :article="watchArticle"></report>
-            <auther :article="watchArticle"></auther>
-            <review :article="watchArticle"></review>
-            <recommend :article="watchArticle"></recommend>
-            <ad :article="watchArticle"></ad>
+          <article_meta :article="watchArticle"></article_meta>
+          <music :musicData="watchMusicData"></music>
+          <article_content :templates="watchTemplates" :htmlStr="htmlStr"></article_content>
+          <reward :article="watchArticle"  @showDialog="showRewardDialog"></reward>
+          <report :article="watchArticle"></report>
+          <auther :article="watchArticle"></auther>
+          <review :article="watchArticle"></review>
+          <recommend :article="watchArticle"></recommend>
+          <ad :article="watchArticle"></ad>
           <rewardDialog  ref="rwd" @rewardNumber="rewardNumber"></rewardDialog>
           <payment  ref="pay" @notify="onPayNotify"></payment>
         </div>
+      </div>
+      <Toast ref="toast"></Toast>
     </div>
-    <Toast ref="toast"></Toast>
-</div>
+  </div>
 </template>
 <style scoped>
       @import '../less/t1001.less';

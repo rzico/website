@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     <div class="page slideIn topic" @scroll="onscroll" offset-accuracy="0">
     <v-loadmore :top-method="loadTop" :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" :auto-fill="false" ref="loadmore">
       <metaInfo :topic="topic" :isFixed = "isfixed"></metaInfo>

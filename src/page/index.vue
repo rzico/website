@@ -1,4 +1,5 @@
 <template>
+  <div class="container">
   <div class="page">
     <div class="div-image" >
       <img :src="welcome" width="100%">
@@ -14,13 +15,12 @@
         <div class="video-warp">
           <div id="articleNum">{{count}}</div>
           <p>篇文章使用{{conf.siteName}}创作</p>
-
-                                  <button class="only-mobile baseBgColor" @click="download()">立即制作</button>
-
+          <button class="only-mobile baseBgColor" @click="download()">立即制作</button>
         </div>
       </div>
     </div>
     </div>
+  </div>
   </div>
 </template>
 <style scoped>
