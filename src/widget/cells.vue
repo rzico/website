@@ -1,5 +1,5 @@
 <template>
-<div class="weui-cells" :class="typeClass"><slot></slot></div>
+<div class="weui_cells" :class="typeClass"><slot></slot></div>
 </template>
 
 <script>
@@ -18,10 +18,10 @@ export default {
       required: false
     }
   },
-
+  
   computed: {
     typeClass() {
-      return this.type ? `weui-cell-${this.type}` : '';
+      return this.type ? `weui_cells_${this.type}` : '';
     }
   }
 };

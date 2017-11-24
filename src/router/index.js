@@ -7,13 +7,15 @@ import Member from '../page/member'
 import T1001 from '../page/t1001'
 import T1002 from '../page/t1002'
 import C1001 from '../page/c1001'
+import Card from '../page/card'
+import Coupon from '../page/Coupon'
 
 Vue.use(Router);
 Vue.use(VueResource);
 
 var router = new Router({
   mode: 'history',
-  base: "/website/",
+  base: "/",
   routes: [
     {
       path: '/',
@@ -26,6 +28,18 @@ var router = new Router({
       name: 'member',
       meta: {requireAuth:false},
       component: Member
+    },
+    {
+      path: '/card',
+      name: 'card',
+      meta: {requireAuth:false},
+      component: Card
+    },
+    {
+      path: '/coupon',
+      name: 'coupon',
+      meta: {requireAuth:false},
+      component: Coupon
     },
     {
       path: '/login',

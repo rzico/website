@@ -1,12 +1,12 @@
 <template>
   <div>
-     <div class="weui-cell" @click="drop()">
+     <div class="weui_cell" @click="drop()">
        <cell-header><span :class="getIcon()" :style="'color:'+color"></span></cell-header>
        <cell-body>{{name}}</cell-body>
        <cell-footer ><span :class="[droped ? 'arrow arrow-drop' : 'arrow']"></span>
        </cell-footer>
      </div>
-     <div class="weui-cell" v-for="(option,index) in options" @click="onItemClick(option.id)" v-if="droped">
+     <div class="weui_cell" v-for="(option,index) in options" @click="onItemClick(option.id)" v-if="droped">
        <cell-header><span :class="' iconfont '+option.icon+' icon32'" :style="'color:'+option.color"></span></cell-header>
           <cell-body>{{option.name}}</cell-body>
           <cell-footer><span class="iconfont icon-xuanzhong" v-if="checked(option.id)"></span></cell-footer>

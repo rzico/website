@@ -1,5 +1,5 @@
 <template>
-<div :class="'weui_dialog_' + type">
+<div :class="'weui_dialog_' + type" v-if="isShow">
   <div class="weui_mask"></div>
   <div class="weui_dialog">
     <div class="weui_dialog_hd">
@@ -16,6 +16,11 @@
 
 <script>
 export default {
+  data () {
+    return {
+        isShow:false
+    }
+  },
   props: {
     /**
      * 对话框类型
@@ -58,7 +63,14 @@ export default {
 
   methods: {
     dispathEventAndClose(event) {
-      this.$dispatch(event);
+      this.$emit(event);
+      this.close();
+    },
+    show:function() {
+        this.isShow = true;
+    },
+    close:function() {
+        this.isShow = false;
     }
   }
 }

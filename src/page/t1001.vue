@@ -1,10 +1,10 @@
 <template>
-  <div class="container">
-    <div class="page slideIn">
+  <div>
+    <div class="slideIn">
       <download_bar></download_bar>
       <div class="article">
-        <div class="bg">
-        </div>
+        <!--<div class="bg">-->
+        <!--</div>-->
         <div class="main">
           <article_meta :article="watchArticle"></article_meta>
           <music :musicData="watchMusicData"></music>
@@ -19,14 +19,15 @@
           <payment  ref="pay" @notify="onPayNotify"></payment>
         </div>
       </div>
-      <Toast ref="toast"></Toast>
     </div>
+    <!--<Toast ref="toast"></Toast>-->
   </div>
 </template>
 <style scoped>
       @import '../less/t1001.less';
 </style>
 <script>
+    import {Loadmore} from 'mint-ui';
     import { POST, GET,AUTH} from '../assets/fetch.js';
     import utils from '../assets/utils.js';
     import download_bar from './article/download_bar.vue';
@@ -52,6 +53,7 @@
          }
         },
         components: {
+            'v-loadmore':Loadmore, // 为组件起别名，vue转换template标签时不会区分大小写，例如：loadMore这种标签转换完就会变成loadmore，容易出现一些匹配问题
             Toast,
             download_bar,
             article_meta,
@@ -120,6 +122,12 @@
 
         },
         methods: {
+          loadTop:function() { //组件提供的下拉触发方法
+            this.$refs.loadmore.onTopLoaded();// 固定方法，查询完要调用一次，用于重新定位
+          },
+          loadBottom:function() {
+            this.$refs.loadmore.onBottomLoaded();// 固定方法，查询完要调用一次，用于重新定位
+          },
           onPayNotify:function (data) {
             if ("success"==data.type) {
                alert(data);

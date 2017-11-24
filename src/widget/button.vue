@@ -1,5 +1,5 @@
 <template>
-<a href="javascript:;" class="weui-btn" :class="[typeClass, disabled ? 'weui-btn-disabled' : '', mini ? 'weui-btn_mini' : '']">
+<a href="javascript:;" class="weui_btn" :class="[typeClass, disabled ? 'weui_btn_disabled' : '', mini ? 'weui_btn_mini' : '']">
   <slot></slot>
 </a>
 </template>
@@ -50,7 +50,7 @@ export default {
 
   computed: {
     typeClass() {
-      return `weui-btn${this.plain ? '-plain' : ''}-${this.type}`;
+      return `weui_btn${this.plain ? '_plain' : ''}_${this.type}`;
     }
   }
 }

@@ -69,3 +69,8 @@ function b64toBA(s) {
   }
   return a;
 }
+
+function b64safe(s) {
+  var base64 = hex2b64(s);
+  return base64.replace("+","-").replace("/","_").replace("=","");
+}

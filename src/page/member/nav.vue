@@ -37,6 +37,7 @@
         }
       },
       load:function (id) {
+          this.idx = id;
         this.$emit("onchange",id);
       }
     }

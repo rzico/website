@@ -1,5 +1,5 @@
 <template>
-<a :href="cloneLink" v-link="routerLink" class="weui-cell" >
+<a :href="cloneLink" v-link="routerLink" class="weui_cell" >
   <cell-header><slot name="header"></slot></cell-header>
   <cell-body><slot name="body"></slot></cell-body>
   <cell-footer><slot name="footer"></slot></cell-footer>
@@ -47,7 +47,7 @@ export default {
      * 如果调用该组件时设置了 link 并且未设置 routerLink
      * 则将 link 值拷贝至 cloneLink 以解决该问题：
      * https://github.com/adcentury/vue-weui/issues/38
-     *
+     * 
      * 该做法相当于在 v-link 指令初始化完成并覆写 href 属性之后
      * 再度为 href 进行了赋值
      */

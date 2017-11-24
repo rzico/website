@@ -1,3 +1,3 @@
 <template>
-<div class="weui-cell-bd weui-cell-primary"><slot></slot></div>
+<div class="weui_cell_bd weui_cell_primary"><slot></slot></div>
 </template>

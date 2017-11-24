@@ -3,10 +3,10 @@ const config = {
   siteName:'芸店',
   appUrl:'http://www.baidu.com',
   title:"【芸店】",
-  link:"http://weex.1xx.me/website/",
+  link:"http://weex.rzico.com",
   desc:'超强图文小视频分享社区,中国版Facebook.',
-  baseURL:"http://weex.1xx.me/",
-  wxAppid:"wx92cd0f12d29b78b9",
+  baseURL:"http://weex.rzico.com/",
+  wxAppid:"wx88a1ec3b5c3bc9c3",
 }
 
 let utilsFunc = {
@@ -27,10 +27,10 @@ let utilsFunc = {
             try {
                 return decodeURIComponent(r[2]);
             } catch (_e) {
-                return null;
+                return "";
             }
         }
-        return null;
+        return "";
     },
     message (_type,_content,_data) {
         return {
@@ -53,6 +53,24 @@ let utilsFunc = {
             return url;
         }
     },
+    thumbnail_cover(url,w) {
+        if (url.substring(0,10) == "http://cdn") {
+           return url+"@"+w+"w_1e_1c_100Q";
+        } else {
+           return url;
+        }
+    },
+  currencyfmt:function (value) {
+    // 返回处理后的值
+    if (value != null) {
+      if(value == 0){
+        return value;
+      }else{
+        var price = (Math.round(value * Math.pow(10,2)) / Math.pow(10,2)).toFixed(2);
+        return price;
+      }
+    }
+  },
   // 返回处理后的值 2017-01-01 00:00:00
   timefmt(value) {
     let    date = new Date(value);
@@ -113,17 +131,23 @@ let utilsFunc = {
     }
   },
   router(url) {
-      var vars = {}, hash;
-      var hashes = url.slice(url.indexOf('?') + 1).split('&');
-      for (var i = 0; i < hashes.length; i++) {
-        hash = hashes[i].split('=');
-        vars[hash[0]] = hash[1];
-      }
-      let m = url.slice(url.indexOf('website/')+8,url.indexOf('?'));
-      if (m.indexOf('/')>0) {
-         m = m.slice(1,m.indexOf('/'))
-      }
-      return {name:m,query:vars};
+    var vars = {}, hash;
+    var hashes = url.slice(url.indexOf('?') + 1).split('&');
+    for (var i = 0; i < hashes.length; i++) {
+      hash = hashes[i].split('=');
+      vars[hash[0]] = hash[1];
+    }
+    let m = url.slice(url.indexOf('website/')+8,url.indexOf('?'));
+    if (m.indexOf('/')>0) {
+      m = m.slice(1,m.indexOf('/'))
+    }
+    return {name:m,query:vars};
+  },
+  screenWidth() {
+    return window.devicePixelRatio*document.documentElement.clientWidth;
+  },
+  screenHeight() {
+    return window.devicePixelRatio*document.documentElement.clientHeight;
   }
 };
 

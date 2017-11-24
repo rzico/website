@@ -1,17 +1,23 @@
 <template>
   <div>
-    <div class="weui-cell">
-      <div v-for="c in coupons" class="coupon" :class="c.color">
+    <div class="weui_cell" v-if="hasCoupon()">
+      <div v-for="c in coupons" class="coupon" :class="c.color"  @click="openCoupon(c.id)">
+        <div class="listbox">
         <span class="logo" :style="'background-image: url('+c.logo+')'"></span>
-        <span class="nickName">{{c.nickName}}</span>
-        <span class="name">{{c.name}}</span>
-        <span class="memo">{{c.memo}}</span>
+        <span class="nickName">{{c.name}}</span>
+        <span class="name">{{c.couponName}}</span>
+        <span class="memo">{{c.descr}}</span>
+        </div>
       </div>
+    </div>
+    <div class="noData" v-else>
+      <i class="iconfont icon-shangjin"></i>
+      <span>您没领取优惠券</span>
     </div>
   </div>
 </template>
 <style scoped>
-  .weui-cell {
+  .weui_cell {
     flex-direction: column;
   }
 </style>
@@ -23,21 +29,35 @@
   export default {
     data() {
       return {
-        coupons:[
-          {nickName:"张三的店",logo:"./static/logo.png",name:"全场满100减50元",color:"c1",memo:"有效期:2017-09-91至2019-29-83"},
-          {nickName:"张三的店",logo:"./static/logo.png",name:"全场满100减50元",color:"c2",memo:"有效期:2017-09-91至2019-29-83"},
-          {nickName:"张三的店",logo:"./static/logo.png",name:"全场满100减50元",color:"c3",memo:"有效期:2017-09-91至2019-29-83"},
-          {nickName:"张三的店",logo:"./static/logo.png",name:"全场满100减50元",color:"c4",memo:"有效期:2017-09-91至2019-29-83"}
-            ]
+        coupons:[]
       }
     },
     components: {
       Toast,
     },
     created() {
-
+      this.load();
     },
     methods:{
+      hasCoupon:function () {
+        return this.coupons.length>0;
+      },
+      load:function () {
+        var _this = this;
+        GET("website/member/couponCode/list.jhtml").then(
+          function (res) {
+            if (res.type=='success') {
+              _this.coupons = res.data;
+            }
+          },
+          function (err) {
+
+          }
+        )
+      },
+      openCoupon:function(cid) {
+        this.$router.push({name:"coupon",query:{id:cid}});
+      }
     }
   }
 </script>

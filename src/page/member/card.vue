@@ -1,19 +1,23 @@
 <template>
   <div>
-    <div class="weui-cell">
-      <div v-for="c in cards" class="card" :class="c.color">
+    <div class="weui_cell" v-if="hasCard()">
+      <div v-for="c in cards" class="card" :class="c.color" @click="openCard(c.id)">
         <img :src="card">
         <span class="name">{{c.name}}</span>
-        <span class="code">{{c.code}}</span>
+        <span class="code">{{c.code | codefmt}}</span>
         <span class="descr">余额</span>
         <span class="balance">￥{{c.balance}}</span>
         <span class="logo" :style="'background-image: url('+c.logo+')'"></span>
       </div>
     </div>
+    <div class="noData" v-else>
+        <i class="iconfont icon-tishi"></i>
+        <span>没有领取会员卡</span>
+    </div>
   </div>
 </template>
 <style scoped>
-  .weui-cell {
+  .weui_cell {
     flex-direction: column;
   }
 </style>
@@ -26,16 +30,44 @@
     data() {
       return {
         card:"./static/card.png",
-        cards:[{name:"张三的店",logo:"./static/logo.png",color:"c1",balance:2847,code:"163231 84933"},{name:"张三的店",logo:"./static/logo.png",color:"c2",balance:2847,code:"163231 84933"},{name:"张三的店",logo:"./static/logo.png",color:"c3",balance:2847,code:"163231 84933"}]
+        cards:[]
       }
     },
     components: {
       Toast,
     },
     created() {
-
+      this.load();
     },
+    filters:{
+      codefmt:function (val) {
+        if (utils.isNull(val)) {
+          return val;
+        } else  {
+          return val.substr(0,11)+"  "+val.substr(11);
+        }
+      }
+    } ,
     methods:{
+      hasCard:function () {
+         return this.cards.length>0;
+      },
+      load:function () {
+          var _this = this;
+          GET("website/member/card/list.jhtml").then(
+              function (res) {
+                 if (res.type=='success') {
+                    _this.cards = res.data;
+                 }
+              },
+              function (err) {
+
+              }
+          )
+      },
+      openCard:function(cid) {
+          this.$router.push({name:"card",query:{id:cid}});
+      }
     }
   }
 </script>

@@ -1,13 +1,13 @@
 <template>
   <div class="container">
     <div class="page slideIn member" @scroll="onscroll" offset-accuracy="0">
-      <v-loadmore :top-method="loadTop" :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" :auto-fill="false" ref="loadmore">
+      <v-loadmore :top-method="loadTop" :bottom-method="loadBottom" :bottom-all-loaded="false" :auto-fill="false" ref="loadmore">
         <metaInfo :member="member" :isFixed = "isfixed"></metaInfo>
-        <navbar :isFixed = "isfixed"></navbar>
+        <navbar :isFixed = "isfixed" @onchange="navchange"></navbar>
         <div class="list">
-          <card></card>
-          <coupon></coupon>
-          <reward></reward>
+          <card ref="card" v-if="activeIndex(0)"></card>
+          <coupon ref="coupon" v-if="activeIndex(1)"></coupon>
+          <reward ref="reward" v-if="activeIndex(2)" @notify="notity"></reward>
         </div>
       </v-loadmore>
     </div>
@@ -18,6 +18,9 @@
 </template>
 <style scoped>
   @import '../less/member.less';
+  .list {
+    flex-direction: row;
+  }
 </style>
 <script>
   import {Loadmore} from 'mint-ui';
@@ -31,6 +34,7 @@
   export default {
     data() {
       return {
+        idx:0,
         member:{nickName:"张三",logo:"./static/logo.png",autograph:"请留下签名"},
         isfixed:false
       }
@@ -45,20 +49,60 @@
     },
     created() {
       var _this = this;
+      _this.idx = utils.getUrlParameter("idx");
+      if (utils.isNull(_this.idx)) {
+          _this.idx = 0;
+      }
+      _this.load();
     },
     methods:{
       loadTop:function() { //组件提供的下拉触发方法
-        this.$refs.loadmore.onTopLoaded();// 固定方法，查询完要调用一次，用于重新定位
+        if (this.idx==2) {
+          this.$refs.reward.refresh()
+        } else {
+          this.$refs.loadmore.onTopLoaded();// 固定方法，查询完要调用一次，用于重新定位
+        }
       },
       loadBottom:function() {
-        this.$refs.loadmore.onBottomLoaded();// 固定方法，查询完要调用一次，用于重新定位
+        if (this.idx==2) {
+          this.$refs.reward.loading()
+        } else {
+          this.$refs.loadmore.onBottomLoaded();// 固定方法，查询完要调用一次，用于重新定位
+        }
       },
       onscroll(e){
-        if(e.target.scrollTop >= 120){
+        if(e.target.scrollTop >= 180){
           this.isfixed = true;
         }else{
           this.isfixed = false;
         }
+      },
+      notity:function (type) {
+        if (type=="loading") {
+          this.$refs.loadmore.onBottomLoaded();// 固定方法，查询完要调用一次，用于重新定位
+        } else {
+          this.$refs.loadmore.onTopLoaded();// 固定方法，查询完要调用一次，用于重新定位
+        }
+      },
+      activeIndex:function (id) {
+        return this.idx==id;
+      },
+      navchange:function (id) {
+        this.idx=id;
+        this.$refs.loadmore.onBottomLoaded();
+      },
+      load:function () {
+        var _this = this;
+        GET("website/member/view.jhtml").then(
+          function (res) {
+            if (res.type=='success') {
+              _this.member = res.data;
+            }
+          },
+          function (err) {
+
+          }
+        )
       }
     }
   }

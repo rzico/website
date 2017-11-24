@@ -1,6 +1,7 @@
 <template>
   <div class="container">
   <div class="page">
+    <v-loadmore :top-method="loadTop" :bottom-method="loadBottom" :bottom-all-loaded="true" :auto-fill="false" ref="loadmore">
     <div class="div-image" >
       <img :src="welcome" width="100%">
     </div>
@@ -20,6 +21,7 @@
       </div>
     </div>
     </div>
+    </v-loadmore>
   </div>
   </div>
 </template>
@@ -27,6 +29,7 @@
   @import '../less/index.less';
 </style>
 <script>
+  import {Loadmore} from 'mint-ui';
   import { POST, GET,AUTH} from '../assets/fetch.js';
   import utils from '../assets/utils.js';
   export default {
@@ -48,6 +51,12 @@
       });
     },
     methods:{
+      loadTop:function() { //组件提供的下拉触发方法
+        this.$refs.loadmore.onTopLoaded();// 固定方法，查询完要调用一次，用于重新定位
+      },
+      loadBottom:function() {
+        this.$refs.loadmore.onBottomLoaded();// 固定方法，查询完要调用一次，用于重新定位
+      },
       download:function () {
         AUTH(utils.getConfig().appUrl,function (authed) {
             if (authed) {

@@ -1,12 +1,12 @@
 <template>
-<div :class="{'weui-loading-toast': type === 'loading'}" v-if="isShow">
+<div :class="{'weui_loading_toast': type === 'loading'}" v-if="isShow">
   <div class="weui_mask_transparent"></div>
-  <div class="weui-toast">
-    <div class="weui-loading " v-if="type === 'loading'">
-      <div v-for="n in 12" class="weui-loading-leaf" :class="'weui-loading-leaf-' + n"></div>
+  <div class="weui_toast">
+    <div class="weui_loading " v-if="type === 'loading'">
+      <div v-for="n in 12" class="weui_loading_leaf" :class="'weui_loading_leaf_' + n"></div>
     </div>
-    <i class="weui-icon-toast weui-icon-info-circle icon48" v-else></i>
-    <div class="weui-toast-content">{{msg}}</div>
+    <i class="weui_icon_info_circle" v-else></i>
+    <div class="weui_toast_content">{{msg}}</div>
   </div>
 </div>
 </template>

@@ -224,7 +224,6 @@
         isPwd: false,
         captchaValue: '',
         textList: [" "," "," "," "," ", " "],
-        optionIndex:0,
         lastCaptchaLength:0
       }
     },
@@ -242,23 +241,18 @@
         var _this = this;
 //                判断删除还是输入  '大于' --> 删除
         if (_this.lastCaptchaLength > _this.captchaValue.length) {
-          if (_this.optionIndex>0) {
-          _this.optionIndex = _this.optionIndex-1;
-          _this.textList[_this.optionIndex] = '';
-          }
-        } else {
-          if (_this.optionIndex<6) {
+            _this.textList[_this.lastCaptchaLength-1] = '';
+            _this.lastCaptchaLength = _this.captchaValue.length;
+         } else {
             let a = _this.captchaValue;
             let b = a.substr(a.length - 1, 1)
-            _this.textList[_this.optionIndex] = b;
-            _this.optionIndex = _this.optionIndex + 1;
+            _this.textList[_this.captchaValue.length-1] = b;
             _this.lastCaptchaLength = _this.captchaValue.length;
 //                当用户输完验证码后进行系统验证
             if (_this.lastCaptchaLength == 6) {
               _this.captcha = _this.captchaValue;
               _this.balance(_this.captcha);
             }
-          }
         }
       },
 //            点击验证框时使隐藏的input获取焦点；
