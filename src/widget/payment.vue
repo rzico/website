@@ -1,5 +1,5 @@
 <template>
-  <div class="page mask" v-if="isShow" @click="goback()">
+  <div class="page mask" style="position: fixed;bottom: 0;" v-if="isShow" >
     <div class="box">
       <div class="nav">
         <div class="nav_left" @click="goback()">
@@ -17,19 +17,19 @@
       </div>
       <cells>
         <cell>
-          <span slot="header" class=" iconfont icon-dingdanxiangqing icon32"></span>
+          <span slot="header" class=" iconfont icon-dingdanxiangqing icon48"></span>
           <span slot="body">标题文字</span>
           <span slot="footer">说明文字</span>
         </cell>
       </cells>
+      <div class="footer" v-bind:disabled="disabledButton" @click="comfrm()">
+        <weui-button type="default" class="button">确定付款</weui-button>
+      </div>
       <cells type="access">
         <dropdown ref="plugin" defId="0" :options="options"  @onchange="onchange">
         </dropdown>
       </cells>
-      <div class="footer" v-bind:disabled="disabledButton" @click="comfrm()">
-        <weui-button type="default" class="button">确定付款</weui-button>
-      </div>
-     </div>
+    </div>
     <div class="box" v-if="isPwd">
       <div class="nav">
         <div class="nav_left" @click="goback()">
@@ -63,6 +63,7 @@
 <style scoped>
 
   .footer {
+    background-color: #fff;
     box-sizing: border-box;
     width:100%;
     padding: 0 40px;
@@ -71,7 +72,7 @@
     text-align: center;
   }
 
-  .weui-cells {
+  .weui_cells {
     margin-top: 0px;
     border-top: 0px;
   }
@@ -196,7 +197,7 @@
   import Cells from './cells.vue';
   import Cell from './cell.vue';
   import LinkCell from './link-cell.vue';
-  import Dropdown from './dropdown.vue';
+  import dropdown from './dropdown.vue';
   import { POST, GET } from '../assets/fetch.js';
   import wx from 'weixin-js-sdk'
   import utils from '../assets/utils';
@@ -207,7 +208,7 @@
       Cells,
       Cell,
       LinkCell,
-      Dropdown
+      dropdown
     },
     data: function () {
       return {
@@ -224,14 +225,15 @@
         isPwd: false,
         captchaValue: '',
         textList: [" "," "," "," "," ", " "],
+        optionIndex:0,
         lastCaptchaLength:0
       }
     },
     methods: {
       show:function (sn) {
-         this.$refs.plugin.updateStatus("0");
-         this.isShow = true;
-         this.sn = sn;
+//        this.$refs['plugin'].updateStatus();
+        this.isShow = true;
+        this.sn = sn;
       },
       onchange: function (id) {
         this.pluginId = id;
@@ -241,18 +243,23 @@
         var _this = this;
 //                判断删除还是输入  '大于' --> 删除
         if (_this.lastCaptchaLength > _this.captchaValue.length) {
-            _this.textList[_this.lastCaptchaLength-1] = '';
-            _this.lastCaptchaLength = _this.captchaValue.length;
-         } else {
+          if (_this.optionIndex>0) {
+            _this.optionIndex = _this.optionIndex-1;
+            _this.textList[_this.optionIndex] = '';
+          }
+        } else {
+          if (_this.optionIndex<6) {
             let a = _this.captchaValue;
             let b = a.substr(a.length - 1, 1)
-            _this.textList[_this.captchaValue.length-1] = b;
+            _this.textList[_this.optionIndex] = b;
+            _this.optionIndex = _this.optionIndex + 1;
             _this.lastCaptchaLength = _this.captchaValue.length;
 //                当用户输完验证码后进行系统验证
             if (_this.lastCaptchaLength == 6) {
               _this.captcha = _this.captchaValue;
               _this.balance(_this.captcha);
             }
+          }
         }
       },
 //            点击验证框时使隐藏的input获取焦点；
@@ -260,11 +267,12 @@
         this.$refs['captchRef'].focus();
       },
       goback:function () {
-        _this.close(utils.message("error","取消支付"));
+        this.close(utils.message("error","取消支付"));
       },
       close (e) {
-        _this.isShow = false;
-        _this.$emit("notify", e);
+
+        this.isShow = false;
+        this.$emit("notify", e);
 
       },
       comfrm () {
@@ -306,8 +314,8 @@
                 }
               )
             } else {
-               _this.clear();
-               _this.$refs.toast.show(data.content);
+              _this.clear();
+              _this.$refs.toast.show(data.content);
             }
             _this.disabledButton = false;
           },
@@ -319,35 +327,35 @@
         )
       },
       payment(plugid) {
-                if (this.disabledButton) {
-                  return;
+        if (this.disabledButton) {
+          return;
+        }
+        this.disabledButton = true;
+        var _this = this;
+        POST("payment/submit.jhtml?sn="+this.sn+"&paymentPluginId="+plugid).then(
+          function (data) {
+            if (data.type=="success") {
+              alert(data);
+              if (typeof WeixinJSBridge == "undefined"){//微信浏览器内置对象。参考微信官方文档
+                if( document.addEventListener ){
+                  document.addEventListener('WeixinJSBridgeReady', _this.onBridgeReady(data.data), false);
+                }else if (document.attachEvent){
+                  document.attachEvent('WeixinJSBridgeReady', _this.onBridgeReady(data.data));
+                  document.attachEvent('onWeixinJSBridgeReady',_this.onBridgeReady(data.data));
                 }
-                this.disabledButton = true;
-                var _this = this;
-                POST("payment/submit.jhtml?sn="+this.sn+"&paymentPluginId="+plugid).then(
-                    function (data) {
-                        if (data.type=="success") {
-                          alert(data);
-                             if (typeof WeixinJSBridge == "undefined"){//微信浏览器内置对象。参考微信官方文档
-                              if( document.addEventListener ){
-                                document.addEventListener('WeixinJSBridgeReady', _this.onBridgeReady(data.data), false);
-                              }else if (document.attachEvent){
-                                document.attachEvent('WeixinJSBridgeReady', _this.onBridgeReady(data.data));
-                                document.attachEvent('onWeixinJSBridgeReady',_this.onBridgeReady(data.data));
-                              }
-                              }else{
-                                _this.onBridgeReady(data);
-                              }
-                        } else {
-                          _this.close(data);
-                        }
-                      _this.disabledButton = false;
-                    },
-                    function (err) {
-                      _this.disabledButton = false;
-                      _this.close(utils.message("error","网络不稳定"));
-                    }
-                )
+              }else{
+                _this.onBridgeReady(data);
+              }
+            } else {
+              _this.close(data);
+            }
+            _this.disabledButton = false;
+          },
+          function (err) {
+            _this.disabledButton = false;
+            _this.close(utils.message("error","网络不稳定"));
+          }
+        )
       }
 
     },

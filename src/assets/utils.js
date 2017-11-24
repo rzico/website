@@ -5,7 +5,8 @@ const config = {
   title:"【芸店】",
   link:"http://weex.rzico.com",
   desc:'超强图文小视频分享社区,中国版Facebook.',
-  baseURL:"http://weex.rzico.com/",
+  // baseURL:"http://weex.rzico.com/",
+  baseURL:"http://weex.1xx.me/",
   wxAppid:"wx88a1ec3b5c3bc9c3",
 }
 
@@ -129,6 +130,7 @@ let utilsFunc = {
     } else {
       return false;
     }
+
   },
   router(url) {
     var vars = {}, hash;

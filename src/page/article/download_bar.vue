@@ -1,7 +1,7 @@
 <template>
     <div id="download_bar" class="download_bar" v-if="isShow">
         <div class="title">
-            <img class="logo" :src="config.logo" :alt="config.siteName">
+          <img class="logo" :src="config.logo" :alt="config.siteName">
             <p>
                 <span class="name">{{config.siteName}}</span>
                 <span class="desc" style="line-height: 38px;">你也能发这样的图文</span>

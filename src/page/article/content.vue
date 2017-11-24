@@ -6,7 +6,7 @@
             <div class="text"><h3>{{template.title}}</h3></div>
             <div class="img-box">
                 <img
-                    :src="template.thumbnail"
+                    :src="template.original | watchImg"
                     class="images shadow img-border" @click="preview(0)">
             </div>
         </div>
@@ -22,6 +22,7 @@
 </template>
 
 <script>
+  import utils from '../../assets/utils.js';
     export default {
       data() {
          return {
@@ -38,6 +39,11 @@
           default:""
         }
       },
+      filters:{
+        watchImg:function(value) {
+          return utils.thumbnail_cover(utils.screenWidth() - 30);
+        }
+    },
       methods: {
         preview:function (data) {
 

@@ -1,23 +1,24 @@
 <template>
   <div>
-     <div class="weui_cell" @click="drop()">
-       <cell-header><span :class="getIcon()" :style="'color:'+color"></span></cell-header>
-       <cell-body>{{name}}</cell-body>
-       <cell-footer ><span :class="[droped ? 'arrow arrow-drop' : 'arrow']"></span>
-       </cell-footer>
-     </div>
-     <div class="weui_cell" v-for="(option,index) in options" @click="onItemClick(option.id)" v-if="droped">
-       <cell-header><span :class="' iconfont '+option.icon+' icon32'" :style="'color:'+option.color"></span></cell-header>
-          <cell-body>{{option.name}}</cell-body>
-          <cell-footer><span class="iconfont icon-xuanzhong" v-if="checked(option.id)"></span></cell-footer>
-     </div>
+    <div class="weui_cell" @click="drop()">
+      <cell-header><span :class="getIcon()" :style="'color:'+color"></span></cell-header>
+      <cell-body>{{name}}</cell-body>
+      <cell-footer ><span :class="[droped ? 'arrow arrow-drop' : 'arrow']"></span>
+      </cell-footer>
+    </div>
+    <div class="weui_cell" v-for="(option,index) in options" @click="onItemClick(option.id)" v-if="droped">
+      <cell-header><span :class="' iconfont '+option.icon+' icon48'"  :style="'color:'+option.color"></span></cell-header>
+      <cell-body>{{option.name}}</cell-body>
+      <cell-footer><span class="iconfont icon-xuanzhong" v-if="checked(option.id)"></span></cell-footer>
+    </div>
   </div>
 
 </template>
 <style scoped="">
-  .weui-cell-access .weui-cell-ft:after {
+
+  .weui_cells_access .weui_cell_ft:after {
     content: " ";
-    display: none;
+    display: none !important;
   }
   .arrow {
     content: " ";
@@ -34,7 +35,7 @@
     position: absolute;
     top: 50%;
     margin-top: -4px;
-    right: 2px;
+    right: 20px;
   }
   .arrow-drop {
     border-width: 0px 2px 2px 0;
@@ -119,7 +120,7 @@
 
     methods:{
       getIcon() {
-        return "iconfont "+this.icon+" icon32 ";
+        return "iconfont "+this.icon+" icon48 ";
       },
       switchView: function() {
         this.droped = !this.droped;

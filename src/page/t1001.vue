@@ -8,19 +8,20 @@
         <div class="main">
           <article_meta :article="watchArticle"></article_meta>
           <music :musicData="watchMusicData"></music>
-          <article_content :templates="watchTemplates" :htmlStr="htmlStr"></article_content>
-          <reward :article="watchArticle"  @showDialog="showRewardDialog"></reward>
-          <report :article="watchArticle"></report>
-          <auther :article="watchArticle"></auther>
-          <review :article="watchArticle"></review>
+          <article_content  :templates="watchTemplates" :htmlStr="htmlStr"></article_content>
+          <vote  :article="watchArticle"></vote>
+          <reward  :article="watchArticle" @showDialog="showRewardDialog"></reward>
+          <report  :article="watchArticle"></report>
+          <auther  :article="watchArticle"></auther>
+          <review  :article="watchArticle"></review>
           <recommend :article="watchArticle"></recommend>
           <ad :article="watchArticle"></ad>
-          <rewardDialog  ref="rwd" @rewardNumber="rewardNumber"></rewardDialog>
+          <rewardDialog  ref="rwd"  @rewardNumber="rewardNumber"></rewardDialog>
           <payment  ref="pay" @notify="onPayNotify"></payment>
         </div>
       </div>
     </div>
-    <!--<Toast ref="toast"></Toast>-->
+    <Toast ref="toast"></Toast>
   </div>
 </template>
 <style scoped>
@@ -34,6 +35,7 @@
     import article_meta from './article/meta.vue';
     import music from './article/music.vue';
     import article_content from './article/content.vue';
+    import vote from './article/vote.vue';
     import reward from './article/reward.vue';
     import report from './article/report.vue';
     import auther from './article/auther.vue';
@@ -66,7 +68,8 @@
             review,
             ad,
             rewardDialog,
-            payment
+            payment,
+          vote
         },
         props: {
             article: { default: function () {
@@ -94,6 +97,8 @@
               function (response) {
                if (response.type=="success") {
                  _this.watchArticle = response.data;
+                 console.log('watchArticle');
+                 console.log(response.data);
                  //设置分享标题
                  utils.setConfig({
                      title:"【"+_this.watchArticle.nickName+"】"+_this.watchArticle.title,
@@ -132,7 +137,7 @@
             if ("success"==data.type) {
                alert(data);
             } else {
-              _this.$refs.toast.show(data.content);
+              this.$refs.toast.show(data.content);
             }
           },
           showRewardDialog:function () {
@@ -146,11 +151,12 @@
               function (data) {
                  if (data.type=="success") {
                    _this.$refs.toast.hide();
+                   _this.$refs.toast.show(data);
                    _this.$refs.pay.show(data.data);
                  } else {
                    alert(data.content);
                    _this.$refs.toast.hide();
-                   this.$refs.toast.show(data.content);
+                   _this.$refs.toast.show(data.content);
                  }
               },
               function (err) {

@@ -1,5 +1,5 @@
 <template>
-  <div class="page mask" @click="goback()" v-if="isShow">
+  <div class="page mask" style="position: fixed;bottom: 0;" @click="goback()" v-if="isShow">
     <div class="box">
       <div class="nav">
         <div class="nav_left" @click="goback()">
@@ -32,7 +32,10 @@
   </div>
 </template>
 <style scoped>
-
+  .money:active{
+    background-color: #999;
+    color: #fff;
+  }
   .footer {
     box-sizing: border-box;
     width:100%;
@@ -46,9 +49,11 @@
     position: fixed;
     width: 100%;
     height: 70%;
-    position: fixed;
     bottom: 0px;
     background-color: #fff;
+    z-index: 3000000000;
+    left: 0;
+    text-shadow: none;
   }
 
   .nav {
@@ -134,7 +139,7 @@
   .imgbox {
     z-index: -1;
     margin:auto;
-    width:50%;
+    width:38%;
     bottom:0px;
     position: absolute;
   }
