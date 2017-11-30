@@ -3,7 +3,7 @@
     <div class="content">
       <div  v-for="(template,index) in templates">
         <div class="section section-on section-border text-up fill" v-if="isShow(index)">
-            <div class="text"><h3>{{template.title}}111</h3></div>
+            <div class="text"><h3>{{template.title}}</h3></div>
             <div class="img-box">
                 <img
                     :src="template.original | watchImg"
@@ -39,6 +39,7 @@
         }
       },
       filters:{
+//        用原图去阿里云获取缩略图
         watchImg:function(value) {
           return utils.thumbnail_cover(value,utils.screenWidth() - 30);
         }

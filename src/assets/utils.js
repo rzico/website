@@ -1,8 +1,8 @@
 const config = {
-  logo:'./static/logo.png',
-  siteName:'芸店',
+  logo:'./static/mopian.png',
+  siteName:'魔篇',
   appUrl:'http://www.baidu.com',
-  title:"【芸店】",
+  title:"【魔篇】",
   link:"http://weex.rzico.com",
   desc:'超强图文小视频分享社区,中国版Facebook.',
   // baseURL:"http://weex.rzico.com/",
@@ -130,7 +130,6 @@ let utilsFunc = {
     } else {
       return false;
     }
-
   },
   router(url) {
     var vars = {}, hash;
