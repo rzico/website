@@ -74,6 +74,12 @@ let utilsFunc = {
   },
   // 返回处理后的值 2017-01-01 00:00:00
   timefmt(value) {
+    value = value + '';
+    if(value.length == 10){
+      value = parseInt(value) * 1000;
+    }else{
+      value = parseInt(value);
+    }
     let    date = new Date(value);
     let    tody = new Date();
     let    w = tody.getDay()-date.getDay();
@@ -98,6 +104,12 @@ let utilsFunc = {
     },
     // 返回处理后的值 2017-01-01 00:00:00
     datetimefmt(value) {
+      value = value + '';
+      if(value.length == 10){
+        value = parseInt(value) * 1000;
+      }else{
+        value = parseInt(value);
+      }
         let    date = new Date(value);
         let    m = date.getMonth() + 1;
         let    d = date.getDate();

@@ -9,7 +9,7 @@
           <article_meta :article="watchArticle"></article_meta>
           <music :musicData="watchMusicData"></music>
           <article_content  :templates="watchTemplates" :htmlStr="htmlStr"></article_content>
-          <vote  :article="watchArticle"></vote>
+          <!--<vote  :article="watchArticle"></vote>-->
           <reward  :article="watchArticle" @showDialog="showRewardDialog"></reward>
           <report  :article="watchArticle"></report>
           <auther  :article="watchArticle"></auther>
