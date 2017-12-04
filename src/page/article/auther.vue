@@ -1,9 +1,9 @@
 <template>
-    <div class="auther" @click="jump(article.member.url)">
+    <div class="auther" @click="jump(article.member.url,article.member.id)">
         <div class="autherwrap" style="height: 100%;">
             <a class="toappuser">
                 <div class="autherHead">
-                    <img v-bind:src="article.member.logo">
+                    <img v-bind:src="article.member.logo | watchImg">
                 </div>
                 <div class="userMessage">
                     <p class="wusername" style="overflow: hidden">
@@ -19,6 +19,7 @@
 
 <script>
   import utils from '../../assets/utils.js';
+  import {POST, GET} from '../../assets/fetch.js';
     export default {
       props: {
         article: { default: function () {
@@ -26,9 +27,16 @@
         }
         }
       },
+      filters:{
+//        用原图去阿里云获取缩略图
+        watchImg:function(value) {
+          return utils.thumbnail(value,54,54);
+        }
+      },
       methods:{
-        jump:function (url) {
-          this.$router.push(utils.router(url));
+        jump:function (url,id) {
+          location.href = 'yundian://topic?id=' + id;
+//          this.$router.push(utils.router(url));
         }
       }
     }

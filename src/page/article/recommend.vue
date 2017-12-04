@@ -6,7 +6,7 @@
         </div>
         <div class="list" v-for="rmmd in data">
             <div  class="item clearfix" style="padding: 7.5px 0 7.5px;" @click="articleclick(rmmd.id)">
-                <div class="img fl" :style="'width:115px;height:70px;background-image:url('+rmmd.thumbnail+')'"></div>
+                <div class="img fl" :style="'width:115px;height:70px;background-image:url('+ thumbnail(rmmd.thumbnail,115,70)+')'"></div>
                 <div class="content">
                     <p style="height:43px;font-size:18px;">{{rmmd.title}}</p>
                     <div class="linkdesc"><i class="iconfont icon-yuedu"></i>{{rmmd.hits}}</div>
@@ -42,7 +42,15 @@
       },
       methods:{
         articleclick:function (id) {
-          this.$router.push("");
+          location.href = 'yundian://article?id=' + id;
+//          this.$router.push("");
+        },
+        thumbnail:function (url,w,h) {
+          if (url.substring(0,10) == "http://cdn") {
+            return url+"@"+w+"w_"+h+"h_1e_1c_100Q";
+          } else {
+            return url;
+          }
         }
       }
 

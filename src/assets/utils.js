@@ -100,7 +100,7 @@ let utilsFunc = {
     if (w<3) {
       return "3天内";
     }
-    return date.getYear() + '-' + date.getMonth() + '  ' +date.getDay();
+    return date.getFullYear() + '-' + date.getMonth() + '  ' +date.getDay();
     },
     // 返回处理后的值 2017-01-01 00:00:00
     datetimefmt(value) {
@@ -126,7 +126,7 @@ let utilsFunc = {
         if (i < 10) {
            i = '0' + i;
         }
-        let t = date.getYear()+'-'+ m + '-' + d + '  ' + H + ':' + i ;
+        let t = date.getFullYear()+'-'+ m + '-' + d + '  ' + H + ':' + i ;
         return t;
     },
     //RSA

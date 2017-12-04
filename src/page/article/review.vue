@@ -1,9 +1,9 @@
 <template>
     <div class="review">
         <div class="list" style="background-color: #fff;" >
-            <div class="item"  v-for="review in reviews">
+            <div class="item"  v-for="review in reviews" >
                 <div class="logo"
-                     :style="'width:30px;height:30px;background-image:url('+review.logo+')'"></div>
+                     :style="'width:30px;height:30px;background-image:url('+thumbnail(review.logo,30,30)+')'"></div>
                 <div class="content">
                     <span class="name">{{review.nickName}}</span>
                     <p class="text">{{review.content}}</p>
@@ -42,6 +42,15 @@
         });
 
     },
+    methods:{
+      thumbnail:function (url,w,h) {
+        if (url.substring(0,10) == "http://cdn") {
+          return url+"@"+w+"w_"+h+"h_1e_1c_100Q";
+        } else {
+          return url;
+        }
+      }
+    }
 
   }
 </script>
