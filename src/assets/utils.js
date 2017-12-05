@@ -1,12 +1,12 @@
 const config = {
-  logo:'./static/mopian.png',
-  siteName:'魔篇',
-  appUrl:'http://www.baidu.com',
-  title:"【魔篇】",
+  logo:'./static/logo.png',
+  siteName:'芸店',
+  appUrl:'http://a.app.qq.com/o/simple.jsp?pkgname=com.rzico.assistant',
+  title:"芸店",
   link:"http://weex.rzico.com",
   desc:'超强图文小视频分享社区,中国版Facebook.',
   // baseURL:"http://weex.rzico.com/",
-  baseURL:"http://weex.1xx.me/",
+  baseURL:"http://weex.rzico.com/",
   wxAppid:"wx88a1ec3b5c3bc9c3",
 }
 
