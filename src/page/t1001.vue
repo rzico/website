@@ -94,7 +94,7 @@
               _this.logined  = authed;
             })
 
-            if(!utils.isweex()){
+            if(utils.isweex()){
               this.downloadShow = false;
             }
 
