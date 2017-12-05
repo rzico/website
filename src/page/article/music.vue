@@ -1,5 +1,5 @@
 <template>
-    <div class="music-icon" v-if="hasMusic">
+    <div class="music-icon" :class="[downloadShow ? '' : 'top19']" v-if="hasMusic">
         <audio id="audio" class="audio" autoplay preload="auto" loop="loop" :src="'http://cdn.rzico.com/weex/resources/music/'+musicData.id+'.mp3'"
                style="display: none;"></audio>
         <i class="iconfont icon-yinlebofang icon-music" @click="openPlayer"></i>
@@ -13,7 +13,8 @@
       musicData: { default: function () {
         return {id:""}
       }
-      }
+      },
+      downloadShow: {default:true}
     },
     methods: {
       hasMusic:function () {

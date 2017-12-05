@@ -4,14 +4,14 @@
       <div  v-for="(template,index) in templates">
         <div class="section section-on section-border text-up fill" v-if="isShow(index)">
             <div class="text"><h3>{{template.title}}</h3></div>
-            <div v-html="template.content"></div>
+            <div class="text-box" v-html="template.content"></div>
             <div class="img-box" v-if="template.mediaType == 'image'">
                 <img
                     :src="template.original | watchImg"
                     class="images shadow img-border" @click="preview(0)">
             </div>
             <div class="img-box" v-if="template.mediaType == 'video'">
-              <video :src="template.original" controls="controls" width="100%" height="300"></video>
+              <video :src="template.original" :poster="template.thumbnail" controls="controls" width="100%" height="300"></video>
             </div>
         </div>
       </div>
@@ -45,7 +45,7 @@
       filters:{
 //        用原图去阿里云获取缩略图
         watchImg:function(value) {
-          return utils.thumbnail_cover(value,utils.screenWidth() - 30);
+          return utils.thumbnail_cover(value,utils.screenWidth());
         }
     },
       methods: {

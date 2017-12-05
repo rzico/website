@@ -19,10 +19,13 @@
   export default {
      data() {
        return {
-         isShow:true,
+//         isShow:true,
          config: {default: {siteName:"",logo:""}}
        }
      },
+    props: {
+      isShow: {default:true}
+    },
      created() {
        this.config = utils.getConfig();
      },
@@ -33,7 +36,7 @@
          this.$router.push(vars);
        },
        close:function () {
-         this.isShow = false;
+         this.$emit("closeDownload");
        }
      }
   }

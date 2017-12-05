@@ -1,13 +1,13 @@
 <template>
   <div>
     <div class="slideIn">
-      <download_bar></download_bar>
-      <div class="article">
+      <download_bar :isShow="downloadShow" @closeDownload="closeDownload"></download_bar>
+      <div class="article" :class="[downloadShow ? '':'noMt']">
         <!--<div class="bg">-->
         <!--</div>-->
         <div class="main">
           <article_meta :article="watchArticle"></article_meta>
-          <music :musicData="watchMusicData"></music>
+          <music :musicData="watchMusicData" :downloadShow="downloadShow"></music>
           <article_content  :templates="watchTemplates" :htmlStr="htmlStr"></article_content>
           <!--<vote  :article="watchArticle"></vote>-->
           <!--<reward  :article="watchArticle" @showDialog="showRewardDialog"></reward>-->
@@ -52,6 +52,7 @@
           watchTemplates: this.templates,
           watchMusicData: this.musicData,
           watchArticle: this.article,
+          downloadShow:true,
          }
         },
         components: {
@@ -84,7 +85,7 @@
                     return []
                }
             },
-            htmlStr :{default:""}
+            htmlStr :{default:""},
         },
 
         created() {
@@ -92,6 +93,11 @@
             AUTH("",function (authed) {
               _this.logined  = authed;
             })
+
+            if(!utils.isweex()){
+              this.downloadShow = false;
+            }
+
             let id = utils.getUrlParameter("id");
             GET('website/article/view.jhtml?id='+id).then(
               function (response) {
@@ -164,6 +170,9 @@
                  _this.$refs.toast.show("网络不稳定");
               }
             )
+          },
+          closeDownload:function () {
+            this.downloadShow = false;
           }
 
         }

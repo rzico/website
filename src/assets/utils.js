@@ -143,6 +143,14 @@ let utilsFunc = {
       return false;
     }
   },
+  isweex() {
+    const ua = window.navigator.userAgent.toLowerCase();
+    if(ua.match(/weex/i) == 'weex'){
+      return true;
+    } else {
+      return false;
+    }
+  },
   router(url) {
     var vars = {}, hash;
     var hashes = url.slice(url.indexOf('?') + 1).split('&');
