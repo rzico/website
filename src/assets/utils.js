@@ -144,8 +144,8 @@ let utilsFunc = {
     }
   },
   isweex() {
-    const ua = window.navigator.userAgent.toLowerCase();
-    if(ua.match(/weex/i) == 'weex'){
+    var ua = window.navigator.userAgent.toLowerCase();
+    if(ua.match(/Weex/i) == 'weex'){
       return true;
     } else {
       return false;

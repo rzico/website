@@ -3,7 +3,7 @@
     <h1 class="meta_title">{{article.title}}</h1>
     <div class="meta clearfix">
       <span>{{article.createDate | datetimefmt}}</span>
-      <span class="nickname"><a class="toappuser" @click="jump(article.member.url)">{{article.author}}</a></span>
+      <span class="nickname"><a class="toappuser" @click="jump(article.member.url,article.member.id)">{{article.author}}</a></span>
       <span>阅读({{article.hits}})</span>
     </div>
   </div>
@@ -29,8 +29,10 @@
         }
       },
        methods:{
-         jump:function (url) {
-           this.$router.push(utils.router(url));
+         jump:function (url,id) {
+
+           location.href = 'yundian://topic?id=' + id;
+//           this.$router.push(utils.router(url));
          }
        }
   }
