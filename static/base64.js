@@ -71,6 +71,6 @@ function b64toBA(s) {
 }
 
 function b64safe(s) {
-  var base64 = hex2b64(s);
+  var base64 = hex2b64(byte2Hex(s));
   return base64.replace("+","-").replace("/","_").replace("=","");
 }
