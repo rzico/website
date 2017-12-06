@@ -16,15 +16,17 @@
       },
       downloadShow: {default:true}
     },
+    created () {
+      console.log('1');
+      console.log(this.musicData);
+    },
     methods: {
       hasMusic:function () {
         if (utils.isNull(this.musicData) || ("-1"==this.musicData.id)) {
-           return false;
+           return  false;
         } else {
            return true;
         }
-      },
-      created () {
       },
       openPlayer: function(){
         var audio = this.$el.querySelector('audio');

@@ -144,8 +144,16 @@ let utilsFunc = {
     }
   },
   isweex() {
+    var ua = window.navigator.userAgent.toLowerCase();
+    if(ua.match(/Weex/i) == 'weex'){
+      return true;
+    } else {
+      return false;
+    }
+  },
+  isalipay() {
     const ua = window.navigator.userAgent.toLowerCase();
-    if(ua.match(/weex/i) == 'weex'){
+    if((ua.match(/Alipay/i)=="alipay")){
       return true;
     } else {
       return false;

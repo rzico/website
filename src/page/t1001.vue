@@ -1,13 +1,13 @@
 <template>
   <div>
-    <div class="slideIn">
+    <div class="slideIn"  @scroll="onscroll" offset-accuracy="0">
       <download_bar :isShow="downloadShow" @closeDownload="closeDownload"></download_bar>
       <div class="article" :class="[downloadShow ? '':'noMt']">
         <!--<div class="bg">-->
         <!--</div>-->
         <div class="main">
           <article_meta :article="watchArticle"></article_meta>
-          <music :musicData="watchMusicData" :downloadShow="downloadShow"></music>
+          <music :musicData="watchMusicData" ref="musicTemplete" :downloadShow="downloadShow"></music>
           <article_content  :templates="watchTemplates" :htmlStr="htmlStr"></article_content>
           <!--<vote  :article="watchArticle"></vote>-->
           <!--<reward  :article="watchArticle" @showDialog="showRewardDialog"></reward>-->
@@ -53,6 +53,7 @@
           watchMusicData: this.musicData,
           watchArticle: this.article,
           downloadShow:true,
+          musicPlay:false,
          }
         },
         components: {
@@ -74,7 +75,7 @@
         },
         props: {
             article: { default: function () {
-                   return {hits:0,title:"样例",nickName:"author",createDate:null,member:{}}
+                   return {hits:0,title:"样例1",nickName:"author",createDate:null,member:{}}
                }
             },
             musicData: { default: function () {
@@ -93,11 +94,9 @@
             AUTH("",function (authed) {
               _this.logined  = authed;
             })
-
             if(utils.isweex()){
               this.downloadShow = false;
             }
-
             let id = utils.getUrlParameter("id");
             GET('website/article/view.jhtml?id='+id).then(
               function (response) {
@@ -114,6 +113,7 @@
                  });
                  if (!utils.isNull(response.data.music)) {
                       _this.watchMusicData = JSON.parse(response.data.music);
+                      console.log(_this.watchMusicData);
                     }
                  if (!utils.isNull(response.data.templates)) {
                       console.log(response.data.templates)
@@ -126,9 +126,12 @@
 
                } else {
                  _this.$refs.toast.show("网络不稳定");
+//                 _this.$refs.toast.show('website/article/view.jhtml?id='+id);
                }
             }, function () {
                 _this.$refs.toast.show("网络不稳定");
+//                _this.$refs.toast.show('ssssswebsite/article/view.jhtml?id='+id);
+
             });
 
         },
@@ -173,7 +176,13 @@
           },
           closeDownload:function () {
             this.downloadShow = false;
-          }
+          },
+          onscroll(e){
+            if(!this.musicPlay){
+              this.musicPlay = true;
+              this.refs.musicTemplete.openPlayer();
+            }
+          },
 
         }
     }

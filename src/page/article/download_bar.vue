@@ -4,7 +4,7 @@
           <img class="logo" :src="config.logo" :alt="config.siteName">
             <p>
                 <span class="name">{{config.siteName}}</span>
-                <span class="desc" style="line-height: 38px;">你也能发这样的图文</span>
+                <span class="desc" style="line-height: 38px;">你也能发这样的图文。</span>
             </p>
             <span href="javascript:;" id="download_btn" class="download_btn" style="top: 1px;" @click="download()">马上制作</span>
         </div>
