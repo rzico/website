@@ -151,6 +151,14 @@ let utilsFunc = {
       return false;
     }
   },
+  isalipay() {
+    const ua = window.navigator.userAgent.toLowerCase();
+    if((ua.match(/Alipay/i)=="alipay")){
+      return true;
+    } else {
+      return false;
+    }
+  },
   router(url) {
     var vars = {}, hash;
     var hashes = url.slice(url.indexOf('?') + 1).split('&');
