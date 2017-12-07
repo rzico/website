@@ -3,10 +3,9 @@ const config = {
   siteName:'芸店',
   appUrl:'http://a.app.qq.com/o/simple.jsp?pkgname=com.rzico.assistant',
   title:"芸店",
-  link:"http://weex.rzico.com",
+  link:"http://weixin.rzico.com",
   desc:'超强图文小视频分享社区,中国版Facebook.',
-  // baseURL:"http://weex.rzico.com/",
-  baseURL:"http://weex.rzico.com/",
+  baseURL:"http://weixin.rzico.com/",
   wxAppid:"wx88a1ec3b5c3bc9c3",
 }
 
