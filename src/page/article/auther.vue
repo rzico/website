@@ -1,6 +1,6 @@
 <template>
     <div class="auther" @click="jump(article.member.url,article.member.id)">
-        <div class="autherwrap" style="height: 100%;">
+        <div class="autherwrap" style="min-height: 96px;">
             <a class="toappuser">
                 <div class="autherHead">
                     <img v-bind:src="article.member.logo | watchImg">
@@ -11,6 +11,7 @@
                     <p class="wsign">
                         {{article.member.autograph==null?"留下签名有助于提升知名度":article.member.autograph}}  </p>
                 </div>
+              <img v-if="article.member.qrcode != null" :src='article.member.qrcode'  alt="" class="qrcode">
                 <div class="right iconfont icon-xiangyoujiantou icon-arrow"></div>
             </a>
         </div>
@@ -35,8 +36,30 @@
       },
       methods:{
         jump:function (url,id) {
-          location.href = 'yundian://topic?id=' + id;
-//          this.$router.push(utils.router(url));
+          var _this = this;
+          if (navigator.userAgent.match(/(iPhone|iPod|iPad);?/i)) {
+            var loadDateTime = new Date();
+            window.setTimeout(function() {
+                var timeOutDateTime = new Date();
+                if (timeOutDateTime - loadDateTime < 5000) {
+                  _this.$router.push(utils.router(url));
+                } else {
+                  window.close();
+                }
+              },
+              25);
+            window.location = 'yundian://topic?id=' + id;
+          } else if (navigator.userAgent.match(/android/i)) {
+            var state = null;
+            try {
+              state = window.open('yundian://topic?id=' + id, '_blank');
+            } catch(e) {}
+            if (state) {
+              window.close();
+            } else {
+              this.$router.push(utils.router(url));
+            }
+          }
         }
       }
     }
