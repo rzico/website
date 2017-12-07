@@ -3,7 +3,7 @@ const config = {
   siteName:'魔篇',
   appUrl:'http://www.baidu.com',
   title:"【魔篇】",
-  link:"http://weex.rzico.com",
+  link:"http://weex.1xx.me/",
   desc:'超强图文小视频分享社区,中国版Facebook.',
   // baseURL:"http://weex.rzico.com/",
   baseURL:"http://weex.1xx.me/",
