@@ -9,7 +9,10 @@
                 <div class="img fl" :style="'width:115px;height:70px;background-image:url('+ thumbnail(rmmd.thumbnail,115,70)+')'"></div>
                 <div class="content">
                     <p style="height:43px;font-size:18px;">{{rmmd.title}}</p>
-                    <div class="linkdesc"><i class="iconfont icon-yuedu"></i>{{rmmd.hits}}</div>
+                    <div class="linkdesc">
+                      <i class="iconfont icon-my-yanjing-on"></i>
+                      <span style="position: absolute;top: 62px;">&nbsp;{{rmmd.hits}}</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -42,8 +45,9 @@
       },
       methods:{
         articleclick:function (id) {
+
           location.href = 'yundian://article?id=' + id;
-//          this.$router.push("");
+//          this.$router.push('http://weex.1xx.me/t1001?id=' + id);
         },
         thumbnail:function (url,w,h) {
           if (url.substring(0,10) == "http://cdn") {

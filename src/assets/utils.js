@@ -150,6 +150,7 @@ let utilsFunc = {
   },
   isweex() {
     var ua = window.navigator.userAgent.toLowerCase();
+    return ua;
     if(ua.match(/Weex/i) == 'weex'){
       return true;
     } else {

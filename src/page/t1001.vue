@@ -1,13 +1,13 @@
 <template>
-  <div>
-    <div class="slideIn"  @scroll="onscroll" offset-accuracy="0">
+  <div @touchmove="onscroll" offset-accuracy="0">
+    <div class="slideIn"  >
       <download_bar :isShow="downloadShow" @closeDownload="closeDownload"></download_bar>
       <div class="article" :class="[downloadShow ? '':'noMt']">
         <!--<div class="bg">-->
         <!--</div>-->
         <div class="main">
           <article_meta :article="watchArticle"></article_meta>
-          <music :musicData="watchMusicData" ref="musicTemplete" :downloadShow="downloadShow"></music>
+          <music :musicData="watchMusicData" @judgeMusic="judgeMusic" ref="musicTemplete" :downloadShow="downloadShow"></music>
           <article_content  :templates="watchTemplates" :htmlStr="htmlStr"></article_content>
           <!--<vote  :article="watchArticle"></vote>-->
           <!--<reward  :article="watchArticle" @showDialog="showRewardDialog"></reward>-->
@@ -53,7 +53,7 @@
           watchMusicData: this.musicData,
           watchArticle: this.article,
           downloadShow:true,
-          musicPlay:false,
+          musicPlay:0,
          }
         },
         components: {
@@ -75,7 +75,7 @@
         },
         props: {
             article: { default: function () {
-                   return {hits:0,title:"样例1",nickName:"author",createDate:null,member:{}}
+                   return {hits:0,title:"样例",nickName:"author",createDate:null,member:{}}
                }
             },
             musicData: { default: function () {
@@ -151,7 +151,6 @@
           },
           showRewardDialog:function () {
             this.$refs.rwd.show();
-
           },
           rewardNumber:function (m) {
             var _this = this;
@@ -174,14 +173,17 @@
               }
             )
           },
-          closeDownload:function () {
+          closeDownload:function () {//关闭顶部下载组件。并控制页面上移
             this.downloadShow = false;
           },
           onscroll(e){
-            if(!this.musicPlay){
-              this.musicPlay = true;
-              this.refs.musicTemplete.openPlayer();
+            if(this.musicPlay == 0){//控制判断音乐。来判断从未触发音乐时滚动触发音乐，而在触发过音乐后滚动时不触发音乐事件。
+              this.musicPlay = 1;
+              this.$refs.musicTemplete.openPlayer();
             }
+          },
+          judgeMusic:function () {//控制判断音乐。来判断从未触发音乐时滚动触发音乐，而在触发过音乐后滚动时不触发音乐事件。
+            this.musicPlay = 1;
           },
 
         }
