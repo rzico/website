@@ -49,6 +49,9 @@
     },
     created() {
       var _this = this;
+      AUTH(location.href,function (authed) {
+        _this.logined  = authed;
+      })
       _this.idx = utils.getUrlParameter("idx");
       if (utils.isNull(_this.idx)) {
           _this.idx = 0;

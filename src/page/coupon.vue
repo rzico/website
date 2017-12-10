@@ -79,6 +79,10 @@
         }
     } ,
     created() {
+      var _this = this;
+      AUTH(location.href,function (authed) {
+        _this.logined  = authed;
+      })
         //会号规则 88100006165001042 实体卡  86100006165 商家码
         this.code = utils.getUrlParameter("code");
         this.id = utils.getUrlParameter("id");

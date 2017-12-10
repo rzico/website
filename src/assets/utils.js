@@ -6,12 +6,12 @@ const config = {
   link:"http://weixin.rzico.com",
   desc:'超强图文小视频分享社区,中国版Facebook.',
   baseURL:"http://weixin.rzico.com/",
-  wxAppid:"wx88a1ec3b5c3bc9c3",
+  wxAppid:"wx88a1ec3b5c3bc9c3"
 }
 
 let utilsFunc = {
     getConfig () {
-        return config;
+        return config
     },
     setConfig (conf) {
       config.title =conf.title;
