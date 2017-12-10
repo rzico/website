@@ -1,5 +1,5 @@
 const config = {
-  logo:'./static/mopian.png',
+  logo:'./static/logo.png',
   siteName:'魔篇',
   appUrl:'http://www.baidu.com',
   title:"【魔篇】",
@@ -111,7 +111,7 @@ let utilsFunc = {
         value = parseInt(value);
       }
         let    date = new Date(value);
-        let    m = date.getMonth() + 1;
+        let    m = date.getMonth();
         let    d = date.getDate();
         let    H = date.getHours();
         let    i = date.getMinutes();
