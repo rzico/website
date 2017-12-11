@@ -91,6 +91,8 @@
 
         created() {
             var _this = this;
+          const ua = window.navigator.userAgent.toLowerCase();
+          event.toast(ua);
             AUTH("",function (authed) {
               _this.logined  = authed;
             })
