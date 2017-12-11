@@ -100,7 +100,7 @@ let utilsFunc = {
     if (w<3) {
       return "3天内";
     }
-    return date.getFullYear() + '-' + date.getMonth() + '  ' +date.getDay();
+    return date.getFullYear() + '-' + (date.getMonth() + 1) + '  ' +date.getDay();
     },
     // 返回处理后的值 2017-01-01 00:00:00
     datetimefmt(value) {

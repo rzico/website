@@ -44,8 +44,8 @@
           audio.pause();
         }else{
           this.isPlay = true;
-          this.$emit("judgeMusic");
           audio.play();
+          this.$emit("judgeMusic");
         }
       }
     }
