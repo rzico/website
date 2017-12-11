@@ -45,9 +45,11 @@
       },
       methods:{
         articleclick:function (id) {
-
-          location.href = 'yundian://article?id=' + id;
-//          this.$router.push('http://weex.1xx.me/t1001?id=' + id);
+          if(utils.isweex()){
+            location.href = 'yundian://article?id=' + id;
+          }else{
+          this.$router.push('http://weex.1xx.me/t1001?id=' + id);
+          }
         },
         thumbnail:function (url,w,h) {
           if (url.substring(0,10) == "http://cdn") {
