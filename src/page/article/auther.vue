@@ -64,7 +64,6 @@
         ifr.setAttribute('src','yundian://topic?id=' + id);
         ifr.setAttribute('style', 'display:none');
         document.body.appendChild(ifr);
-        alert(document.body.innerHTML);
         if (ifr.attachEvent){
           ifr.attachEvent("onload", function(){ // IE
             _this.hadLoad = 1;
