@@ -1,5 +1,5 @@
 const config = {
-  logo:'./static/mopian.png',
+  logo:'./static/logo.png',
   siteName:'魔篇',
   appUrl:'http://www.baidu.com',
   title:"【魔篇】",
@@ -48,6 +48,9 @@ let utilsFunc = {
         }
     },
     thumbnail(url,w,h) {
+        if (url.substring(0,11) == "http://cdnx") {
+           return url+"?x-oss-process=image/resize,w_"+w+",h_"+h+"";
+        } else
         if (url.substring(0,10) == "http://cdn") {
             return url+"@"+w+"w_"+h+"h_1e_1c_100Q";
         } else {
@@ -55,6 +58,9 @@ let utilsFunc = {
         }
     },
     thumbnail_cover(url,w) {
+        if (url.substring(0,11) == "http://cdnx") {
+           return url+"?x-oss-process=image/resize,w_"+w+",h_"+h+"";
+        } else
         if (url.substring(0,10) == "http://cdn") {
            return url+"@"+w+"w_1e_1c_100Q";
         } else {
@@ -111,7 +117,7 @@ let utilsFunc = {
         value = parseInt(value);
       }
         let    date = new Date(value);
-        let    m = date.getMonth() + 1;
+        let    m = date.getMonth();
         let    d = date.getDate();
         let    H = date.getHours();
         let    i = date.getMinutes();
