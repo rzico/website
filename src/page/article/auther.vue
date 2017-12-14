@@ -3,7 +3,7 @@
     <div class="autherwrap" style="min-height: 96px;">
       <a class="toappuser">
         <div class="autherHead">
-          <img v-bind:src="article.member.logo | watchImg">
+          <img v-bind:src="article.member.logo | watchImg"/>
         </div>
         <div class="userMessage">
           <p class="wusername" style="overflow: hidden">

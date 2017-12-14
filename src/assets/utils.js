@@ -116,7 +116,7 @@ let utilsFunc = {
         value = parseInt(value);
       }
         let    date = new Date(value);
-        let    m = date.getMonth();
+        let    m = date.getMonth()+1;
         let    d = date.getDate();
         let    H = date.getHours();
         let    i = date.getMinutes();

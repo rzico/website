@@ -7,8 +7,8 @@
             <div class="text-box" v-html="template.content"></div>
             <div class="img-box" v-if="template.mediaType == 'image'">
                 <img
-                    :src="template.original | watchImg"
-                    class="images shadow img-border" @click="preview(0)">
+                  v-bind:src="template.original | watchImg"
+                    class="images shadow img-border" @click="preview(0)"/>
             </div>
             <div class="img-box" v-if="template.mediaType == 'video'">
               <video :src="template.original" controls="controls" :poster="template.thumbnail"  width="100%" height="300"></video>

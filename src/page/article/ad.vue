@@ -1,7 +1,7 @@
 <template>
     <div class="footer">
         <div class="wrap" style="background-color: #fff;">
-          <img style="width: 100%;display: block;" :src="src" alt="" @click="jump()">
+          <img style="width: 100%;display: block;" :src="src" alt="" @click="jump()"/>
         </div>
     </div>
 </template>
