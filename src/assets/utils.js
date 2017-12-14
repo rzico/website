@@ -1,12 +1,12 @@
 const config = {
   logo:'./static/logo.png',
   siteName:'芸店',
-  appUrl:'http://a.app.qq.com/o/simple.jsp?pkgname=com.rzico.assistant',
+  appUrl:'http://a.app.qq.com/o/simple.jsp?pkgname=com.yixiang.mopian',
   title:"芸店",
-  link:"http://weixin.rzico.com",
+  link:"http://mopian.1xx.me",
   desc:'超强图文小视频分享社区,中国版Facebook.',
-  baseURL:"http://weixin.rzico.com/",
-  wxAppid:"wx88a1ec3b5c3bc9c3"
+  baseURL:"http://mopian.1xx.me/",
+  wxAppid:"wx28aae2ea21682949"
 }
 
 let utilsFunc = {
