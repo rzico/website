@@ -14,8 +14,8 @@
           <report  :article="watchArticle"></report>
           <auther  :article="watchArticle"></auther>
           <review  :article="watchArticle"></review>
-          <recommend :article="watchArticle"></recommend>
-          <ad :article="watchArticle"></ad>
+          <recommend v-if="isPublish" :article="watchArticle"></recommend>
+          <ad v-if="noWeex" :article="watchArticle"></ad>
           <rewardDialog  ref="rwd"  @rewardNumber="rewardNumber"></rewardDialog>
           <payment  ref="pay" @notify="onPayNotify"></payment>
         </div>
@@ -54,6 +54,8 @@
           watchArticle: this.article,
           downloadShow:true,
           musicPlay:0,
+          noWeex:true,
+          isPublish:true,
          }
         },
         components: {
@@ -91,17 +93,20 @@
 
         created() {
             var _this = this;
+          const ua = window.navigator.userAgent.toLowerCase();
             AUTH("",function (authed) {
               _this.logined  = authed;
             })
             if(utils.isweex()){
               this.downloadShow = false;
+              this.noWeex = false;
             }
             let id = utils.getUrlParameter("id");
             GET('website/article/view.jhtml?id='+id).then(
               function (response) {
                if (response.type=="success") {
                  _this.watchArticle = response.data;
+                 _this.isPublish = response.data.isPublish;
                  console.log('watchArticle');
                  console.log(response.data);
                  //设置分享标题
