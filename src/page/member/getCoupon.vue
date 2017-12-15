@@ -1,129 +1,150 @@
 <template>
-  <div class="bg" >
+  <div class="bgc" >
     <div class="insone">
-      <div class="headlogo">
-        <image/>
+      <div class="bg">
+        <div class="headlogo">
+          <image :src="logo"></image>
+        </div>
       </div>
-      <text class="f32 martop80">由支付宝提供</text>
-      <text class="f60 martop20">满100减5元</text>
-      <div class="getClick martop30" @click="" >
-        <text class="f40" style="color: white">点击领取</text>
+      <span class="f16 martop40">由{{shopName}}提供</span>
+      <span class="f30 martop10">{{name}}</span>
+      <div class="getClick martop15" @click="" >
+        <span class="f18" style="color: white">点击领取</span>
       </div>
-      <text class="martop80 f28" style="color: #888">有效期2017-02-07至2017-03-03</text>
+      <span class="martop30 f14" style="color: #888">有效期{{beginDate | timefmt}}至{{endDate | timefmt}}</span>
       <!--左右两边的半圆-->
-      <div class="mindiv"></div>
-      <div class="mindivtwo"></div>
+      <div class="rightmindiv"></div>
+      <div class="leftmindiv"></div>
     </div>
     <div class="instwo">
-      <!--左右两边的半圆-->
-      <div class="bottommindiv"></div>
-      <div class="bottommindivtwo"></div>
-      <text class="f32">使用说明</text>
-      <i class="iconfont icon-xiajiantou"></i>
+      <div class="flex-be martop15 marbot15" @click="control">
+      <span class="f16">使用说明</span>
+      <i class="iconfont icon-xiajiantou f16"></i>
+      </div>
+      <div class="marbot15" v-if="isPopup">
+        <li class="f14 fontColor888">此优惠券仅限本店使用</li>
+        <li class="f14 fontColor888">请在有效期内使用,逾期作废</li>
+        <li class="f14 fontColor888">不可售与他人</li>
+      </div>
     </div>
-    <div>{{test}}</div>
   </div>
 </template>
 <style>
-   .bg{
+   .bgc{
     background-color:#E64340;
-  }
-   .headlogo{
-    height: 120px;
-    width: 120px;
-    background-color: #cccccc;
-    border-radius: 60px;
+     width: 100%;
     position: absolute;
-     top: -60px;
-     left: 295px;
+     top:0;
+     bottom:0;
+  }
+   .bg{
+     display: flex;
+     display: -webkit-flex;
+     justify-content: center;
+   }
+   .headlogo{
+    height: 60px;
+    width: 60px;
+    background-color: #cccccc;
+    border-radius: 30px;
+    position: absolute;
+     top: -30px;
   }
   .insone{
     background-color: white;
-    margin-right: 20px;
-    margin-left: 20px;
-    margin-top: 120px;
-    height: 500px;
+    margin-right: 10px;
+    margin-left: 10px;
+    margin-top: 80px;
+    height: 250px;
     align-items: center;
-    border-style:dashed;
-    border-bottom-width: 2px;
+    border-bottom:1px dashed;
     border-color: #cccccc;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    display: flex;
+    display: -webkit-flex;
+    flex-direction: column;
+    position: relative;
   }
   .instwo{
     background-color:white;
-    height: 120px;
-    justify-content: center;
-    padding-left: 30px;
-    margin-left: 20px;
-    margin-right: 20px;
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
+    /*height: 160px;*/
+    /*align-items: center;*/
+    /*justify-content: space-between;*/
+    flex-direction: column;
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-left: 10px;
+    margin-right: 10px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    display: flex;
+    display: -webkit-flex;
   }
-  .mindiv{
+  .rightmindiv{
     background-color:#E64340;
-    height: 20px;
-    width: 20px;
-    border-radius: 10px;
+    height: 10px;
+    width: 10px;
+    border-radius: 5px;
     position: absolute;
-    left: -10px;
-    bottom: -10px;
+    bottom: -5px;
+    right: -5px;
   }
-   .mindivtwo{
+   .leftmindiv{
      background-color:#E64340;
-     height: 20px;
-     width: 20px;
-     border-radius: 10px;
+     height: 10px;
+     width: 10px;
+     border-radius: 5px;
      position: absolute;
-     right: -10px;
-     bottom: -10px;
+     bottom: -5px;
+     left: -5px;
    }
-   .bottommindiv{
-     background-color:#E64340;
-     height: 20px;
-     width: 20px;
-     border-radius: 10px;
-     position: absolute;
-     left: -10px;
-     top: -10px;
-   }
-   .bottommindivtwo{
-     background-color:#E64340;
-     height: 20px;
-     width: 20px;
-     border-radius: 10px;
-     position: absolute;
-     right: -10px;
-     top: -10px;
-   }
-   .f28{
-    font-size: 28px;
+   .f14{
+    font-size: 14px;
   }
-   .f32{
-    font-size: 32px;
+   .f16{
+    font-size: 16px;
   }
-   .f60{
-     font-size: 60px;
+   .f30{
+     font-size: 30px;
    }
-   .f40{
-     font-size: 40px;
+   .f18{
+     font-size: 18px;
    }
-  .martop80{
-    margin-top: 80px;
-  }
-  .martop20{
-    margin-top: 20px;
+  .martop40{
+    margin-top: 40px;
   }
   .martop30{
     margin-top: 30px;
   }
+  .martop10{
+    margin-top: 10px;
+  }
+  .martop15{
+    margin-top: 15px;
+  }
+  .marbot15{
+    margin-bottom: 15px;
+  }
+  .fontColor888{
+    color: #888;
+  }
   .getClick{
     justify-content: center;
     align-items: center;
-    width: 300px;
-    height: 80px;
+    width: 150px;
+    height: 40px;
     background-color:#E64340;
-    border-radius: 10px;
+    border-radius: 5px;
+    display: flex;
+    display: -webkit-flex;
+    flex-direction: row;
+  }
+  .flex-be{
+    display: flex;
+    display: -webkit-flex;
+    flex-direction: row;
+    justify-content: space-between;
   }
 </style>
 <script>
@@ -134,7 +155,12 @@
     data () {
       return {
         couponId:'28',
-        test:'111'
+        logo:'',
+        name:'',
+        shopName:'',
+        beginDate:'',
+        endDate:'',
+        isPopup:false
       }
     },
     components: {
@@ -144,18 +170,26 @@
       this.open();
     },
     methods:{
+//      控制使用说明是否渲染
+      control:function () {
+        if (this.isPopup==false) {
+          this.isPopup = true;
+        }
+      },
       open:function () {
         let _this =this;
-        this.test = _this.couponId;
-        alert('111')
         GET("website/member/coupon/view.jhtml?id="+_this.couponId).then(
           function (res) {
-            this.test =res;
             if (res.type=='success') {
+              _this.logo = res.data.logo;
+              _this.name = res.data.name;
+              _this.beginDate = res.data.beginDate;
+              _this.endDate = res.data.endDate;
+              _this.shopName =res.data.shopName;
             }
           },
           function (err) {
-
+            _this.$refs.toast.show(err.conter);
           }
         )
       },
@@ -163,10 +197,10 @@
         let _this =this;
         POST('website/member/coupon/activate.jhtml?id='+_this.couponId).then(
           function (data) {
-            this.test = 222;
             if (data.type=="success") {
-
+              _this.$refs.toast.show(data.conter)
             } else {
+              _this.$refs.toast.show(data.conter);
             }
           },
           function (err) {
