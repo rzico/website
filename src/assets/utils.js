@@ -48,6 +48,9 @@ let utilsFunc = {
         }
     },
     thumbnail(url,w,h) {
+        if (url.substring(0,11) == "http://cdnx") {
+           return url+"?x-oss-process=image/resize,w_"+w+",h_"+h+"";
+        } else
         if (url.substring(0,10) == "http://cdn") {
             return url+"@"+w+"w_"+h+"h_1e_1c_100Q";
         } else {
@@ -55,6 +58,9 @@ let utilsFunc = {
         }
     },
     thumbnail_cover(url,w) {
+        if (url.substring(0,11) == "http://cdnx") {
+           return url+"?x-oss-process=image/resize,w_"+w+",h_"+h+"";
+        } else
         if (url.substring(0,10) == "http://cdn") {
            return url+"@"+w+"w_1e_1c_100Q";
         } else {
@@ -100,7 +106,7 @@ let utilsFunc = {
     if (w<3) {
       return "3天内";
     }
-    return date.getFullYear() + '-' + date.getMonth() + '  ' +date.getDay();
+    return date.getFullYear() + '-' + (date.getMonth() + 1) + '  ' +date.getDay();
     },
     // 返回处理后的值 2017-01-01 00:00:00
     datetimefmt(value) {

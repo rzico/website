@@ -11,7 +11,7 @@
                     class="images shadow img-border" @click="preview(0)">
             </div>
             <div class="img-box" v-if="template.mediaType == 'video'">
-              <video :src="template.original" :poster="template.thumbnail"  width="100%" height="300"></video>
+              <video :src="template.original" controls="controls" :poster="template.thumbnail"  width="100%" height="300"></video>
             </div>
         </div>
       </div>
@@ -29,7 +29,7 @@
     export default {
       data() {
          return {
-           more:false
+           more:false,
          }
 
       },
