@@ -18,6 +18,7 @@
           <ad v-if="noWeex" :article="watchArticle"></ad>
           <rewardDialog  ref="rwd"  @rewardNumber="rewardNumber"></rewardDialog>
           <payment  ref="pay" @notify="onPayNotify"></payment>
+          <getCoupon></getCoupon>
         </div>
       </div>
     </div>
@@ -45,6 +46,8 @@
     import rewardDialog from './article/rewardDialog.vue';
     import Toast from '../widget/toast.vue';
     import payment from '../widget/payment.vue';
+    import card from './member/card.vue';
+    import getCoupon from './member/getCoupon.vue'
     export default {
         data () { return {
             logined:false,
@@ -73,7 +76,9 @@
             ad,
             rewardDialog,
             payment,
-          vote
+          vote,
+          card,
+          getCoupon
         },
         props: {
             article: { default: function () {
