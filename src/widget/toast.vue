@@ -1,7 +1,7 @@
 <template>
 <div :class="{'weui_loading_toast': type === 'loading'}" v-if="isShow">
   <div class="weui_mask_transparent"></div>
-  <div class="weui_toast">
+  <div class="weui_toast weui_toast_center">
     <div class="weui_loading " v-if="type === 'loading'">
       <div v-for="n in 12" class="weui_loading_leaf" :class="'weui_loading_leaf_' + n"></div>
     </div>
@@ -10,7 +10,11 @@
   </div>
 </div>
 </template>
-
+<style>
+  .weui_toast_center{
+    padding-top: 2.4em;
+  }
+</style>
 <script>
 
 export default {
