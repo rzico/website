@@ -78,7 +78,7 @@ let utilsFunc = {
       }
     }
   },
-  // 返回处理后的值 2017-01-01 00:00:00
+  // 返回处理后的值 2017-01-01
   timefmt(value) {
     value = value + '';
     if(value.length == 10){
