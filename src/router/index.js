@@ -9,6 +9,7 @@ import T1002 from '../page/t1002'
 import C1001 from '../page/c1001'
 import Card from '../page/card'
 import Coupon from '../page/Coupon'
+import getCoupon from '../page/member/getCoupon'
 
 Vue.use(Router);
 Vue.use(VueResource);
@@ -64,6 +65,12 @@ var router = new Router({
       name: 'c1001',
       meta: {requireAuth:true},
       component: C1001
+    },
+    {
+      path: '/getCoupon',
+      name: 'getCoupon',
+      meta: {requireAuth:true},
+      component: getCoupon
     }
   ]
 })
