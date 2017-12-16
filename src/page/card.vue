@@ -13,7 +13,7 @@
         </div>
         <div class="button baseBgColor" @click="btn()">{{card.status=='none'?'激活会员卡':'消费账单'}}</div>
 
-        <div class="qrcode" :style="'background-image: url(http://pan.baidu.com/share/qrcode?w=200&h=200&url='+payCode+')'"  v-if="showQrcode()" ></div>
+        <img class="qrcode" :src="payCode"  v-if="showQrcode()" />
         <div class="sub_title">{{card.status=='none'?'激活会员卡才能使用':'扫描二维码付款'}}</div>
 
       </div>
@@ -146,7 +146,7 @@
                 if (res.type=='success') {
                   _this.mobile = res.data.mobile;
                   _this.name = res.data.name;
-                  _this.payCode = res.data.payCode;
+                  _this.payCode = 'http://pan.baidu.com/share/qrcode?w=200&h=200&url='+res.data.payCode;
                   _this.card = res.data.card;
                   _this.cardId = res.data.cardId;
                   _this.cardExt = res.data.cardExt;
