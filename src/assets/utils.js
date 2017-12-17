@@ -48,7 +48,7 @@ let utilsFunc = {
     },
     thumbnail(url,w,h) {
         if (url.substring(0,11) == "http://cdnx") {
-            return url+"?x-oss-process=image/resize,w_"+w+",h_"+h+"";
+            return url+"?x-oss-process=image/resize,w_"+w+",h_"+h+"/quality,Q_90";
         } else
         if (url.substring(0,10) == "http://cdn") {
             return url+"@"+w+"w_"+h+"h_1e_1c_100Q";
@@ -58,7 +58,7 @@ let utilsFunc = {
     },
     thumbnail_cover(url,w) {
         if (url.substring(0,11) == "http://cdnx") {
-           return url+"?x-oss-process=image/resize,w_"+w;
+           return url+"?x-oss-process=image/resize,w_"+w+"/quality,Q_90";
         } else
         if (url.substring(0,10) == "http://cdn") {
            return url+"@"+w+"w_1e_1c_100Q";
@@ -150,7 +150,6 @@ let utilsFunc = {
   },
   isweex() {
     var ua = window.navigator.userAgent.toLowerCase();
-    return ua;
     if(ua.match(/Weex/i) == 'weex'){
       return true;
     } else {

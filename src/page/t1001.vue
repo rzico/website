@@ -100,7 +100,7 @@
             AUTH("",function (authed) {
               _this.logined  = authed;
             })
-            if(utils.isweex()){
+            if(utils.isweex()==true){
               this.downloadShow = false;
               this.noWeex = false;
             }
