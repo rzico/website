@@ -46,7 +46,7 @@
         if(utils.isweex()){
             location.href = 'yundian://topic?id=' + id;
         }else{
-            _this.$router.push(utils.router(url));
+            this.$router.push(utils.router(url));
         }
       },
 //      jump:function (url,id) {
