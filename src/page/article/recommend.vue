@@ -5,7 +5,7 @@
             <h2 class="fl brilliant">推荐文章</h2>
         </div>
         <div class="list" v-for="rmmd in data">
-            <div  class="item clearfix" style="padding: 7.5px 0 7.5px;" @click="articleclick(rmmd.id)">
+            <div  class="item clearfix" style="padding: 7.5px 0 7.5px;" @click="articleclick(rmmd.id,rmmd.url)">
                 <div class="img fl" :style="'width:115px;height:70px;background-image:url('+ thumbnail(rmmd.thumbnail,115,70)+')'"></div>
                 <div class="content">
                     <p style="height:43px;font-size:18px;">{{rmmd.title}}</p>
@@ -44,19 +44,15 @@
 
       },
       methods:{
-        articleclick:function (id) {
+        articleclick:function (id,url) {
           if(utils.isweex()){
-            location.href = 'yundian://article?id=' + id;
+             location.href = 'yundian://article?id=' + id;
           }else{
-          this.$router.push('http://weex.1xx.me/t1001?id=' + id);
+             this.$router.push(utils.router(url));
           }
         },
         thumbnail:function (url,w,h) {
-          if (url.substring(0,10) == "http://cdn") {
-            return url+"@"+w+"w_"+h+"h_1e_1c_100Q";
-          } else {
-            return url;
-          }
+          return  utils.thumbnail(url,w,h);
         }
       }
 

@@ -44,11 +44,7 @@
     },
     methods:{
       thumbnail:function (url,w,h) {
-        if (url.substring(0,10) == "http://cdn") {
-          return url+"@"+w+"w_"+h+"h_1e_1c_100Q";
-        } else {
-          return url;
-        }
+          return utils.thumbnail(url,w,h);
       }
     }
 

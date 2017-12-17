@@ -18,7 +18,7 @@
 
       </div>
       </v-loadmore>
-      <Dialog ref="dialog" type="confirm" title="请输入会员资料" confirmButton="激活" cancelButton="取消"
+      <weui-dialog ref="dialog" type="confirm" title="请输入会员资料" confirmButton="激活" cancelButton="取消"
               @weui-dialog-confirm="activate()"
               @weui-dialog-cancel="close()">
         <div class="weui_cell">
@@ -27,11 +27,16 @@
         <div class="weui_cell">
           <cellInput type="text" :placeholder="'请输入会员姓名'" :value.sync="name"></cellInput>
         </div>
-      </Dialog>
+      </weui-dialog>
       <Toast ref="toast"></Toast>
       <div class="footer" @click="openWeixinCard()">
         <span>--微信卡包--</span>
       </div>
+      <weui-dialog ref="error" type="alert" title="出错了"
+                   confirm-button="关闭"
+                   @weui-dialog-confirm="closeWindow()">
+        {{errMsg}}
+      </weui-dialog>
     </div>
 
   </div>
@@ -102,14 +107,15 @@
          cardExt:{},
          mobile:"",
          name:"",
+         errMsg:"",
          payCode:"163231 84933",
-         card:{id:0,status:'none',name:"(样例)张三的店",logo:"./static/logo.png",background:"./static/card.png",color:"c8",balance:2847,code:"8800016323184933"}
+         card:{id:0,status:'none',name:"样例",logo:"./static/logo.png",background:"./static/card.png",color:"c8",balance:0,code:"8800000000000000"}
       }
     },
     components: {
       'v-loadmore':Loadmore,
       Toast,
-      Dialog,
+      'weui-dialog':Dialog,
       "cellInput":CellInput
     },
     filters:{
@@ -154,10 +160,12 @@
                     _this.card.background = "./static/card.png"
                   }
                 } else {
-                  _this.$refs.toast.show(res.content);
+                  _this.errMsg = res.content;
+                  _this.$refs.error.show();
                 }
               },function (err) {
-                _this.$refs.toast.show(err.content);
+                _this.errMsg = err.content;
+                _this.$refs.error.show();
             }
           )
       },
@@ -169,6 +177,9 @@
       },
       close:function () {
         this.$refs.dialog.close();
+      },
+      closeWindow:function () {
+         wx.closeWindow();
       },
       btn:function () {
          if (this.card.status=='none') {

@@ -14,8 +14,8 @@
           <report  :article="watchArticle"></report>
           <auther  :article="watchArticle"></auther>
           <review  :article="watchArticle"></review>
-          <recommend :article="watchArticle"></recommend>
-          <ad :article="watchArticle"></ad>
+          <recommend v-if="isPublish" :article="watchArticle"></recommend>
+          <ad v-if="noWeex" :article="watchArticle"></ad>
           <rewardDialog  ref="rwd"  @rewardNumber="rewardNumber"></rewardDialog>
           <payment  ref="pay" @notify="onPayNotify"></payment>
         </div>
@@ -45,6 +45,8 @@
     import rewardDialog from './article/rewardDialog.vue';
     import Toast from '../widget/toast.vue';
     import payment from '../widget/payment.vue';
+    import card from './member/card.vue';
+    import getCoupon from './member/getCoupon.vue'
     export default {
         data () { return {
             logined:false,
@@ -54,6 +56,8 @@
           watchArticle: this.article,
           downloadShow:true,
           musicPlay:0,
+          noWeex:true,
+          isPublish:true,
          }
         },
         components: {
@@ -71,7 +75,8 @@
             ad,
             rewardDialog,
             payment,
-          vote
+          vote,
+          card
         },
         props: {
             article: { default: function () {
@@ -91,17 +96,20 @@
 
         created() {
             var _this = this;
+          const ua = window.navigator.userAgent.toLowerCase();
             AUTH("",function (authed) {
               _this.logined  = authed;
             })
-            if(utils.isweex()){
+            if(utils.isweex()==true){
               this.downloadShow = false;
+              this.noWeex = false;
             }
             let id = utils.getUrlParameter("id");
             GET('website/article/view.jhtml?id='+id).then(
               function (response) {
                if (response.type=="success") {
                  _this.watchArticle = response.data;
+                 _this.isPublish = response.data.isPublish;
                  console.log('watchArticle');
                  console.log(response.data);
                  //设置分享标题

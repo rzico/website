@@ -2,7 +2,7 @@
   <div class="container">
     <div class="page slideIn member" @scroll="onscroll" offset-accuracy="0">
       <v-loadmore :top-method="loadTop" :bottom-method="loadBottom" :bottom-all-loaded="false" :auto-fill="false" ref="loadmore">
-        <metaInfo :member="member" :isFixed = "isfixed"></metaInfo>
+        <!--<metaInfo :member="member" :isFixed = "isfixed"></metaInfo>-->
         <navbar :isFixed = "isfixed" @onchange="navchange"></navbar>
         <div class="list">
           <card ref="card" v-if="activeIndex(0)"></card>
