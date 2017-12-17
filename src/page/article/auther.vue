@@ -1,6 +1,6 @@
 <template>
   <div class="auther" @click="jump(article.member.url,article.member.id)">
-    <img :src="'./static/card_picker.jpg'"/>
+    <img class="card" :src="'./static/card_picker.jpg'"/>
     <div class="autherwrap" style="min-height: 96px;">
       <a class="toappuser">
         <div class="autherHead">

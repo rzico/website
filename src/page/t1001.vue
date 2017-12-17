@@ -18,7 +18,6 @@
           <ad v-if="noWeex" :article="watchArticle"></ad>
           <rewardDialog  ref="rwd"  @rewardNumber="rewardNumber"></rewardDialog>
           <payment  ref="pay" @notify="onPayNotify"></payment>
-          <getCoupon></getCoupon>
         </div>
       </div>
     </div>
@@ -77,8 +76,7 @@
             rewardDialog,
             payment,
           vote,
-          card,
-          getCoupon
+          card
         },
         props: {
             article: { default: function () {
