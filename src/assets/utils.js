@@ -57,6 +57,9 @@ let utilsFunc = {
         }
     },
     thumbnail_cover(url,w) {
+        if (w>1080) {
+          w = 1080
+        }
         if (url.substring(0,11) == "http://cdnx") {
            return url+"?x-oss-process=image/resize,w_"+w+"/quality,Q_90";
         } else
