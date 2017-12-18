@@ -1,8 +1,8 @@
 const config = {
   logo:'./static/logo.png',
-  siteName:'芸店',
+  siteName:'魔篇',
   appUrl:'http://a.app.qq.com/o/simple.jsp?pkgname=com.yixiang.mopian',
-  title:"芸店",
+  title:"魔篇",
   link:"http://mopian.1xx.me",
   desc:'超强图文小视频分享社区,中国版Facebook.',
   baseURL:"http://mopian.1xx.me/",
