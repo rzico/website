@@ -27,24 +27,30 @@
         return utils.datetimefmt(val);
       }
     },
-    created() {
+
+    mounted () {
       var _this = this;
       let id = utils.getUrlParameter("id");
-      GET('website/review/list.jhtml?articleId='+id+"&pageStart=0&pageSize=10").then(
-        function (response) {
-          if (response.type=="success") {
-            _this.reviews = response.data.data;
-          } else {
-            _this.showToast("服务器繁忙");
-          }
-        }, function () {
-          _this.showToast("网络不稳定");
-        });
-
+      setTimeout(function () {
+        _this.open(id);
+      },2000);
     },
     methods:{
       thumbnail:function (url,w,h) {
           return utils.thumbnail(url,w,h);
+      },
+      open:function (id) {
+        var _this = this;
+        GET('website/review/list.jhtml?articleId='+id+"&pageStart=0&pageSize=10").then(
+          function (response) {
+            if (response.type=="success") {
+              _this.reviews = response.data.data;
+            } else {
+              _this.showToast("服务器繁忙");
+            }
+          }, function () {
+            _this.showToast("网络不稳定");
+          });
       }
     }
 

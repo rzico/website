@@ -28,31 +28,37 @@
           data:[]
         }
       },
-      created() {
+      mounted() {
         var _this = this;
         let id = utils.getUrlParameter("id");
-        GET('website/recommend/list.jhtml?articleId='+id+"&pageStart=0&pageSize=10").then(
-          function (response) {
-            if (response.type=="success") {
-              _this.data = response.data.data;
-            } else {
-              _this.showToast("服务器繁忙");
-            }
-          }, function () {
-            _this.showToast("网络不稳定");
-          });
-
+        setTimeout(function () {
+          _this.open(id);
+        },4000);
       },
       methods:{
         articleclick:function (id,url) {
           if(utils.isweex()){
              location.href = 'yundian://article?id=' + id;
           }else{
-             this.$router.push(utils.router(url));
+             this.$emit("go",id);
+            //this.$router.push(utils.router(url));
           }
         },
         thumbnail:function (url,w,h) {
           return  utils.thumbnail(url,w,h);
+        },
+        open:function (id) {
+          var _this = this;
+          GET('website/recommend/list.jhtml?articleId='+id+"&pageStart=0&pageSize=10").then(
+            function (response) {
+              if (response.type=="success") {
+                _this.data = response.data.data;
+              } else {
+                _this.showToast("服务器繁忙");
+              }
+            }, function () {
+              _this.showToast("网络不稳定");
+            });
         }
       }
 

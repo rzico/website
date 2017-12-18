@@ -48,7 +48,7 @@ let utilsFunc = {
     },
     thumbnail(url,w,h) {
         if (url.substring(0,11) == "http://cdnx") {
-            return url+"?x-oss-process=image/resize,w_"+w+",h_"+h+"/quality,Q_90";
+            return url+"?x-oss-process=image/resize,w_"+w+",h_"+h+"/quality,q_90";
         } else
         if (url.substring(0,10) == "http://cdn") {
             return url+"@"+w+"w_"+h+"h_1e_1c_100Q";
@@ -57,8 +57,11 @@ let utilsFunc = {
         }
     },
     thumbnail_cover(url,w) {
+        if (w>1080) {
+          w = 1080
+        }
         if (url.substring(0,11) == "http://cdnx") {
-           return url+"?x-oss-process=image/resize,w_"+w+"/quality,Q_90";
+           return url+"?x-oss-process=image/resize,w_"+w+"/quality,q_90";
         } else
         if (url.substring(0,10) == "http://cdn") {
            return url+"@"+w+"w_1e_1c_100Q";
@@ -171,7 +174,12 @@ let utilsFunc = {
       hash = hashes[i].split('=');
       vars[hash[0]] = hash[1];
     }
-    let m = url.slice(url.indexOf('website/')+8,url.indexOf('?'));
+    let surl = url.slice(7,url.length);
+    var len = surl.indexOf('?');
+    if (len<0) {
+        len = surl.length;
+    }
+    let m = surl.slice(surl.indexOf('/')+1,len);
     if (m.indexOf('/')>0) {
       m = m.slice(1,m.indexOf('/'))
     }
