@@ -17,20 +17,12 @@
     data() {
       return {rewards: []}
     },
-    created() {
+    mounted() {
       var _this = this;
       let id = utils.getUrlParameter("id");
-      GET('website/reward/list.jhtml?articleId=' + id + "&pageStart=0&pageSize=10").then(
-        function (response) {
-          if (response.type == "success") {
-              _this.rewards = response.data.data;
-          } else {
-            _this.showToast("服务器繁忙");
-          }
-        }, function () {
-          _this.showToast("网络不稳定");
-        });
-
+      setTimeout(function () {
+        _this.open(id);
+      },2000);
     },
     methods: {
       styleObject: function (index) {
@@ -55,6 +47,20 @@
       },
       showDialog: function () {
         this.$emit("showDialog");
+      },
+      open:function (id) {
+        var _this = this;
+        GET('website/reward/list.jhtml?articleId=' + id + "&pageStart=0&pageSize=10").then(
+          function (response) {
+            if (response.type == "success") {
+              _this.rewards = response.data.data;
+            } else {
+              _this.showToast("服务器繁忙");
+            }
+          }, function () {
+            _this.showToast("网络不稳定");
+          });
+
       }
     }
   }

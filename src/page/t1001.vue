@@ -12,9 +12,9 @@
           <!--<vote  :article="watchArticle"></vote>-->
           <!--<reward  :article="watchArticle" @showDialog="showRewardDialog"></reward>-->
           <report  :article="watchArticle"></report>
-          <auther  :article="watchArticle"></auther>
-          <review  :article="watchArticle"></review>
-          <recommend v-if="isPublish" :article="watchArticle"></recommend>
+          <auther ref="auther" :article="watchArticle"></auther>
+          <review ref="review" :article="watchArticle"></review>
+          <recommend ref="recommend" v-if="isPublish" :article="watchArticle" @go="fetchData"></recommend>
           <ad v-if="noWeex" :article="watchArticle"></ad>
           <rewardDialog  ref="rwd"  @rewardNumber="rewardNumber"></rewardDialog>
           <payment  ref="pay" @notify="onPayNotify"></payment>
@@ -29,7 +29,7 @@
 </style>
 <script>
     import {Loadmore} from 'mint-ui';
-    import { POST, GET,AUTH} from '../assets/fetch.js';
+    import { POST,GET,AUTH,SHARE} from '../assets/fetch.js';
     import utils from '../assets/utils.js';
     import download_bar from './article/download_bar.vue';
     import article_meta from './article/meta.vue';
@@ -93,10 +93,9 @@
             },
             htmlStr :{default:""},
         },
-
         created() {
             var _this = this;
-          const ua = window.navigator.userAgent.toLowerCase();
+            const ua = window.navigator.userAgent.toLowerCase();
             AUTH("",function (authed) {
               _this.logined  = authed;
             })
@@ -105,43 +104,7 @@
               this.noWeex = false;
             }
             let id = utils.getUrlParameter("id");
-            GET('website/article/view.jhtml?id='+id).then(
-              function (response) {
-               if (response.type=="success") {
-                 _this.watchArticle = response.data;
-                 _this.isPublish = response.data.isPublish;
-                 console.log('watchArticle');
-                 console.log(response.data);
-                 //设置分享标题
-                 utils.setConfig({
-                     title:"【"+_this.watchArticle.nickName+"】"+_this.watchArticle.title,
-                     desc:_this.watchArticle.htmlTag,
-                     link:_this.watchArticle.url,
-                     logo:_this.watchArticle.thumbnail
-                 });
-                 if (!utils.isNull(response.data.music)) {
-                      _this.watchMusicData = JSON.parse(response.data.music);
-                      console.log(_this.watchMusicData);
-                    }
-                 if (!utils.isNull(response.data.templates)) {
-                      console.log(response.data.templates)
-                      if (response.data.mediaType==0) {
-                         _this.htmlStr = response.data.templates;
-                      } else {
-                         _this.watchTemplates = response.data.templates;
-                      }
-                    }
-
-               } else {
-                 _this.$refs.toast.show("网络不稳定");
-//                 _this.$refs.toast.show('website/article/view.jhtml?id='+id);
-               }
-            }, function () {
-                _this.$refs.toast.show("网络不稳定");
-//                _this.$refs.toast.show('ssssswebsite/article/view.jhtml?id='+id);
-
-            });
-
+            this.go(id);
         },
         methods: {
           loadTop:function() { //组件提供的下拉触发方法
@@ -156,6 +119,52 @@
             } else {
               this.$refs.toast.show(data.content);
             }
+          },
+          fetchData:function (id) {
+             this.go(id);
+             this.$refs.review.open(id);
+             document.documentElement.scrollTop = 0;
+             document.body.scrollTop = 0;
+          },
+          go:function (id) {
+            var _this = this;
+            GET('website/article/view.jhtml?id='+id).then(
+              function (response) {
+                if (response.type=="success") {
+                  _this.watchArticle = response.data;
+                  _this.isPublish = response.data.isPublish;
+                  console.log('watchArticle');
+                  console.log(response.data);
+                  //设置分享标题
+                  utils.setConfig({
+                    title:"【"+_this.watchArticle.nickName+"】"+_this.watchArticle.title,
+                    desc:_this.watchArticle.htmlTag,
+                    link:_this.watchArticle.url,
+                    logo:_this.watchArticle.thumbnail
+                  });
+                  SHARE();
+                  if (!utils.isNull(response.data.music)) {
+                    _this.watchMusicData = JSON.parse(response.data.music);
+                    console.log(_this.watchMusicData);
+                  }
+                  if (!utils.isNull(response.data.templates)) {
+                    console.log(response.data.templates)
+                    if (response.data.mediaType==0) {
+                      _this.htmlStr = response.data.templates;
+                    } else {
+                      _this.watchTemplates = response.data.templates;
+                    }
+                  }
+
+                } else {
+                  _this.$refs.toast.show("网络不稳定");
+//                 _this.$refs.toast.show('website/article/view.jhtml?id='+id);
+                }
+              }, function () {
+                _this.$refs.toast.show("网络不稳定");
+//                _this.$refs.toast.show('ssssswebsite/article/view.jhtml?id='+id);
+
+              });
           },
           showRewardDialog:function () {
             this.$refs.rwd.show();

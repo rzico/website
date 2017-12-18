@@ -168,20 +168,17 @@ let utilsFunc = {
     }
   },
   router(url) {
-    alert(url);
     var vars = {}, hash;
     var hashes = url.slice(url.indexOf('?') + 1).split('&');
     for (var i = 0; i < hashes.length; i++) {
       hash = hashes[i].split('=');
       vars[hash[0]] = hash[1];
     }
-    let surl = url.slice(7,url.length-7);
+    let surl = url.slice(7,url.length);
     var len = surl.indexOf('?');
     if (len<0) {
         len = surl.length;
     }
-    alert(len);
-    alert(surl);
     let m = surl.slice(surl.indexOf('/')+1,len);
     if (m.indexOf('/')>0) {
       m = m.slice(1,m.indexOf('/'))
