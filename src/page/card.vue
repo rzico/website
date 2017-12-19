@@ -22,10 +22,10 @@
               @weui-dialog-confirm="activate()"
               @weui-dialog-cancel="close()">
         <div class="weui_cell">
-          <cellInput type="tel" :placeholder="'请输入手机号'" :value.sync="mobile"></cellInput>
+          <input class="weui_input" type="tel" :placeholder="'请输入手机号'" v-model="mobile"></input>
         </div>
         <div class="weui_cell">
-          <cellInput type="text" :placeholder="'请输入会员姓名'" :value.sync="name"></cellInput>
+          <inputpm class="weui_input" type="text" :placeholder="'请输入会员姓名'" v-model="name"></inputpm>
         </div>
       </weui-dialog>
       <Toast ref="toast"></Toast>
