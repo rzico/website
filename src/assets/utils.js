@@ -80,7 +80,7 @@ let utilsFunc = {
       }
     }
   },
-  // 返回处理后的值 2017-01-01
+  // 返回处理后的值 00:00
   timefmt(value) {
     value = value + '';
     if(value.length == 10){
@@ -110,8 +110,8 @@ let utilsFunc = {
     }
     return date.getFullYear() + '-' + (date.getMonth() + 1) + '  ' +date.getDay();
     },
-    // 返回处理后的值 2017-01-01 00:00:00
-    datetimefmt(value) {
+    // 返回处理后的值 2017-01-01
+      timeDatefmt(value) {
       value = value + '';
       if(value.length == 10){
         value = parseInt(value) * 1000;
@@ -121,22 +121,41 @@ let utilsFunc = {
         let    date = new Date(value);
         let    m = date.getMonth()+1;
         let    d = date.getDate();
-        let    H = date.getHours();
-        let    i = date.getMinutes();
         if (m < 10) {
            m = '0' + m;
         }
         if (d < 10) {
            d = '0' + d;}
-        if (H < 10) {
-           H = '0' + H;
-        }
-        if (i < 10) {
-           i = '0' + i;
-        }
-        let t = date.getFullYear()+'-'+ m + '-' + d + '  ' + H + ':' + i ;
+        let t = date.getFullYear()+'-'+ m + '-' + d ;
         return t;
     },
+  // 返回处理后的值 2017-01-01 00:00:00
+    datetimefmt(value) {
+    value = value + '';
+    if(value.length == 10){
+      value = parseInt(value) * 1000;
+    }else{
+      value = parseInt(value);
+    }
+    let    date = new Date(value);
+    let    m = date.getMonth()+1;
+    let    d = date.getDate();
+    let    H = date.getHours();
+    let    i = date.getMinutes();
+    if (m < 10) {
+      m = '0' + m;
+    }
+    if (d < 10) {
+      d = '0' + d;}
+    if (H < 10) {
+      H = '0' + H;
+    }
+    if (i < 10) {
+      i = '0' + i;
+    }
+    let t = date.getFullYear()+'-'+ m + '-' + d + '  ' + H + ':' + i ;
+    return t;
+  },
     //RSA
     encrypt(str,key) {
       var rsaKey = new RSAKey();
