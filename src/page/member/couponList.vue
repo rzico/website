@@ -1,5 +1,5 @@
 <template>
-  <div class="bgc">
+  <div class="backgroundcolor">
     <div v-for="num in lists">
     <div class="topPortion">
       <div class="logo">
@@ -10,7 +10,7 @@
           <span class="moneyFont">${{num.amount}}</span>
         </div>
         <div class="shopname">
-          <span class="shopFont">{{num.shopName}}</span>
+          <span class="shopFont">{{num.name}}</span>
         </div>
       </div>
       <!--小半圆-->
@@ -21,14 +21,14 @@
       <div>
       <div class="time">
       <i class="iconfont icon-tishi tishitubiao"></i>
-      <span class="timefont">{{num.endDate | timefmt}}</span>
+      <span class="timefont">{{num.endDate | timeDatefmt}}</span>
       </div>
       <div class="type">
         <i class="iconfont icon-tishi tishitubiao"></i>
         <span class="typefont">全场使用</span>
       </div>
       </div>
-      <div class="jumpButton">
+      <div class="jumpButton" @click="jump(num.id)">
         <span class="buttonFont">立即领取</span>
       </div>
     </div>
@@ -36,7 +36,7 @@
   </div>
 </template>
 <style>
-  .bgc{
+  .backgroundcolor{
     background-color:#eeeeee;
     width: 100%;
     position: absolute;
@@ -73,7 +73,7 @@
     margin-top: 10px;
     border-top-right-radius: 7px;
     border-top-left-radius: 7px;
-    background: #E64340;
+    background: #EB4E40;
     position: relative;
   }
   .bottomPortion {
@@ -142,7 +142,7 @@
     color: #cccccc;
   }
   .jumpButton{
-    background:#E64340 ;
+    background:#EB4E40 ;
     padding-left: 5px;
     padding-right: 5px;
     border-radius: 5px;
@@ -159,11 +159,17 @@
   export default {
     data () {
       return {
-        lists:[{logo:'http://cdn.rzico.com/upload/images/2017/12/16/03b35b6c-ee90-43c8-ac19-386b54e37a6c.png',shopName:'众卖芸店',endDate:'1512748800000',amount:'70000000'}],
+        lists:[{logo:'http://cdn.rzico.com/upload/images/2017/12/16/03b35b6c-ee90-43c8-ac19-386b54e37a6c.png',name:'满100减10元',endDate:'1512748800000',amount:'70000000'},{logo:'http://cdn.rzico.com/upload/images/2017/12/16/03b35b6c-ee90-43c8-ac19-386b54e37a6c.png',shopName:'众卖芸店',endDate:'1512748800000',amount:'70000000'}],
+        authorId:34
       }
     },
     components: {
       Toast
+    },
+    filters: {
+      timeDatefmt(val) {
+        return utils.timeDatefmt(val);
+      }
     },
     created() {
       this.open();
@@ -171,7 +177,7 @@
     methods:{
       open:function () {
         let _this =this;
-        GET("weex/member/coupon/list.jhtml").then(
+        GET("website/coupon/list.jhtml?authorId="+_this.authorId).then(
           function (res) {
             if (res.type=='success') {
                 _this.lists = res.data.data;
@@ -184,6 +190,10 @@
           }
         )
       },
+      jump:function(id) {
+//        location.href = 'http://192.168.2.112:8080/getCoupon?id=57'
+        this.$router.push({name:"getCoupon",query:{id:id}});
+      }
     }
   }
 </script>
