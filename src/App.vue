@@ -21,7 +21,7 @@ export default {
      }
   },
   mounted() {
-     SHARE();
+     SHARE(location.href);
   }
 }
 </script>

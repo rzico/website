@@ -142,7 +142,7 @@
                     link:_this.watchArticle.url,
                     logo:_this.watchArticle.thumbnail
                   });
-                  SHARE();
+                  SHARE(location.href);
                   if (!utils.isNull(response.data.music)) {
                     _this.watchMusicData = JSON.parse(response.data.music);
                     console.log(_this.watchMusicData);
