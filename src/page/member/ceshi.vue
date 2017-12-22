@@ -1,8 +1,7 @@
 <template>
   <div>
-    <span>111</span>
-  <!--<card ref="card" ></card>-->
-  <!--<couponList ref="couponList"></couponList>-->
+  <card ref="card" ></card>
+  <couponList ref="couponList"></couponList>
   </div>
 </template>
 <script>
