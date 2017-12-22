@@ -3,7 +3,7 @@
     <div v-for="num in lists">
     <div class="topPortion">
       <div class="logo">
-        <image class="logoimg" :src="num.logo"></image>
+        <img class="logoimg" :src="num.logo">
       </div>
       <div class="moneyShopname">
         <div class="money">
@@ -33,6 +33,7 @@
       </div>
     </div>
     </div>
+    <Toast ref="toast"></Toast>
   </div>
 </template>
 <style>
@@ -159,7 +160,7 @@
   export default {
     data () {
       return {
-        lists:[{logo:'http://cdn.rzico.com/upload/images/2017/12/16/03b35b6c-ee90-43c8-ac19-386b54e37a6c.png',name:'满100减10元',endDate:'1512748800000',amount:'70000000'},{logo:'http://cdn.rzico.com/upload/images/2017/12/16/03b35b6c-ee90-43c8-ac19-386b54e37a6c.png',shopName:'众卖芸店',endDate:'1512748800000',amount:'70000000'}],
+        lists:[{naem:'满100减1元'}],
         authorId:34
       }
     },
@@ -172,7 +173,7 @@
       }
     },
     created() {
-      this.open();
+//      this.open();
     },
     methods:{
       open:function () {
@@ -186,13 +187,12 @@
             }
           },
           function (err) {
-            _this.$refs.toast.show(err.conter);
+            _this.$refs.toast.show(err.content);
           }
         )
       },
       jump:function(id) {
-//        location.href = 'http://192.168.2.112:8080/getCoupon?id=57'
-        this.$router.push({name:"getCoupon",query:{id:id}});
+        this.$router.push({name:"activate",query:{id:id}});
       }
     }
   }
