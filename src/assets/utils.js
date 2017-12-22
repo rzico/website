@@ -3,10 +3,10 @@ const config = {
   siteName:'芸店',
   appUrl:'http://a.app.qq.com/o/simple.jsp?pkgname=com.rzico.assistant',
   title:"芸店",
-  link:"http://weixin.rzico.com",
+  link:"http://weex.1xx.com",
   thumbnail:"./static/logo.png",
   desc:'超强图文小视频分享社区,中国版Facebook.',
-  baseURL:"http://weixin.rzico.com/",
+  baseURL:"http://weex.1xx.com/",
   wxAppid:"wx88a1ec3b5c3bc9c3"
 }
 
