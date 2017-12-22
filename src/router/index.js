@@ -12,6 +12,7 @@ import Coupon from '../page/Coupon'
 import activate from '../page/member/activate'
 import couponList from '../page/member/couponList'
 import ceshi from '../page/member/ceshi'
+import cardImg from '../page/member/cardImg'
 
 Vue.use(Router);
 Vue.use(VueResource);
@@ -85,7 +86,13 @@ var router = new Router({
       name: 'ceshi',
       meta: {requireAuth:true},
       component: ceshi
-    }
+    },
+    {
+      path: '/cardImg',
+      name: 'cardImg',
+      meta: {requireAuth:true},
+      component: cardImg
+    },
   ]
 })
 
