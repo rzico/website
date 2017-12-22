@@ -137,10 +137,10 @@
                   console.log(response.data);
                   //设置分享标题
                   utils.setConfig({
-                    title:"【"+_this.watchArticle.nickName+"】"+_this.watchArticle.title,
+                    title:_this.watchArticle.title,
                     desc:_this.watchArticle.htmlTag,
                     link:_this.watchArticle.url,
-                    logo:_this.watchArticle.thumbnail
+                    thumbnail:_this.watchArticle.thumbnail
                   });
                   SHARE(location.href);
                   if (!utils.isNull(response.data.music)) {

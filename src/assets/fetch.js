@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import VueResource from 'vue-resource';
 import utils from '../assets/utils.js';
+import wx from 'weixin-js-sdk'
 Vue.use(Router);
 Vue.use(VueResource);
 
@@ -27,7 +28,7 @@ export function AUTH(redirectURL,func) {
           if (utils.isweixin()) {
             if (utils.isNull(redirectURL)) {
               scope = "snsapi_base";
-              redirectURL = location.href;
+              redirectURL = location.href.split('&from=')[0];
             } else {
               scope = "snsapi_userinfo";
             }
@@ -35,12 +36,12 @@ export function AUTH(redirectURL,func) {
             if (uxid==null) {
               uxid = "";
             }
-            location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + utils.getConfig().wxAppid + "&redirect_uri=" + encodeURIComponent(utils.getConfig().baseURL+"website/login/weixin.jhtml?uxid="+uxid) + "&response_type=code&scope="+scope+"&state="+b64safe(redirectURL)+"#wechat_redirect";
+            location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + utils.getConfig().wxAppid + "&redirect_uri=" + encodeURIComponent(utils.getConfig().baseURL+"website/login/weixin.jhtml?uxid="+uxid+"&state="+b64safe(redirectURL)) + "&response_type=code&scope="+scope+"&state=state#wechat_redirect";
           } else
           if (utils.isalipay()) {
             if (utils.isNull(redirectURL)) {
               scope = "auth_base";
-              redirectURL = location.href;
+              redirectURL = location.href.split('&from=')[0];
             } else {
               scope = "auth_user";
             }
@@ -48,7 +49,7 @@ export function AUTH(redirectURL,func) {
             if (uxid==null) {
               uxid = "";
             }
-            location.href = "https://openauth.alipay.com/oauth2/publicAppAuthorize.htm?app_id=" + utils.getConfig().alAppid + "&redirect_uri=" + encodeURIComponent(utils.getConfig().baseURL+"website/login/alipay.jhtml?uxid="+uxid) + "&scope="+scope+"&state="+b64safe(redirectURL)+"";
+            location.href = "https://openauth.alipay.com/oauth2/publicAppAuthorize.htm?app_id=" + utils.getConfig().alAppid + "&redirect_uri=" + encodeURIComponent(utils.getConfig().baseURL+"website/login/alipay.jhtml?uxid="+uxid+"&state="+b64safe(redirectURL)) + "&scope="+scope+"&state=state";
           } else {
             Vue.$router.push({name:"login",query:{redirectURL:location.href}});
           }
@@ -66,7 +67,6 @@ export function AUTH(redirectURL,func) {
 export function SHARE(url) {
   var _this = this;
   if (utils.isweixin()) {
-    alert(url.split('#')[0]);
     POST("weixin/get_config.jhtml?url="+encodeURIComponent(url.split('#')[0])).then(
       function (data) {
         if (data.type=="success") {
@@ -85,17 +85,15 @@ export function SHARE(url) {
           });
 
           wx.error(function (res) {
-            alert(res);
           });
 
           //处理验证成功的信息
           wx.ready(function () {
-            alert(3);
             //分享到朋友圈
             wx.onMenuShareTimeline({
               title: utils.getConfig().title, // 分享标题
               link:  utils.getConfig().link, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
-              imgUrl: utils.getConfig().logo, // 分享图标
+              imgUrl: utils.getConfig().thumbnail, // 分享图标
               success: function (res) {
               },
               cancel: function (res) {
@@ -106,7 +104,7 @@ export function SHARE(url) {
               title: utils.getConfig().title, // 分享标题
               desc: utils.getConfig().desc, // 分享描述
               link: utils.getConfig().link, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
-              imgUrl: utils.getConfig().logo, // 分享图标
+              imgUrl: utils.getConfig().thumbnail, // 分享图标
               type: 'link', // 分享类型,music、video或link，不填默认为link
               dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
               success: function (res) {
@@ -119,7 +117,7 @@ export function SHARE(url) {
               title: utils.getConfig().title, // 分享标题
               desc: utils.getConfig().desc, // 分享描述
               link: utils.getConfig().link, // 分享链接
-              imgUrl: utils.getConfig().logo, // 分享图标
+              imgUrl: utils.getConfig().thumbnail, // 分享图标
               success: function (res) {
               },
               cancel: function (res) {
@@ -131,7 +129,7 @@ export function SHARE(url) {
               title: utils.getConfig().title, // 分享标题
               desc: utils.getConfig().desc, // 分享描述
               link: utils.getConfig().link, // 分享链接
-              imgUrl: utils.getConfig().logo, // 分享图标
+              imgUrl: utils.getConfig().thumbnail, // 分享图标
               success: function (res) {
               },
               cancel: function (res) {
@@ -139,6 +137,8 @@ export function SHARE(url) {
             });
           });
         }
+      },
+      function (err) {
       }
     )
   }

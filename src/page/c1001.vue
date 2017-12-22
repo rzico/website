@@ -51,7 +51,7 @@
                   title:_this.topic.name+"的"+utils.getConfig().siteName+"专栏",
                   desc:"超强图文小视频分享社区，中国版Facebook",
                   link:location.href,
-                  logo:_this.topic.logo
+                  thumbnail:_this.topic.logo
                 });
                 SHARE(location.href);
               } else {
