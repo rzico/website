@@ -41,8 +41,6 @@
     background-color:#eeeeee;
     width: 100%;
     position: absolute;
-    top:0;
-    bottom:0;
   }
   .logo{
     width: 60px;
@@ -161,7 +159,6 @@
     data () {
       return {
         lists:[],
-        authorId:''
       }
     },
     components: {
@@ -172,13 +169,19 @@
         return utils.timeDatefmt(val);
       }
     },
-    created() {
-      this.open();
+    props: {
+      article: { default: function () {}}
+    },
+    mounted () {
+      var _this = this;
+      setTimeout(function () {
+        _this.open();
+      },500);
     },
     methods:{
       open:function () {
         let _this =this;
-        GET("website/coupon/list.jhtml?authorId="+_this.authorId).then(
+        GET("website/coupon/list.jhtml?authorId="+_this.article.member.id).then(
           function (res) {
             if (res.type=='success') {
                 _this.lists = res.data.data;
