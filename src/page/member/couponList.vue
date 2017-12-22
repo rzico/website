@@ -160,8 +160,8 @@
   export default {
     data () {
       return {
-        lists:[{naem:'满100减1元'}],
-        authorId:34
+        lists:[],
+        authorId:''
       }
     },
     components: {
@@ -173,7 +173,7 @@
       }
     },
     created() {
-//      this.open();
+      this.open();
     },
     methods:{
       open:function () {
