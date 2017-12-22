@@ -53,6 +53,7 @@
                   link:location.href,
                   logo:_this.topic.logo
                 });
+                SHARE(location.href);
               } else {
                 _this.$refs.toast.show("网络不稳定");
               }

@@ -63,10 +63,11 @@ export function AUTH(redirectURL,func) {
 }
 
 //检查静默授权
-export function SHARE() {
+export function SHARE(url) {
   var _this = this;
   if (utils.isweixin()) {
-    POST("weixin/get_config.jhtml?url="+encodeURIComponent(location.href.split('#')[0])).then(
+    alert(url.split('#')[0]);
+    POST("weixin/get_config.jhtml?url="+encodeURIComponent(url.split('#')[0])).then(
       function (data) {
         if (data.type=="success") {
           wx.config({
@@ -84,10 +85,12 @@ export function SHARE() {
           });
 
           wx.error(function (res) {
+            alert(res);
           });
 
           //处理验证成功的信息
           wx.ready(function () {
+            alert(3);
             //分享到朋友圈
             wx.onMenuShareTimeline({
               title: utils.getConfig().title, // 分享标题
