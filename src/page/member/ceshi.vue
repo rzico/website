@@ -1,7 +1,7 @@
 <template>
   <div>
-  <card ref="card" ></card>
-  <couponList ref="couponList"></couponList>
+    <card ref="card" ></card>
+    <couponList ref="couponList"></couponList>
   </div>
 </template>
 <script>
@@ -17,4 +17,4 @@
       couponList,
     },
   }
-  </script>
+</script>
