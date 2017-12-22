@@ -3,10 +3,9 @@ const config = {
   siteName:'芸店',
   appUrl:'http://a.app.qq.com/o/simple.jsp?pkgname=com.rzico.assistant',
   title:"芸店",
-  link:"http://weex.1xx.com",
-  thumbnail:"./static/logo.png",
+  link:"http://weixin.rzico.com",
   desc:'超强图文小视频分享社区,中国版Facebook.',
-  baseURL:"http://weex.1xx.com/",
+  baseURL:"http://weex.1xx.me/",
   wxAppid:"wx88a1ec3b5c3bc9c3"
 }
 
@@ -15,7 +14,6 @@ let utilsFunc = {
         return config
     },
     setConfig (conf) {
-      config.thumbnail =conf.thumbnail;
       config.title =conf.title;
       config.link =conf.link;
       config.desc =conf.desc;

@@ -46,7 +46,7 @@
     import Toast from '../widget/toast.vue';
     import payment from '../widget/payment.vue';
     import card from './member/card.vue';
-    import getCoupon from './member/getCoupon.vue'
+    import getCoupon from './member/activate.vue'
     export default {
         data () { return {
             logined:false,
