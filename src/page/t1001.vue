@@ -12,6 +12,8 @@
           <!--<vote  :article="watchArticle"></vote>-->
           <!--<reward  :article="watchArticle" @showDialog="showRewardDialog"></reward>-->
           <report  :article="watchArticle"></report>
+          <couponList :article="watchArticle"></couponList>
+          <cardImg :article="watchArticle"></cardImg>
           <auther ref="auther" :article="watchArticle"></auther>
           <review ref="review" :article="watchArticle"></review>
           <recommend ref="recommend" v-if="isPublish" :article="watchArticle" @go="fetchData"></recommend>
@@ -38,6 +40,8 @@
     import vote from './article/vote.vue';
     import reward from './article/reward.vue';
     import report from './article/report.vue';
+    import couponList from './member/couponList.vue';
+    import cardImg from './member/cardImg.vue';
     import auther from './article/auther.vue';
     import recommend from './article/recommend.vue';
     import review from './article/review.vue';
@@ -69,6 +73,8 @@
             article_content,
             reward,
             report,
+            couponList,
+            cardImg,
             auther,
             recommend,
             review,
