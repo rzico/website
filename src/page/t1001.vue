@@ -12,8 +12,8 @@
           <!--<vote  :article="watchArticle"></vote>-->
           <!--<reward  :article="watchArticle" @showDialog="showRewardDialog"></reward>-->
           <report  :article="watchArticle"></report>
-          <couponList :article="watchArticle"></couponList>
-          <cardImg :article="watchArticle"></cardImg>
+          <coupon ref="coupon"></coupon>
+          <cardImg ref="cardImg"></cardImg>
           <auther ref="auther" :article="watchArticle"></auther>
           <review ref="review" :article="watchArticle"></review>
           <recommend ref="recommend" v-if="isPublish" :article="watchArticle" @go="fetchData"></recommend>
@@ -40,8 +40,8 @@
     import vote from './article/vote.vue';
     import reward from './article/reward.vue';
     import report from './article/report.vue';
-    import couponList from './member/couponList.vue';
-    import cardImg from './member/cardImg.vue';
+    import coupon from './article/coupon.vue';
+    import cardImg from './article/cardImg.vue';
     import auther from './article/auther.vue';
     import recommend from './article/recommend.vue';
     import review from './article/review.vue';
@@ -73,7 +73,7 @@
             article_content,
             reward,
             report,
-            couponList,
+            coupon,
             cardImg,
             auther,
             recommend,
@@ -128,7 +128,8 @@
           },
           fetchData:function (id) {
              this.go(id);
-             this.$refs.review.open(id);
+            this.$refs.review.open(id);
+            this.$refs.cardImg.open(id);
              document.documentElement.scrollTop = 0;
              document.body.scrollTop = 0;
           },
@@ -139,6 +140,7 @@
                 if (response.type=="success") {
                   _this.watchArticle = response.data;
                   _this.isPublish = response.data.isPublish;
+                  _this.$refs.coupon.open(response.data.member.id);
                   console.log('watchArticle');
                   console.log(response.data);
                   //设置分享标题

@@ -2,7 +2,8 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import VueResource from 'vue-resource';
 import utils from '../assets/utils.js';
-import wx from 'weixin-js-sdk'
+import wx from 'weixin-js-sdk';
+
 Vue.use(Router);
 Vue.use(VueResource);
 
@@ -16,19 +17,19 @@ export function AUTH(redirectURL,func) {
       if (data.type == "success") {
         var logined = false;
         if (data.data.loginStatus && utils.isNull(redirectURL)) {
-          logined = true;
+            logined = true;
         } else
         if (data.data.loginStatus && !utils.isNull(redirectURL) && data.data.authed) {
-          logined = true;
+            logined = true;
         }
         if (logined) {
-          func(true);
+            func(true);
         }
         else {
           if (utils.isweixin()) {
             if (utils.isNull(redirectURL)) {
               scope = "snsapi_base";
-              redirectURL = location.href.split('&from=')[0];
+              redirectURL = location.href;
             } else {
               scope = "snsapi_userinfo";
             }
@@ -41,7 +42,7 @@ export function AUTH(redirectURL,func) {
           if (utils.isalipay()) {
             if (utils.isNull(redirectURL)) {
               scope = "auth_base";
-              redirectURL = location.href.split('&from=')[0];
+              redirectURL = location.href;
             } else {
               scope = "auth_user";
             }

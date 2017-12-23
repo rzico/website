@@ -173,15 +173,11 @@
       article: { default: function () {}}
     },
     mounted () {
-      var _this = this;
-      setTimeout(function () {
-        _this.open();
-      },500);
     },
     methods:{
-      open:function () {
+      open:function (id) {
         let _this =this;
-        GET("website/coupon/list.jhtml?authorId="+_this.article.member.id).then(
+        GET("website/coupon/list.jhtml?authorId="+id).then(
           function (res) {
             if (res.type=='success') {
                 _this.lists = res.data.data;
