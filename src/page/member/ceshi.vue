@@ -1,40 +1,42 @@
 <template>
-  <div class="bgc" >
-    <div class="insone" v-for="c in cards">
-      <div class="bg">
-        <div class="headlogo">
-          <img class="shopLogo" :src="c.logo">
+  <div class="backgc">
+    <div class="insOne" v-for="c in cards">
+      <div class="bgflex">
+        <div class="logo">
+          <img class="stroeLogo" :src="c.logo">
         </div>
       </div>
       <span class="f18 martop50">NO.{{c.code | codefmt}}</span>
       <span class="martop40 f30" style="color: #EB4E40">{{c.balance}}</span>
-      <span class="martop30 f14" style="color: #888">消费记录 | 我的赏金</span>
+      <span class="martop30 f14 fontColor888">消费记录 | 我的赏金</span>
     </div>
-    <div class="instwo">
+    <div class="instwo" v-if="isPopup">
       <div class="qrcode" :style="'background-image: url(http://pan.baidu.com/share/qrcode?w=200&h=200&url='+payCode+')'"></div>
       <span class="marbot15 f14">使用时，出示此码</span>
     </div>
     <div class="insthree">
-      <div class="codeDiv">
-        <div class=""></div>
-        <i class="iconfont icon-erweima erweima"></i>
+      <div class="codeDiv" ></div>
+      <div class="zezhu">
+        <i class="iconfont icon-erweima" style="font-size: 30px;position: absolute;top: -10px;" @click="iscontrol()"></i>
       </div>
+      <div class="couponDiv"><couponList></couponList></div>
     </div>
     <Toast ref="toast"></Toast>
   </div>
 </template>
-<style>
-  .bgc{
+<style scoped>
+  .backgc{
     background-color:#EB4E40;
     width: 100%;
+    height: 290px;
     position: absolute;
   }
-  .bg{
+  .bgflex{
     display: flex;
     display: -webkit-flex;
     justify-content: center;
   }
-  .headlogo{
+  .logo{
     height: 60px;
     width: 60px;
     background-color: #cccccc;
@@ -42,12 +44,12 @@
     position: absolute;
     top: -30px;
   }
-  .shopLogo{
+  .stroeLogo{
     height: 60px;
     width: 60px;
     border-radius: 30px;
   }
-  .insone{
+  .insOne{
     background-color: white;
     margin-right: 30px;
     margin-left: 30px;
@@ -74,19 +76,26 @@
     margin-left: 30px;
     margin-right: 30px;
     border-radius: 5px;
+    border-top: 1px;
+    border-left: 1px;
+    border-right: 1px;
+    border-bottom: 0;
+    border-color: #cccccc;
+    border-style: solid;
     display: flex;
     display: -webkit-flex;
     flex-direction: column;
     align-items: center;
   }
   .insthree{
-    height: 300px;
+    /*height: 300px;*/
     background-color: white;
     margin-right: 30px;
     margin-left: 30px;
     border-radius: 5px;
     border-width: 1px;
     border-color: #cccccc;
+    border-style: solid;
     display: flex;
     display: -webkit-flex;
     flex-direction: column;
@@ -100,8 +109,25 @@
     border-radius: 30px;
     border-width: 1px;
     border-color: #cccccc;
+    border-style: solid;
     position: absolute;
-    top: -10px;
+    top: -15px;
+  }
+  .zezhu{
+    width: 200px;
+    height: 45px;
+    margin-bottom: 55px;
+    display: flex;
+    display: -webkit-flex;
+    justify-content: center;
+    background-color: #ffffff;
+    position: absolute;
+    top:0
+  }
+  .couponDiv{
+    margin-top: 45px;
+    margin-right: 30px;
+    margin-left: 30px;
   }
   .f14{
     font-size: 14px;
@@ -141,16 +167,18 @@
   import { POST, GET, AUTH} from '../../assets/fetch.js';
   import utils from '../../assets/utils.js';
   import Toast from '../../widget/toast.vue';
+  import couponList from './couponList.vue';
   export default {
     data () {
       return {
         cards:[],
         id:'',
-        code:''
+        code:'',
+        isPopup:false
       }
     },
     components: {
-      Toast
+      Toast,couponList
     },
     filters: {
       codefmt:function (val) {
@@ -166,12 +194,10 @@
       this.load()
     },
     methods:{
-//      控制使用说明是否渲染
-//      control:function () {
-//        if (this.isPopup==false) {
-//          this.isPopup = true;
-//        }
-//      },
+//      控制二维码是否渲染
+      iscontrol:function () {
+          this.isPopup = !this.isPopup;
+      },
       open:function () {
         var _this = this;
         GET("website/member/card/list.jhtml").then(

@@ -36,7 +36,7 @@
     <Toast ref="toast"></Toast>
   </div>
 </template>
-<style>
+<style scoped>
   .backgroundcolor{
     background-color:#eeeeee;
     width: 100%;

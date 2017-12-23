@@ -30,9 +30,9 @@
     <Toast ref="toast"></Toast>
   </div>
 </template>
-<style>
+<style scoped>
    .bgc{
-    background-color:#EB4E40;
+     background-color:#EB4E40;
      width: 100%;
      position: absolute;
      top:0;
