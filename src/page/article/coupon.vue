@@ -3,11 +3,11 @@
     <div v-for="num in lists">
     <div class="topPortion">
       <div class="logo">
-        <img class="logoimg" :src="num.logo">
+        <img class="logoimg" :src="num.logo | logoImg">
       </div>
       <div class="moneyShopname">
         <div class="money">
-          <span class="moneyFont">${{num.amount}}</span>
+          <span class="moneyFont">¥{{num.amount}}</span>
         </div>
         <div class="shopname">
           <span class="shopFont">{{num.name}}</span>
@@ -33,14 +33,14 @@
       </div>
     </div>
     </div>
-    <Toast ref="toast"></Toast>
   </div>
 </template>
 <style scoped>
   .backgroundcolor{
     background-color:#eeeeee;
     width: 100%;
-    position: absolute;
+    position: relative;
+    padding:0px 10px 10px 10px;
   }
   .logo{
     width: 60px;
@@ -65,11 +65,8 @@
     align-items: center;
     justify-content: space-between;
     height: 80px;
-    margin-left: 20px;
-    padding-left: 20px;
-    margin-right: 20px;
-    padding-right: 20px;
     margin-top: 10px;
+    padding:0px 10px 0px 10px;
     border-top-right-radius: 7px;
     border-top-left-radius: 7px;
     background: #EB4E40;
@@ -80,12 +77,8 @@
     display: -webkit-flex;
     align-items: center;
     justify-content: space-between;
-    height: 80px;
-    margin-left: 20px;
-    padding-left: 20px;
-    margin-right: 20px;
-    padding-right: 20px;
-    margin-bottom: 10px;
+    padding:10px;
+    height: 60px;
     border-bottom-right-radius: 7px;
     border-bottom-left-radius: 7px;
     background: #ffffff;
@@ -127,7 +120,7 @@
   }
   .timefont{
     margin-left: 10px;
-    font-size: 16px;
+    font-size: 14px;
     color: #cccccc;
   }
   .type{
@@ -137,7 +130,7 @@
   }
   .typefont{
     margin-left: 10px;
-    font-size: 16px;
+    font-size: 14px;
     color: #cccccc;
   }
   .jumpButton{
@@ -148,7 +141,7 @@
   }
   .buttonFont{
     color:#ffffff;
-    font-size: 16px;
+    font-size: 14px;
   }
 </style>
 <script>
@@ -167,6 +160,13 @@
     filters: {
       timeDatefmt(val) {
         return utils.timeDatefmt(val);
+      },
+      logoImg:function(value) {
+        if (utils.isNull(value)) {
+          return "";
+        } else {
+          return utils.thumbnail(value,utils.screenWidth(),150,150);
+        }
       }
     },
     props: {
@@ -181,12 +181,9 @@
           function (res) {
             if (res.type=='success') {
                 _this.lists = res.data.data;
-            } else {
-              _this.$refs.toast.show(res.content);
             }
           },
           function (err) {
-            _this.$refs.toast.show(err.content);
           }
         )
       },

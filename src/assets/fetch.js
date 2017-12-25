@@ -33,11 +33,8 @@ export function AUTH(redirectURL,func) {
             } else {
               scope = "snsapi_userinfo";
             }
-            var uxid = utils.getUrlParameter("uxid");
-            if (uxid==null) {
-              uxid = "";
-            }
-            location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + utils.getConfig().wxAppid + "&redirect_uri=" + encodeURIComponent(utils.getConfig().baseURL+"website/login/weixin.jhtml?uxid="+uxid+"&state="+b64safe(redirectURL)) + "&response_type=code&scope="+scope+"&state=state#wechat_redirect";
+            let state = b64safe(redirectURL);
+            location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + utils.getConfig().wxAppid + "&redirect_uri=" + encodeURIComponent(utils.getConfig().baseURL+"website/login/weixin.jhtml?redirectURL="+state) + "&response_type=code&scope="+scope+"&state=state#wechat_redirect";
           } else
           if (utils.isalipay()) {
             if (utils.isNull(redirectURL)) {
@@ -46,11 +43,8 @@ export function AUTH(redirectURL,func) {
             } else {
               scope = "auth_user";
             }
-            var uxid = utils.getUrlParameter("uxid");
-            if (uxid==null) {
-              uxid = "";
-            }
-            location.href = "https://openauth.alipay.com/oauth2/publicAppAuthorize.htm?app_id=" + utils.getConfig().alAppid + "&redirect_uri=" + encodeURIComponent(utils.getConfig().baseURL+"website/login/alipay.jhtml?uxid="+uxid+"&state="+b64safe(redirectURL)) + "&scope="+scope+"&state=state";
+            let state = b64safe(redirectURL);
+            location.href = "https://openauth.alipay.com/oauth2/publicAppAuthorize.htm?app_id=" + utils.getConfig().alAppid + "&redirect_uri=" + encodeURIComponent(utils.getConfig().baseURL+"website/login/alipay.jhtml?redirectURL="+state)+ "&scope="+scope+"&state=state";
           } else {
             Vue.$router.push({name:"login",query:{redirectURL:location.href}});
           }

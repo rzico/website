@@ -1,7 +1,5 @@
 <template>
-
-  <img class="card" :src="'./static/card_picker.jpg'" v-if="control" @click="jump"/>
-
+  <img class="card" :src="'./static/card_picker.jpg'" v-if="isShow" @click="jump">
 </template>
 <style>
 
@@ -13,7 +11,7 @@
   export default {
     data() {
       return {
-        control:false,
+        isShow:false,
         url:''
       }
     },
@@ -23,7 +21,7 @@
     filters: {
 
     },
-    mounted () {
+    created () {
       var _this = this;
       let id = utils.getUrlParameter("id");
       setTimeout(function () {
@@ -36,16 +34,13 @@
         GET("website/card/view.jhtml?articleId="+id).then(
           function (res) {
             if (res.type == 'success') {
-              if(res.data.useCard == true){
-                _this.control = true
+              if(res.data.useCard == 'true'){
+                _this.isShow = true
               }
-            _this.url = res.data.url
-            } else {
-              _this.$refs.toast.show(res.content);
+              _this.url = res.data.url
             }
           },
           function (err) {
-            _this.$refs.toast.show(err.content);
           }
         )
       },
