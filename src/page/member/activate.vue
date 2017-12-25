@@ -27,7 +27,11 @@
         <li class="f14 fontColor888">不可售与他人</li>
       </div>
     </div>
-    <Toast ref="toast"></Toast>
+    <weui-dialog ref="prompting" type="alert" title=""
+                 confirm-button="关闭"
+                 @weui-dialog-confirm="closeWindow()">
+      {{Mes}}
+    </weui-dialog>
   </div>
 </template>
 <style scoped>
@@ -155,6 +159,7 @@
 </style>
 <script>
   import { POST, GET, AUTH} from '../../assets/fetch.js';
+  import Dialog from '../../widget/dialog.vue';
   import utils from '../../assets/utils.js';
   import Toast from '../../widget/toast.vue';
   export default {
@@ -166,11 +171,13 @@
         shopName:'',
         beginDate:'',
         endDate:'',
-        isPopup:false
+        isPopup:false,
+        Mes:''
       }
     },
     components: {
-      Toast
+      Toast,
+      'weui-dialog':Dialog,
     },
     filters: {
       timeDatefmt(val) {
@@ -211,10 +218,12 @@
         POST('website/member/coupon/activate.jhtml?id='+_this.couponId).then(
           function (data) {
             if (data.type=="success") {
-              _this.$refs.toast.show(data.content);
+              _this.Mes = data.content;
+              _this.$refs.prompting.show();
               _this.$router.go(-1)
             } else {
-              _this.$refs.toast.show(data.content);
+              _this.Mes = data.content;
+              _this.$refs.prompting.show();
               _this.$router.go(-1)
             }
           },
@@ -222,6 +231,9 @@
             _this.$refs.toast.show(err.content);
           }
         )
+      },
+      closeWindow:function () {
+        wx.closeWindow();
       },
     }
   }
