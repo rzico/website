@@ -167,7 +167,6 @@
   import { POST, GET, AUTH} from '../../assets/fetch.js';
   import utils from '../../assets/utils.js';
   import Toast from '../../widget/toast.vue';
-  import couponList from './couponList.vue';
   export default {
     data () {
       return {
@@ -178,7 +177,7 @@
       }
     },
     components: {
-      Toast,couponList
+      Toast
     },
     filters: {
       codefmt:function (val) {
