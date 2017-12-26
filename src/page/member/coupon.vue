@@ -17,6 +17,7 @@
   </div>
 </template>
 <style scoped>
+  @import '../../less/coupon.less';
   .weui_cell {
     flex-direction: column;
   }
