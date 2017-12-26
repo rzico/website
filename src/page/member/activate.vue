@@ -220,20 +220,19 @@
             if (data.type=="success") {
               _this.Mes = data.content;
               _this.$refs.prompting.show();
-              _this.$router.go(-1)
             } else {
               _this.Mes = data.content;
               _this.$refs.prompting.show();
-              _this.$router.go(-1)
             }
           },
           function (err) {
-            _this.$refs.toast.show(err.content);
+            _this.Mes = err.content;
+            _this.$refs.prompting.show();
           }
         )
       },
       closeWindow:function () {
-        wx.closeWindow();
+        this.$router.go(-1)
       },
     }
   }

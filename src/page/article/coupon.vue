@@ -3,14 +3,14 @@
     <div v-for="num in lists">
     <div class="topPortion">
       <div class="logo">
-        <img class="logoimg" :src="num.logo">
+        <img class="logoimg" :src="num.logo | logoImg">
       </div>
       <div class="moneyShopname">
         <div class="money">
-          <span class="moneyFont">${{num.amount}}</span>
+          <span class="moneyFont">¥{{num.amount}}  优惠券</span>
         </div>
         <div class="shopname">
-          <span class="shopFont">{{num.name}}</span>
+          <span class="shopFont">{{num.shopName}}</span>
         </div>
       </div>
       <!--小半圆-->
@@ -19,13 +19,13 @@
     </div>
     <div class="bottomPortion">
       <div>
-      <div class="time">
-      <i class="iconfont icon-tishi tishitubiao"></i>
-      <span class="timefont">{{num.endDate | timeDatefmt}}</span>
-      </div>
+      <!--<div class="time">-->
+      <!--<i class="iconfont icon-tishi tishitubiao"></i>-->
+      <!--<span class="timefont">{{num.endDate | timeDatefmt}}</span>-->
+      <!--</div>-->
       <div class="type">
         <i class="iconfont icon-tishi tishitubiao"></i>
-        <span class="typefont">全场使用</span>
+        <span class="typefont">{{num.name}}</span>
       </div>
       </div>
       <div class="jumpButton" @click="jump(num.id)">
@@ -33,14 +33,14 @@
       </div>
     </div>
     </div>
-    <Toast ref="toast"></Toast>
   </div>
 </template>
 <style scoped>
   .backgroundcolor{
     background-color:#eeeeee;
     width: 100%;
-    position: absolute;
+    position: relative;
+    padding:10px 10px 10px 10px;
   }
   .logo{
     width: 60px;
@@ -64,12 +64,9 @@
     display: -webkit-flex;
     align-items: center;
     justify-content: space-between;
-    height: 80px;
-    margin-left: 20px;
-    padding-left: 20px;
-    margin-right: 20px;
-    padding-right: 20px;
+    height: 100px;
     margin-top: 10px;
+    padding:0px 20px 0px 20px;
     border-top-right-radius: 7px;
     border-top-left-radius: 7px;
     background: #EB4E40;
@@ -80,15 +77,11 @@
     display: -webkit-flex;
     align-items: center;
     justify-content: space-between;
-    height: 80px;
-    margin-left: 20px;
-    padding-left: 20px;
-    margin-right: 20px;
-    padding-right: 20px;
-    margin-bottom: 10px;
+    padding:10px 20px;
+    height: 35px;
     border-bottom-right-radius: 7px;
     border-bottom-left-radius: 7px;
-    background: #ffffff;
+    background: sandybrown;
   }
   .mindot1{
     height: 8px;
@@ -127,7 +120,7 @@
   }
   .timefont{
     margin-left: 10px;
-    font-size: 16px;
+    font-size: 14px;
     color: #cccccc;
   }
   .type{
@@ -137,7 +130,7 @@
   }
   .typefont{
     margin-left: 10px;
-    font-size: 16px;
+    font-size: 14px;
     color: #cccccc;
   }
   .jumpButton{
@@ -148,7 +141,7 @@
   }
   .buttonFont{
     color:#ffffff;
-    font-size: 16px;
+    font-size: 14px;
   }
 </style>
 <script>
@@ -167,6 +160,13 @@
     filters: {
       timeDatefmt(val) {
         return utils.timeDatefmt(val);
+      },
+      logoImg:function(value) {
+        if (utils.isNull(value)) {
+          return "";
+        } else {
+          return utils.thumbnail(value,utils.screenWidth(),150,150);
+        }
       }
     },
     props: {
@@ -181,12 +181,9 @@
           function (res) {
             if (res.type=='success') {
                 _this.lists = res.data.data;
-            } else {
-              _this.$refs.toast.show(res.content);
             }
           },
           function (err) {
-            _this.$refs.toast.show(err.content);
           }
         )
       },
