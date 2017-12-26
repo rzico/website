@@ -6,30 +6,40 @@
           <img class="stroeLogo" :src="c.logo">
         </div>
       </div>
-      <span class="f18 martop50">NO.{{c.code | codefmt}}</span>
-      <span class="martop40 f30" style="color: #EB4E40">{{c.balance}}</span>
-      <span class="martop30 f14 fontColor888">消费记录 | 我的赏金</span>
-    </div>
-    <div class="instwo" v-if="isPopup">
-      <div class="qrcode" :style="'background-image: url(http://pan.baidu.com/share/qrcode?w=200&h=200&url='+payCode+')'"></div>
-      <span class="marbot15 f14">使用时，出示此码</span>
+      <span class="f14 martop30">{{c.name}}</span>
+      <span class="f18 martop15">NO.{{c.code | codefmt}}</span>
+      <span class="martop10 f30" style="color: #EB4E40">{{c.balance}}</span>
+      <div class="martop10">
+        <span class=" f14 fontColor888" @click="jumpcoupon()">我的账单 | </span><span class=" f14 fontColor888" @click="jumpreward()">我的奖金</span>
+      </div>
     </div>
     <div class="insthree">
       <div class="codeDiv" ></div>
       <div class="zezhu">
-        <i class="iconfont icon-erweima" style="font-size: 30px;position: absolute;top: -10px;" @click="iscontrol()"></i>
+        <i class="iconfont icon-erweima" style="font-size: 30px;position: absolute;top: -10px;" @click="iscontrol()" v-show="!isPopup"></i>
+        <i class="iconfont icon-arrow-dropright" style="font-size: 30px;position: absolute;top: -10px;" @click="iscontrol()" v-show="isPopup"></i>
       </div>
-      <div class="couponDiv"><couponList></couponList></div>
+      <div class="couponDiv">
+        <div class="instwo" v-if="isPopup">
+          <div class="qrcode" :style="'background-image: url(http://pan.baidu.com/share/qrcode?w=200&h=200&url='+payCode+')'"></div>
+          <span class="marbot15 f14">使用时，出示此码</span>
+        </div>
+      </div>
+    </div>
+    <div class="insfour" v-show="!isPopup">
+      <couponceshi></couponceshi>
     </div>
     <Toast ref="toast"></Toast>
   </div>
 </template>
 <style scoped>
+  @import '../../less/member.less';
   .backgc{
     background-color:#EB4E40;
     width: 100%;
-    height: 290px;
     position: absolute;
+    top:0;
+    bottom: 0;
   }
   .bgflex{
     display: flex;
@@ -37,24 +47,24 @@
     justify-content: center;
   }
   .logo{
-    height: 60px;
-    width: 60px;
+    height: 40px;
+    width: 40px;
     background-color: #cccccc;
-    border-radius: 30px;
+    border-radius: 20px;
     position: absolute;
-    top: -30px;
+    top: -20px;
   }
   .stroeLogo{
-    height: 60px;
-    width: 60px;
-    border-radius: 30px;
+    height: 40px;
+    width: 40px;
+    border-radius: 20px;
   }
   .insOne{
     background-color: white;
     margin-right: 30px;
     margin-left: 30px;
     margin-top: 40px;
-    height: 250px;
+    height: 210px;
     align-items: center;
     border-radius: 5px;
     display: flex;
@@ -73,15 +83,8 @@
     border-color: #eee;
   }
   .instwo{
-    margin-left: 30px;
-    margin-right: 30px;
-    border-radius: 5px;
-    border-top: 1px;
-    border-left: 1px;
-    border-right: 1px;
-    border-bottom: 0;
-    border-color: #cccccc;
-    border-style: solid;
+    background-color: #EB4E40;
+    width: 100%;
     display: flex;
     display: -webkit-flex;
     flex-direction: column;
@@ -89,13 +92,9 @@
   }
   .insthree{
     /*height: 300px;*/
-    background-color: white;
+    background-color: #EB4E40;
     margin-right: 30px;
     margin-left: 30px;
-    border-radius: 5px;
-    border-width: 1px;
-    border-color: #cccccc;
-    border-style: solid;
     display: flex;
     display: -webkit-flex;
     flex-direction: column;
@@ -105,11 +104,8 @@
   .codeDiv{
     height: 60px;
     width: 60px;
-    background-color: white;
+    background-color: #EB4E40;
     border-radius: 30px;
-    border-width: 1px;
-    border-color: #cccccc;
-    border-style: solid;
     position: absolute;
     top: -15px;
   }
@@ -120,14 +116,12 @@
     display: flex;
     display: -webkit-flex;
     justify-content: center;
-    background-color: #ffffff;
+    background-color: #EB4E40;
     position: absolute;
     top:0
   }
   .couponDiv{
     margin-top: 45px;
-    margin-right: 30px;
-    margin-left: 30px;
   }
   .f14{
     font-size: 14px;
@@ -146,6 +140,12 @@
   }
   .martop50{
     margin-top: 50px;
+  }
+  .martop25{
+    margin-top: 25px;
+  }
+  .martop20{
+    margin-top: 20px;
   }
   .martop30{
     margin-top: 30px;
@@ -167,6 +167,7 @@
   import { POST, GET, AUTH} from '../../assets/fetch.js';
   import utils from '../../assets/utils.js';
   import Toast from '../../widget/toast.vue';
+  import couponceshi from '../member/couponceshi.vue';
   export default {
     data () {
       return {
@@ -177,7 +178,7 @@
       }
     },
     components: {
-      Toast
+      Toast,couponceshi
     },
     filters: {
       codefmt:function (val) {
@@ -195,7 +196,7 @@
     methods:{
 //      控制二维码是否渲染
       iscontrol:function () {
-          this.isPopup = !this.isPopup;
+        this.isPopup = !this.isPopup;
       },
       open:function () {
         var _this = this;
@@ -223,6 +224,12 @@
 
           }
         )
+      },
+      jumpreward:function() {
+        this.$router.push({name:"reward",query:{}});
+      },
+      jumpcoupon:function() {
+        this.$router.push({name:"memberCoupon",query:{}});
       },
     }
   }
