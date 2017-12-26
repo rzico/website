@@ -7,10 +7,10 @@
       </div>
       <div class="moneyShopname">
         <div class="money">
-          <span class="moneyFont">¥{{num.amount}}</span>
+          <span class="moneyFont">¥{{num.amount}}  优惠券</span>
         </div>
         <div class="shopname">
-          <span class="shopFont">{{num.name}}</span>
+          <span class="shopFont">{{num.shopName}}</span>
         </div>
       </div>
       <!--小半圆-->
@@ -19,13 +19,13 @@
     </div>
     <div class="bottomPortion">
       <div>
-      <div class="time">
-      <i class="iconfont icon-tishi tishitubiao"></i>
-      <span class="timefont">{{num.endDate | timeDatefmt}}</span>
-      </div>
+      <!--<div class="time">-->
+      <!--<i class="iconfont icon-tishi tishitubiao"></i>-->
+      <!--<span class="timefont">{{num.endDate | timeDatefmt}}</span>-->
+      <!--</div>-->
       <div class="type">
         <i class="iconfont icon-tishi tishitubiao"></i>
-        <span class="typefont">全场使用</span>
+        <span class="typefont">{{num.name}}</span>
       </div>
       </div>
       <div class="jumpButton" @click="jump(num.id)">
@@ -40,7 +40,7 @@
     background-color:#eeeeee;
     width: 100%;
     position: relative;
-    padding:0px 10px 10px 10px;
+    padding:10px 10px 10px 10px;
   }
   .logo{
     width: 60px;
@@ -64,9 +64,9 @@
     display: -webkit-flex;
     align-items: center;
     justify-content: space-between;
-    height: 80px;
+    height: 100px;
     margin-top: 10px;
-    padding:0px 10px 0px 10px;
+    padding:0px 20px 0px 20px;
     border-top-right-radius: 7px;
     border-top-left-radius: 7px;
     background: #EB4E40;
@@ -77,11 +77,11 @@
     display: -webkit-flex;
     align-items: center;
     justify-content: space-between;
-    padding:10px;
-    height: 60px;
+    padding:10px 20px;
+    height: 35px;
     border-bottom-right-radius: 7px;
     border-bottom-left-radius: 7px;
-    background: #ffffff;
+    background: sandybrown;
   }
   .mindot1{
     height: 8px;
