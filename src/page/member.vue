@@ -186,14 +186,14 @@
       return {
         card:{id:0,status:'none',name:"样例",logo:"./static/logo.png",background:"./static/card.png",color:"c8",balance:0,code:"8800000000000000"},
         cardId:'',
-        isPopup:false,
+        isPopup:true,
         payCode:''
       }
     },
     components: {
       Toast,
       couponceshi,
-        'v-loadmore':Loadmore, // 为组件起别名，vue转换template标签时不会区分大小写，例如：loadMore这种标签转换完就会变成loadmore，容易出现一些匹配问题
+      'v-loadmore':Loadmore, // 为组件起别名，vue转换template标签时不会区分大小写，例如：loadMore这种标签转换完就会变成loadmore，容易出现一些匹配问题
     },
     filters: {
       codefmt:function (val) {
@@ -209,7 +209,7 @@
       AUTH(location.href,function (authed) {
         _this.logined  = authed;
       })
-      _this.cardId = utils.getUrlParameter("cardId");
+      _this.cardId = utils.getUrlParameter("card_id");
       this.load()
     },
     methods:{
@@ -217,7 +217,7 @@
         if (this.idx==2) {
           this.$refs.reward.refresh()
         } else {
-          this.$refs.loadmore.onTopLoaded();// 固定方法，查询完要调用一次，用于重新定位
+          this.$refs.loadmore.onTopLoaded();// 固定方法，查询完要调用一次，用于重n新定位
         }
       },
       loadBottom:function() {
@@ -234,10 +234,13 @@
           this.isfixed = false;
         }
       },
+
 //      控制二维码是否渲染
+
       iscontrol:function () {
         this.isPopup = !this.isPopup;
       },
+
       load:function () {
         var _this = this;
         GET("website/member/card/bkg.jhtml?cardId="+_this.cardId).then(
@@ -246,19 +249,19 @@
               _this.card = res.data.card;
               _this.payCode = res.data.payCode;
               _this.isPopup = true;
-            } else {
-
             }
           },function (err) {
 
           }
         )
       },
+
       jumpreward:function() {
-        this.$router.push({name:"reward",query:{}});
+//      this.$router.push({name:"reward",query:{}});
       },
+
       jumpcoupon:function() {
-//        this.$router.push({name:"memberCoupon",query:{}});
+//      this.$router.push({name:"memberCoupon",query:{}});
       },
     }
   }
