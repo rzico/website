@@ -1,27 +1,22 @@
 <template>
   <div class="bg"  v-if="hasCoupon()">
-    <div  v-for="c in coupons" >
-    <div class="top">
-      <div class="flex-c marleft20 ">
-        <span class="f30 color">10</span>
-        <span class="f12 color marbottom15">优惠券</span>
-      </div>
-      <div class="flex-c marleft30">
+    <div class="top marbottom15" v-for="c in coupons">
+      <div class="flex-r" style="height: 60px;border-width: 0 0 1px 0;border-color: #cccccc;border-style: dashed">
+        <span class="f30 color">{{c.amount}}</span>
         <span class="f16">{{c.couponName}}</span>
-        <span class="f12" style="color: #cccccc">{{c.descr}}</span>
+        <div class="button" @click="openCoupon(c.id)">
+          <span class="f14" style="color:#ffffff">去使用</span>
+        </div>
       </div>
-      <div class="button marleft20" @click="openCoupon(c.id)">
-        <span class="f14" style="color:#ffffff">去使用</span>
+      <div class="flex-r" style="height: 40px">
+        <span class="f12 color ">优惠券</span>
+        <span class="f12" style="color: #cccccc">{{c.descr}}</span>
       </div>
       <!--两个小半圆-->
       <div class="left"></div>
       <div class="right"></div>
     </div>
-    <div class="bottom marbottom15">
-      <span class=""></span>
     </div>
-    </div>
-  </div>
 </template>
 <style scoped>
   .bg{
@@ -38,18 +33,14 @@
     margin-right: 10px;
     display: flex;
     display: -webkit-flex;
-    flex-direction: row;
-    align-items: center;
-    border-top-left-radius: 3px;
-    border-top-right-radius: 3px;
+    flex-direction: column;
+    border-radius: 3px;
   }
-  .bottom{
-    background-color: #dddddd;
-    height: 30px;
-    margin-left: 10px;
-    margin-right: 10px;
-    border-bottom-left-radius: 3px;
-    border-bottom-right-radius: 3px;
+  .width25{
+    width: 25%;
+  }
+  .width50{
+    width: 50%;
   }
   .left{
     height: 10px;
@@ -57,7 +48,7 @@
     border-radius:5px;
     background-color: #eeeeee;
     position: absolute;
-    bottom: -5px;
+    top: 55px;
     left: -5px;
   }
   .right{
@@ -66,7 +57,7 @@
     border-radius:5px;
     background-color: #eeeeee;
     position: absolute;
-    bottom: -5px;
+    top: 55px;
     right: -5px;
   }
   .f30{
@@ -88,6 +79,19 @@
     display: flex;
     display: -webkit-flex;
     flex-direction: column;
+    align-items: center;
+  }
+  .flex-r{
+    display: flex;
+    display: -webkit-flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+  }
+  .flex1{
+    display: flex;
+    display: -webkit-flex;
+    flex: 1;
   }
   .marleft30{
     margin-left: 30px;
