@@ -1,147 +1,93 @@
 <template>
-  <div class="backgroundcolor">
-    <div v-for="num in lists">
-    <div class="topPortion">
-      <div class="logo">
-        <img class="logoimg" :src="num.logo | logoImg">
-      </div>
-      <div class="moneyShopname">
-        <div class="money">
-          <span class="moneyFont">¥{{num.amount}}  优惠券</span>
-        </div>
-        <div class="shopname">
-          <span class="shopFont">{{num.shopName}}</span>
+  <div class="bg">
+    <div class="top marbottom15" v-for="num in lists">
+      <div class="flex-r" style="height: 60px;border-width: 0 0 1px 0;border-color: #cccccc;border-style: dashed">
+        <span class="f30 color">{{num.amount}}</span>
+        <span class="f16">{{num.name}}</span>
+        <div class="button" @click="jump(num.id)">
+          <span class="f14" style="color:#ffffff">去领取</span>
         </div>
       </div>
-      <!--小半圆-->
-      <div class="mindot1"></div>
-      <div class="mindot2"></div>
-    </div>
-    <div class="bottomPortion">
-      <div>
-      <!--<div class="time">-->
-      <!--<i class="iconfont icon-tishi tishitubiao"></i>-->
-      <!--<span class="timefont">{{num.endDate | timeDatefmt}}</span>-->
-      <!--</div>-->
-      <div class="type">
-        <i class="iconfont icon-tishi tishitubiao"></i>
-        <span class="typefont">{{num.name}}</span>
+      <div class="flex-r" style="height: 40px">
+        <span class="f12 color ">优惠券</span>
+        <div style="display: flex;display: -webkit-flex;flex-direction: row;align-items: center;">
+        <span class="f12" style="color: #cccccc">{{num.beginDate |timeDatefmt}}</span>
+          <span class="f12" style="color: #cccccc">至</span>
+        <span class="f12" style="color: #cccccc">{{num.endDate |timeDatefmt}}</span>
+        </div>
       </div>
-      </div>
-      <div class="jumpButton" @click="jump(num.id)">
-        <span class="buttonFont">立即领取</span>
-      </div>
-    </div>
+      <!--两个小半圆-->
+      <div class="left"></div>
+      <div class="right"></div>
     </div>
   </div>
 </template>
 <style scoped>
-  .backgroundcolor{
-    background-color:#eeeeee;
+  .bg{
+    background-color: #eeeeee;
     width: 100%;
+    padding-top: 10px;
+
+  }
+  .top{
     position: relative;
-    padding:10px 10px 10px 10px;
-  }
-  .logo{
-    width: 60px;
-    height: 60px;
-    background: #eeeeee;
-    border-radius: 30px;
-  }
-  .logoimg{
-    width: 60px;height: 60px;border-radius: 30px;
-  }
-  .moneyShopname{
+    background-color: white;
+    height: 100px;
+    margin-left: 10px;
+    margin-right: 10px;
     display: flex;
     display: -webkit-flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: flex-end;
-    width: 200px;
+    border-radius: 3px;
   }
-  .topPortion {
-    display: flex;
-    display: -webkit-flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 100px;
-    margin-top: 10px;
-    padding:0px 20px 0px 20px;
-    border-top-right-radius: 7px;
-    border-top-left-radius: 7px;
-    background: #EB4E40;
-    position: relative;
-  }
-  .bottomPortion {
-    display: flex;
-    display: -webkit-flex;
-    align-items: center;
-    justify-content: space-between;
-    padding:10px 20px;
-    height: 35px;
-    border-bottom-right-radius: 7px;
-    border-bottom-left-radius: 7px;
-    background: sandybrown;
-  }
-  .mindot1{
-    height: 8px;
-    width: 8px;
-    border-radius:4px;
-    background: #eeeeee;
+  .left{
+    height: 10px;
+    width: 10px;
+    border-radius:5px;
+    background-color: #eeeeee;
     position: absolute;
-    bottom: -4px;
-    left: -4px;
+    top: 55px;
+    left: -5px;
   }
-  .mindot2 {
-    height: 8px;
-    width: 8px;
-    border-radius: 4px;
-    background: #eeeeee;
+  .right{
+    height: 10px;
+    width: 10px;
+    border-radius:5px;
+    background-color: #eeeeee;
     position: absolute;
-    bottom: -4px;
-    right: -4px;
+    top: 55px;
+    right: -5px;
   }
-  .moneyFont{
-    font-size: 28px;
-    font-weight: 600;
-    color: #ffffff;
+  .f30{
+    font-size: 30px;
   }
-  .shopFont{
+  .f16{
     font-size: 16px;
   }
-  .tishitubiao{
-    font-size: 20px;
-    color: #cccccc;
+  .f14{
+    font-size: 14px;
   }
-  .time{
+  .f12{
+    font-size: 12px;
+  }
+  .flex-r{
     display: flex;
     display: -webkit-flex;
+    flex-direction: row;
     align-items: center;
+    justify-content: space-around;
   }
-  .timefont{
-    margin-left: 10px;
-    font-size: 14px;
-    color: #cccccc;
+  .marbottom15{
+    margin-bottom: 15px;
   }
-  .type{
-    display: flex;
-    display: -webkit-flex;
-    align-items: center;
-  }
-  .typefont{
-    margin-left: 10px;
-    font-size: 14px;
-    color: #cccccc;
-  }
-  .jumpButton{
-    background:#EB4E40 ;
+  .button{
     padding-left: 5px;
     padding-right: 5px;
-    border-radius: 5px;
+    background-color:#EB4E40;
+    border-radius: 3px;
   }
-  .buttonFont{
-    color:#ffffff;
-    font-size: 14px;
+  .color{
+    color:#EB4E40
   }
 </style>
 <script>
@@ -151,7 +97,7 @@
   export default {
     data () {
       return {
-        lists:[],
+        lists:[{}],
       }
     },
     components: {
@@ -175,6 +121,7 @@
     mounted () {
     },
     methods:{
+
       open:function (id) {
         let _this =this;
         GET("website/coupon/list.jhtml?authorId="+id).then(
