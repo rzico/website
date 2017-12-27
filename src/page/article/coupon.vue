@@ -78,10 +78,10 @@
     align-items: center;
     justify-content: space-between;
     padding:10px 20px;
-    height: 35px;
+    height: 45px;
     border-bottom-right-radius: 7px;
     border-bottom-left-radius: 7px;
-    background: sandybrown;
+    background: #fff;
   }
   .mindot1{
     height: 8px;
@@ -131,7 +131,7 @@
   .typefont{
     margin-left: 10px;
     font-size: 14px;
-    color: #cccccc;
+    color: #999;
   }
   .jumpButton{
     background:#EB4E40 ;
