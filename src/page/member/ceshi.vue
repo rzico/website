@@ -1,5 +1,8 @@
 <template>
-  <div class="backgc">
+  <div class="container">
+    <div class="
+slideIn member backgc" @scroll="onscroll" offset-accuracy="0">
+      <v-loadmore :top-method="loadTop" :bottom-method="loadBottom" :bottom-all-loaded="false" :auto-fill="false" ref="loadmore">
     <div class="insOne" v-for="c in cards">
       <div class="bgflex">
         <div class="logo">
@@ -29,11 +32,12 @@
     <div class="insfour" v-show="!isPopup">
       <couponceshi></couponceshi>
     </div>
+      </v-loadmore>
+    </div>
     <Toast ref="toast"></Toast>
   </div>
 </template>
 <style scoped>
-  @import '../../less/member.less';
   .backgc{
     background-color:#EB4E40;
     width: 100%;
@@ -101,6 +105,15 @@
     align-items: center;
     position: relative;
   }
+  .insfour{
+    margin-left: 30px;
+    margin-right: 30px;
+    min-height:400px;
+    background-color:#eeeeee;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+
+  }
   .codeDiv{
     height: 60px;
     width: 60px;
@@ -164,6 +177,7 @@
   }
 </style>
 <script>
+  import {Loadmore} from 'mint-ui';
   import { POST, GET, AUTH} from '../../assets/fetch.js';
   import utils from '../../assets/utils.js';
   import Toast from '../../widget/toast.vue';
@@ -174,11 +188,15 @@
         cards:[],
         id:'',
         code:'',
-        isPopup:false
+        isPopup:false,
+        idx:0,
+        isfixed:false
       }
     },
     components: {
-      Toast,couponceshi
+      Toast,
+      couponceshi,
+        'v-loadmore':Loadmore, // 为组件起别名，vue转换template标签时不会区分大小写，例如：loadMore这种标签转换完就会变成loadmore，容易出现一些匹配问题
     },
     filters: {
       codefmt:function (val) {
@@ -194,6 +212,27 @@
       this.load()
     },
     methods:{
+      loadTop:function() { //组件提供的下拉触发方法
+        if (this.idx==2) {
+          this.$refs.reward.refresh()
+        } else {
+          this.$refs.loadmore.onTopLoaded();// 固定方法，查询完要调用一次，用于重新定位
+        }
+      },
+      loadBottom:function() {
+        if (this.idx==2) {
+          this.$refs.reward.loading()
+        } else {
+          this.$refs.loadmore.onBottomLoaded();// 固定方法，查询完要调用一次，用于重新定位
+        }
+      },
+      onscroll(e){
+        if(e.target.scrollTop >= 180){
+          this.isfixed = true;
+        }else{
+          this.isfixed = false;
+        }
+      },
 //      控制二维码是否渲染
       iscontrol:function () {
         this.isPopup = !this.isPopup;
@@ -229,7 +268,7 @@
         this.$router.push({name:"reward",query:{}});
       },
       jumpcoupon:function() {
-        this.$router.push({name:"memberCoupon",query:{}});
+//        this.$router.push({name:"memberCoupon",query:{}});
       },
     }
   }
