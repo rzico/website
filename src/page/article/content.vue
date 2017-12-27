@@ -5,7 +5,7 @@
         <div class="section section-on section-border text-up fill" v-if="isShow(index)">
             <div class="text"><h3>{{template.title}}</h3></div>
             <div class="text-box" v-html="template.content"></div>
-            <div class="img-box" v-if="template.mediaType == 'image'">
+            <div class="img-box" v-if="template.mediaType == 'image' && template.original!='' ">
                 <img
                   v-bind:src="template.original | watchImg"
                     class="images shadow img-border" @click="preview(0)"/>
@@ -45,7 +45,11 @@
       filters:{
 //        用原图去阿里云获取缩略图
         watchImg:function(value) {
-          return utils.thumbnail_cover(value,utils.screenWidth());
+          if (utils.isNull(value)) {
+              return "";
+          } else {
+              return utils.thumbnail_cover(value,utils.screenWidth());
+          }
         }
     },
       methods: {

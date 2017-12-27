@@ -3,15 +3,15 @@
     <div class="insone">
       <div class="bg">
         <div class="headlogo">
-          <image :src="logo"></image>
+          <img class="shopLogo" :src="logo">
         </div>
       </div>
       <span class="f16 martop40">由{{shopName}}提供</span>
       <span class="f30 martop10">{{name}}</span>
-      <div class="getClick martop15" @click="" >
+      <div class="getClick martop15" @click="pick" >
         <span class="f18" style="color: white">点击领取</span>
       </div>
-      <span class="martop30 f14" style="color: #888">有效期{{beginDate | timefmt}}至{{endDate | timefmt}}</span>
+      <span class="martop30 f14" style="color: #888">有效期{{beginDate | timeDatefmt}}至{{endDate | timeDatefmt}}</span>
       <!--左右两边的半圆-->
       <div class="rightmindiv"></div>
       <div class="leftmindiv"></div>
@@ -27,13 +27,18 @@
         <li class="f14 fontColor888">不可售与他人</li>
       </div>
     </div>
+    <weui-dialog ref="prompting" type="alert" title=""
+                 confirm-button="关闭"
+                 @weui-dialog-confirm="closeWindow()">
+      {{Mes}}
+    </weui-dialog>
   </div>
 </template>
-<style>
+<style scoped>
    .bgc{
-    background-color:#E64340;
+     background-color:#EB4E40;
      width: 100%;
-    position: absolute;
+     position: absolute;
      top:0;
      bottom:0;
   }
@@ -50,6 +55,11 @@
     position: absolute;
      top: -30px;
   }
+   .shopLogo{
+     height: 60px;
+     width: 60px;
+     border-radius: 30px;
+   }
   .insone{
     background-color: white;
     margin-right: 10px;
@@ -82,7 +92,7 @@
     display: -webkit-flex;
   }
   .rightmindiv{
-    background-color:#E64340;
+    background-color:#EB4E40;
     height: 10px;
     width: 10px;
     border-radius: 5px;
@@ -91,7 +101,7 @@
     right: -5px;
   }
    .leftmindiv{
-     background-color:#E64340;
+     background-color:#EB4E40;
      height: 10px;
      width: 10px;
      border-radius: 5px;
@@ -134,7 +144,7 @@
     align-items: center;
     width: 150px;
     height: 40px;
-    background-color:#E64340;
+    background-color:#EB4E40;
     border-radius: 5px;
     display: flex;
     display: -webkit-flex;
@@ -149,25 +159,35 @@
 </style>
 <script>
   import { POST, GET, AUTH} from '../../assets/fetch.js';
+  import Dialog from '../../widget/dialog.vue';
   import utils from '../../assets/utils.js';
   import Toast from '../../widget/toast.vue';
   export default {
     data () {
       return {
-        couponId:'28',
+        couponId:'',
         logo:'',
         name:'',
         shopName:'',
         beginDate:'',
         endDate:'',
-        isPopup:false
+        isPopup:false,
+        Mes:''
       }
     },
     components: {
-      Toast
+      Toast,
+      'weui-dialog':Dialog,
+    },
+    filters: {
+      timeDatefmt(val) {
+        return utils.timeDatefmt(val);
+      }
     },
     created() {
+      this.couponId = utils.getUrlParameter('id');
       this.open();
+
     },
     methods:{
 //      控制使用说明是否渲染
@@ -178,7 +198,7 @@
       },
       open:function () {
         let _this =this;
-        GET("website/member/coupon/view.jhtml?id="+_this.couponId).then(
+        GET("website/coupon/view.jhtml?id="+_this.couponId).then(
           function (res) {
             if (res.type=='success') {
               _this.logo = res.data.logo;
@@ -189,7 +209,7 @@
             }
           },
           function (err) {
-            _this.$refs.toast.show(err.conter);
+            _this.$refs.toast.show(err.content);
           }
         )
       },
@@ -198,16 +218,22 @@
         POST('website/member/coupon/activate.jhtml?id='+_this.couponId).then(
           function (data) {
             if (data.type=="success") {
-              _this.$refs.toast.show(data.conter)
+              _this.Mes = data.content;
+              _this.$refs.prompting.show();
             } else {
-              _this.$refs.toast.show(data.conter);
+              _this.Mes = data.content;
+              _this.$refs.prompting.show();
             }
           },
           function (err) {
-
+            _this.Mes = err.content;
+            _this.$refs.prompting.show();
           }
         )
-      }
+      },
+      closeWindow:function () {
+        this.$router.go(-1)
+      },
     }
   }
 </script>

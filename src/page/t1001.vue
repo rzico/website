@@ -12,6 +12,8 @@
           <!--<vote  :article="watchArticle"></vote>-->
           <!--<reward  :article="watchArticle" @showDialog="showRewardDialog"></reward>-->
           <report  :article="watchArticle"></report>
+          <coupon ref="coupon"></coupon>
+          <cardImg ref="cardImg"></cardImg>
           <auther ref="auther" :article="watchArticle"></auther>
           <review ref="review" :article="watchArticle"></review>
           <recommend ref="recommend" v-if="isPublish" :article="watchArticle" @go="fetchData"></recommend>
@@ -38,6 +40,8 @@
     import vote from './article/vote.vue';
     import reward from './article/reward.vue';
     import report from './article/report.vue';
+    import coupon from './article/coupon.vue';
+    import cardImg from './article/cardImg.vue';
     import auther from './article/auther.vue';
     import recommend from './article/recommend.vue';
     import review from './article/review.vue';
@@ -46,7 +50,7 @@
     import Toast from '../widget/toast.vue';
     import payment from '../widget/payment.vue';
     import card from './member/card.vue';
-    import getCoupon from './member/getCoupon.vue'
+    import getCoupon from './member/activate.vue'
     export default {
         data () { return {
             logined:false,
@@ -69,6 +73,8 @@
             article_content,
             reward,
             report,
+            coupon,
+            cardImg,
             auther,
             recommend,
             review,
@@ -123,6 +129,7 @@
           fetchData:function (id) {
              this.go(id);
              this.$refs.review.open(id);
+             this.$refs.cardImg.open(id);
              document.documentElement.scrollTop = 0;
              document.body.scrollTop = 0;
           },
@@ -133,16 +140,17 @@
                 if (response.type=="success") {
                   _this.watchArticle = response.data;
                   _this.isPublish = response.data.isPublish;
+                  _this.$refs.coupon.open(response.data.member.id);
                   console.log('watchArticle');
                   console.log(response.data);
                   //设置分享标题
                   utils.setConfig({
-                    title:"【"+_this.watchArticle.nickName+"】"+_this.watchArticle.title,
+                    title:_this.watchArticle.title,
                     desc:_this.watchArticle.htmlTag,
                     link:_this.watchArticle.url,
-                    logo:_this.watchArticle.thumbnail
+                    thumbnail:_this.watchArticle.thumbnail
                   });
-                  SHARE();
+                  SHARE(location.href);
                   if (!utils.isNull(response.data.music)) {
                     _this.watchMusicData = JSON.parse(response.data.music);
                     console.log(_this.watchMusicData);

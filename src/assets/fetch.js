@@ -2,6 +2,8 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import VueResource from 'vue-resource';
 import utils from '../assets/utils.js';
+import wx from 'weixin-js-sdk';
+
 Vue.use(Router);
 Vue.use(VueResource);
 
@@ -15,13 +17,13 @@ export function AUTH(redirectURL,func) {
       if (data.type == "success") {
         var logined = false;
         if (data.data.loginStatus && utils.isNull(redirectURL)) {
-          logined = true;
+            logined = true;
         } else
         if (data.data.loginStatus && !utils.isNull(redirectURL) && data.data.authed) {
-          logined = true;
+            logined = true;
         }
         if (logined) {
-          func(true);
+            func(true);
         }
         else {
           if (utils.isweixin()) {
@@ -31,11 +33,8 @@ export function AUTH(redirectURL,func) {
             } else {
               scope = "snsapi_userinfo";
             }
-            var uxid = utils.getUrlParameter("uxid");
-            if (uxid==null) {
-              uxid = "";
-            }
-            location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + utils.getConfig().wxAppid + "&redirect_uri=" + encodeURIComponent(utils.getConfig().baseURL+"website/login/weixin.jhtml?uxid="+uxid) + "&response_type=code&scope="+scope+"&state="+b64safe(redirectURL)+"#wechat_redirect";
+            let state = b64safe(redirectURL);
+            location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + utils.getConfig().wxAppid + "&redirect_uri=" + encodeURIComponent(utils.getConfig().baseURL+"website/login/weixin.jhtml?redirectURL="+state) + "&response_type=code&scope="+scope+"&state=state#wechat_redirect";
           } else
           if (utils.isalipay()) {
             if (utils.isNull(redirectURL)) {
@@ -44,11 +43,8 @@ export function AUTH(redirectURL,func) {
             } else {
               scope = "auth_user";
             }
-            var uxid = utils.getUrlParameter("uxid");
-            if (uxid==null) {
-              uxid = "";
-            }
-            location.href = "https://openauth.alipay.com/oauth2/publicAppAuthorize.htm?app_id=" + utils.getConfig().alAppid + "&redirect_uri=" + encodeURIComponent(utils.getConfig().baseURL+"website/login/alipay.jhtml?uxid="+uxid) + "&scope="+scope+"&state="+b64safe(redirectURL)+"";
+            let state = b64safe(redirectURL);
+            location.href = "https://openauth.alipay.com/oauth2/publicAppAuthorize.htm?app_id=" + utils.getConfig().alAppid + "&redirect_uri=" + encodeURIComponent(utils.getConfig().baseURL+"website/login/alipay.jhtml?redirectURL="+state)+ "&scope="+scope+"&state=state";
           } else {
             Vue.$router.push({name:"login",query:{redirectURL:location.href}});
           }
@@ -63,10 +59,10 @@ export function AUTH(redirectURL,func) {
 }
 
 //检查静默授权
-export function SHARE() {
+export function SHARE(url) {
   var _this = this;
   if (utils.isweixin()) {
-    POST("weixin/get_config.jhtml?url="+encodeURIComponent(location.href.split('#')[0])).then(
+    POST("weixin/get_config.jhtml?url="+encodeURIComponent(url.split('#')[0])).then(
       function (data) {
         if (data.type=="success") {
           wx.config({
@@ -92,7 +88,7 @@ export function SHARE() {
             wx.onMenuShareTimeline({
               title: utils.getConfig().title, // 分享标题
               link:  utils.getConfig().link, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
-              imgUrl: utils.getConfig().logo, // 分享图标
+              imgUrl: utils.getConfig().thumbnail, // 分享图标
               success: function (res) {
               },
               cancel: function (res) {
@@ -103,7 +99,7 @@ export function SHARE() {
               title: utils.getConfig().title, // 分享标题
               desc: utils.getConfig().desc, // 分享描述
               link: utils.getConfig().link, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
-              imgUrl: utils.getConfig().logo, // 分享图标
+              imgUrl: utils.getConfig().thumbnail, // 分享图标
               type: 'link', // 分享类型,music、video或link，不填默认为link
               dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
               success: function (res) {
@@ -116,7 +112,7 @@ export function SHARE() {
               title: utils.getConfig().title, // 分享标题
               desc: utils.getConfig().desc, // 分享描述
               link: utils.getConfig().link, // 分享链接
-              imgUrl: utils.getConfig().logo, // 分享图标
+              imgUrl: utils.getConfig().thumbnail, // 分享图标
               success: function (res) {
               },
               cancel: function (res) {
@@ -128,7 +124,7 @@ export function SHARE() {
               title: utils.getConfig().title, // 分享标题
               desc: utils.getConfig().desc, // 分享描述
               link: utils.getConfig().link, // 分享链接
-              imgUrl: utils.getConfig().logo, // 分享图标
+              imgUrl: utils.getConfig().thumbnail, // 分享图标
               success: function (res) {
               },
               cancel: function (res) {
@@ -136,6 +132,8 @@ export function SHARE() {
             });
           });
         }
+      },
+      function (err) {
       }
     )
   }

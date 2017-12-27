@@ -103,6 +103,7 @@
             if (res.type == 'success') {
               _this.payCode = res.data.payCode;
               _this.coupon = res.data.coupon;
+              _this.coupon.logo = utils.thumbnail(res.data.coupon.logo,150,150)
               _this.cardId = res.data.cardId;
               _this.cardExt = res.data.cardExt;
             } else {

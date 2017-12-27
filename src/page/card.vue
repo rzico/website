@@ -22,14 +22,14 @@
               @weui-dialog-confirm="activate()"
               @weui-dialog-cancel="close()">
         <div class="weui_cell">
-          <cellInput type="tel" :placeholder="'请输入手机号'" :value.sync="mobile"></cellInput>
+          <input class="weui_input" type="tel" :placeholder="'请输入手机号'" v-model="mob">
         </div>
         <div class="weui_cell">
-          <cellInput type="text" :placeholder="'请输入会员姓名'" :value.sync="name"></cellInput>
+          <input class="weui_input" type="text" :placeholder="'请输入会员姓名'" v-model="name">
         </div>
       </weui-dialog>
       <Toast ref="toast"></Toast>
-      <div class="footer" @click="openWeixinCard()">
+      <div class="footer" @click="openWeixinCard()" v-if="isCardExt">
         <span>--微信卡包--</span>
       </div>
       <weui-dialog ref="error" type="alert" title="出错了"
@@ -105,7 +105,7 @@
          code:"",
          cardId:"",
          cardExt:{},
-         mobile:"",
+         mob:"",
          name:"",
          errMsg:"",
          payCode:"163231 84933",
@@ -150,7 +150,7 @@
           GET("website/member/card/view.jhtml?id="+_this.id+"&code="+_this.code).then(
               function (res) {
                 if (res.type=='success') {
-                  _this.mobile = res.data.mobile;
+                  _this.mob = res.data.mobile;
                   _this.name = res.data.name;
                   _this.payCode = res.data.payCode;
                   _this.card = res.data.card;
@@ -168,6 +168,9 @@
                 _this.$refs.error.show();
             }
           )
+      },
+      isCardExt:function () {
+         return !utils.isNull(_this.cardExt);
       },
       showQrcode:function () {
          return this.card.status!='none';
@@ -224,16 +227,19 @@
       },
       activate:function () {
         var _this = this;
-        POST("website/member/card/activate.jhtml?cardId="+_this.card.id+"&mobile="+_this.mobile+"&name="+encodeURIComponent(_this.name)).then(
+        if (utils.isNull(_this.mob)) {
+          _this.$refs.toast.show("会员手机号不能为空");
+          return;
+        }
+        if (utils.isNull(_this.name)) {
+          _this.$refs.toast.show("会员姓名不能为空");
+          return;
+        }
+        POST("website/member/card/activate.jhtml?cardId="+_this.card.id+"&mobile="+_this.mob+"&name="+encodeURIComponent(_this.name)).then(
           function (res) {
             if (res.type=='success') {
               _this.close();
-              _this.card = res.data.card;
-              _this.mobile = res.data.mobile;
-              _this.payCode = res.data.payCode;
-              _this.name = res.data.name;
-              _this.cardId = res.data.cardId;
-              _this.cardExt = res.data.cardExt;
+              _this.load();
               _this.openWeixinCard();
             } else {
               _this.close();
