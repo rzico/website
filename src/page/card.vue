@@ -29,9 +29,9 @@
         </div>
       </weui-dialog>
       <Toast ref="toast"></Toast>
-      <div class="footer" @click="openWeixinCard()" v-if="isCardExt">
-        <span>--微信卡包--</span>
-      </div>
+      <!--<div class="footer" @click="openWeixinCard()" v-if="isCardExt">-->
+        <!--<span>&#45;&#45;微信卡包&#45;&#45;</span>-->
+      <!--</div>-->
       <weui-dialog ref="error" type="alert" title="出错了"
                    confirm-button="关闭"
                    @weui-dialog-confirm="closeWindow()">
@@ -169,9 +169,9 @@
             }
           )
       },
-      isCardExt:function () {
-         return !utils.isNull(_this.cardExt);
-      },
+//      isCardExt:function () {
+//         return !utils.isNull(_this.cardExt);
+//      },
       showQrcode:function () {
          return this.card.status!='none';
       },

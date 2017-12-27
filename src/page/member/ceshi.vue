@@ -1,37 +1,36 @@
 <template>
   <div class="container">
-    <div class="
-slideIn member backgc" @scroll="onscroll" offset-accuracy="0">
+    <div class="page slideIn backgc" @scroll="onscroll" offset-accuracy="0">
       <v-loadmore :top-method="loadTop" :bottom-method="loadBottom" :bottom-all-loaded="false" :auto-fill="false" ref="loadmore">
-    <div class="insOne" v-for="c in cards">
-      <div class="bgflex">
-        <div class="logo">
-          <img class="stroeLogo" :src="c.logo">
+        <div class="insOne">
+          <div class="bgflex">
+            <div class="logo">
+              <img class="stroeLogo" :src="card.logo">
+            </div>
+          </div>
+          <span class="f14 martop30">{{card.name}}</span>
+          <span class="f18 martop15">NO.{{card.code | codefmt}}</span>
+          <span class="martop10 f30" style="color: #EB4E40">{{card.balance}}</span>
+          <div class="martop10">
+            <span class=" f14 fontColor888" @click="jumpcoupon()">我的账单 | </span><span class=" f14 fontColor888" @click="jumpreward()">我的奖金</span>
+          </div>
         </div>
-      </div>
-      <span class="f14 martop30">{{c.name}}</span>
-      <span class="f18 martop15">NO.{{c.code | codefmt}}</span>
-      <span class="martop10 f30" style="color: #EB4E40">{{c.balance}}</span>
-      <div class="martop10">
-        <span class=" f14 fontColor888" @click="jumpcoupon()">我的账单 | </span><span class=" f14 fontColor888" @click="jumpreward()">我的奖金</span>
-      </div>
-    </div>
-    <div class="insthree">
-      <div class="codeDiv" ></div>
-      <div class="zezhu">
-        <i class="iconfont icon-erweima" style="font-size: 30px;position: absolute;top: -10px;" @click="iscontrol()" v-show="!isPopup"></i>
-        <i class="iconfont icon-arrow-dropright" style="font-size: 30px;position: absolute;top: -10px;" @click="iscontrol()" v-show="isPopup"></i>
-      </div>
-      <div class="couponDiv">
-        <div class="instwo" v-if="isPopup">
-          <div class="qrcode" :style="'background-image: url(http://pan.baidu.com/share/qrcode?w=200&h=200&url='+payCode+')'"></div>
-          <span class="marbot15 f14">使用时，出示此码</span>
+        <div class="insthree">
+          <div class="codeDiv" ></div>
+          <div class="zezhu">
+            <i class="iconfont icon-erweima" style="font-size: 30px;position: absolute;top: -10px;" @click="iscontrol()" v-show="!isPopup"></i>
+            <i class="iconfont icon-arrow-dropright" style="font-size: 30px;position: absolute;top: -10px;" @click="iscontrol()" v-show="isPopup"></i>
+          </div>
+          <div class="couponDiv">
+            <div class="instwo" v-if="isPopup">
+              <div class="qrcode" :style="'background-image: url(http://pan.baidu.com/share/qrcode?w=200&h=200&url='+payCode+')'"></div>
+              <span class="marbot15 f14">使用时，出示此码</span>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
-    <div class="insfour" v-show="!isPopup">
-      <couponceshi></couponceshi>
-    </div>
+        <div class="insfour" v-show="!isPopup">
+          <couponceshi></couponceshi>
+        </div>
       </v-loadmore>
     </div>
     <Toast ref="toast"></Toast>
@@ -185,12 +184,10 @@ slideIn member backgc" @scroll="onscroll" offset-accuracy="0">
   export default {
     data () {
       return {
-        cards:[],
-        id:'',
-        code:'',
+        card:{id:0,status:'none',name:"样例",logo:"./static/logo.png",background:"./static/card.png",color:"c8",balance:0,code:"8800000000000000"}
+        cardId:'',
         isPopup:false,
-        idx:0,
-        isfixed:false
+        payCode:''
       }
     },
     components: {
@@ -208,7 +205,11 @@ slideIn member backgc" @scroll="onscroll" offset-accuracy="0">
       }
     },
     created() {
-      this.open();
+      var _this = this;
+      AUTH(location.href,function (authed) {
+        _this.logined  = authed;
+      })
+      _this.cardId = utils.getUrlParameter("cardId");
       this.load()
     },
     methods:{
@@ -237,25 +238,14 @@ slideIn member backgc" @scroll="onscroll" offset-accuracy="0">
       iscontrol:function () {
         this.isPopup = !this.isPopup;
       },
-      open:function () {
-        var _this = this;
-        GET("website/member/card/list.jhtml").then(
-          function (res) {
-            if (res.type=='success') {
-              _this.cards = res.data;
-              _this.id = res.data.id
-            }
-          },
-          function (err) {
-          }
-        )
-      },
       load:function () {
         var _this = this;
         GET("website/member/card/view.jhtml?id="+_this.id+"&code="+_this.code).then(
           function (res) {
             if (res.type=='success') {
+              _this.card = res.data.card;
               _this.payCode = res.data.payCode;
+              _this.isPopup = true;
             } else {
 
             }
