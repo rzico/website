@@ -19,7 +19,7 @@
           <div class="codeDiv" ></div>
           <div class="zezhu">
             <i class="iconfont icon-erweima" style="font-size: 30px;position: absolute;top: -10px;" @click="iscontrol()" v-show="!isPopup"></i>
-            <i class="iconfont icon-arrow-dropright" style="font-size: 30px;position: absolute;top: -10px;" @click="iscontrol()" v-show="isPopup"></i>
+            <i class="iconfont icon-youhuiquan01" style="font-size: 30px;position: absolute;top: -10px;" @click="iscontrol()" v-show="isPopup"></i>
           </div>
           <div class="couponDiv">
             <div class="instwo" v-if="isPopup">

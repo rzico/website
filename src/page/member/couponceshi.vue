@@ -23,7 +23,8 @@
     background-color: #eeeeee;
     width: 100%;
     padding-top: 10px;
-
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
   }
   .top{
     position: relative;
