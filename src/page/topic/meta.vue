@@ -31,7 +31,13 @@
   import utils from '../../assets/utils.js';
   export default {
     props:{
-      topic:{name:"",autograph:"",article:0,product:0,favorite:0,follow:0,fans:0,logo:"",hits:0}
+      topic: {
+        default: function () {
+            return {
+               name:'',autograph:'', article:0, product: 0, favorite: 0, follow: 0, fans: 0, logo: "", hits: 0
+            }
+        }
+      }
     }
   }
 </script>
