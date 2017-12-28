@@ -40,7 +40,8 @@
       }
     },
     props:{
-      idx:{default:0}
+      idx:{default:0},
+      id:{default:0}
     },
     mounted() {
       this.loadTop(0);
@@ -60,6 +61,9 @@
       load:function (idx) {
         var _this = this;
         let id = utils.getUrlParameter("id");
+        if (utils.isNull(id)) {
+            id = this.id;
+        }
         _this.idx = idx;
         GET('website/article/list.jhtml?id='+id+"&articleCatalogId="+idx+"&pageStart="+_this.pageStart+"&pageSize="+_this.pageSize).then(
           function (response) {

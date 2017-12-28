@@ -14,7 +14,7 @@
     props:{
       isFixed:{default:false},
       idx:{default:0},
-      Navs:{default:[{id:0,name:"全部"}]}
+      Navs:{default:[]}
     },
     created() {
 

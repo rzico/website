@@ -14,9 +14,9 @@
       </div>
       </v-loadmore>
       <Toast ref="toast"></Toast>
-      <div class="footer" @click="openWeixinCard()">
-        <span>--微信卡包--</span>
-      </div>
+      <!--<div class="footer" @click="openWeixinCard()">-->
+        <!--<span>&#45;&#45;微信卡包&#45;&#45;</span>-->
+      <!--</div>-->
     </div>
 
   </div>

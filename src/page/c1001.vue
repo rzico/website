@@ -4,7 +4,7 @@
     <v-loadmore :top-method="loadTop" :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" :auto-fill="false" ref="loadmore">
       <metaInfo :topic="topic" :isFixed = "isfixed"></metaInfo>
       <navbar :isFixed = "isfixed" :navs="catalogs" :idx="idx" @navChange="navChange"></navbar>
-      <list ref="list" :idx="idx"></list>
+      <list ref="list" :id="id" :idx="idx"></list>
     </v-loadmore>
     </div>
     <div class="topic">
@@ -28,7 +28,7 @@
             allLoaded: false, //是否可以上拉属性，false可以上拉，true为禁止上拉，就是不让往上划加载数据了
             topic:{},
             idx:0,
-            catalogs:[{id:0,name:"全部"}],
+            catalogs:[],
             isfixed:false
           }
         },
@@ -45,6 +45,7 @@
             function (response) {
               if (response.type=="success") {
                 _this.topic = response.data;
+                _this.id = _this.topic.id;
                 _this.catalogs = response.data.catalogs;
                 //设置分享标题
                 utils.setConfig({
