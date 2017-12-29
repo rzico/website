@@ -69,17 +69,6 @@ let utilsFunc = {
            return url;
         }
     },
-  currencyfmt:function (value) {
-    // 返回处理后的值
-    if (value != null) {
-      if(value == 0){
-        return value;
-      }else{
-        var price = (Math.round(value * Math.pow(10,2)) / Math.pow(10,2)).toFixed(2);
-        return price;
-      }
-    }
-  },
   // 返回处理后的值 00:00
   timefmt(value) {
     value = value + '';
@@ -160,7 +149,9 @@ let utilsFunc = {
   dayfmt:function (value) {
     let res = this.resolvetimefmt(value);
     let tds = this.resolvetimefmt(Math.round(new Date().getTime()));
-    let daySub = tds.d - res.d;
+
+    let span = Math.abs(Math.round(new Date().getTime())-value);
+    let daySub = Math.floor(span / (24 * 3600 * 1000));
     if (daySub<1) {
       return "今天"
     }
