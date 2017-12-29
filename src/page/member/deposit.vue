@@ -1,18 +1,18 @@
 <template>
   <div class="container">
     <div class="page slideIn bg" >
-      <v-loadmore :top-method="loadTop" :bottom-method="loadBottom"  :bottom-all-loaded="allLoaded" :auto-fill="false" ref="loadmore">
+      <v-loadmore :top-method="loadTop" :bottom-method="loadBottom"  :bottom-all-loaded="allLoaded" :auto-fill="true" ref="loadmore">
         <div v-for="(deposit,index) in depositList">
           <!--如果月份重复就不渲染该区域-->
         <div class="monthDiv" v-if="isRepeat(index)">
           <span class="f16">{{deposit.createDate | dayfmt}}</span>
         </div>
         <div class="detailsDiv">
-          <img class="logo" :src="deposit.logo">
+          <img class="logo" :src="deposit.logo | logoImg">
           <div class="flex-c" style="width: 88%;padding-left: 30px;  box-sizing: border-box;">
           <div class="flex-r flex-ju">
             <span class="f16">{{deposit.memo}}</span>
-            <span class="f12" style="font-weight: bold">{{deposit.amount | currencyfmt}}</span>
+            <span class="amountfont" :style="moneyColor(deposit.amount)">{{deposit.amount | currencyfmt}}</span>
           </div>
           <div class="flex-r flex-ju">
             <span class="f12 colorccc">{{deposit.createDate | hitimefmt}}</span>
@@ -21,6 +21,10 @@
         </div>
         </div>
       </v-loadmore>
+      <div class="noData" v-else>
+        <i class="iconfont icon-shangjin"></i>
+        <span>参与商家活动，分享领红包</span>
+      </div>
     </div>
   </div>
 </template>
@@ -78,8 +82,9 @@
   .f12{
     font-size: 12px;
   }
-  .colorRed{
-    color:red;
+  .amountfont{
+    font-size: 12px;
+    font-weight: bold;
   }
   .color888{
     color:#888888
@@ -118,6 +123,13 @@
       currencyfmt(val) {
         return utils.currencyfmt(val);
       },
+      logoImg:function(value) {
+        if (utils.isNull(value)) {
+          return "";
+        } else {
+          return utils.thumbnail(value,utils.screenWidth(),30,30);
+        }
+      }
     },
     created() {
       this.open()
@@ -126,11 +138,19 @@
 
     },
     methods: {
+      moneyColor:function (amount) {
+        if (amount<0) {
+          return {color:'red'}
+        }  else {
+          return {color:'#000'}
+        }
+      },
       loadTop:function() { //组件提供的下拉触发方法
-          this.$refs.loadmore.onTopLoaded();// 固定方法，查询完要调用一次，用于重新定位
+          this.pageStart = 0;
+          this.open('loadTop');
       },
       loadBottom:function() {
-          this.$refs.loadmore.onBottomLoaded();// 固定方法，查询完要调用一次，用于重新定位
+          this.open('loadBottom');
       },
       //判断月份是否重复
       isRepeat(index){
@@ -141,32 +161,36 @@
         }
         return true;
       },
-      open:function () {
+      open:function (type) {
         var _this = this;
         GET('website/member/card/bill.jhtml?id='+this.cardId +'&pageStart=' + _this.pageStart +'&pageSize='+_this.pageSize).then(
           function (res) {
           if (res.type=="success") {
             if (res.data.start==0) {
               _this.depositList = res.data.data;
-              if(res.data.start==res.data.recordsTotal){
-                _this.allLoaded = true
-              }
             } else {
               res.data.data.forEach(function (item) {
                 _this.depositList.push(item);
               })
-              if(res.data.start==res.data.recordsTotal){
-                _this.allLoaded = true
-              }
             }
+            _this.allLoaded = res.data.data.length<_this.pageSize;
             _this.pageStart = res.data.start+res.data.data.length;
           } else {
-            if(res.data.start==res.data.recordsTotal){
-              _this.allLoaded = true
-            }
+
+          }
+          if (type=='loadBottom')
+          {
+            _this.$refs.loadmore.onBottomLoaded();// 固定方法，查询完要调用一次，用于重新定位
+          } else {
+            _this.$refs.loadmore.onTopLoaded();// 固定方法，查询完要调用一次，用于重新定位
           }
         }, function (err) {
-
+            if (type=='loadBottom')
+            {
+              _this.$refs.loadmore.onBottomLoaded();// 固定方法，查询完要调用一次，用于重新定位
+            } else {
+              _this.$refs.loadmore.onTopLoaded();// 固定方法，查询完要调用一次，用于重新定位
+            }
         })
       },
     }
