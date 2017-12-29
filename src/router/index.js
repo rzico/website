@@ -10,7 +10,8 @@ import C1001 from '../page/c1001'
 import Card from '../page/card'
 import Coupon from '../page/Coupon'
 import activate from '../page/member/activate'
-
+import deposit from '../page/member/deposit'
+import reward from '../page/member/reward'
 Vue.use(Router);
 Vue.use(VueResource);
 
@@ -71,7 +72,19 @@ var router = new Router({
       name: 'activate',
       meta: {requireAuth:true},
       component: activate
-    }
+    },
+    {
+      path: '/deposit',
+      name: 'deposit',
+      meta: {requireAuth:true},
+      component: deposit
+    },
+    {
+      path: '/reward',
+      name: 'reward',
+      meta: {requireAuth:true},
+      component: reward
+    },
    ]
 })
 
