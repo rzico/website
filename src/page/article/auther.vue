@@ -7,7 +7,7 @@
         </div>
         <div class="userMessage">
           <p class="wusername" style="overflow: hidden">
-            {{article.member.nickName}}                </p>
+            {{article.member.nickName}}</p>
           <p class="wsign">
             {{article.member.autograph==null?"留下签名有助于提升知名度":article.member.autograph}}  </p>
         </div>

@@ -10,7 +10,7 @@ import C1001 from '../page/c1001'
 import Card from '../page/card'
 import Coupon from '../page/Coupon'
 import activate from '../page/member/activate'
-
+import Message from '../widget/message.vue';
 Vue.use(Router);
 Vue.use(VueResource);
 
@@ -71,6 +71,12 @@ var router = new Router({
       name: 'activate',
       meta: {requireAuth:true},
       component: activate
+    },
+    {
+      path: '/message',
+      name: 'message',
+      meta: {requireAuth:true,title:"芸店"},
+      component: Message
     }
    ]
 })
