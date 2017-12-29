@@ -1,16 +1,16 @@
 <template>
   <div class="bg">
-    <div class="top marbottom15" v-for="num in lists">
-      <div class="flex-r" style="height: 60px;border-width: 0 0 1px 0;border-color: #cccccc;border-style: dashed">
-        <span class="f30 color">{{num.amount}}</span>
-        <span class="f16">{{num.name}}</span>
-        <div class="button" @click="jump(num.id)">
+    <div class="top" v-for="num in lists">
+      <div class="flex-r" style="height: 60px;border-width: 0 0 1px 0;border-color: #cccccc;border-style: dashed;padding-right: 10px">
+        <span class="f30 color flex2">{{num.amount}}</span>
+        <span class="f16 flex3_5">{{num.name}}</span>
+        <div class="button flex1_5" @click="jump(num.id)">
           <span class="f14" style="color:#ffffff">去领取</span>
         </div>
       </div>
-      <div class="flex-r" style="height: 40px">
-        <span class="f12 color ">优惠券</span>
-        <div style="display: flex;display: -webkit-flex;flex-direction: row;align-items: center;">
+      <div class="flex-r" style="height: 40px;">
+        <span class="f12 color  flex2">优惠券</span>
+        <div  class="flex5" style="display: flex;display: -webkit-flex;flex-direction: row;align-items: center;">
         <span class="f12" style="color: #cccccc">{{num.beginDate |timeDatefmt}}</span>
           <span class="f12" style="color: #cccccc">至</span>
         <span class="f12" style="color: #cccccc">{{num.endDate |timeDatefmt}}</span>
@@ -26,15 +26,13 @@
   .bg{
     background-color: #eeeeee;
     width: 100%;
-    padding-top: 10px;
-
+    padding:10px;
   }
   .top{
     position: relative;
     background-color: white;
     height: 100px;
-    margin-left: 10px;
-    margin-right: 10px;
+    margin-bottom: 10px;
     display: flex;
     display: -webkit-flex;
     flex-direction: column;
@@ -70,12 +68,33 @@
   .f12{
     font-size: 12px;
   }
+  flex1_5{
+    display: flex;
+    display: -webkit-flex;
+    flex: 1.5;
+    justify-content:center;
+  }
+  .flex2{
+    display: flex;
+    display: -webkit-flex;
+    flex: 2;
+    justify-content: center;
+  }
+  .flex5{
+    display: flex;
+    display: -webkit-flex;
+    flex: 5;
+  }
+  .flex3_5{
+    display: flex;
+    display: -webkit-flex;
+    flex: 3.5;
+  }
   .flex-r{
     display: flex;
     display: -webkit-flex;
     flex-direction: row;
     align-items: center;
-    justify-content: space-around;
   }
   .marbottom15{
     margin-bottom: 15px;
@@ -97,7 +116,7 @@
   export default {
     data () {
       return {
-        lists:[{}],
+        lists:[],
       }
     },
     components: {
