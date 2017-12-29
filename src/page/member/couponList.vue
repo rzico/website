@@ -1,16 +1,16 @@
 <template>
   <div class="bg"  v-if="hasCoupon()">
     <div class="top marbottom15" v-for="c in coupons">
-      <div class="flex-r" style="height: 60px;border-width: 0 0 1px 0;border-color: #cccccc;border-style: dashed">
-        <span class="f30 color">{{c.amount}}</span>
-        <span class="f16">{{c.couponName}}</span>
-        <div class="button" @click="openCoupon(c.id)">
+      <div class="flex-r" style="height: 60px;border-width: 0 0 1px 0;border-color: #cccccc;border-style: dashed;padding-right: 10px">
+        <span class="f30 color flex2" style="">{{c.amount}}</span>
+        <span class="f16 flex3_5 " >{{c.couponName}}</span>
+        <div class="button flex1_5" @click="openCoupon(c.id)">
           <span class="f14" style="color:#ffffff">去使用</span>
         </div>
       </div>
-      <div class="flex-r" style="height: 40px">
-        <span class="f12 color ">优惠券</span>
-        <span class="f12" style="color: #cccccc">{{c.descr}}</span>
+      <div class="flex-r" style="height: 40px;padding-right: 20px">
+        <span class="f12 color flex2 ">优惠券</span>
+        <span class="f12 flex5 " style="color: #cccccc">{{c.descr}}</span>
       </div>
       <!--两个小半圆-->
       <div class="left"></div>
@@ -36,12 +36,6 @@
     display: -webkit-flex;
     flex-direction: column;
     border-radius: 3px;
-  }
-  .width25{
-    width: 25%;
-  }
-  .width50{
-    width: 50%;
   }
   .left{
     height: 10px;
@@ -76,29 +70,33 @@
   .f12{
     font-size: 12px;
   }
-  .flex-c{
-    display: flex;
-    display: -webkit-flex;
-    flex-direction: column;
-    align-items: center;
-  }
   .flex-r{
     display: flex;
     display: -webkit-flex;
     flex-direction: row;
     align-items: center;
-    justify-content: space-around;
   }
-  .flex1{
+  .flex1_5{
     display: flex;
     display: -webkit-flex;
-    flex: 1;
+    flex: 1.5;
+    justify-content:center;
   }
-  .marleft30{
-    margin-left: 30px;
+  .flex2{
+    display: flex;
+    display: -webkit-flex;
+    flex: 2;
+    justify-content: center;
   }
-  .marleft20{
-    margin-left: 20px;
+  .flex5{
+    display: flex;
+    display: -webkit-flex;
+    flex: 5;
+  }
+  .flex3_5{
+    display: flex;
+    display: -webkit-flex;
+    flex: 3.5;
   }
   .marbottom15{
     margin-bottom: 15px;
