@@ -2,7 +2,7 @@
   <div class="container">
     <div class="page slideIn bg" >
       <v-loadmore :top-method="loadTop" :bottom-method="loadBottom"  :bottom-all-loaded="allLoaded" :auto-fill="true" ref="loadmore">
-        <div v-for="(deposit,index) in depositList">
+        <div v-for="(deposit,index) in depositList" v-if="hasReward()">
           <!--如果月份重复就不渲染该区域-->
         <div class="monthDiv" v-if="isRepeat(index)">
           <span class="f16">{{deposit.createDate | dayfmt}}</span>
@@ -20,11 +20,11 @@
           </div>
         </div>
         </div>
+        <div class="noData" v-else>
+          <i class="iconfont icon-shangjin"></i>
+          <span>暂无记录</span>
+        </div>
       </v-loadmore>
-      <div class="noData" v-else>
-        <i class="iconfont icon-shangjin"></i>
-        <span>参与商家活动，分享领红包</span>
-      </div>
     </div>
   </div>
 </template>
@@ -138,6 +138,9 @@
 
     },
     methods: {
+      hasReward:function () {
+        return this.depositList.length>0;
+      },
       moneyColor:function (amount) {
         if (amount<0) {
           return {color:'red'}
