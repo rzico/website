@@ -22,11 +22,11 @@
           </div>
         </div>
         </div>
+        <div class="noData" v-else>
+          <i class="iconfont icon-shangjin"></i>
+          <span>参与商家活动，分享领红包</span>
+        </div>
       </v-loadmore>
-      <div class="noData" v-else>
-        <i class="iconfont icon-shangjin"></i>
-        <span>参与商家活动，分享领红包</span>
-      </div>
     </div>
   </div>
 </template>
