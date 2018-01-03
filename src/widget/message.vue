@@ -1,86 +1,50 @@
 <template>
-  <div class="container">
-    <div class="page msg">
-      <message icon="success" title="付款成功">
-        <div slot="content" class="money">
-          {{amount}}
-        </div>
-        <button-area slot="operation">
-          <weui-button type="primary" @onclick="close()">确定</weui-button>
-          <!--<weui-button type="default">取消</weui-button>-->
-        </button-area>
-      </message>
-      <div class="footer">
-        <a href="/website">进入芸店</a>
-      </div>
+  <div class="weui_msg pt70">
+    <div class="" v-if="icon">
+      <i :class="['weui_icon_msg', 'weui_icon_' + icon]" ></i>
+    </div>
+    <div class="weui_text_area">
+      <h2 class="weui_msg_title green" v-if="title">{{title}}</h2>
+      <div class="weui_msg_desc"><slot name="content"></slot></div>
+    </div>
+    <div class="weui_opr_area">
+      <slot name="operation"></slot>
+    </div>
+    <div class="weui_extra_area">
+      <slot name="extra"></slot>
     </div>
   </div>
 </template>
-
-<style scoped>
-  .money {
-    margin-top: 20px;
-    margin-bottom: 40px;
-    font-size: 48px;
-    line-height: 48px;
-    color:red;
+<style>
+  .pt70{
+    padding-top: 50px;
   }
-  .footer {
-    position: absolute;
-    bottom:40px;
-    text-align: center;
-    width:100%;
+  .green{
+    color:#09BB07;
+    margin-top: 10px;
+  }
+  .weui_icon_msg:before{
+    font-size: 45px;
   }
 </style>
 <script>
-  import { POST, GET, AUTH} from '../assets/fetch.js';
-  import Message from './messageChild.vue';
-  import ButtonArea from './button-area.vue';
-  import Button from './button.vue';
-  import utils from '../assets/utils.js';
   export default {
-    data() {
-      return {
-        amount:0,
-        sn:''
-      }
-    },
-    components: {
-      Message,
-      ButtonArea,
-      'weui-button': Button
-    },
-    created() {
-      var _this = this;
-      this.amount = utils.getUrlParameter("amount");
-      this.sn = utils.getUrlParameter("psn");
-      setTimeout(
-        function () {
-          _this.query();
-        },
-        2000
-      )
-    },
-    methods:{
-      query:function () {
-        if (!utils.isNull(this.sn)) {
-          POST("payment/query.jhtml?sn="+this.sn).then(
-            function (res) {
-
-            },
-            function (err) {
-
-            }
-          )
-        }
+    props: {
+      /**
+       * 消息图标名称
+       * 若设置，则会在最上方显示大图标
+       */
+      icon: {
+        type: String,
+        required: false
       },
-      close:function() {
-        if (utils.isweixin()) {
-          WeixinJSBridge.call('closeWindow');
-        }
-        if (utils.isalipay()) {
-          AlipayJSBridge.call('closeWebview');
-        }
+
+      /**
+       * 消息标题
+       */
+      title: {
+        type: String,
+        required: false
       }
     }
   }

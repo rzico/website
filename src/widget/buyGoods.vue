@@ -5,13 +5,9 @@
       <div class="headerBox">
         <img class="goodsImg" :src="item.thumbnail" alt="">
         <div class="goodsInfo">
-          <div>
             <span class="priceNow">¥ {{item.price | watchPrice}}</span>
-            <span class="priceBefore sub_title" style="font-size: 14px">原价160.00</span>
-          </div>
-          <div>
+            <!--<span class="priceBefore sub_title" style="font-size: 14px">原价160.00</span>-->
             <span class="sub_title goodsName" >{{item.name}}</span>
-          </div>
         </div>
       </div>
       <div class="specScrollBox">
@@ -21,7 +17,8 @@
           </div>
           <div class="flexRow" style="align-items: center">
             <span class="iconfont icon-jian iconAddSub"   @click="numSub()"></span>
-            <span class="buyNumber">{{buyNum}}</span>
+            <input type="number" class="buyNumber" v-model="buyNum" @input="numInput()">
+            <!--<span >{{buyNum}}</span>-->
             <span class="iconfont icon-jia1 iconAddSub"   @click="numAdd()"></span>
           </div>
         </div>
@@ -30,25 +27,25 @@
             <div class="specName" >
               <span class="fontSize16">规格1</span>
             </div>
-            <div>
-              <span v-for="(spec1,index) in item.products"  v-if="isSpec1Rrepeat(index,item.products)" :class="[spec1Name == spec1.spec1 ? 'specChoose' : '',spec1.isSpec1 != '1' ? '' : 'grayColor']" class="specStyle" @click="spec1Choose(spec1)">{{spec1.spec1}}</span>
+            <div >
+              <span v-for="(spec1,index) in item.products"  v-if="isSpec1Rrepeat(index,item.products)" :class="[spec1Name == spec1.spec1 ? 'specChoose' : '',spec1.isSpec1 != '1' ? '' : 'grayColor']" class="specStyle" @click="spec1Choose(spec1,item.products)">{{spec1.spec1}}</span>
             </div>
           </div>
           <div class="flexRow"  v-if="hasSpec2(item.products)">
             <div class="specName">
               <span class="fontSize16">规格2</span>
             </div>
-            <div>
+            <div >
               <span v-for="(spec2,index) in item.products" v-if="isSpec2Rrepeat(index,item.products)" class="specStyle" :class="[spec2Name == spec2.spec2 ? 'specChoose' : '',spec2.isSpec2 != '1' ? '' : 'grayColor']"  @click="spec2Choose(spec2)">{{spec2.spec2}}</span>
             </div>
           </div>
         </div>
         <!--<cells type="access" style="margin: 0px;border-top:1px solid #eee;border-bottom: 1px solid #eee">-->
-          <!--<div class="weui_cell" style="padding: 10px;" @click="drop()">-->
-            <!--<cell-header><div style="line-height: 20px"><span class="iconfont icon-dingdanxiangqing icon48" style="font-size: 20px;line-height: 20px;color: #444;" ></span></div></cell-header>-->
-            <!--<cell-body><span style="font-size: 14px">优惠券</span></cell-body>-->
-            <!--<cell-footer ><span class="arrow" style="color:red;font-size: 14px;padding-right: 10px">-¥ 3.00</span></cell-footer>-->
-          <!--</div>-->
+        <!--<div class="weui_cell" style="padding: 10px;" @click="drop()">-->
+        <!--<cell-header><div style="line-height: 20px"><span class="iconfont icon-dingdanxiangqing icon48" style="font-size: 20px;line-height: 20px;color: #444;" ></span></div></cell-header>-->
+        <!--<cell-body><span style="font-size: 14px">优惠券</span></cell-body>-->
+        <!--<cell-footer ><span class="arrow" style="color:red;font-size: 14px;padding-right: 10px">-¥ 3.00</span></cell-footer>-->
+        <!--</div>-->
         <!--</cells>-->
         <div class="address ">
           <p class="fontSize18">某某某 15860***375</p>
@@ -85,7 +82,10 @@
     justify-content: space-between;padding-left:10px;align-items: center;border-bottom: 1px solid #eee;
   }
   .buyNumber{
-    padding: 0 10px;font-size: 16px;line-height: 16px;display: inline-block;
+    /*padding: 0 10px;*/
+    height:20px;
+    width: 30px;
+    font-size: 16px;line-height: 16px;display: inline-block;
   }
   .iconAddSub{
     font-size: 20px;padding: 10px 10px;
@@ -196,6 +196,8 @@
     font-size: 20px;
     line-height: 20px;
     color: red;
+    position: absolute;
+    left: 120px;
   }
   .headerBox{
     position: relative;
@@ -204,7 +206,7 @@
     /*background-color: red;*/
   }
   .goodsInfo{
-    margin: 10px 0 0 35px;
+    margin: 10px 0 0 30px;
   }
   .goodsImg{
     position: relative;
@@ -262,6 +264,7 @@
     },
     data: function () {
       return {
+        spec2Num:0,//判断是否有规格2
         finallPrice:999,
         productId:'',
         buyNum:1,
@@ -290,8 +293,8 @@
           function (data) {
 //            alert(data);
             if (data.type=="success") {
-//              let s = JSON.stringify(data);
-//              alert(s);
+              let s = JSON.stringify(data);
+              alert(s);
               _this.goPay(data.data.sn);
             } else {
               _this.close(data);
@@ -314,23 +317,23 @@
           function (data) {
             if (data.type=="success") {
               if(utils.isNull(data.data.paymentPluginId)){
-                  if(utils.isalipay()){
-                    _this.alipay(data.data.sn);
-                  }else if(utils.isweixin()){
-                    _this.weixin(data.data.sn);
-                  }
+                if(utils.isalipay()){
+                  _this.alipay(data.data.sn);
+                }else if(utils.isweixin()){
+                  _this.weixin(data.data.sn);
+                }
               }else if(data.data.paymentPluginId == 'cardPayPlugin'){//会员卡支付
-                    let payInfo = {
-                      way:'会员卡支付',
-                      price:_this.finallPrice,
-                      sn:data.data.sn
-                    };
-                    _this.$emit('payConfirm',payInfo);
+                let payInfo = {
+                  way:'会员卡支付',
+                  price:_this.finallPrice,
+                  sn:data.data.sn
+                };
+                _this.$emit('payConfirm',payInfo);
               }else if(data.data.paymentPluginId == '"balancePayPlugin'){//余额支付
                 let payInfo = {
-                    way:'余额支付',
-                    price:_this.finallPrice,
-                    sn:data.data.sn
+                  way:'余额支付',
+                  price:_this.finallPrice,
+                  sn:data.data.sn
                 };
                 _this.$emit('payConfirm',payInfo);
               }
@@ -357,7 +360,7 @@
                 "tradeNO": res.data.tradeNO
               }, function(result){
                 if(result.resultCode == '9000'){
-                  _this.$router.push({name:"message",query:{psn:sn,amount:_this.bill.amount-_this.bill.couponDiscount}})
+                  _this.$router.push({name:"message",query:{psn:sn,amount:_this.finallPrice}})
                 } else {
                   _this.$refs.toast.show(result.memo);
                 }
@@ -366,7 +369,6 @@
             else {
               _this.$refs.toast.show("网络不稳定");
             }
-
           },
           function (err) {
             _this.$refs.toast.show("网络不稳定");
@@ -386,9 +388,8 @@
                 "signType" :res.data.signType,
                 "paySign" : res.data.paySign,
               },function(res){
-
                 if(res.err_msg == "get_brand_wcpay_request:ok" ) {
-                  _this.$router.push({name:"message",query:{psn:sn,amount:_this.bill.amount-_this.bill.couponDiscount}})
+                  _this.$router.push({name:"message",query:{psn:sn,amount:_this.finallPrice}})
                 } else {
                   _this.$refs.toast.show("支付失败");
                 }
@@ -429,7 +430,7 @@
         if(spec2.spec2 == this.spec2Name){
           this.spec2Name = '';
           this.goodsData[0].products.forEach(function (data) {
-              _this.$set(data,'isSpec1','2');
+            _this.$set(data,'isSpec1','2');
           })
           return;
         }
@@ -438,31 +439,17 @@
           return;
         }
         this.spec2Name = spec2.spec2;
-
-        this.goodsData[0].products.forEach(function (item) {
-          if(item.spec2 == spec2.spec2){
-            _this.goodsData[0].products.forEach(function (data) {
-                if(item.spec1 == data.spec1){
-                  _this.$set(data,'isSpec1','2');
-                }
-
-            })
-          }else{
-            _this.$set(item,'isSpec1','1');
-          }
-        })
-
-        if(this.spec1Name == ''){
+//        调用赋值方法
+        this.spec2Change(spec2.spec2);
+        if(utils.isNull(this.spec1Name)){
           return;
         }else {
           let _this = this;
 //          更改图片和价格
           this.goodsData[0].products.forEach(function (item) {
             if (item.spec1 == _this.spec1Name && item.spec2 == _this.spec2Name) {
-
 //          更改商品规格
               _this.productId = item.productId;
-
               _this.goodsData[0].price = item.price;
               _this.goodsData[0].thumbnail = item.thumbnail;
               console.log(_this.goodsData);
@@ -470,6 +457,67 @@
           })
           this.calcPrice();
         }
+      },
+      spec2Change(spec2){
+        let _this = this;
+        this.goodsData[0].products.forEach(function (item) {
+          if(item.spec2 == spec2){
+            _this.goodsData[0].products.forEach(function (data) {
+              if(!utils.isNull(item.spec1) && !utils.isNull(data.spec1) && item.spec1 == data.spec1){
+                _this.$set(data,'isSpec1','2');
+              }
+            })
+          }else{
+            _this.$set(item,'isSpec1','1');
+          }
+        })
+      },
+//      选择规格1时触发
+      spec1Choose:function (spec1,products) {
+        let _this = this;
+        if(spec1.spec1 == this.spec1Name){
+          this.spec1Name = '';
+          this.goodsData[0].products.forEach(function (data) {
+            _this.$set(data,'isSpec2','2');
+          })
+          return;
+        }
+//        判断规格2所属的规格1是否有该项
+        if(spec1.isSpec1 == '1'){
+          return;
+        }
+        this.spec1Name = spec1.spec1;
+//        调用赋值方法
+        this.spec1Change(spec1.spec1);
+        if(this.hasSpec2(products) && utils.isNull(this.spec2Name)){//判断有没有规格2并且有没有选择规格2
+          return;
+        }else{
+          let _this = this;
+          //          更改图片和价格
+          this.goodsData[0].products.forEach(function (item) {
+            if(item.spec1 == _this.spec1Name && item.spec2 == _this.spec2Name){
+//          更改商品规格
+              _this.productId = item.productId;
+              _this.goodsData[0].price = item.price;
+              _this.goodsData[0].thumbnail = item.thumbnail;
+            }
+          })
+          this.calcPrice();
+        }
+      },
+      spec1Change(spec1){
+        let _this = this;
+        this.goodsData[0].products.forEach(function (item) {
+          if(item.spec1 == spec1){
+            _this.goodsData[0].products.forEach(function (data) {
+              if(!utils.isNull(item.spec2) && !utils.isNull(data.spec2) && item.spec2 == data.spec2){
+                _this.$set(data,'isSpec2','2');
+              }
+            })
+          }else{
+            _this.$set(item,'isSpec2','1');
+          }
+        })
       },
 //      计算最终价格
       calcPrice(){
@@ -486,68 +534,26 @@
               _this.close(data);
             }
           },function (err) {
+            console.log(err);
             _this.close(utils.message("error","网络不稳定"));
           }
         )
       },
-//      选择规格1时触发
-      spec1Choose:function (spec1) {
-        let _this = this;
-        if(spec1.spec1 == this.spec1Name){
-          this.spec1Name = '';
-          this.goodsData[0].products.forEach(function (data) {
-            _this.$set(data,'isSpec2','2');
-          })
-          return;
-        }
-//        判断规格2所属的规格1是否有该项
-        if(spec1.isSpec1 == '1'){
-          return;
-        }
-        this.spec1Name = spec1.spec1;
-        this.goodsData[0].products.forEach(function (item) {
-          if(item.spec1 == spec1.spec1){
-              _this.goodsData[0].products.forEach(function (data) {
-                if(item.spec2 == data.spec2){
-                  _this.$set(data,'isSpec2','2');
-                }
-              })
-          }else{
-            _this.$set(item,'isSpec2','1');
-          }
-        })
-        if(this.spec2Name == ''){
-          return;
-        }else{
-          let _this = this;
-          //          更改图片和价格
-          this.goodsData[0].products.forEach(function (item) {
-            if(item.spec1 == _this.spec1Name && item.spec2 == _this.spec2Name){
-//          更改商品规格
-              _this.productId = item.productId;
-              console.log(item)
-              _this.goodsData[0].price = item.price;
-              _this.goodsData[0].thumbnail = item.thumbnail;
-            }
-          })
-          this.calcPrice();
-        }
-      },
 //      判断是否有规格2
       hasSpec2(products){
-        var a = 0;
-        products.forEach(function (item) {
+        let spec2Num = 0;
+        products.forEach(function (item,index) {
           if(!utils.isNull(item.spec2)){
-            a ++ ;
+            spec2Num ++ ;
           }
         })
-        if(a > 0){
+        if(spec2Num > 0){
           return true;
         }else{
           return false;
         }
       },
-    //判断规格1重复
+      //判断规格1重复
       isSpec1Rrepeat(index,item){
 //        return true;
         var _this = this;
@@ -572,7 +578,7 @@
               return false
             }
           }
-            return true;
+          return true;
         } else {
           return true;
         }
@@ -584,20 +590,32 @@
         GET('website/product/view.jhtml?id='+sn).then(
           function (data) {
             if(data.type == 'success'){
+              console.log(data);
               _this.goodsData = [];
               _this.finallPrice = data.data.products[0].price;
               data.data.price = data.data.products[0].price;
               data.data.thumbnail = data.data.products[0].thumbnail;
-              _this.spec1Name = '';
-              _this.spec2Name = '';
               _this.buyNum = 1;
+//              将页面list数据push进变量
               _this.goodsData.push(data.data);
+
+//              默认选中规格并调用方法判断规格2是否可选
+              let sp1 = data.data.products[0].spec1;
+              if(!utils.isNull(sp1)){
+                _this.spec1Name = sp1;
+                _this.spec1Change(sp1);
+              }
+              let sp2 = data.data.products[0].spec2;
+              if(!utils.isNull(sp2)){
+                _this.spec2Name = sp2;
+                _this.spec2Change(sp2);
+              }
             }else{
-              alert(data.content);
+//              alert(data.content);
+              _this.close(data);
             }
-            console.log(_this.goodsData);
           },function (err) {
-            alert(err.content);
+            _this.close(err);
           })
       },
       goback:function () {
@@ -613,8 +631,14 @@
       maskHide:function () {
         this.isShow = false;
       },
+      numInput:function () {
+        if(!utils.isNull(this.buyNum) && this.buyNum != 0){
+          this.calcPrice();
+        }
+      }
 
 //methods 方法到此为止
     },
   }
 </script>
+

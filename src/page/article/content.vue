@@ -30,11 +30,11 @@
                 <span>
                 ¥ {{template.price | watchPrice}}
                 </span>
-                  <span class=" sub_title" style="font-size: 14px;text-decoration:line-through;">
-                    ¥ 160.00
-                  </span>
+                  <!--<span class=" sub_title" style="font-size: 14px;text-decoration:line-through;">-->
+                    <!--¥ 160.00-->
+                  <!--</span>-->
                 </div>
-                <span class="doBuy" @click="buyNow(template.id)">立即购买</span>
+                <span class="doBuy" >立即购买</span>
               </div>
             </div>
           </div>

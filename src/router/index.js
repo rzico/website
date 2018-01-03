@@ -10,7 +10,10 @@ import C1001 from '../page/c1001'
 import Card from '../page/card'
 import Coupon from '../page/Coupon'
 import activate from '../page/member/activate'
-
+import Message from '../page/message'
+import OrderList from '../page/order/list'
+import OrderDetails from '../page/order/details'
+import OrderLogistics from '../page/order/logistics'
 Vue.use(Router);
 Vue.use(VueResource);
 
@@ -71,8 +74,32 @@ var router = new Router({
       name: 'activate',
       meta: {requireAuth:true},
       component: activate
+    },
+    {
+      path: '/message',
+      name: 'message',
+      meta: {requireAuth:true,title:"芸店"},
+      component: Message
+    },
+    {
+      path: '/orderList',
+      name: 'orderList',
+      meta: {requireAuth:true,title:"芸店"},
+      component: OrderList
+    },
+    {
+      path: '/OrderDetails',
+      name: 'OrderDetails',
+      meta: {requireAuth:true,title:"芸店"},
+      component: OrderDetails
+    },
+    {
+      path: '/OrderLogistics',
+      name: 'OrderLogistics',
+      meta: {requireAuth:true,title:"芸店"},
+      component: OrderLogistics
     }
-   ]
+  ]
 })
 
 export default router
