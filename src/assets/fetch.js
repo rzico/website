@@ -11,8 +11,11 @@ Vue.use(VueResource);
 //检查静默授权
 export function AUTH(redirectURL,func) {
   var _this = this;
-  var scope = "";
-  GET("/website/login/isAuthenticated.jhtml").then(
+  var scope = "base";
+  if (utils.isNull(redirectURL)) {
+      scope = "user"
+  }
+  GET("/website/login/isAuthenticated.jhtml?scope="+scope).then(
     function (data) {
       if (data.type == "success") {
         var logined = false;
@@ -46,7 +49,6 @@ export function AUTH(redirectURL,func) {
             let state = b64safe(redirectURL);
             location.href = "https://openauth.alipay.com/oauth2/publicAppAuthorize.htm?app_id=" + utils.getConfig().alAppid + "&redirect_uri=" + encodeURIComponent(utils.getConfig().baseURL+"website/login/alipay.jhtml?redirectURL="+state)+ "&scope="+scope+"&state=state";
           } else {
-            Vue.$router.push({name:"login",query:{redirectURL:location.href}});
           }
         }
         func(false);

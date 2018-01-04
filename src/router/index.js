@@ -9,11 +9,14 @@ import T1002 from '../page/t1002'
 import C1001 from '../page/c1001'
 import Card from '../page/card'
 import Coupon from '../page/Coupon'
+import Reward from '../page/member/reward'
+import Deposit from '../page/member/deposit'
 import activate from '../page/member/activate'
 import Message from '../page/message'
 import OrderList from '../page/order/list'
 import OrderDetails from '../page/order/details'
 import OrderLogistics from '../page/order/logistics'
+
 Vue.use(Router);
 Vue.use(VueResource);
 
@@ -50,6 +53,18 @@ var router = new Router({
       name: 'login',
       meta: {requireAuth:false},
       component: Login
+    },
+    {
+      path: '/reward',
+      name: 'reward',
+      meta: {requireAuth:false},
+      component: Reward
+    },
+    {
+      path: '/deposit',
+      name: 'deposit',
+      meta: {requireAuth:false},
+      component: Deposit
     },
     {
       path: '/t1001',

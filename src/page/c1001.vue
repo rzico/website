@@ -45,6 +45,7 @@
             function (response) {
               if (response.type=="success") {
                 _this.topic = response.data;
+                _this.topic.logo = utils.thumbnail(_this.topic.logo,150,150)
                 _this.id = _this.topic.id;
                 _this.catalogs = response.data.catalogs;
                 //设置分享标题
@@ -80,7 +81,7 @@
            }
          },
          navChange:function (id) {
-             this.idx = id;
+           this.idx = id;
            this.loadTop(id);
          }
        }

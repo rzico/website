@@ -16,6 +16,7 @@
           </div>
           <div class="flex-r flex-ju">
             <span class="f12 colorccc">{{deposit.createDate | hitimefmt}}</span>
+            <span class="f12">余额:{{deposit.balance}}</span>
           </div>
           </div>
         </div>
@@ -83,7 +84,7 @@
     font-size: 12px;
   }
   .amountfont{
-    font-size: 12px;
+    font-size: 16px;
     font-weight: bold;
   }
   .color888{
@@ -133,6 +134,7 @@
     },
     created() {
       this.open()
+      this.cardId = utils.getUrlParameter('id');
     },
     mounted(){
 
