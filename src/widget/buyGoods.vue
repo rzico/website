@@ -23,15 +23,15 @@
           </div>
         </div>
         <div class="specBox" v-if="item.products[0].spec1 != ''">
-          <div class="flexRow"  style="margin-top: 10px">
+          <div class="flexRow"  style="margin-top: 10px;align-items: flex-start" >
             <div class="specName" >
               <span class="fontSize16">规格1</span>
             </div>
             <div >
               <span v-for="(spec1,index) in item.products"  v-if="isSpec1Rrepeat(index,item.products)" :class="[spec1Name == spec1.spec1 ? 'specChoose' : '',spec1.isSpec1 != '1' ? '' : 'grayColor']" class="specStyle" @click="spec1Choose(spec1,item.products)">{{spec1.spec1}}</span>
             </div>
-          </div>
-          <div class="flexRow"  v-if="hasSpec2(item.products)">
+        </div>
+          <div class="flexRow"  v-if="hasSpec2(item.products)" style="align-items: flex-start">
             <div class="specName">
               <span class="fontSize16">规格2</span>
             </div>

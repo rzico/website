@@ -1,3 +1,10 @@
+@baseColor:#ff5545;
+.corpusActive{
+  color: #ff5545;
+  border: 0;
+  border-bottom: 2px solid #ff5545;
+}
+
 .goodsInfo{
   height: 80px;
   width: 55%;
@@ -19,9 +26,17 @@
 .noActive{
   border-bottom: 0px;
 }
+.mt50{
+  margin-top: 50px;
+}
 .goodsLine{
   margin-top: 10px;
+  padding: 0 !important;
+  display: flex;
+  flex-direction: column;
   background-color: #fff;
+  width:100%;
+  box-sizing: border-box;
 }
 .goodsHead{
   padding: 10px;
@@ -29,9 +44,14 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  width: 100%;
+  box-sizing: border-box;
 }
 .goodsBody{
+
   background-color: #eee;
+  width: 100%;
+  box-sizing: border-box;
   padding: 5px 10px;
 }
 .shopName{
@@ -49,6 +69,9 @@
 }
 .red{
   color: red;
+}
+.redBorder{
+  border: 1px solid red !important;
 }
 .goodsName{
   text-overflow: ellipsis;
@@ -68,6 +91,9 @@
 }
 .goodsPrice{
   font-size: 16px;
+  color: coral;
+}
+.coral{
   color: coral;
 }
 .subTitle{
@@ -98,6 +124,8 @@
   margin-right: 10px;
 }
 .goodsFoot{
+  width: 100%;
+  box-sizing: border-box;
   display: flex;
   align-items: center;
   flex-direction: row;
@@ -146,6 +174,6 @@
 .footBottom{
   position: fixed;
   bottom: 0;
-  height: 40px;
+  height: 55px;
   background-color: #eee;left: 0;right: 0;
 }

@@ -19,7 +19,7 @@
           </div>
         </div>
         <div v-if="template.mediaType == 'product'" class="goodsLineBox">
-          <div class="goodsLine boderStyle"  @click="buyNow(template.id)">
+          <div class="goodsLineInside boderStyle"  @click="buyNow(template.id)">
             <!--商品图片-->
             <img class="goodsImg" :src="template.original | watchGoodsImg" :style="'height:' + goodsHeight + 'px;' + 'width:' + (goodsHeight -10)+ 'px'"/>
             <!--商品描述内容-->
