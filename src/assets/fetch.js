@@ -49,7 +49,6 @@ export function AUTH(redirectURL,func) {
             let state = b64safe(redirectURL);
             location.href = "https://openauth.alipay.com/oauth2/publicAppAuthorize.htm?app_id=" + utils.getConfig().alAppid + "&redirect_uri=" + encodeURIComponent(utils.getConfig().baseURL+"website/login/alipay.jhtml?redirectURL="+state)+ "&scope="+scope+"&state=state";
           } else {
-            Vue.$router.push({name:"login",query:{redirectURL:location.href}});
           }
         }
         func(false);
