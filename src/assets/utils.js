@@ -47,6 +47,9 @@ let utilsFunc = {
         }
     },
     thumbnail(url,w,h) {
+      if(this.isNull(url)){
+        return;
+      }
         if (url.substring(0,11) == "http://cdnx") {
             return url+"?x-oss-process=image/resize,w_"+w+",h_"+h+"/quality,q_90";
         } else
@@ -69,17 +72,6 @@ let utilsFunc = {
            return url;
         }
     },
-  currencyfmt:function (value) {
-    // 返回处理后的值
-    if (value != null) {
-      if(value == 0){
-        return value;
-      }else{
-        var price = (Math.round(value * Math.pow(10,2)) / Math.pow(10,2)).toFixed(2);
-        return price;
-      }
-    }
-  },
   // 返回处理后的值 00:00
   timefmt(value) {
     value = value + '';
@@ -155,6 +147,89 @@ let utilsFunc = {
     }
     let t = date.getFullYear()+'-'+ m + '-' + d + '  ' + H + ':' + i ;
     return t;
+  },
+  //时间格式化 今天 近三天 近七天  七天前
+  dayfmt:function (value) {
+    let res = this.resolvetimefmt(value);
+    let tds = this.resolvetimefmt(Math.round(new Date().getTime()));
+
+    let span = Math.abs(Math.round(new Date().getTime())-value);
+    let daySub = Math.floor(span / (24 * 3600 * 1000));
+    if (daySub<1) {
+      return "今天"
+    }
+    if (daySub<3) {
+      return "近三天"
+    }
+    if (daySub<7) {
+      return "近七天"
+    }
+    return "七天前"
+  },
+  //时间格式化 返回 03:07
+  hitimefmt:function (value) {
+    let res = this.resolvetimefmt(value);
+    return res.h + ':' + res.i ;
+  },
+  //金额保留两位小数点
+  currencyfmt:function(value) {
+    if (value == '' || value == null || value == undefined) {
+      return value;
+    }
+    // 返回处理后的值
+    if (value != null) {
+      if (value == 0) {
+        return value;
+      } else {
+        var price = (Math.round(value * Math.pow(10, 2)) / Math.pow(10, 2)).toFixed(2);
+        return price;
+      }
+    }
+  },
+  resolvetimefmt:function (value) {
+//value 传进来是个整数型，要判断是10位还是13位需要转成字符串。这边的方法是检测13位的时间戳 所以要*1000；并且转回整型。安卓下，时间早了8个小时
+    if(value.toString().length == 10){
+      value = parseInt(value) * 1000;
+    }else{
+      value = parseInt(value);
+    }
+// 返回处理后的值
+    var    date = new Date(value);
+
+    var    d2 = Date.UTC(date.getUTCFullYear(),date.getUTCMonth(),date.getUTCDate(),date.getUTCHours(),date.getUTCMinutes(),date.getUTCSeconds());
+
+    date = new Date(d2+28800000);
+
+    var    y = date.getUTCFullYear();
+    var    m = date.getUTCMonth() + 1;
+    var    d = date.getUTCDate();
+    var    h = date.getUTCHours();
+    var    i = date.getUTCMinutes();
+    var    s = date.getUTCSeconds();
+    if (m < 10) {
+      m = '0' + m;
+    }
+    if (d < 10) {
+      d = '0' + d;
+    }
+    if (h < 10) {
+      h = '0' + h;
+    }
+    if (i < 10) {
+      i = '0' + i;
+    }
+    if (s < 10) {
+      s = '0' + s;
+    }
+    let timeObj = {
+      y:y,
+      m:m,
+      d:d,
+      h:h,
+      i:i,
+      s:s
+    }
+    return timeObj;
   },
     //RSA
     encrypt(str,key) {

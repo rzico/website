@@ -154,7 +154,12 @@ export function POST (path,body) {
                 content:"网络不稳定"
               })
             }
-          },() => {})
+          },() => {
+           reject({
+             type:"error",
+             content:"网络不稳定"
+           })
+  })
     })
 }
 
@@ -171,6 +176,11 @@ export function GET (path) {
             content:"网络不稳定"
           })
         }
-      },() => {})
+      },() => {
+           reject({
+             type:"error",
+             content:"网络不稳定"
+           })
+  })
   })
 }

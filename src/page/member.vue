@@ -5,15 +5,15 @@
         <div class="insOne">
           <div class="bgflex">
             <div class="logo">
-              <img class="stroeLogo" :src="card.logo">
+              <img class="stroeLogo" :src="card.logo | logoImg">
             </div>
           </div>
           <span class="f14 martop30">{{card.name}}</span>
           <span class="f18 martop15">NO.{{card.code | codefmt}}</span>
           <span class="martop10 f30" style="color: #EB4E40">{{card.balance}}</span>
-          <!--<div class="martop10">-->
-            <!--<span class=" f14 fontColor888" @click="jumpcoupon()">我的账单 | </span><span class=" f14 fontColor888" @click="jumpreward()">我的奖金</span>-->
-          <!--</div>-->
+          <div class="martop10">
+            <span class=" f14 fontColor888" @click="jumpdeposit()">我的账单 | </span><span class=" f14 fontColor888" @click="jumpreward()">我的奖金</span>
+          </div>
         </div>
         <div class="insthree">
           <div class="codeDiv" ></div>
@@ -29,7 +29,7 @@
           </div>
         </div>
         <div class="insfour" v-show="!isPopup">
-          <couponceshi></couponceshi>
+          <couponList></couponList>
         </div>
       </v-loadmore>
     </div>
@@ -180,7 +180,7 @@
   import { POST, GET, AUTH} from '../assets/fetch.js';
   import utils from '../assets/utils.js';
   import Toast from '../widget/toast.vue';
-  import couponceshi from './member/couponceshi.vue';
+  import couponList from './member/couponList.vue';
   export default {
     data () {
       return {
@@ -192,7 +192,7 @@
     },
     components: {
       Toast,
-      couponceshi,
+      couponList,
       'v-loadmore':Loadmore, // 为组件起别名，vue转换template标签时不会区分大小写，例如：loadMore这种标签转换完就会变成loadmore，容易出现一些匹配问题
     },
     filters: {
@@ -201,6 +201,13 @@
           return val;
         } else  {
           return val.substr(0,11)+"  "+val.substr(11);
+        }
+      },
+      logoImg:function(value) {
+        if (utils.isNull(value)) {
+          return "";
+        } else {
+          return utils.thumbnail(value,utils.screenWidth(),40,40);
         }
       }
     },
@@ -214,18 +221,10 @@
     },
     methods:{
       loadTop:function() { //组件提供的下拉触发方法
-        if (this.idx==2) {
-          this.$refs.reward.refresh()
-        } else {
           this.$refs.loadmore.onTopLoaded();// 固定方法，查询完要调用一次，用于重n新定位
-        }
       },
       loadBottom:function() {
-        if (this.idx==2) {
-          this.$refs.reward.loading()
-        } else {
           this.$refs.loadmore.onBottomLoaded();// 固定方法，查询完要调用一次，用于重新定位
-        }
       },
       onscroll(e){
         if(e.target.scrollTop >= 180){
@@ -257,11 +256,11 @@
       },
 
       jumpreward:function() {
-//      this.$router.push({name:"reward",query:{}});
+      this.$router.push({name:"reward",query:{}});
       },
 
-      jumpcoupon:function() {
-//      this.$router.push({name:"memberCoupon",query:{}});
+      jumpdeposit:function() {
+      this.$router.push({name:"deposit",query:{}});
       },
     }
   }
