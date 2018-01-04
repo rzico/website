@@ -77,6 +77,9 @@
     filters:{
 //        用原图去阿里云获取缩略图
       watchImg:function(value) {
+          if (utils.isNull(value)) {
+              return "";
+          }
         return utils.thumbnail_cover(value,utils.screenWidth());
       },
       watchGoodsImg:function (value) {
