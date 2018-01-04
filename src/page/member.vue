@@ -12,7 +12,7 @@
           <span class="f18 martop15">NO.{{card.code | codefmt}}</span>
           <span class="martop10 f30" style="color: #EB4E40">{{card.balance}}</span>
           <div class="martop10">
-            <span class=" f14 fontColor888" @click="jumpdeposit()">我的账单 | </span><span class=" f14 fontColor888" @click="jumpreward()">我的奖金</span>
+            <span class=" f14 fontColor888" @click="jumpdeposit(card.id)">我的账单 | </span><span class=" f14 fontColor888" @click="jumpreward()">我的奖金</span>
           </div>
         </div>
         <div class="insthree">
@@ -259,8 +259,8 @@
       this.$router.push({name:"reward",query:{}});
       },
 
-      jumpdeposit:function() {
-      this.$router.push({name:"deposit",query:{}});
+      jumpdeposit:function(id) {
+      this.$router.push({name:"deposit",query:{id}});
       },
     }
   }
