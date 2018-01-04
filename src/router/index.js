@@ -67,13 +67,13 @@ var router = new Router({
       component: Deposit
     },
     {
-      path: '/t1001.html',
+      path: '/t1001',
       name: 't1001',
       meta: {requireAuth:true},
       component: T1001
     },
     {
-      path: '/t1002.html',
+      path: '/t1002',
       name: 't1002',
       meta: {requireAuth:true},
       component: T1002
