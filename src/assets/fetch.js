@@ -11,8 +11,11 @@ Vue.use(VueResource);
 //检查静默授权
 export function AUTH(redirectURL,func) {
   var _this = this;
-  var scope = "";
-  GET("/website/login/isAuthenticated.jhtml").then(
+  var scope = "base";
+  if (utils.isNull(redirectURL)) {
+      scope = "user"
+  }
+  GET("/website/login/isAuthenticated.jhtml?scope="+scope).then(
     function (data) {
       if (data.type == "success") {
         var logined = false;

@@ -49,13 +49,13 @@ var router = new Router({
       component: Login
     },
     {
-      path: '/t1001',
+      path: '/article',
       name: 't1001',
       meta: {requireAuth:true},
       component: T1001
     },
     {
-      path: '/t1002',
+      path: '/article',
       name: 't1002',
       meta: {requireAuth:true},
       component: T1002

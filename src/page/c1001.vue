@@ -80,7 +80,7 @@
            }
          },
          navChange:function (id) {
-             this.idx = id;
+           this.idx = id;
            this.loadTop(id);
          }
        }
