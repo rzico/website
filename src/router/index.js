@@ -10,8 +10,10 @@ import C1001 from '../page/c1001'
 import Card from '../page/card'
 import Coupon from '../page/Coupon'
 import activate from '../page/member/activate'
-import deposit from '../page/member/deposit'
-import reward from '../page/member/reward'
+import Message from '../page/message'
+import OrderList from '../page/order/list'
+import OrderDetails from '../page/order/details'
+import OrderLogistics from '../page/order/logistics'
 Vue.use(Router);
 Vue.use(VueResource);
 
@@ -50,13 +52,13 @@ var router = new Router({
       component: Login
     },
     {
-      path: '/t1001',
+      path: '/article',
       name: 't1001',
       meta: {requireAuth:true},
       component: T1001
     },
     {
-      path: '/t1002',
+      path: '/article',
       name: 't1002',
       meta: {requireAuth:true},
       component: T1002
@@ -74,18 +76,30 @@ var router = new Router({
       component: activate
     },
     {
-      path: '/deposit',
-      name: 'deposit',
-      meta: {requireAuth:true},
-      component: deposit
+      path: '/message',
+      name: 'message',
+      meta: {requireAuth:true,title:"芸店"},
+      component: Message
     },
     {
-      path: '/reward',
-      name: 'reward',
-      meta: {requireAuth:true},
-      component: reward
+      path: '/orderList',
+      name: 'orderList',
+      meta: {requireAuth:true,title:"芸店"},
+      component: OrderList
     },
-   ]
+    {
+      path: '/OrderDetails',
+      name: 'OrderDetails',
+      meta: {requireAuth:true,title:"芸店"},
+      component: OrderDetails
+    },
+    {
+      path: '/OrderLogistics',
+      name: 'OrderLogistics',
+      meta: {requireAuth:true,title:"芸店"},
+      component: OrderLogistics
+    }
+  ]
 })
 
 export default router

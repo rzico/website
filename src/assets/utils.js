@@ -47,6 +47,9 @@ let utilsFunc = {
         }
     },
     thumbnail(url,w,h) {
+      if(this.isNull(url)){
+        return;
+      }
         if (url.substring(0,11) == "http://cdnx") {
             return url+"?x-oss-process=image/resize,w_"+w+",h_"+h+"/quality,q_90";
         } else
