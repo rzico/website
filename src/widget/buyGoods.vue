@@ -5,9 +5,9 @@
       <div class="headerBox">
         <img class="goodsImg" :src="item.thumbnail" alt="">
         <div class="goodsInfo">
-            <span class="priceNow">¥ {{item.price | watchPrice}}</span>
-            <!--<span class="priceBefore sub_title" style="font-size: 14px">原价160.00</span>-->
-            <span class="sub_title goodsName" >{{item.name}}</span>
+          <span class="priceNow">¥ {{item.price | watchPrice}}</span>
+          <!--<span class="priceBefore sub_title" style="font-size: 14px">原价160.00</span>-->
+          <span class="sub_title goodsName" >{{item.name}}</span>
         </div>
       </div>
       <div class="specScrollBox">
@@ -30,7 +30,7 @@
             <div >
               <span v-for="(spec1,index) in item.products"  v-if="isSpec1Rrepeat(index,item.products)" :class="[spec1Name == spec1.spec1 ? 'specChoose' : '',spec1.isSpec1 != '1' ? '' : 'grayColor']" class="specStyle" @click="spec1Choose(spec1,item.products)">{{spec1.spec1}}</span>
             </div>
-        </div>
+          </div>
           <div class="flexRow"  v-if="hasSpec2(item.products)" style="align-items: flex-start">
             <div class="specName">
               <span class="fontSize16">规格2</span>
@@ -276,7 +276,8 @@
         disabledButton:false,
         isShow: false,
         isPwd: false,
-        couponName:''
+        couponName:'',
+        articleId:''
       }
     },
     filters:{
@@ -288,13 +289,11 @@
 //      确认购买
       completeBuy:function () {
         var _this = this;
-        console.log("website/member/order/create.jhtml?id=" + this.productId + '&quantity=' + this.buyNum + '&receiverId=1');
         POST("website/member/order/create.jhtml?id=" + this.productId + '&quantity=' + this.buyNum + '&receiverId=1').then(
           function (data) {
 //            alert(data);
+            console.log(data);
             if (data.type=="success") {
-              let s = JSON.stringify(data);
-              alert(s);
               _this.goPay(data.data.sn);
             } else {
               _this.close(data);
@@ -315,12 +314,20 @@
         let _this = this;
         POST('website/member/order/payment.jhtml?sn=' + sn).then(
           function (data) {
+            console.log('===');
+            console.log(data);
             if (data.type=="success") {
               if(utils.isNull(data.data.paymentPluginId)){
-                if(utils.isalipay()){
-                  _this.alipay(data.data.sn);
-                }else if(utils.isweixin()){
-                  _this.weixin(data.data.sn);
+                if(utils.isweixin()){
+                  _this.$router.push({
+                    name: "payment",
+                    query: {psn: data.data.sn, amount: _this.finallPrice, name:_this.goodsData[0].name,type:'weixin',articleId:_this.articleId}
+                  });
+                }else if(utils.isalipay()){
+                  _this.$router.push({
+                    name: "payment",
+                    query: {psn: data.data.sn, amount: _this.finallPrice,name:_this.goodsData[0].name,type:'alipay',articleId:_this.articleId}
+                  });
                 }
               }else if(data.data.paymentPluginId == 'cardPayPlugin'){//会员卡支付
                 let payInfo = {
@@ -351,61 +358,7 @@
         )
       },
 
-      alipay:function (sn) {
-        var _this = this;
-        POST("payment/submit.jhtml?sn="+sn+"&paymentPluginId=aliPayPlugin").then(
-          function (res) {
-            if (res.type=="success") {
-              AlipayJSBridge.call("tradePay",{
-                "tradeNO": res.data.tradeNO
-              }, function(result){
-                if(result.resultCode == '9000'){
-                  _this.$router.push({name:"message",query:{psn:sn,amount:_this.finallPrice}})
-                } else {
-                  _this.$refs.toast.show(result.memo);
-                }
-              });
-            }
-            else {
-              _this.$refs.toast.show("网络不稳定");
-            }
-          },
-          function (err) {
-            _this.$refs.toast.show("网络不稳定");
-          }
-        )
-      },
-      weixin:function(sn) {
-        var _this = this;
-        POST("payment/submit.jhtml?sn="+sn+"&paymentPluginId=weixinPayPlugin").then(
-          function (res) {
-            if (res.type=="success") {
-              WeixinJSBridge.invoke('getBrandWCPayRequest',{
-                "appId" : res.data.appId,
-                "timeStamp":res.data.timeStamp,
-                "nonceStr" :res.data.nonceStr,
-                "package" :res.data.package,
-                "signType" :res.data.signType,
-                "paySign" : res.data.paySign,
-              },function(res){
-                if(res.err_msg == "get_brand_wcpay_request:ok" ) {
-                  _this.$router.push({name:"message",query:{psn:sn,amount:_this.finallPrice}})
-                } else {
-                  _this.$refs.toast.show("支付失败");
-                }
 
-              });
-            }
-            else {
-              _this.$refs.toast.show("网络不稳定");
-            }
-
-          },
-          function (err) {
-            _this.$refs.toast.show("网络不稳定");
-          }
-        )
-      },
 
 //      购买数量+1
       numAdd:function () {
@@ -584,7 +537,8 @@
         }
       },
 //       开始时触发
-      show:function (sn) {
+      show:function (sn,articleId) {
+        this.articleId = articleId;
         this.isShow = true;
         let _this = this;
         GET('website/product/view.jhtml?id='+sn).then(
@@ -593,6 +547,7 @@
               console.log(data);
               _this.goodsData = [];
               _this.finallPrice = data.data.products[0].price;
+              _this.productId = data.data.products[0].productId;
               data.data.price = data.data.products[0].price;
               data.data.thumbnail = data.data.products[0].thumbnail;
               _this.buyNum = 1;

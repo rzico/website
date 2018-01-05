@@ -38,7 +38,7 @@
           </div>
           <div class="footRight">
             <span class="textTitle footText">查看物流</span>
-            <span class="textTitle footText">评价晒单</span>
+            <!--<span class="textTitle footText">评价晒单</span>-->
             <span class="textTitle footText red redBorder">再次购买</span>
           </div>
         </div>
@@ -46,7 +46,7 @@
           <div class="footLeft">
             <span class="subTitle"></span>
           </div>
-          <div class="footRight" style="justify-content: flex-end">
+          <div class="footRight" >
             <!--<span class="textTitle footText">查看物流</span>-->
             <span class="textTitle footText">取消订单</span>
             <span class="textTitle footText red redBorder" style="padding: 2.5px 10px">付款</span>
@@ -193,7 +193,7 @@
       },
 //      前往订单详情
       goDetails:function (sn) {
-        this.$router.push({name:"OrderDetails",query:{sn:sn}});
+        this.$router.push({name:"orderDetails",query:{sn:sn}});
       }
     }
   }

@@ -247,7 +247,7 @@
       },
       buyNow:function (id) {
         let _this = this;
-            _this.$refs.buy.show(id);
+            _this.$refs.buy.show(id,this.watchArticle.id);
       },
       payConfirm:function (payInfo) {
             this.payWay = payInfo.way;
@@ -260,11 +260,11 @@
         let _this = this;
         this.$refs.dialog.close();
         this.$router.push({
-          name: "message",
-          query: {psn: _this.sn, amount: 666}
+          name: "payment",
+          query: {psn: _this.sn, amount: _this.payPrice}
         });
       },
-//      确定支付
+//      确定免密支付
       activate:function () {
         let _this = this;
         POST('website/member/order/payment.jhtml?sn=' + this.sn).then(
@@ -272,10 +272,9 @@
             if (data.type=="success") {
               _this.$refs.toast.show('支付成功');
               _this.$refs.buyGoods.hide();
-
               this.$router.push({
-                name: "message",
-                query: {psn: _this.sn, amount: 666}
+                name: "payment",
+                query: {psn: _this.sn, amount: _this.payPrice}
               });
             } else {
               _this.$refs.toast.show(data.content);

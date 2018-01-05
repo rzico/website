@@ -12,7 +12,7 @@ import Coupon from '../page/Coupon'
 import Reward from '../page/member/reward'
 import Deposit from '../page/member/deposit'
 import activate from '../page/member/activate'
-import Message from '../page/message'
+import Payment from '../page/payment'
 import OrderList from '../page/order/list'
 import OrderDetails from '../page/order/details'
 import OrderLogistics from '../page/order/logistics'
@@ -91,10 +91,10 @@ var router = new Router({
       component: activate
     },
     {
-      path: '/message',
-      name: 'message',
+      path: '/payment/',
+      name: 'payment',
       meta: {requireAuth:true},
-      component: Message
+      component: Payment
     },
     {
       path: '/orderList',
@@ -103,14 +103,14 @@ var router = new Router({
       component: OrderList
     },
     {
-      path: '/OrderDetails',
-      name: 'OrderDetails',
+      path: '/orderDetails',
+      name: 'orderDetails',
       meta: {requireAuth:true},
       component: OrderDetails
     },
     {
-      path: '/OrderLogistics',
-      name: 'OrderLogistics',
+      path: '/orderLogistics',
+      name: 'orderLogistics',
       meta: {requireAuth:true},
       component: OrderLogistics
     }

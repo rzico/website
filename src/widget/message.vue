@@ -24,7 +24,10 @@
     margin-top: 10px;
   }
   .weui_icon_msg:before{
-    font-size: 45px;
+    font-size: 45px !important;
+  }
+  .weui_msg .weui_text_area{
+    padding: 0 50px !important;
   }
 </style>
 <script>

@@ -97,9 +97,9 @@
       <div class="footLeft" >
         <span class="textTitle delOrder" >删除订单</span>
       </div>
-      <div class="footRight">
+      <div class="footRight" >
         <span class="textTitle footspan" @click="goLogistics()">查看物流</span>
-        <span class="textTitle footspan">评价晒单</span>
+        <!--<span class="textTitle footspan">评价晒单</span>-->
         <span class="textTitle footspan ">再次购买</span>
       </div>
     </div>
@@ -229,7 +229,7 @@
         event.toast('复制成功');
       },
       goLogistics:function () {
-        this.$router.push({name:"OrderLogistics",query:{sn:1}});
+        this.$router.push({name:"orderLogistics",query:{sn:1}});
       },
     }
   }
