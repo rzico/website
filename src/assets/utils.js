@@ -5,7 +5,7 @@ const config = {
   title:"芸店",
   link:"http://weixin.rzico.com",
   desc:'超强图文小视频分享社区,中国版Facebook.',
-  baseURL:"http://weex.1xx.me/",
+  baseURL:"http://weixin.rzico.com/",
   wxAppid:"wx88a1ec3b5c3bc9c3"
 }
 
@@ -40,16 +40,16 @@ let utilsFunc = {
         }
     },
     isNull (value) {
-        if (value == null || value == undefined || value == '' ) {
+        if (value == null || value == undefined || value == '' || value == 'null' || value == '<null>') {
             return true
         } else {
             return false
         }
     },
     thumbnail(url,w,h) {
-      if(this.isNull(url)){
-        return;
-      }
+        if(this.isNull(url)){
+           return;
+        }
         if (url.substring(0,11) == "http://cdnx") {
             return url+"?x-oss-process=image/resize,w_"+w+",h_"+h+"/quality,q_90";
         } else

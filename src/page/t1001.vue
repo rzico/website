@@ -119,7 +119,6 @@
     },
     created() {
       var _this = this;
-      const ua = window.navigator.userAgent.toLowerCase();
       AUTH("",function (authed) {
         _this.logined  = authed;
       })

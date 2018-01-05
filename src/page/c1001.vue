@@ -28,6 +28,7 @@
             allLoaded: false, //是否可以上拉属性，false可以上拉，true为禁止上拉，就是不让往上划加载数据了
             topic:{},
             idx:0,
+            id:"",
             catalogs:[],
             isfixed:false
           }
@@ -40,29 +41,43 @@
         },
       created() {
           var _this = this;
-          let id = utils.getUrlParameter("id");
-          GET('website/topic/view.jhtml?id='+id).then(
-            function (response) {
-              if (response.type=="success") {
-                _this.topic = response.data;
-                _this.id = _this.topic.id;
-                _this.catalogs = response.data.catalogs;
-                //设置分享标题
-                utils.setConfig({
-                  title:_this.topic.name+"的"+utils.getConfig().siteName+"专栏",
-                  desc:"超强图文小视频分享社区，中国版Facebook",
-                  link:location.href,
-                  thumbnail:_this.topic.logo
-                });
-                SHARE(location.href);
-              } else {
-                _this.$refs.toast.show("网络不稳定");
-              }
-            }, function () {
-              _this.$refs.toast.show("网络不稳定");
-            });
+          _this.id = utils.getUrlParameter("id");
+          if (utils.isNull(_this.id)) {
+            _this.id = "";
+          }
+          if (utils.isNull(_this.id)) {
+            AUTH("",function (authed) {
+              _this.load();
+            })
+          } else {
+            _this.load();
+          }
         },
        methods:{
+            load:function() {
+              var _this = this;
+              GET('website/topic/view.jhtml?id='+_this.id).then(
+                function (response) {
+                  if (response.type=="success") {
+                    _this.topic = response.data;
+                    _this.topic.logo = utils.thumbnail(_this.topic.logo,150,150)
+                    _this.id = _this.topic.id;
+                    _this.catalogs = response.data.catalogs;
+                    //设置分享标题
+                    utils.setConfig({
+                      title:_this.topic.name+"的"+utils.getConfig().siteName+"专栏",
+                      desc:"超强图文小视频分享社区，中国版Facebook",
+                      link:location.href,
+                      thumbnail:_this.topic.logo
+                    });
+                    SHARE(location.href);
+                  } else {
+                    _this.$refs.toast.show("网络不稳定");
+                  }
+                }, function () {
+                  _this.$refs.toast.show("网络不稳定");
+                });
+            },
          loadTop:function() { //组件提供的下拉触发方法
            this.$refs.list.loadTop(this.idx);
            this.$refs.loadmore.onTopLoaded();// 固定方法，查询完要调用一次，用于重新定位

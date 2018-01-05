@@ -3,7 +3,7 @@
     <div class="item" v-for="article in pageList">
         <a class="article-a" data-id="w1ie0av" target="_blank" href="javascript:;" style="cursor:pointer;" @click="jump(article.url)">
 
-          <div :style="'background-image:url('+article.thumbnail+');'" class="img bg"></div>
+          <div :style="'background-image:url('+thumbnail(article.thumbnail,114,80)+');'" class="img bg"></div>
         </a>
         <div class="info" @click="jump(article.url)">
           <a class="article-a" data-id="w1ie0av" target="_blank" href="javascript:;" style="cursor:pointer;">
@@ -53,6 +53,9 @@
         //下拉加载
         this.load(idx);
       },
+      thumbnail:function (url,w,h) {
+        return  utils.thumbnail(url,w,h);
+      },
       loadBottom:function() {
         console.log("loadBottom");
         // 上拉加载
@@ -60,7 +63,7 @@
       },
       load:function (idx) {
         var _this = this;
-        let id = utils.getUrlParameter("id");
+        var id = utils.getUrlParameter("id");
         if (utils.isNull(id)) {
             id = this.id;
         }

@@ -260,7 +260,7 @@
       },
 
       jumpdeposit:function(id) {
-      this.$router.push({name:"deposit",query:{id}});
+      this.$router.push({name:"deposit",query:{"id":id}});
       },
     }
   }
