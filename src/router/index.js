@@ -93,25 +93,25 @@ var router = new Router({
     {
       path: '/message',
       name: 'message',
-      meta: {requireAuth:true,title:"芸店"},
+      meta: {requireAuth:true},
       component: Message
     },
     {
       path: '/orderList',
       name: 'orderList',
-      meta: {requireAuth:true,title:"芸店"},
+      meta: {requireAuth:true},
       component: OrderList
     },
     {
       path: '/OrderDetails',
       name: 'OrderDetails',
-      meta: {requireAuth:true,title:"芸店"},
+      meta: {requireAuth:true},
       component: OrderDetails
     },
     {
       path: '/OrderLogistics',
       name: 'OrderLogistics',
-      meta: {requireAuth:true,title:"芸店"},
+      meta: {requireAuth:true},
       component: OrderLogistics
     }
   ]

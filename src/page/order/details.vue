@@ -32,7 +32,7 @@
               <span class="subTitle baseColor" style="padding-bottom: 2px"  :style="{fontFamily:'iconfont'}">&#xe628;</span>
             </div>
           </div>
-          <div class="flexRow goodsBody boderBottom goodsBodyOther" >
+          <div class="flexRow goodsBody  goodsBodyOther" >
             <img :src="refreshImg" class="goodsImg" :style="'height:' + (goodsHeight - 15) + 'px;' + 'width:' + (goodsHeight - 15)+ 'px'"></img>
             <div class="goodsInfo" :style="'height:' + (goodsHeight - 15) + 'px;'">
               <span class="textTitle goodsName">Adima 太阳伞防紫外线这样小清新纯色简约三折两用晴雨伞软面</span>
@@ -41,23 +41,23 @@
             <div class="goodsPriceNum" :style="'height:' + (goodsHeight - 15) + 'px;' + 'width:' + (goods20Width)+ 'px'">
               <span class="textTitle ">¥ 148.00</span>
               <span class="subTitle">x1</span>
-              <span class="subTitle border shopCar" >加购物车</span>
+              <!--<span class="subTitle border shopCar" >加购物车</span>-->
             </div>
           </div>
-          <div class="flexRow goodsBody goodsBodyOther" >
-            <img :src="refreshImg" class="goodsImg" :style="'height:' + (goodsHeight - 15) + 'px;' + 'width:' + (goodsHeight - 15)+ 'px'"></img>
-            <div class="goodsInfo" :style="'height:' + (goodsHeight - 15) + 'px;'">
-              <span class="textTitle goodsName">Adima 太阳伞防紫外线这样小清新纯色简约三折两用晴雨伞软面</span>
-              <span class="subTitle marginTop5">颜色分类:深蓝直伞</span>
-            </div>
-            <div class="goodsPriceNum" :style="'height:' + (goodsHeight - 15) + 'px;' + 'width:' + (goods20Width)+ 'px'">
-              <span class="textTitle ">¥ 148.00</span>
-              <span class="subTitle">x1</span>
-              <span class="subTitle border shopCar" >加购物车</span>
-            </div>
-          </div>
+          <!--<div class="flexRow goodsBody goodsBodyOther" >-->
+            <!--<img :src="refreshImg" class="goodsImg" :style="'height:' + (goodsHeight - 15) + 'px;' + 'width:' + (goodsHeight - 15)+ 'px'"></img>-->
+            <!--<div class="goodsInfo" :style="'height:' + (goodsHeight - 15) + 'px;'">-->
+              <!--<span class="textTitle goodsName">Adima 太阳伞防紫外线这样小清新纯色简约三折两用晴雨伞软面</span>-->
+              <!--<span class="subTitle marginTop5">颜色分类:深蓝直伞</span>-->
+            <!--</div>-->
+            <!--<div class="goodsPriceNum" :style="'height:' + (goodsHeight - 15) + 'px;' + 'width:' + (goods20Width)+ 'px'">-->
+              <!--<span class="textTitle ">¥ 148.00</span>-->
+              <!--<span class="subTitle">x1</span>-->
+              <!--<span class="subTitle border shopCar" >加购物车</span>-->
+            <!--</div>-->
+          <!--</div>-->
         </div>
-        <div class="marginTop10 infoBox">
+        <div class="marginTop10 detalisinfoBox">
           <div class="infoLines boderBottom">
             <div class="flexRow">
               <span class="subTitle">订单编号: 64805405523</span>
@@ -98,7 +98,7 @@
         <span class="textTitle delOrder" >删除订单</span>
       </div>
       <div class="footRight">
-        <span class="textTitle footspan">查看物流</span>
+        <span class="textTitle footspan" @click="goLogistics()">查看物流</span>
         <span class="textTitle footspan">评价晒单</span>
         <span class="textTitle footspan ">再次购买</span>
       </div>
@@ -135,7 +135,7 @@
     justify-content: flex-end;
   }
   .fz18{
-    font-size: 16px;
+    font-size: 15px;
   }
   .ml10{
     margin-left: 10px;
@@ -145,7 +145,7 @@
   }
   .goodsBodyOther{
     background-color: #fff;
-    padding-left: 0;margin-left: 10px;
+
   }
 
   .carIcon{
@@ -159,8 +159,9 @@
   }
   /**/
   /*<!--订单 支付方式 信息行-->*/
-  .infoBox{
+  .detalisinfoBox{
     background-color: #fff;
+    width: 100%;
   }
   .copyBtn{
     padding: 3px 10px;
@@ -220,12 +221,16 @@
     created() {
       this.goodsHeight = document.documentElement.clientWidth * 0.25;
       this.goods20Width = document.documentElement.clientWidth * 0.20;
+      let sn = utils.getUrlParameter('sn')
     },
     methods: {
 //            点击复制
       copyCode(){
         event.toast('复制成功');
-      }
+      },
+      goLogistics:function () {
+        this.$router.push({name:"OrderLogistics",query:{sn:1}});
+      },
     }
   }
 </script>

@@ -118,6 +118,8 @@
     background-color: #fff;
     padding: 10px;
     margin-bottom: 10px;
+    text-align: left;
+    margin-top: 0px;
   }
 </style>
 <script>
