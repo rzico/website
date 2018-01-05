@@ -63,7 +63,7 @@
       },
       load:function (idx) {
         var _this = this;
-        let id = utils.getUrlParameter("id");
+        var id = utils.getUrlParameter("id");
         if (utils.isNull(id)) {
             id = this.id;
         }

@@ -37,7 +37,7 @@ export function AUTH(redirectURL,func) {
               scope = "snsapi_userinfo";
             }
             let state = b64safe(redirectURL);
-            location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + utils.getConfig().wxAppid + "&redirect_uri=" + encodeURIComponent(utils.getConfig().baseURL+"website/login/weixin.jhtml?redirectURL="+state) + "&response_type=code&scope="+scope+"&state=state#wechat_redirect";
+            location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + utils.getConfig().wxAppid + "&redirect_uri=" + encodeURIComponent(utils.getConfig().baseURL+"website/login/weixin.jhtml?redirectURL="+state+"&xuid="+utils.getUrlParameter("xuid")) + "&response_type=code&scope="+scope+"&state=state#wechat_redirect";
           } else
           if (utils.isalipay()) {
             if (utils.isNull(redirectURL)) {
@@ -47,7 +47,7 @@ export function AUTH(redirectURL,func) {
               scope = "auth_user";
             }
             let state = b64safe(redirectURL);
-            location.href = "https://openauth.alipay.com/oauth2/publicAppAuthorize.htm?app_id=" + utils.getConfig().alAppid + "&redirect_uri=" + encodeURIComponent(utils.getConfig().baseURL+"website/login/alipay.jhtml?redirectURL="+state)+ "&scope="+scope+"&state=state";
+            location.href = "https://openauth.alipay.com/oauth2/publicAppAuthorize.htm?app_id=" + utils.getConfig().alAppid + "&redirect_uri=" + encodeURIComponent(utils.getConfig().baseURL+"website/login/alipay.jhtml?redirectURL="+state+"&xuid="+utils.getUrlParameter("xuid")) + "&scope="+scope+"&state=state";
           } else {
           }
         }

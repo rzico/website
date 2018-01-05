@@ -36,7 +36,7 @@
     data() {
       return {
         conf:{},
-        count:18304,
+        count:128304,
         welcome:"./static/welcome.jpg"
       }
     },
