@@ -9,14 +9,12 @@ import T1002 from '../page/t1002'
 import C1001 from '../page/c1001'
 import Card from '../page/card'
 import Coupon from '../page/Coupon'
-import Reward from '../page/member/reward'
-import Deposit from '../page/member/deposit'
 import activate from '../page/member/activate'
-import Message from '../page/message'
-import OrderList from '../page/order/list'
-import OrderDetails from '../page/order/details'
-import OrderLogistics from '../page/order/logistics'
-
+import deposit from '../page/member/deposit'
+import reward from '../page/member/reward'
+import city from '../widget/city'
+import newReceiver from '../page/member/newReceiver'
+import receiverList from '../page/member/receiverList'
 Vue.use(Router);
 Vue.use(VueResource);
 
@@ -55,18 +53,6 @@ var router = new Router({
       component: Login
     },
     {
-      path: '/reward',
-      name: 'reward',
-      meta: {requireAuth:false},
-      component: Reward
-    },
-    {
-      path: '/deposit',
-      name: 'deposit',
-      meta: {requireAuth:false},
-      component: Deposit
-    },
-    {
       path: '/t1001',
       name: 't1001',
       meta: {requireAuth:true},
@@ -91,30 +77,36 @@ var router = new Router({
       component: activate
     },
     {
-      path: '/message',
-      name: 'message',
+      path: '/deposit',
+      name: 'deposit',
       meta: {requireAuth:true},
-      component: Message
+      component: deposit
     },
     {
-      path: '/orderList',
-      name: 'orderList',
+      path: '/reward',
+      name: 'reward',
       meta: {requireAuth:true},
-      component: OrderList
+      component: reward
     },
     {
-      path: '/OrderDetails',
-      name: 'OrderDetails',
+      path: '/city',
+      name: 'city',
       meta: {requireAuth:true},
-      component: OrderDetails
+      component: city
     },
     {
-      path: '/OrderLogistics',
-      name: 'OrderLogistics',
+      path: '/newReceiver',
+      name: 'newReceiver',
       meta: {requireAuth:true},
-      component: OrderLogistics
-    }
-  ]
+      component: newReceiver
+    },
+    {
+      path: '/receiverList',
+      name: 'receiverList',
+      meta: {requireAuth:true},
+      component: receiverList
+    },
+   ]
 })
 
 export default router
