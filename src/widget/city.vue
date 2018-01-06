@@ -2,7 +2,7 @@
   <div style="height: 50%;width: 100%;position: absolute;bottom: 0; display: flex;flex-direction: column;background-color: #ffffff" v-if="control">
     <div class="title"><span class="font16">配送至</span> </div>
     <div style="display: flex;flex-direction: row">
-    <div style="overflow:auto;display: flex;flex: 1;flex-direction: column" >
+    <div style="overflow:auto;display: flex;flex: 1;flex-direction: column;padding-left: 10px" >
       <!--省份选择-->
       <div v-if="urlType == 'pro'" class="active " v-for="item in proList"  @click="checkChange(item.id,item.name,item.children)">
         <div class="flex-row flex-space">
@@ -29,7 +29,7 @@
         </div>
       </div>
     </div>
-    <div style="overflow:auto;display: flex;flex: 1;flex-direction: column" >
+    <div style="overflow:auto;display: flex;flex: 1;flex-direction: column;padding-right: 10px" >
       <!--区县选择-->
       <div  v-if="country == 'country'"  v-for="item in countryList">
         <div class="active  flex-row flex-space" v-for="city in item.children" @click="countryChange(city.id,city.name,'')">

@@ -3,11 +3,11 @@
     <div class="page slideIn bg" >
       <div class="name">
         <span class="font-size">收货人:</span>
-        <input class="input" type="text" v-model="name" />
+        <input class="input" type="text" v-model="name"  autofocus="autofocus" />
       </div>
       <div class="tel">
         <span class="font-size">联系方式:</span>
-        <input class="input" type="number" maxlength="11" v-model="number"/>
+        <input class="input" type="number" maxlength="11" v-model="number" />
       </div>
       <div class="region" @click="show()">
         <div class="flex-row">
@@ -20,16 +20,17 @@
       </div>
       <div class="adress">
         <span class="font-size">详细地址:</span>
-        <input class="input" type="text" placeholder="街道、楼牌号等" v-model="address"/>
+        <input class="input" type="text" placeholder="街道、楼牌号等" v-model="address" />
       </div>
       <div class="isDefault">
         <span class="font-size">是否默认:</span>
-        <div class="xiaoyuan" v-bind:style="{backgroundColor:colorRed}" @click="yes()"></div><span class="font-size">是</span>
-        <div class="xiaoyuan" v-bind:style="{backgroundColor:colorFFF}" @click="no()"></div><span class="font-size">否</span>
+        <div class="xiaoyuan" :style="yesColor()" @click="yes()"></div><span class="font-size">是</span>
+        <div class="xiaoyuan" :style="noColor()" @click="no()"></div><span class="font-size">否</span>
       </div>
-      <div class="button" @click="judge()">
+      <div class="button" @click="judge()" >
         <span class="span">保存</span>
       </div>
+      <div style="min-height: 70%"></div>
       <city :control="citycontrol" @name="cityname"></city>
     </div>
   </div>
@@ -37,10 +38,12 @@
 <style scoped>
   .bg{
     background-color: #eeeeee;
+    overflow:auto;
   }
   .name{
     background-color: #ffffff;
     height: 50px;
+    margin-top: 20px;
     padding-left: 10px;
     padding-right: 10px;
     border-width: 0 0 1px 0;
@@ -110,14 +113,14 @@
   }
   .button{
     height: 40px;
+    border-radius: 10px;
     box-sizing: border-box;
     display: flex;
     align-items: center;
     justify-content: center;
-    position: absolute;
-    bottom: 20px;
-    left: 15px;
-    right: 15px;
+    margin-top: 20px;
+    margin-right: 20px;
+    margin-left: 20px;
   }
   .button .span{
     font-size: 16px;
@@ -126,6 +129,7 @@
     flex:3;
     margin-left: 10px;
     font-size: 16px;
+    border-style:none
   }
   .font-size{
     font-size: 16px;
@@ -155,8 +159,6 @@
         regionName:'',
         address:'',
         isDefault:false,
-        colorRed:'',
-        colorFFF:'#EB4E40',
       }
     },
     components: {
@@ -168,7 +170,7 @@
     created() {
       var c = utils.getUrlParameter('c');
       this.id = utils.getUrlParameter('id');
-      c =JSON.parse(c)
+      c =JSON.parse(c);
       if(!this.id == '') {
         this.name = c.consignee;
         this.number = c.phone;
@@ -190,17 +192,26 @@
         this.regionId = mes;
         this.citycontrol =false
       },
+      yesColor:function () {
+        if(this.isDefault == true){
+          return {backgroundColor:'#EB4E40'}
+        }else{
+          return {backgroundColor:'#ffffff'}
+        }
+      },
+      noColor:function () {
+        if(this.isDefault == false){
+          return {backgroundColor:'#EB4E40'}
+        }else{
+          return {backgroundColor:'#ffffff'}
+        }
+      },
       yes:function () {
-        this.colorRed = '#EB4E40'
-        this.colorFFF = '#ffffff'
-        this.isDefault = true
+        this.isDefault = true;
       },
       no:function () {
-        this.colorRed = '#ffffff'
-        this.colorFFF = '#EB4E40'
-        this.isDefault = false
+        this.isDefault = false;
       },
-
 //      判断id是否有值，有则走修改接口
       judge:function () {
         var _this =this;
