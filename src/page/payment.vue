@@ -73,8 +73,8 @@
       return {
         amount:669,
         sn:'',
-        goodsName:'变形金刚IV',
-        title:'支付完成',
+        goodsName:'',
+        title:'支付中...',
         articleId:''
       }
     },
@@ -186,10 +186,14 @@
       },
       goComplete(){
         let _this = this;
-        _this.$router.push({
-          name: "t1001",
-          query: {id:_this.articleId}
-        });
+        if(utils.isNull(this.articleId)){
+          _this.$router.go(-1);
+        }else{
+          _this.$router.push({
+            name: "t1001",
+            query: {id:_this.articleId}
+          });
+        }
       },
     }
   }

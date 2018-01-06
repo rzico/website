@@ -5,7 +5,7 @@ const config = {
   title:"芸店",
   link:"http://weixin.rzico.com",
   desc:'超强图文小视频分享社区,中国版Facebook.',
-  baseURL:"http://weixin.rzico.com/",
+  baseURL:"http://small.rzico.com/",
   wxAppid:"wx88a1ec3b5c3bc9c3"
 }
 
@@ -186,6 +186,19 @@ let utilsFunc = {
       }
     }
   },
+
+
+  // /*
+    // 返回处理后的值 2017-01-01 00:00:00
+    datetimehms(value) {
+      if(value == '' || value == null || value == undefined){
+        return value;
+      }
+      let timeObj = this.resolvetimefmt(value);
+      return timeObj.y +'-'+ timeObj.m + '-' + timeObj.d + '  ' + timeObj.h + ':' + timeObj.i + ':' + timeObj.s ;
+  },
+  // * */
+
   resolvetimefmt:function (value) {
 //value 传进来是个整数型，要判断是10位还是13位需要转成字符串。这边的方法是检测13位的时间戳 所以要*1000；并且转回整型。安卓下，时间早了8个小时
     if(value.toString().length == 10){

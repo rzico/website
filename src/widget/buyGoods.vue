@@ -47,7 +47,7 @@
         <!--<cell-footer ><span class="arrow" style="color:red;font-size: 14px;padding-right: 10px">-¥ 3.00</span></cell-footer>-->
         <!--</div>-->
         <!--</cells>-->
-        <div class="address ">
+        <div class="address" @click="goAddress()">
           <p class="fontSize18">某某某 15860***375</p>
           <p class="fontSize18" style="font-size: 14px">福建省厦门市湖里区兴隆路福建省厦门市湖里区兴隆路福建省厦门市福建省厦门市</p>
           <p class="rightArrow"></p>
@@ -544,6 +544,7 @@
         GET('website/product/view.jhtml?id='+sn).then(
           function (data) {
             if(data.type == 'success'){
+              console.log('1');
               console.log(data);
               _this.goodsData = [];
               _this.finallPrice = data.data.products[0].price;
@@ -590,7 +591,13 @@
         if(!utils.isNull(this.buyNum) && this.buyNum != 0){
           this.calcPrice();
         }
-      }
+      },
+      goAddress:function () {
+        this.$router.push({
+          name: "receiverList",
+          query: {type:'buyGoods'}
+        });
+      },
 
 //methods 方法到此为止
     },

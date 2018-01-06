@@ -1,6 +1,6 @@
 <template>
   <div class="page" style="background-color: #eee;" >
-    <div class="categoryBox" style="position: fixed;z-index: 2">
+    <div class="categoryBox" style="position: fixed;z-index: 1">
       <span class="cataText" v-for="(item,index) in catagoryList" @click="catagoryChange(index,item.id)" :class = "[whichCorpus == index ? 'corpusActive' : 'noActive']">{{item.name}}</span>
     </div>
     <div style="height: 40px"></div>
@@ -21,7 +21,7 @@
           <img :src="refreshImg" :style="'height:' + goodsHeight + 'px;' + 'width:' + (goodsHeight )+ 'px'"></img>
           <div class="goodsInfo" :style="'height:' + goodsHeight + 'px;'">
             <p class="goodsName">{{goods.name}}</p>
-            <p class="subTitle marginTop5">规格:{{goods.spec}}</p>
+            <p class="subTitle marginTop5">规格:{{goods.spec | watchSpec}}</p>
           </div>
           <div class="goodsPriceNum" :style="'height:' + goodsHeight + 'px;' + 'width:' + (goods20Width)+ 'px'">
             <p class="goodsPrice ">¥ {{goods.price | watchPrice}}</p>
@@ -30,26 +30,46 @@
         </div>
         <div class="flexRow goodsTotalPrice ">
           <span class="textTitle marginRight10">共1件商品</span>
-          <span class="textTitle">合计:¥ 148.00</span>
+          <span class="textTitle">合计:¥ {{item.orderItems[0].price | watchPrice}}</span>
         </div>
         <div class="goodsFoot" v-if="item.status != 'unpaid'" >
           <div class="footLeft">
-            <span class=" subTitle">删除</span>
+            <!--<span class=" subTitle">删除</span>-->
           </div>
           <div class="footRight">
-            <span class="textTitle footText">查看物流</span>
+            <!--<span class="textTitle footText">查看物流</span>-->
             <!--<span class="textTitle footText">评价晒单</span>-->
-            <span class="textTitle footText red redBorder">再次购买</span>
+            <span class="textTitle footText red redBorder" @click="buyAgain(item)">再次购买</span>
           </div>
         </div>
-        <div class="goodsFoot" v-if="item.status == 'unpaid'">
+        <div class="goodsFoot" v-if="item.status == 'unpaid' || item.status == 'refunding'">
           <div class="footLeft">
             <span class="subTitle"></span>
           </div>
           <div class="footRight" >
             <!--<span class="textTitle footText">查看物流</span>-->
-            <span class="textTitle footText">取消订单</span>
-            <span class="textTitle footText red redBorder" style="padding: 2.5px 10px">付款</span>
+            <span class="textTitle footText" @click="showDialog(item.sn,index)">取消订单</span>
+            <span class="textTitle footText red redBorder" style="padding: 2.5px 10px" @click="goPay(item,item.sn)">付款</span>
+          </div>
+        </div>
+        <div class="goodsFoot" v-if="item.status == 'unshipped'">
+          <div class="footLeft">
+            <span class="subTitle"></span>
+          </div>
+          <div class="footRight">
+            <!--<span class="textTitle footText">查看物流</span>-->
+            <span class="textTitle footText" @click="showDialog(item.sn,index)">催发货</span>
+            <span class="textTitle footText red redBorder" style="padding: 2.5px 10px">退款</span>
+          </div>
+        </div>
+        <div class="goodsFoot" v-if="item.status == 'shipped'">
+          <div class="footLeft">
+            <span class="subTitle"></span>
+          </div>
+          <div class="footRight">
+            <!--<span class="textTitle footText">查看物流</span>-->
+            <span class="textTitle footText" @click="showDialog(item.sn,index)">确认签收</span>
+            <span class="textTitle footText red redBorder" style="padding: 2.5px 10px">退货</span>
           </div>
         </div>
       </div>
@@ -58,20 +78,39 @@
         <span>暂无订单</span>
       </div>
     </v-loadmore>
+    <weui-dialog ref="dialog" type="confirm" title="取消订单" confirmButton="确定" cancelButton="取消"
+                 @weui-dialog-confirm="activateConfirm()"
+                 @weui-dialog-cancel="closeConfirm()">
+      <div >
+        <p style="text-align: center;width: 100%;font-size: 13px;color: #444">{{confirmContent}}</p>
+      </div>
+    </weui-dialog>
     <Toast ref="toast"></Toast>
   </div>
 </template>
 <style scoped>
   @import '../../less/order/list.less';
+
+  .header{
+    background-color: #fff;
+    padding: 10px;
+    margin-bottom: 10px;
+    text-align: left;
+    margin-top: 0px;
+  }
 </style>
 <script>
   import {Loadmore} from 'mint-ui';
   import utils from '../../assets/utils';
   import { POST,GET} from '../../assets/fetch.js';
   import Toast from '../../widget/toast.vue';
+  import Dialog from '../../widget/dialog.vue';
   export default {
     data:function(){
       return{
+        selectSn:'',
+        selectIndex:'',
+        confirmContent:'确定取消该订单?',
         ordersList:[],
         refreshImg:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1515550007&di=e7530b5267c25b0bb5113c048dc948db&imgtype=jpg&er=1&src=http%3A%2F%2Fpic.qiantucdn.com%2F58pic%2F18%2F27%2F68%2F55f95158e34f2_1024.jpg',
         refreshing:false,
@@ -92,7 +131,7 @@
           name:'待收货',
           id:3
         },{
-          name:'售后',
+          name:'退款/售后',
           id:4
         }],
         allLoaded:false
@@ -103,11 +142,19 @@
     filters:{
       watchPrice:function (value) {
         return utils.currencyfmt(value);
+      },
+      watchSpec:function (value) {
+        if(utils.isNull(value)){
+          return '无';
+        }else{
+          return value;
+        }
       }
     },
     components: {
       Toast,
       'v-loadmore': Loadmore, // 为组件起别名，vue转换template标签时不会区分大小写，例如：loadMore这种标签转换完就会变成loadmore，容易出现一些匹配问题
+      'weui-dialog':Dialog,
     },
     created() {
       this.goodsHeight = document.documentElement.clientWidth * 0.25;
@@ -115,8 +162,98 @@
       this.open()
     },
     methods:{
-      goback:function () {
-        event.closeURL();
+//      确认购买
+      buyAgain:function (item) {
+        var _this = this;
+        POST("website/member/order/create.jhtml?id=" + item.orderItems[0].id + '&quantity=' + item.orderItems[0].quantity + '&receiverId=1').then(
+          function (data) {
+//            alert(data);
+            console.log(data);
+            if (data.type=="success") {
+              _this.goPay(item,data.data.sn);
+            } else {
+              _this.$refs.toast.show(data.content);
+            }
+            _this.disabledButton = false;
+          },
+          function (err) {
+//            console.log('1');
+            _this.disabledButton = false;
+            _this.$refs.toast.show("网络不稳定");
+          }
+        )
+      },
+//      发起支付
+      goPay(item,sn){
+        let _this = this;
+        POST('website/member/order/payment.jhtml?sn=' + sn).then(
+          function (data) {
+            console.log('===');
+            console.log(data);
+            if (data.type=="success") {
+              if(utils.isNull(data.data.paymentPluginId)){
+                if(utils.isweixin()){
+                  _this.$router.push({
+                    name: "payment",
+                    query: {psn: data.data.sn, amount: item.orderItems[0].price, name:item.orderItems[0].name,type:'weixin'}
+                  });
+                }else if(utils.isalipay()){
+                  _this.$router.push({
+                    name: "payment",
+                    query: {psn: data.data.sn, amount: item.orderItems[0].price, name:item.orderItems[0].name,type:'alipay'}
+                  });
+                }
+              }else if(data.data.paymentPluginId == 'cardPayPlugin'){//会员卡支付
+                let payInfo = {
+                  way:'会员卡支付',
+                  price:item.orderItems[0].price,
+                  sn:data.data.sn
+                };
+                _this.$emit('payConfirm',payInfo);
+              }else if(data.data.paymentPluginId == '"balancePayPlugin'){//余额支付
+                let payInfo = {
+                  way:'余额支付',
+                  price:item.orderItems[0].price,
+                  sn:data.data.sn
+                };
+                _this.$emit('payConfirm',payInfo);
+              }
+            } else {
+              _this.$refs.toast.show(data.content);
+            }
+            _this.disabledButton = false;
+          },
+          function (err) {
+            _this.disabledButton = false;
+            _this.$refs.toast.show("网络不稳定");
+          }
+        )
+      },
+//    显示对话框
+      showDialog:function (sn,index) {
+        this.selectSn = sn;
+        this.selectIndex = index;
+        this.$refs.dialog.show();
+      },
+//      对话框确认取消订单
+      activateConfirm:function () {
+        let _this = this;
+        POST('website/member/order/cancel.jhtml?sn=' + this.selectSn).then(function (data) {
+          if(data.type == 'success'){
+//            _this.ordersList.splice(_this.selectIndex,1);
+            _this.ordersList[_this.selectIndex].status = 'completed',
+              _this.ordersList[_this.selectIndex].statusDescr = '已取消',
+            _this.$refs.toast.show('取消订单成功');
+          }else{
+            _this.$refs.toast.show(data.content);
+          }
+        },function (err) {
+          _this.$refs.toast.show(err.content);
+        })
+      },
+//      对话框取消订单 取消按钮
+      closeConfirm:function () {
+        this.$refs.dialog.close();
       },
       loadTop:function() { //组件提供的下拉触发方法
         this.pageStart = 0;

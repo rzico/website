@@ -2,7 +2,7 @@
   <div class="container">
     <div class="page slideIn bg" >
         <div class="content" v-for="c in receiverList">
-        <div class="topDiv">
+        <div class="topDiv" @click="chooseAddress(c)">
           <div class="information">
             <span class="name">{{c.consignee}}</span><span class="tel">{{c.phone}}</span>
           </div>
@@ -133,7 +133,8 @@
         pageStart:0,
         pageSize:10,
         allLoaded:false,
-        receiverList:[]
+        receiverList:[],
+        type:''
       }
     },
     components: {
@@ -143,9 +144,18 @@
 
     },
     created() {
+      this.type = utils.getUrlParameter('type');
       this.open()
     },
     methods: {
+//      选择收货地址
+      chooseAddress(info){
+        if(this.type == 'buyGoods'){
+          this.$router.go(-1);
+        }
+        console.log(info);
+      },
+
       hasReward:function () {
         return this.receiverList.length>0;
       },
