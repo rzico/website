@@ -22,9 +22,10 @@
           </div>
         </div>
         </div>
-      <div class="button" @click="jump()">
-        <span class="span">+新建地址</span>
-      </div>
+      <div style="min-height: 70%"></div>
+    </div>
+    <div class="button" @click="jump()">
+      <span class="span">+新建地址</span>
     </div>
   </div>
 </template>
@@ -34,6 +35,7 @@
   }
   .button{
     height: 40px;
+    border-radius: 10px;
     box-sizing: border-box;
     display: flex;
     align-items: center;
@@ -148,11 +150,12 @@
         return this.receiverList.length>0;
       },
       del:function (id) {
+        let _this = this
         POST('website/member/receiver/delete.jhtml?id='+id).then(
           function (mes) {
             if (mes.type=="success") {
               alert('删除成功')
-              this.open()
+              _this.open()
             } else {
 
             }
