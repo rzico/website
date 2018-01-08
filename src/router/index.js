@@ -9,16 +9,13 @@ import T1002 from '../page/t1002'
 import C1001 from '../page/c1001'
 import Card from '../page/card'
 import Coupon from '../page/Coupon'
-import Payment from '../page/payment'
-import OrderList from '../page/order/list'
-import OrderDetails from '../page/order/details'
-import OrderLogistics from '../page/order/logistics'
 import activate from '../page/member/activate'
 import deposit from '../page/member/deposit'
 import reward from '../page/member/reward'
 import city from '../widget/city'
 import newReceiver from '../page/member/newReceiver'
 import receiverList from '../page/member/receiverList'
+import memberIndex from '../page/member/memberIndex'
 Vue.use(Router);
 Vue.use(VueResource);
 
@@ -27,7 +24,7 @@ var router = new Router({
   base: "/",
   routes: [
     {
-      path: '',
+      path: '/',
       name: 'index',
       meta: {requireAuth:false},
       component: Index
@@ -75,30 +72,6 @@ var router = new Router({
       component: C1001
     },
     {
-      path: '/payment',
-      name: 'payment',
-      meta: {requireAuth:true},
-      component: Payment
-    },
-    {
-      path: '/orderList',
-      name: 'orderList',
-      meta: {requireAuth:true},
-      component: OrderList
-    },
-    {
-      path: '/orderDetails',
-      name: 'orderDetails',
-      meta: {requireAuth:true},
-      component: OrderDetails
-    },
-    {
-      path: '/orderLogistics',
-      name: 'orderLogistics',
-      meta: {requireAuth:true},
-      component: OrderLogistics
-    },
-    {
       path: '/activate',
       name: 'activate',
       meta: {requireAuth:true},
@@ -133,6 +106,12 @@ var router = new Router({
       name: 'receiverList',
       meta: {requireAuth:true},
       component: receiverList
+    },
+    {
+      path: '/memberIndex',
+      name: 'memberIndex',
+      meta: {requireAuth:true},
+      component: memberIndex
     },
    ]
 })
