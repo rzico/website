@@ -23,7 +23,8 @@
        }
      },
     props: {
-      isShow: {default:true}
+      isShow: {default:true},
+      authorId:{default:""}
     },
      created() {
        this.config = utils.getConfig();
@@ -32,6 +33,9 @@
        download:function () {
          var vars  =  utils.router(location.href);
          vars.name ="index";
+         if (utils.isNull(vars.query.xuid)) {
+             vars.query.xuid = this.authorId;
+         }
          this.$router.push(vars);
        },
        close:function () {

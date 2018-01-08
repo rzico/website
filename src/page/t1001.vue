@@ -1,7 +1,7 @@
 <template>
   <div @touchmove="onscroll" offset-accuracy="0">
     <div class="slideIn"  >
-      <download_bar :isShow="downloadShow" @closeDownload="closeDownload"></download_bar>
+      <download_bar :isShow="downloadShow" :authorId="" @closeDownload="closeDownload"></download_bar>
       <div class="article" :class="[downloadShow ? '':'noMt']">
         <!--<div class="bg">-->
         <!--</div>-->
