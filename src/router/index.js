@@ -27,7 +27,7 @@ var router = new Router({
   base: "/",
   routes: [
     {
-      path: '/',
+      path: '',
       name: 'index',
       meta: {requireAuth:false},
       component: Index

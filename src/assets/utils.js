@@ -11,7 +11,7 @@ const config = {
 
 let utilsFunc = {
     getConfig () {
-        return config
+      return config
     },
     setConfig (conf) {
       config.title =conf.title;
