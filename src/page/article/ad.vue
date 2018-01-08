@@ -14,12 +14,20 @@
         }
       },
       props:{
-        ad:{}
+        article: { default: function () {
+          return {member:{id}}
+        }
+        }
       },
       methods:{
         jump() {
           var vars  =  utils.router(location.href);
           vars.name ="index";
+          alert(vars.query.xuid);
+          if (utils.isNull(vars.query.xuid)) {
+            vars.query.xuid = this.article.member.id;
+            alert(vars.query.xuid);
+          }
           this.$router.push(vars);
         }
       }

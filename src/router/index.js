@@ -20,6 +20,8 @@ import city from '../widget/city'
 import newReceiver from '../page/member/newReceiver'
 import receiverList from '../page/member/receiverList'
 import AddressList from '../widget/addressList'
+import couponList from '../page/member/couponList'
+import memberIndex from '../page/member/memberIndex'
 Vue.use(Router);
 Vue.use(VueResource);
 
@@ -140,6 +142,18 @@ var router = new Router({
       name: 'addressList',
       meta: {requireAuth:true},
       component: AddressList
+    },
+    {
+      path: '/couponList',
+      name: 'couponList',
+      meta: {requireAuth:true},
+      component: couponList
+    },
+    {
+      path: '/memberIndex',
+      name: 'memberIndex',
+      meta: {requireAuth:true},
+      component: memberIndex
     },
    ]
 })

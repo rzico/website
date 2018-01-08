@@ -22,7 +22,7 @@
         </div>
         </div>
         <div class="noData" v-else>
-          <i class="iconfont icon-shangjin"></i>
+          <i class="iconfont icon-zanwushuju"></i>
           <span>暂无记录</span>
         </div>
       </v-loadmore>
