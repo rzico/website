@@ -15,6 +15,7 @@ import reward from '../page/member/reward'
 import city from '../widget/city'
 import newReceiver from '../page/member/newReceiver'
 import receiverList from '../page/member/receiverList'
+import couponList from '../page/member/couponList'
 import memberIndex from '../page/member/memberIndex'
 Vue.use(Router);
 Vue.use(VueResource);
@@ -106,6 +107,12 @@ var router = new Router({
       name: 'receiverList',
       meta: {requireAuth:true},
       component: receiverList
+    },
+    {
+      path: '/couponList',
+      name: 'couponList',
+      meta: {requireAuth:true},
+      component: couponList
     },
     {
       path: '/memberIndex',

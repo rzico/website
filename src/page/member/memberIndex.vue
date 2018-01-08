@@ -2,28 +2,38 @@
   <div class="container">
     <div class="page slideIn topic" style="background-color: #eeeeee" @scroll="onscroll" offset-accuracy="0">
         <metaInfo :topic="topic" :isFixed = "isfixed"></metaInfo>
-        <div class="advertising"></div>
+        <div class="advertising">
+          <img class="img" :src="'./static/card_picker.jpg'">
+        </div>
         <div class="containsOne">
         <div class="address" @click="jumpAddress">
           <div>
-          <i class="iconfont icon-shanchu" style="color:#888888;font-size: 18px"></i>
-            <span class="font-size16">地址管理</span>
+          <i class="iconfont icon-shouhuodizhi" style="color:#888888;font-size: 18px"></i>
+            <span class="font-size16">收货地址</span>
           </div>
           <i class="iconfont icon-xiangyoujiantou" style="color:#888888"></i>
         </div>
+        </div>
+      <div class="containsTwo">
         <div class="reward" @click="jumpReward">
           <div>
           <i class="iconfont icon-shangjin1" style="color:#888888;font-size: 18px"></i>
           <span class="font-size16">我的奖励金</span>
           </div>
+          <div>
+            <span class="font-size16">32元</span>
           <i class="iconfont icon-xiangyoujiantou" style="color:#888888"></i>
+          </div>
         </div>
         <div class="coupon" @click="jumpCoupon">
           <div>
           <i class="iconfont icon-youhuiquan" style="color:#888888;font-size: 18px"></i>
           <span class="font-size16">我的优惠券</span>
           </div>
+          <div>
+            <span class="font-size16">3张</span>
           <i class="iconfont icon-xiangyoujiantou" style="color:#888888"></i>
+          </div>
         </div>
         </div>
     </div>
@@ -33,9 +43,21 @@
   .advertising{
     background-color: white;
     margin-top: 20px;
+    width: 100%;
+    height: 100px;
+  }
+  .advertising .img{
+    width: 100%;
     height: 100px;
   }
   .containsOne{
+    margin-top:20px;
+    padding-left: 10px;
+    width: 100%;
+    background-color: white;
+    box-sizing: border-box;
+  }
+  .containsTwo{
     margin-top:20px;
     padding-left: 10px;
     width: 100%;
@@ -47,7 +69,16 @@
     font-size: 16px;
   }
   .containsOne .address{
-    height: 40px;
+    height: 45px;
+    background-color: white;
+    padding-right: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .containsTwo .reward{
+    height: 45px;
     background-color: white;
     border-width: 0 0 1px 0;
     border-color: #cccccc;
@@ -58,20 +89,8 @@
     align-items: center;
     justify-content: space-between;
   }
-  .containsOne .reward{
-    height: 40px;
-    background-color: white;
-    border-width: 0 0 1px 0;
-    border-color: #cccccc;
-    border-style: solid;
-    padding-right: 10px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-  }
-  .containsOne .coupon{
-    height: 40px;
+  .containsTwo .coupon{
+    height: 45px;
     background-color: white;
     padding-right: 10px;
     display: flex;
@@ -145,6 +164,19 @@
             }
           }, function () {
             _this.$refs.toast.show("网络不稳定");
+          });
+      },
+      open:function() {
+        var _this = this;
+        GET('website/member/view.jhtml').then(
+          function (mes) {
+            if(mes.type == 'success'){
+
+            }else {
+
+            }
+          }, function () {
+
           });
       },
       onscroll(e){
