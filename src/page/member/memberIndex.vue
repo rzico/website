@@ -17,11 +17,11 @@
       <div class="containsTwo">
         <div class="reward" @click="jumpReward">
           <div>
-          <i class="iconfont icon-shangjin1" style="color:#888888;font-size: 18px"></i>
+          <i class="iconfont icon-shangjin" style="color:#888888;font-size: 18px"></i>
           <span class="font-size16">我的奖励金</span>
           </div>
           <div>
-            <span class="font-size16">32元</span>
+            <span class="font-size16" v-if="rebateControl">{{rebate}}元</span>
           <i class="iconfont icon-xiangyoujiantou" style="color:#888888"></i>
           </div>
         </div>
@@ -31,7 +31,7 @@
           <span class="font-size16">我的优惠券</span>
           </div>
           <div>
-            <span class="font-size16">3张</span>
+            <span class="font-size16" v-if="couponControl">{{coupon}}张</span>
           <i class="iconfont icon-xiangyoujiantou" style="color:#888888"></i>
           </div>
         </div>
@@ -111,7 +111,17 @@
         topic:{},
         catalogs:[],
         isfixed:false,
-        id:''
+        id:'',
+//        优惠券数量
+        coupon:'',
+//        奖励金额度
+        rebate:'',
+//        控制优惠卷数量是否渲染
+        couponControl:false,
+//        控制奖励金额度是否渲染
+        rebateControl:false
+
+
       }
     },
     components: {
@@ -171,7 +181,14 @@
         GET('website/member/view.jhtml').then(
           function (mes) {
             if(mes.type == 'success'){
-
+              _this.coupon = mes.data.coupon;
+              _this.rebate = mes.data.rebate;
+              if(mes.data.rebate != null || mes.data.rebate != ''){
+                _this.rebateControl = true
+              }
+              if(mes.data.coupon != 0 || mes.data.coupon != ''){
+                _this.couponControl = true
+              }
             }else {
 
             }
