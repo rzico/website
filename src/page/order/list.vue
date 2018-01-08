@@ -32,7 +32,7 @@
           <span class="textTitle marginRight10">共1件商品</span>
           <span class="textTitle">合计:¥ {{item.orderItems[0].price | watchPrice}}</span>
         </div>
-        <div class="goodsFoot" v-if="item.status != 'unpaid'" >
+        <div class="goodsFoot" v-if="item.status != 'unpaid' && item.status != 'unshipped' && item.status != 'shipped'" >
           <div class="footLeft">
             <!--<span class=" subTitle">删除</span>-->
           </div>
@@ -58,7 +58,7 @@
           </div>
           <div class="footRight">
             <!--<span class="textTitle footText">查看物流</span>-->
-            <span class="textTitle footText" @click="showDialog(item.sn,index)">催发货</span>
+            <span class="textTitle footText" @click="urgedGoods(item.sn)">催发货</span>
             <span class="textTitle footText red redBorder" style="padding: 2.5px 10px">退款</span>
           </div>
         </div>
@@ -73,7 +73,7 @@
           </div>
         </div>
       </div>
-      <div class="noData" v-if="!hasOrder()" >
+      <div class="noData" v-if="!hasOrder()">
         <i class="iconfont icon-wodedingdan"></i>
         <span>暂无订单</span>
       </div>
@@ -162,6 +162,20 @@
       this.open()
     },
     methods:{
+//      催促发货
+      urgedGoods:function (sn) {
+        POST('website/member/order/shipp_remind.jhtml?sn=' + sn).then(
+          function (data) {
+            console.log(data);
+            data = JSON.stringify(data);
+            alert(data);
+          },function (err) {
+            console.log(err);
+            err = JSON.stringify(err);
+            alert(err);
+          }
+        )
+      },
 //      确认购买
       buyAgain:function (item) {
         var _this = this;

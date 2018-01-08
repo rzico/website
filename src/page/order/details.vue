@@ -101,27 +101,28 @@
             </div>
           </div>
         </div>
+        <!--底部操作栏-->
+        <div class="flexRow spaceBetween goodsFoot footBottom" v-if="item.status == 'unpaid'">
+          <div class="footLeft" >
+            <!--<span class="textTitle delOrder" >删除订单</span>-->
+          </div>
+          <div class="footRight">
+            <!--<span class="textTitle footspan" @click="goLogistics()">查看物流</span>-->
+            <span class="textTitle footspan" @click="showDialog()">取消订单</span>
+            <span class="textTitle footspan" @click="goPay(ordersList.orderItems[0],ordersList.orderItems[0].sn)">付款</span>
+          </div>
+        </div>
+        <div class="flexRow spaceBetween goodsFoot footBottom" v-else>
+          <div class="footLeft">
+            <!--<span class="textTitle delOrder" >删除订单</span>-->
+          </div>
+          <div class="footRight" >
+            <!--<span class="textTitle footspan" @click="goLogistics()">查看物流</span>-->
+            <!--<span class="textTitle footspan">评价晒单</span>-->
+            <span class="textTitle footspan ">再次购买</span>
+          </div>
+        </div>
       </div>
-    <div class="flexRow spaceBetween goodsFoot footBottom" v-if="ordersList.status == 'unpaid'">
-      <div class="footLeft" >
-        <!--<span class="textTitle delOrder" >删除订单</span>-->
-      </div>
-      <div class="footRight">
-        <!--<span class="textTitle footspan" @click="goLogistics()">查看物流</span>-->
-        <span class="textTitle footspan" @click="showDialog()">取消订单</span>
-        <span class="textTitle footspan" @click="goPay(ordersList.orderItems[0],ordersList.orderItems[0].sn)">付款</span>
-      </div>
-    </div>
-    <div class="flexRow spaceBetween goodsFoot footBottom" v-else>
-      <div class="footLeft">
-        <!--<span class="textTitle delOrder" >删除订单</span>-->
-      </div>
-      <div class="footRight" >
-        <!--<span class="textTitle footspan" @click="goLogistics()">查看物流</span>-->
-        <!--<span class="textTitle footspan">评价晒单</span>-->
-        <span class="textTitle footspan ">再次购买</span>
-      </div>
-    </div>
     <weui-dialog ref="dialog" type="confirm" title="取消订单" confirmButton="确定" cancelButton="取消"
                  @weui-dialog-confirm="activateConfirm()"
                  @weui-dialog-cancel="closeConfirm()">
@@ -268,10 +269,11 @@
       this.goods20Width = document.documentElement.clientWidth * 0.20;
       this.orderSn = utils.getUrlParameter('sn');
       GET('website/member/order/view.jhtml?sn=' + this.orderSn).then(function (data) {
-        console.log(data.data.status);
+        console.log(data.data);
         if(data.type == 'success'){
           _this.ordersList.push(data.data);
-          console.log('1');
+          console.log('===');
+          console.log(_this.ordersList[0].status);
         }else{
           _this.$refs.toast.show("服务器繁忙");
         }

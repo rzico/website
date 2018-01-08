@@ -114,8 +114,12 @@
         if (!utils.isNull(this.sn)) {
           POST("payment/query.jhtml?sn="+this.sn).then(
             function (res) {
+              res = JSON.stringify(res);
+              alert(res);
             },
             function (err) {
+              res = JSON.stringify(res);
+              alert(err);
             }
           )
         }
@@ -161,8 +165,6 @@
                 "signType" :res.data.signType,
                 "paySign" : res.data.paySign,
               },function(data){
-                let a = JSON.stringify(data);
-                alert(a);
                 if(data.err_msg == "get_brand_wcpay_request:ok" ) {
                   _this.title = '支付成功';
                   setTimeout(function () {

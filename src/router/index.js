@@ -19,6 +19,7 @@ import reward from '../page/member/reward'
 import city from '../widget/city'
 import newReceiver from '../page/member/newReceiver'
 import receiverList from '../page/member/receiverList'
+import AddressList from '../widget/addressList'
 Vue.use(Router);
 Vue.use(VueResource);
 
@@ -75,7 +76,7 @@ var router = new Router({
       component: C1001
     },
     {
-      path: '/payment',
+      path: '/payment//',
       name: 'payment',
       meta: {requireAuth:true},
       component: Payment
@@ -133,6 +134,12 @@ var router = new Router({
       name: 'receiverList',
       meta: {requireAuth:true},
       component: receiverList
+    },
+    {
+      path: '/addressList',
+      name: 'addressList',
+      meta: {requireAuth:true},
+      component: AddressList
     },
    ]
 })

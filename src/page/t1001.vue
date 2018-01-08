@@ -286,7 +286,7 @@
           }
         )
         this.$refs.dialog.hide();
-      }
+      },
     }
   }
 
