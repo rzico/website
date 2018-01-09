@@ -4,7 +4,7 @@
       <Message icon="success" :title="title">
         <div slot="content" class="money">
           <div class="goodsNameBox">
-            <span >{{goodsName}}</span>
+            <span>订单付款</span>
           </div>
           <div>
           <span class="moneyIcon">¥ </span>
@@ -25,12 +25,19 @@
           <span class="gray">商品说明: 线下收款</span>
         </div>
         <span @click="goComplete()" class="complete">完成</span>
+        <span @click="payAgain()" v-if="isCancel" class="complete redStyle">继续支付</span>
       </div>
     </div>
+    <Toast ref="toast"></Toast>
   </div>
 </template>
 
 <style scoped>
+  .redStyle{
+    color: red !important;
+    border: 1px solid red !important;
+
+  }
   .gray{
     color: #999;
   }
@@ -39,11 +46,16 @@
     margin-bottom: 15px;
   }
   .complete{
-    padding: 7px 60px;
+    /*padding: 7px 60px;*/
+    padding: 7px 0px;
     border: 1px solid #09BB07;
     font-size: 13px;
+    line-height: 13px;
     color: #0bb20c;
     border-radius: 3px;
+    width: 150px;
+    text-align: center;
+    display: inline-block;
   }
   .moneyIcon{
     font-size: 25px;
@@ -64,6 +76,7 @@
 </style>
 
 <script>
+  import Toast from '../widget/toast.vue';
   import { POST, GET, AUTH} from '../assets/fetch.js';
   import Message from '../widget/message.vue';
   import Button from '../widget/button.vue';
@@ -75,11 +88,13 @@
         sn:'',
         goodsName:'',
         title:'支付中...',
-        articleId:''
+        articleId:'',
+        isCancel:false,
       }
     },
     components: {
       Message,
+      Toast,
       'weui-button': Button
     },
     created() {
@@ -89,7 +104,7 @@
         this.amount = utils.getUrlParameter("amount");
       }
       if(!utils.isNull(utils.getUrlParameter("name"))){
-        this.goodsName = utils.getUrlParameter("name");
+        this.goodsName = decodeURI(utils.getUrlParameter("name"));
       }
       this.articleId = utils.getUrlParameter('articleId');
       if(!utils.isNull(utils.getUrlParameter("title"))){
@@ -114,12 +129,12 @@
         if (!utils.isNull(this.sn)) {
           POST("payment/query.jhtml?sn="+this.sn).then(
             function (res) {
-              res = JSON.stringify(res);
-              alert(res);
+//              res = JSON.stringify(res);
+//              alert(res);
             },
             function (err) {
-              res = JSON.stringify(res);
-              alert(err);
+//              res = JSON.stringify(res);
+//              alert(err);
             }
           )
         }
@@ -134,20 +149,27 @@
               }, function(result){
                 if(result.resultCode == '9000'){
                   _this.title = '支付成功';
+                  _this.isCancel = false;
 //                  _this.$router.push({name:"message",query:{psn:sn,amount:_this.finallPrice}})
                   setTimeout(function () {
                    _this.query()
                   },2000)
                 } else {
-                  _this.$refs.toast.show(result.memo);
+                  _this.$refs.toast.show('支付取消');
+                  _this.title = '支付取消';
+                  _this.isCancel = true;
                 }
               });
             }
             else {
+              _this.title = '支付失败';
+              _this.isCancel = true;
               _this.$refs.toast.show("网络不稳定");
             }
           },
           function (err) {
+            _this.title = '支付失败';
+            _this.isCancel = true;
             _this.$refs.toast.show("网络不稳定");
           }
         )
@@ -164,24 +186,35 @@
                 "package" :res.data.package,
                 "signType" :res.data.signType,
                 "paySign" : res.data.paySign,
-              },function(data){
-                if(data.err_msg == "get_brand_wcpay_request:ok" ) {
+              },function(result){
+//                let ac = JSON.stringify(result);
+//                alert(ac);
+                if(result.err_msg == "get_brand_wcpay_request:ok" ) {
                   _this.title = '支付成功';
+                  _this.isCancel = false;
                   setTimeout(function () {
                   _this.query()
                 },2000)
                 } else {
-                  _this.$refs.toast.show("支付失败");
+
+                  _this.$refs.toast.show("支付取消");
+//                  _this.$refs.toast.show(result.memo);
+                  _this.title = '支付取消';
+                  _this.isCancel = true;
                 }
 
               });
             }
             else {
+              _this.title = '支付失败';
+              _this.isCancel = true;
               _this.$refs.toast.show("网络不稳定");
             }
 
           },
           function (err) {
+            _this.title = '支付失败';
+            _this.isCancel = true;
             _this.$refs.toast.show("网络不稳定");
           }
         )
@@ -197,6 +230,14 @@
           });
         }
       },
+      payAgain(){
+        this.title = '支付中...';
+        if(utils.getUrlParameter('type') == 'weixin'){
+          this.weixin(this.sn);
+        }else if(utils.getUrlParameter('type') == 'alipay'){
+          this.alipay(this.sn);
+        }
+      }
     }
   }
 </script>

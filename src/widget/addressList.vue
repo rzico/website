@@ -151,10 +151,9 @@
         },50)
       },
       selectAddress:function (address) {
-        this.close();
         address = JSON.stringify(address);
         this.$emit('selectAddress',address);
-        console.log(address);
+        this.close();
       },
       hasReceiver:function () {
         return this.receiverList.length > 0;

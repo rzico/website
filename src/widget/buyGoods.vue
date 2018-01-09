@@ -288,7 +288,8 @@
         isPwd: false,
         couponName:'',
         articleId:'',
-        receiverList:[]
+        receiverList:[],
+        onecReceiver:false
       }
     },
     filters:{
@@ -341,6 +342,7 @@
             if (data.type=="success") {
               if(utils.isNull(data.data.paymentPluginId)){
                 if(utils.isweixin()){
+//                  location.href = 'https://small.rzico.com/payment?psn=' + data.data.sn + '&amount=' + _this.finallPrice + '&name=' + encodeURI(_this.goodsData[0].name) + '&type=weixin' + '&articleId=' + _this.articleId;
                   _this.$router.push({
                     name: "payment",
                     query: {psn: data.data.sn, amount: _this.finallPrice, name:_this.goodsData[0].name,type:'weixin',articleId:_this.articleId}
@@ -506,8 +508,11 @@
               if(data.type == 'success'){
                 _this.finallPrice = data.data.amount;
                 _this.couponName = data.data.couponName;
-                _this.receiverList = [];
-                _this.receiverList.push(data.data.receiver);
+                if(!_this.onecReceiver){
+                  _this.receiverList = [];
+                  _this.receiverList.push(data.data.receiver);
+                  _this.onecReceiver = true;
+                }
               }
             }else{
               _this.close(data);
@@ -631,6 +636,7 @@
         this.$refs.addressAdd.showAddressAdd();
       },
       selectAddress:function (address) {
+        address = JSON.parse(address);
         this.receiverList = [];
         this.receiverList.push(address);
       },

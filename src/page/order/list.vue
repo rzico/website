@@ -1,15 +1,15 @@
 <template>
   <div class="page" style="background-color: #eee;" >
     <div class="categoryBox" style="position: fixed;z-index: 1">
-      <span class="cataText" v-for="(item,index) in catagoryList" @click="catagoryChange(index,item.id)" :class = "[whichCorpus == index ? 'corpusActive' : 'noActive']">{{item.name}}</span>
+      <span class="cataText" v-for="(item,index) in catagoryList" @click="catagoryChange(index,item.id)" :class = "[whichCorpus == index ? 'corpusActive' : 'noActive',item.id == 4 ? 'flex-2' : '']">{{item.name}}</span>
     </div>
     <div style="height: 40px"></div>
     <v-loadmore :top-method="loadTop" :bottom-method="loadBottom"  :bottom-all-loaded="allLoaded" :auto-fill="false" ref="loadmore">
       <div class="goodsLine"  v-for="(item,index) in ordersList"  v-if="hasOrder()">
         <div class=" goodsHead">
-          <div class="flexRow">
-            <img :src="refreshImg" class="shopImg"></img>
-            <span class="shopName">adima旗舰店</span>
+          <div class="flexRow" @click="goAuthor(item.sellerId)">
+            <img :src="item.sellerLogo" class="shopImg"></img>
+            <span class="shopName">{{item.sellerName}}</span>
             <span class="arrow" :style="{fontFamily:'iconfont'}">&#xe630;</span>
           </div>
           <div>
@@ -32,7 +32,7 @@
           <span class="textTitle marginRight10">共1件商品</span>
           <span class="textTitle">合计:¥ {{item.orderItems[0].price | watchPrice}}</span>
         </div>
-        <div class="goodsFoot" v-if="item.status != 'unpaid' && item.status != 'unshipped' && item.status != 'shipped'" >
+        <div class="goodsFoot" v-if="item.status == 'completed'">
           <div class="footLeft">
             <!--<span class=" subTitle">删除</span>-->
           </div>
@@ -42,7 +42,11 @@
             <span class="textTitle footText red redBorder" @click="buyAgain(item)">再次购买</span>
           </div>
         </div>
-        <div class="goodsFoot" v-if="item.status == 'unpaid' || item.status == 'refunding'">
+
+        <!--退款中 不渲染-->
+        <!--<div v-else-if="item.status == 'refunding'"></div>-->
+
+        <div class="goodsFoot" v-else-if="item.status == 'unpaid'">
           <div class="footLeft">
             <span class="subTitle"></span>
           </div>
@@ -52,24 +56,24 @@
             <span class="textTitle footText red redBorder" style="padding: 2.5px 10px" @click="goPay(item,item.sn)">付款</span>
           </div>
         </div>
-        <div class="goodsFoot" v-if="item.status == 'unshipped'">
+        <div class="goodsFoot" v-else-if="item.status == 'unshipped'">
           <div class="footLeft">
             <span class="subTitle"></span>
           </div>
-          <div class="footRight">
+          <div class="footRight" >
             <!--<span class="textTitle footText">查看物流</span>-->
-            <span class="textTitle footText" @click="urgedGoods(item.sn)">催发货</span>
-            <span class="textTitle footText red redBorder" style="padding: 2.5px 10px">退款</span>
+            <span class="textTitle footText" @click="urgedGoods(item,item.sn)" :class="[item.hadUrged ? 'grayColor' : '']">催发货</span>
+            <span class="textTitle footText red redBorder" style="padding: 2.5px 10px" @click="refundMoney(item.sn)">退款</span>
           </div>
         </div>
-        <div class="goodsFoot" v-if="item.status == 'shipped'">
+        <div class="goodsFoot" v-else-if="item.status == 'shipped'">
           <div class="footLeft">
             <span class="subTitle"></span>
           </div>
           <div class="footRight">
             <!--<span class="textTitle footText">查看物流</span>-->
-            <span class="textTitle footText" @click="showDialog(item.sn,index)">确认签收</span>
-            <span class="textTitle footText red redBorder" style="padding: 2.5px 10px">退货</span>
+            <span class="textTitle footText" @click="acceptOrder(item.sn)">确认签收</span>
+            <span class="textTitle footText red redBorder" style="padding: 2.5px 10px" @click="returnGoods(item.sn)">退货</span>
           </div>
         </div>
       </div>
@@ -90,7 +94,6 @@
 </template>
 <style scoped>
   @import '../../less/order/list.less';
-
   .header{
     background-color: #fff;
     padding: 10px;
@@ -162,23 +165,89 @@
       this.open()
     },
     methods:{
-//      催促发货
-      urgedGoods:function (sn) {
-        POST('website/member/order/shipp_remind.jhtml?sn=' + sn).then(
+//      前往专栏
+      goAuthor:function (id) {
+        this.$router.push({
+          name: "c1001",
+          query: {id:id}
+        });
+      },
+//      退货
+      returnGoods:function (sn) {
+        let _this = this;
+        POST('website/member/order/returns.jhtml?sn=' + sn).then(
           function (data) {
-            console.log(data);
-            data = JSON.stringify(data);
-            alert(data);
+            if(data.type == 'success'){
+              _this.pageStart = 0;
+              _this.open();
+              _this.$refs.toast.show('退货成功');
+            }else{
+              _this.$refs.toast.show(data.content);
+            }
           },function (err) {
-            console.log(err);
-            err = JSON.stringify(err);
-            alert(err);
+            _this.$refs.toast.show(data.content);
+          }
+        )
+      },
+//      确认签收
+      acceptOrder:function (sn) {
+        let _this = this;
+        POST('website/member/order/completed.jhtml?sn=' + sn).then(
+          function (data) {
+            if(data.type == 'success'){
+              _this.pageStart = 0;
+              _this.open();
+              _this.$refs.toast.show('签收成功');
+            }else{
+              _this.$refs.toast.show(data.content);
+            }
+          },function (err) {
+            _this.$refs.toast.show(data.content);
+          }
+        )
+      },
+//      退款
+      refundMoney:function (sn) {
+        let _this = this;
+        POST('website/member/order/refunds.jhtml?sn=' + sn).then(
+          function (data) {
+            if(data.type == 'success'){
+              _this.pageStart = 0;
+              _this.open();
+              _this.$refs.toast.show('退款成功');
+            }else{
+              _this.$refs.toast.show(data.content);
+            }
+          },function (err) {
+            _this.$refs.toast.show(data.content);
+          }
+        )
+      },
+//      催促发货
+      urgedGoods:function (item,sn) {
+        let _this = this;
+        if(item.hadUrged){
+          return;
+        }
+        GET('website/member/order/shipp_remind.jhtml?sn=' + sn).then(
+          function (data) {
+            if(data.type == 'success'){
+              _this.pageStart = 0;
+//              item.hadUrged = true;
+              _this.$set(item,'hadUrged', true);
+              _this.$refs.toast.show('提醒成功');
+            }else{
+              _this.$refs.toast.show(data.content);
+            }
+          },function (err) {
+            _this.$refs.toast.show(err.content);
           }
         )
       },
 //      确认购买
       buyAgain:function (item) {
         var _this = this;
+        alert("website/member/order/create.jhtml?id=" + item.orderItems[0].id + '&quantity=' + item.orderItems[0].quantity + '&receiverId=1');
         POST("website/member/order/create.jhtml?id=" + item.orderItems[0].id + '&quantity=' + item.orderItems[0].quantity + '&receiverId=1').then(
           function (data) {
 //            alert(data);
