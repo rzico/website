@@ -1,6 +1,8 @@
 <template>
   <div class="music-icon " :class="[downloadShow ? '' : 'top19',isPlay ? 'music-icon-animation' : '']" v-if="hasMusic()">
-    <audio id="audio" class="audio" autoplay preload="auto" loop="loop" :src="'http://cdn.rzico.com/weex/resources/music/'+musicData.id+'.mp3'"
+    <!--<audio id="audio" class="audio" autoplay preload="auto" loop="loop" :src="'http://cdn.rzico.com/weex/resources/music/'+musicData.id+'.mp3'"-->
+    <!--style="display: none;"></audio>-->
+    <audio id="audio"class="audio"  preload="auto" loop="loop" :src="'http://cdn.rzico.com/weex/resources/music/'+musicData.id+'.mp3'"
            style="display: none;"></audio>
     <i class="iconfont icon-yinlebofang icon-music" @click="openPlayer"></i>
     <Toast ref="toast"></Toast>
@@ -38,16 +40,32 @@
         }
       },
       openPlayer: function(){
+        let _this = this;
         var audio = this.$el.querySelector('audio');
         if(this.isPlay){
           this.isPlay = false;
           audio.pause();
         }else{
-          this.isPlay = true;
           audio.play();
-          this.$emit("judgeMusic");
+          if (audio.paused) {
+            // 暂停中
+            audio.play();
+            if (audio.paused) {
+              // 暂停中
+              audio.play();
+            } else {
+              // 播放中
+              this.$emit("judgeMusic");
+              _this.isPlay = true;
+            }
+          } else {
+            // 播放中
+            this.$emit("judgeMusic");
+            _this.isPlay = true;
+          }
         }
       }
     }
   }
 </script>
+
