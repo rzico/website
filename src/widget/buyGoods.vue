@@ -1,5 +1,5 @@
 <template>
-  <div class="page mask"  style="position: fixed;bottom: 0;z-index: 1" v-if="isShow" >
+  <div class="page mask"  style="position: fixed;bottom: 0;z-index: 3000000001" v-if="isShow" >
     <div class="maskHide" @click="maskHide()"></div>
     <div class="box" v-for="item in goodsData">
       <div class="headerBox">
@@ -47,17 +47,20 @@
         <!--<cell-footer ><span class="arrow" style="color:red;font-size: 14px;padding-right: 10px">-¥ 3.00</span></cell-footer>-->
         <!--</div>-->
         <!--</cells>-->
-        <div class="address" @click="goAddress()">
-          <p class="fontSize18">某某某 15860***375</p>
-          <p class="fontSize18" style="font-size: 14px">福建省厦门市湖里区兴隆路福建省厦门市湖里区兴隆路福建省厦门市福建省厦门市</p>
+        <div class="address"  v-for="(item,index) in receiverList" v-if="hasReceiver()" @click="goAddress()">
+            <p class="fontSize18">{{item.consignee}} {{item.phone}}</p>
+            <p class="fontSize18" style="font-size: 14px">{{item.areaName}}{{item.address}}</p>
           <p class="rightArrow"></p>
         </div>
-
+        <div class="address" v-if="!hasReceiver()" style="text-align: center" @click="goAddress()">
+           <p class="fontSize18" style="font-size: 14px">点击选择收货地址</p>
+          <p class="rightArrow" style="top: 18.5px;"></p>
+        </div>
         <div class="flexRow preferentialBox" v-if="couponName != ''">
           <span class="preferential">{{couponName}}</span>
         </div>
       </div>
-      <div class="footer" v-bind:disabled="disabledButton">
+      <div class="footer" v-bind:disabled="disabledButton" style="z-index: 1">
         <div class="footerLeft">
           <span>实付金额 ¥ {{finallPrice}}</span>
           <span class="promtText">(含运费)</span>
@@ -67,6 +70,8 @@
         </div>
       </div>
     </div>
+    <AddressList ref="address" @selectAddress="selectAddress" @addressAdd="addressAdd" @toastShow="toastShow"></AddressList>
+    <AddressAdd ref="addressAdd" @selectAddress="selectAddress" @toastShow="toastShow"></AddressAdd>
     <Toast ref="toast"></Toast>
   </div>
 </template>
@@ -98,6 +103,7 @@
   }
   .specScrollBox{
     position: absolute;top: 80px;bottom: 50px;overflow: scroll;
+    width: 100%;
   }
   .grayColor{
     color: #999;
@@ -245,6 +251,8 @@
 <script>
 
   import Toast from './toast.vue';
+  import AddressList from './addressList.vue';
+  import AddressAdd from './addressAdd.vue';
   import Button from './button.vue';
   import Cells from './cells.vue';
   import Cell from './cell.vue';
@@ -261,6 +269,8 @@
       Cell,
       LinkCell,
       dropdown,
+      AddressList,
+      AddressAdd
     },
     data: function () {
       return {
@@ -277,7 +287,9 @@
         isShow: false,
         isPwd: false,
         couponName:'',
-        articleId:''
+        articleId:'',
+        receiverList:[],
+        onecReceiver:false
       }
     },
     filters:{
@@ -286,10 +298,21 @@
       }
     },
     methods: {
+      hasReceiver:function () {
+        return this.receiverList.length > 0;
+      },
 //      确认购买
       completeBuy:function () {
+        if(utils.isNull(this.buyNum) || this.buyNum <= 0){
+          this.$refs.toast.show('请添加数量');
+          return;
+        }
+        if(utils.isNull(this.receiverList[0].id) || utils.isNull(this.receiverList[0].id)){
+          this.$refs.toast.show('请选择地址');
+          return ;
+        }
         var _this = this;
-        POST("website/member/order/create.jhtml?id=" + this.productId + '&quantity=' + this.buyNum + '&receiverId=1').then(
+        POST("website/member/order/create.jhtml?id=" + this.productId + '&quantity=' + this.buyNum + '&receiverId=' + this.receiverList[0].id).then(
           function (data) {
 //            alert(data);
             console.log(data);
@@ -319,6 +342,7 @@
             if (data.type=="success") {
               if(utils.isNull(data.data.paymentPluginId)){
                 if(utils.isweixin()){
+//                  location.href = 'https://small.rzico.com/payment?psn=' + data.data.sn + '&amount=' + _this.finallPrice + '&name=' + encodeURI(_this.goodsData[0].name) + '&type=weixin' + '&articleId=' + _this.articleId;
                   _this.$router.push({
                     name: "payment",
                     query: {psn: data.data.sn, amount: _this.finallPrice, name:_this.goodsData[0].name,type:'weixin',articleId:_this.articleId}
@@ -478,10 +502,17 @@
 //          计算价格信息
         POST('website/member/order/calculate.jhtml?id=' + this.productId + '&quantity=' + this.buyNum).then(
           function (data) {
+            console.log('32');
+            console.log(data);
             if(data.type == 'success'){
               if(data.type == 'success'){
                 _this.finallPrice = data.data.amount;
                 _this.couponName = data.data.couponName;
+                if(!_this.onecReceiver){
+                  _this.receiverList = [];
+                  _this.receiverList.push(data.data.receiver);
+                  _this.onecReceiver = true;
+                }
               }
             }else{
               _this.close(data);
@@ -544,10 +575,9 @@
         GET('website/product/view.jhtml?id='+sn).then(
           function (data) {
             if(data.type == 'success'){
-              console.log('1');
               console.log(data);
               _this.goodsData = [];
-              _this.finallPrice = data.data.products[0].price;
+//              _this.finallPrice = data.data.products[0].price;
               _this.productId = data.data.products[0].productId;
               data.data.price = data.data.products[0].price;
               data.data.thumbnail = data.data.products[0].thumbnail;
@@ -566,11 +596,14 @@
                 _this.spec2Name = sp2;
                 _this.spec2Change(sp2);
               }
+//              调用计算接口
+              _this.calcPrice();
             }else{
-//              alert(data.content);
+              _this.isShow = false;
               _this.close(data);
             }
           },function (err) {
+            _this.isShow = false;
             _this.close(err);
           })
       },
@@ -593,12 +626,23 @@
         }
       },
       goAddress:function () {
-        this.$router.push({
-          name: "receiverList",
-          query: {type:'buyGoods'}
-        });
+        this.$refs.address.show();
+//        this.$router.push({
+//          name: "receiverList",
+//          query: {type:'buyGoods'}
+//        });
       },
-
+      addressAdd:function () {
+        this.$refs.addressAdd.showAddressAdd();
+      },
+      selectAddress:function (address) {
+        address = JSON.parse(address);
+        this.receiverList = [];
+        this.receiverList.push(address);
+      },
+      toastShow:function (msg) {
+        this.$refs.toast.show(msg);
+      },
 //methods 方法到此为止
     },
   }

@@ -5,7 +5,7 @@ const config = {
   title:"芸店",
   link:"http://weixin.rzico.com",
   desc:'超强图文小视频分享社区,中国版Facebook.',
-  baseURL:"http://small.rzico.com/",
+  baseURL:"http://weex.1xx.me/",
   wxAppid:"wx88a1ec3b5c3bc9c3"
 }
 
@@ -196,6 +196,14 @@ let utilsFunc = {
       }
       let timeObj = this.resolvetimefmt(value);
       return timeObj.y +'-'+ timeObj.m + '-' + timeObj.d + '  ' + timeObj.h + ':' + timeObj.i + ':' + timeObj.s ;
+  },
+  // 返回处理后的值 2017年01月01日 00:00
+  datedayhms(value) {
+    if(value == '' || value == null || value == undefined){
+      return value;
+    }
+    let timeObj = this.resolvetimefmt(value);
+    return timeObj.y +'年'+ timeObj.m + '月' + timeObj.d + '日' + '  ' + timeObj.h + ':' + timeObj.i + ':' + timeObj.s ;
   },
   // * */
 

@@ -1,6 +1,6 @@
 <template>
-  <div class="bg"  v-if="hasCoupon()">
-    <div class="top marbottom15" v-for="c in coupons">
+  <div class="bg" >
+    <div class="top marbottom15" v-for="c in coupons"  v-if="hasCoupon()">
       <div class="flex-r" style="height: 60px;border-width: 0 0 1px 0;border-color: #cccccc;border-style: dashed;padding-right: 10px">
         <span class="f30 color flex2" style="">{{c.amount}}</span>
         <span class="f16 flex3_5 " >{{c.couponName}}</span>
@@ -15,6 +15,10 @@
       <!--两个小半圆-->
       <div class="left"></div>
       <div class="right"></div>
+    </div>
+    <div class="noData" v-if="!hasCoupon()">
+      <i class="iconfont icon-zanwushuju"></i>
+      <span>很抱歉，您暂无优惠券</span>
     </div>
     </div>
 </template>

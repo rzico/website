@@ -335,7 +335,6 @@
         POST("payment/submit.jhtml?sn="+this.sn+"&paymentPluginId="+plugid).then(
           function (data) {
             if (data.type=="success") {
-              alert(data);
               if (typeof WeixinJSBridge == "undefined"){//微信浏览器内置对象。参考微信官方文档
                 if( document.addEventListener ){
                   document.addEventListener('WeixinJSBridgeReady', _this.onBridgeReady(data.data), false);
@@ -371,9 +370,9 @@
           function(res){
             // 使用以上方式判断前端返回,微信团队郑重提示：res.err_msg将在用户支付成功后返回ok，但并不保证它绝对可靠。
             if(res.err_msg == "get_brand_wcpay_request：ok" ){
-              _this.close(utils.message("success","支付成功"));
+              vm.close(utils.message("success","支付成功"));
             }else{
-              _this.close(utils.message("error","支付失败"));
+              vm.close(utils.message("error","支付失败"));
             }
           }
         );

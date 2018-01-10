@@ -1,5 +1,5 @@
 <template>
-<div :class="'weui_dialog_' + type" v-if="isShow">
+<div :class="'weui_dialog_' + type" v-if="isShow" style="z-index: 30000000011">
   <div class="weui_mask"></div>
   <div class="weui_dialog">
     <div class="weui_dialog_hd">

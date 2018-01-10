@@ -1,5 +1,5 @@
 <template>
-  <div style="height: 50%;width: 100%;position: absolute;bottom: 0; display: flex;flex-direction: column;background-color: #ffffff" v-if="control">
+  <div style="height: 50%;width: 100%;position: absolute;bottom: 0; display: flex;flex-direction: column;background-color: #ffffff;z-index: 997" v-if="controlChild">
     <div class="title"><span class="font16">配送至</span> </div>
     <div style="display: flex;flex-direction: row">
     <div style="overflow:auto;display: flex;flex: 1;flex-direction: column;padding-left: 10px" >
@@ -100,6 +100,15 @@
     props: {
       control: {default:false}
     },
+    computed:{
+      controlChild:  {
+        get: function () {
+          return this.control;
+        },
+        set: function () {
+        }
+      }
+    },
     created(){
           this.proList = getPro();
     },
@@ -111,7 +120,6 @@
         this.city = 'city';
         this.country ='';
         this.cityList = getCity(this.listId);
-
       },
 //      选择城市时若没有区县，则关闭渲染，并把省份城市名赋值给name
       cityChange:function (id,name,city) {
@@ -120,7 +128,7 @@
         this.cityName =name;
         if(city == ''){
           _this.name = _this.proName + _this.cityName;
-          _this.control =false;
+          _this.controlChild =false;
           _this.$emit("name", this.name,this.listId);
         }else {
           _this.country = 'country';
@@ -132,7 +140,7 @@
         this.listId = id;
         this.countryName =name;
         this.name = this.proName + this.cityName +this.countryName;
-        this.control =false;
+        this.controlChild =false;
         this.$emit("name", this.name,this.listId);
       }
     }
