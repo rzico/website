@@ -3,9 +3,9 @@ const config = {
   siteName:'芸店',
   appUrl:'http://a.app.qq.com/o/simple.jsp?pkgname=com.rzico.assistant',
   title:"芸店",
-  link:"http://weixin.rzico.com",
+  link:"http://dev.rzico.com",
   desc:'超强图文小视频分享社区,中国版Facebook.',
-  baseURL:"http://weex.1xx.me/",
+  baseURL:"http://dev.rzico.com/",
   wxAppid:"wx88a1ec3b5c3bc9c3"
 }
 
@@ -25,6 +25,9 @@ let utilsFunc = {
         let r = url.slice(url.indexOf('?')+1).match(reg);
         if (r != null) {
             try {
+                if (name=='xuid') {
+                   alert(decodeURIComponent(r[2]));
+                }
                 return decodeURIComponent(r[2]);
             } catch (_e) {
                 return "";
