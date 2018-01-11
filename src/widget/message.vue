@@ -4,7 +4,7 @@
       <i :class="['weui_icon_msg', 'weui_icon_' + icon]" ></i>
     </div>
     <div class="weui_text_area">
-      <h2 class="weui_msg_title green" v-if="title">{{title}}</h2>
+      <h2 class="weui_msg_title blue" v-if="title" :class="[title == '支付完成' ? 'green' : '',title == '支付取消' || title == '支付失败' ? 'red' : '']">{{title}}</h2>
       <div class="weui_msg_desc"><slot name="content"></slot></div>
     </div>
     <div class="weui_opr_area">
@@ -16,12 +16,18 @@
   </div>
 </template>
 <style>
+  .red{
+    color: red;
+  }
+  .blue{
+    color: deepskyblue ;
+    margin-top: 10px;
+  }
   .pt70{
     padding-top: 50px;
   }
   .green{
     color:#09BB07;
-    margin-top: 10px;
   }
   .weui_icon_msg:before{
     font-size: 45px !important;

@@ -101,13 +101,13 @@
   .content .topDiv .address .coarse{
     font-size: 14px;
     line-height: 15px;
-    font-weight:600;
+    /*font-weight:500;*/
   }
   .content .topDiv .address .fine{
     font-size: 14px;
     margin-left: 10px;
     line-height: 15px;
-    font-weight:600;
+    /*font-weight:500;*/
   }
 </style>
 <script>

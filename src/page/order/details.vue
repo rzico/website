@@ -4,7 +4,7 @@
     <div  v-for="(item,index) in ordersList" class="pagePd">
       <div class="flexRow infoLines marginTop10" style="background-color: #fff">
         <span class="carIcon"  :style="{fontFamily:'iconfont'}">&#xe604;</span>
-        <span class="textTitle">感谢您在xxx购物,欢迎您再次光临!</span>
+        <span class="textTitle">感谢您的本次购物,欢迎您再次光临!</span>
       </div>
       <div class="header marginTop10 flexRow">
         <div style="width: 30px;">
@@ -454,7 +454,7 @@
       },
 //            点击复制
       copyCode(){
-        event.toast('复制成功');
+        this.$refs.toast.show('复制成功');
       },
       goLogistics:function () {
         this.$router.push({name:"orderLogistics",query:{sn:1}});

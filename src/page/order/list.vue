@@ -17,8 +17,8 @@
             <!--<span class="textTitle coral" style="font-size: 14px">{{item.statusDescr}}</span>-->
           </div>
         </div>
-        <div class="flexRow goodsBody" style="justify-content: space-between" v-for="(goods,index) in item.orderItems" @click="goDetails(item.sn)">
-          <img :src="refreshImg" :style="'height:' + goodsHeight + 'px;' + 'width:' + (goodsHeight )+ 'px'"></img>
+        <div class="flexRow goodsBody" style="justify-content: space-between" v-for="goods in item.orderItems" @click="goDetails(item.sn)">
+          <img :src="goods.thumbnail" :style="'height:' + goodsHeight + 'px;' + 'width:' + (goodsHeight )+ 'px'"></img>
           <div class="goodsInfo" :style="'height:' + goodsHeight + 'px;'">
             <p class="goodsName">{{goods.name}}</p>
             <p class="subTitle marginTop5">规格:{{goods.spec | watchSpec}}</p>
@@ -29,7 +29,7 @@
           </div>
         </div>
         <div class="flexRow goodsTotalPrice ">
-          <span class="textTitle marginRight10">共1件商品</span>
+          <span class="textTitle marginRight10">共{{item.orderItems[0].quantity}}件商品</span>
           <span class="textTitle">合计:¥ {{item.orderItems[0].price | watchPrice}}</span>
         </div>
         <div class="goodsFoot" v-if="item.status == 'completed'">

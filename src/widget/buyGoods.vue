@@ -47,15 +47,16 @@
         <!--<cell-footer ><span class="arrow" style="color:red;font-size: 14px;padding-right: 10px">-¥ 3.00</span></cell-footer>-->
         <!--</div>-->
         <!--</cells>-->
-        <div class="address"  v-for="(item,index) in receiverList" v-if="hasReceiver()" @click="goAddress()">
-            <p class="fontSize18">{{item.consignee}} {{item.phone}}</p>
-            <p class="fontSize18" style="font-size: 14px">{{item.areaName}}{{item.address}}</p>
-          <p class="rightArrow"></p>
+          <div class="address"  v-for="(item,index) in receiverList" v-if="hasReceiver()" @click="goAddress()">
+              <p class="fontSize18">{{item.consignee}} {{item.phone}}</p>
+              <p class="fontSize18" style="font-size: 14px">{{item.areaName}}{{item.address}}</p>
+            <p class="rightArrow"></p>
+          </div>
+        <div class="address noAddress" v-else @click="goAddress()">
+          <p class="fontSize18 fontSize14" >点击选择收货地址</p>
+          <p class="rightArrow top18" ></p>
         </div>
-        <div class="address" v-if="!hasReceiver()" style="text-align: center" @click="goAddress()">
-           <p class="fontSize18" style="font-size: 14px">点击选择收货地址</p>
-          <p class="rightArrow" style="top: 18.5px;"></p>
-        </div>
+
         <div class="flexRow preferentialBox" v-if="couponName != ''">
           <span class="preferential">{{couponName}}</span>
         </div>
@@ -76,6 +77,12 @@
   </div>
 </template>
 <style scoped>
+  .noAddress{
+    text-align: center;
+  }
+  .top18{
+    top: 18.5px !important;
+  }
   .promtText{
     font-size: 12px;color: #999;
   }
@@ -88,9 +95,10 @@
   }
   .buyNumber{
     /*padding: 0 10px;*/
-    height:20px;
+    height:24px;
     width: 30px;
     font-size: 16px;line-height: 16px;display: inline-block;
+    text-align: center;
   }
   .iconAddSub{
     font-size: 20px;padding: 10px 10px;
@@ -167,13 +175,16 @@
     top: 49% ;
     right: 10px;
   }
+  .fontSize14{
+    font-size: 14px;
+  }
   .fontSize18{
     font-size: 15px;
     line-height: 25px;
     color: #999;
   }
   .address{
-    margin:0 0 0px 0;
+    margin:0;
     position: relative;
     border-top: 1px solid #eee;
     /*border-bottom: 1px solid #eee;*/
@@ -299,7 +310,11 @@
     },
     methods: {
       hasReceiver:function () {
-        return this.receiverList.length > 0;
+        if(utils.isNull(this.receiverList)  || utils.isNull(this.receiverList[0].id)){
+          return false;
+        }else{
+          return true;
+        }
       },
 //      确认购买
       completeBuy:function () {
@@ -342,15 +357,16 @@
             if (data.type=="success") {
               if(utils.isNull(data.data.paymentPluginId)){
                 if(utils.isweixin()){
-//                  location.href = 'https://small.rzico.com/payment?psn=' + data.data.sn + '&amount=' + _this.finallPrice + '&name=' + encodeURI(_this.goodsData[0].name) + '&type=weixin' + '&articleId=' + _this.articleId;
+//                  + '&name=' + encodeURI(_this.goodsData[0].name) + '&articleId=' + _this.articleId;
+//                  location.href = 'http://dev.rzico.com/weixin/payment/view.html?psn=' + data.data.sn + '&amount=' + _this.finallPrice  + '&type=weixin';
                   _this.$router.push({
                     name: "payment",
-                    query: {psn: data.data.sn, amount: _this.finallPrice, name:_this.goodsData[0].name,type:'weixin',articleId:_this.articleId}
+                    query: {psn: data.data.sn, amount: _this.finallPrice,type:'weixin'}
                   });
                 }else if(utils.isalipay()){
                   _this.$router.push({
                     name: "payment",
-                    query: {psn: data.data.sn, amount: _this.finallPrice,name:_this.goodsData[0].name,type:'alipay',articleId:_this.articleId}
+                    query: {psn: data.data.sn, amount: _this.finallPrice,type:'alipay'}
                   });
                 }
               }else if(data.data.paymentPluginId == 'cardPayPlugin'){//会员卡支付

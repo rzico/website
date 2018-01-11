@@ -78,7 +78,7 @@ var router = new Router({
       component: C1001
     },
     {
-      path: '/weixin/payment/',
+      path: '/weixin/payment/view.html',
       name: 'payment',
       meta: {requireAuth:true},
       component: Payment

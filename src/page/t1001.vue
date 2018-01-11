@@ -247,13 +247,13 @@
       },
       buyNow:function (id) {
         let _this = this;
-            _this.$refs.buy.show(id,this.watchArticle.id);
+        _this.$refs.buy.show(id,this.watchArticle.id);
       },
       payConfirm:function (payInfo) {
-            this.payWay = payInfo.way;
-            this.payPrice = payInfo.price;
-            this.sn = payInfo.price;
-            this.$refs.dialog.show();
+        this.payWay = payInfo.way;
+        this.payPrice = payInfo.price;
+        this.sn = payInfo.price;
+        this.$refs.dialog.show();
       },
 //       取消支付
       closeConfirm:function () {
@@ -291,3 +291,4 @@
   }
 
 </script>
+
