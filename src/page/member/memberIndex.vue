@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="page slideIn topic" style="background-color: #eeeeee" @scroll="onscroll" offset-accuracy="0">
-        <metaInfo :topic="topic" :isFixed = "isfixed"></metaInfo>
+      <metaInfo :topic="topic" :isFixed = "isfixed"></metaInfo>
         <div class="advertising">
           <img class="img" :src="'./static/card_picker.jpg'">
         </div>
@@ -119,8 +119,7 @@
 //        控制优惠卷数量是否渲染
         couponControl:false,
 //        控制奖励金额度是否渲染
-        rebateControl:false
-
+        rebateControl:false,
 
       }
     },
@@ -141,7 +140,7 @@
       } else {
         _this.load();
       }
-
+      this.open();
     },
     methods:{
       jumpAddress:function() {
@@ -176,6 +175,7 @@
             _this.$refs.toast.show("网络不稳定");
           });
       },
+//      获取优惠券赏金总额
       open:function() {
         var _this = this;
         GET('website/member/view.jhtml').then(
@@ -183,10 +183,10 @@
             if(mes.type == 'success'){
               _this.coupon = mes.data.coupon;
               _this.rebate = mes.data.rebate;
-              if(mes.data.rebate != null || mes.data.rebate != ''){
+              if(!utils.isNull(mes.data.rebate)){
                 _this.rebateControl = true
               }
-              if(mes.data.coupon != 0 || mes.data.coupon != ''){
+              if(!utils.isNull(mes.data.coupon)){
                 _this.couponControl = true
               }
             }else {
