@@ -22,6 +22,8 @@ import receiverList from '../page/member/receiverList'
 import AddressList from '../widget/addressList'
 import couponList from '../page/member/couponList'
 import memberIndex from '../page/member/memberIndex'
+import ceshi from '../page/member/ceshi'
+import swiper from '../page/member/swiper'
 Vue.use(Router);
 Vue.use(VueResource);
 
@@ -154,6 +156,18 @@ var router = new Router({
       name: 'memberIndex',
       meta: {requireAuth:true},
       component: memberIndex
+    },
+    {
+      path: '/ceshi',
+      name: 'ceshi',
+      meta: {requireAuth:true},
+      component: ceshi
+    },
+    {
+      path: '/swiper',
+      name: 'swiper',
+      meta: {requireAuth:true},
+      component: swiper
     },
    ]
 })
