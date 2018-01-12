@@ -82,19 +82,19 @@ var router = new Router({
       component: Payment
     },
     {
-      path: '/orderList',
+      path: '/order/list',
       name: 'orderList',
       meta: {requireAuth:true},
       component: OrderList
     },
     {
-      path: '/orderDetails',
+      path: '/order/details',
       name: 'orderDetails',
       meta: {requireAuth:true},
       component: OrderDetails
     },
     {
-      path: '/orderLogistics',
+      path: '/order/logistics',
       name: 'orderLogistics',
       meta: {requireAuth:true},
       component: OrderLogistics
