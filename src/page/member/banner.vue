@@ -10,8 +10,8 @@
         </div>
       </div>
       <div class="rightContent">
-        <div class="top"><i class="iconfont icon-moban13zhengshu" style="color:white;font-size: 18px"></i><span class="font-size14"style="color: white">点击量</span></div>
-        <div class="bottom"><span class="font-size14" style="color:#cccccc">{{topic.hits}}人</span></div>
+        <div class="top"><i class="iconfont icon-moban13zhengshu" style="color:white;font-size: 14px"></i><span style="color: white;font-size: 12px">点击量</span></div>
+        <div class="bottom"><span style="color:#cccccc;font-size: 12px">{{topic.hits}}人</span></div>
       </div>
     </div>
   </div>
@@ -71,6 +71,8 @@
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
     width: 100%;
+    padding-top: 3px;
+    padding-bottom: 3px;
     padding-left: 5px;
     padding-right: 5px;
     background-color: rgba(255,0,0,0.8);
@@ -83,6 +85,8 @@
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
     width: 100%;
+    padding-top: 3px;
+    padding-bottom: 3px;
     padding-left: 5px;
     padding-right: 5px;
     background-color: rgba(0,0,0,0.7);
