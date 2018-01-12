@@ -142,7 +142,6 @@
 //                  _this.listImg.push({url: item.thumbnail})
 //                }
 //              })
-              _this.$refs.swiper.Shuffling();
 //              _this.listImg=JSON.stringify(_this.listImg)
 //              alert(_this.listImg)
               _this.$set(_this.listImg[0],'url',mes.data.data[0].thumbnail);
@@ -150,6 +149,7 @@
               _this.$set(_this.listImg[2],'url',mes.data.data[2].thumbnail);
               _this.$set(_this.listImg[3],'url',mes.data.data[3].thumbnail);
               _this.$set(_this.listImg[4],'url',mes.data.data[4].thumbnail);
+              _this.$refs.swiper.Shuffling();
             }else{
             }
           }, function () {
