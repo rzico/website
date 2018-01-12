@@ -9,7 +9,7 @@
 
 <script>
   import Swiper from 'swiper';
-  import 'swiper/dist/css/swiper.min.css';
+  import '../../../static/swiper.min.css';
   export default {
     props: ['listImg'],
 //    mounted() {
