@@ -1,8 +1,11 @@
 <template>
-  <div class="" v-if="isShow" style="z-index: 3000000001">
-    <weui-dialog ref="addressAdd" type="confirm" title="新增收货地址" confirmButton="添加" cancelButton="取消"
-                 @weui-dialog-confirm="activateConfirm()"
-                 @weui-dialog-cancel="closeConfirm()">
+  <div class="page" v-if="isShow" style="z-index: 3000000001">
+    <!--<weui-dialog ref="addressAdd" type="confirm" title="新增收货地址" confirmButton="添加" cancelButton="取消"-->
+                 <!--@weui-dialog-confirm="activateConfirm()"-->
+                 <!--@weui-dialog-cancel="closeConfirm()">-->
+      <div class="topBox" >
+          <span class="addAdressText">请填写以下信息</span>
+      </div>
       <div class="addressBox" >
           <div class="name">
             <div class="leftWidth">
@@ -37,19 +40,59 @@
             <div class="xiaoyuan" :style="noColor()" @click="no()"></div><span class="font-size">否</span>
           </div>
       </div>
-    </weui-dialog>
+      <div class="bottomBox">
+        <span class="bottomButton" @click="close()">取消</span>
+        <span class="bottomButton" @click="activateConfirm()">添加</span>
+      </div>
+    <!--</weui-dialog>-->
     <city :control="citycontrol" @name="cityname"></city>
     <Toast ref="toast"></Toast>
-  </div>
+    </div>
 </template>
 <style scoped>
+  .bottomBox{
+    margin-top: 10px;
+    width:90%;
+    margin-left: 5%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .bottomButton{
+    padding: 10px 0;
+    display: inline-block;
+    width:45%;
+    border: 1px solid #eee;
+    font-size: 16px;
+    text-align: center;
+    line-height: 16px;
+    border-radius:5px;
+  }
+  .addAdressText{
+    font-size: 18px;
+    font-weight: 600px;
+  }
+  .topBox{
+    height:45px;
+    width:100%;
+    padding-left: 10px;
+    padding-right: 10px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    border-bottom: 1px solid #eee;
+  }
+  .addressBox{
+  }
   .leftWidth{
     width: 15% !important;
     min-width: 70px !important;
   }
   .name{
     background-color: #ffffff;
-    height: 40px;
+    height: 45px;
     padding-left: 10px;
     padding-right: 10px;
     border-width: 0 0 1px 0;
@@ -61,7 +104,7 @@
   }
   .tel{
     background-color: #ffffff;
-    height: 40px;
+    height: 45px;
     padding-left: 10px;
     padding-right: 10px;
     border-width: 0 0 1px 0;
@@ -73,7 +116,7 @@
   }
   .region{
     background-color: #ffffff;
-    height: 40px;
+    height: 45px;
     padding-left: 10px;
     padding-right: 10px;
     border-width: 0 0 1px 0;
@@ -86,7 +129,7 @@
   }
   .adress{
     background-color: #ffffff;
-    height: 40px;
+    height: 45px;
     padding-left: 10px;
     padding-right: 10px;
     border-width: 0 0 1px 0;
@@ -98,7 +141,8 @@
   }
   .isDefault{
     background-color: #ffffff;
-    height: 40px;
+    border-bottom: 1px solid #eee;
+    height: 45px;
     padding-left: 10px;
     padding-right: 10px;
     display: flex;
@@ -182,7 +226,7 @@
         this.isShow = true;
         let _this = this;
         setTimeout(function () {
-          _this.$refs.addressAdd.show();
+//          _this.$refs.addressAdd.show();
         },50);
       },
       show:function () {
@@ -244,7 +288,7 @@
       },
       close:function () {
         this.isShow = false;
-      }
+      },
     }
   }
 </script>

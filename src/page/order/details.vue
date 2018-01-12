@@ -131,16 +131,16 @@
           <span class="textTitle footspan" @click="goPay(item,item.sn)">付款</span>
         </div>
       </div>
-      <div class="flexRow spaceBetween goodsFoot footBottom" v-else-if="item.status == 'completed'">
-        <div class="footLeft">
-          <!--<span class="textTitle delOrder" >删除订单</span>-->
-        </div>
-        <div class="footRight" >
-          <!--<span class="textTitle footspan" @click="goLogistics()">查看物流</span>-->
-          <!--<span class="textTitle footspan">评价晒单</span>-->
-          <span class="textTitle footspan ">再次购买</span>
-        </div>
-      </div>
+      <!--<div class="flexRow spaceBetween goodsFoot footBottom" v-else-if="item.status == 'completed'">-->
+        <!--<div class="footLeft">-->
+          <!--&lt;!&ndash;<span class="textTitle delOrder" >删除订单</span>&ndash;&gt;-->
+        <!--</div>-->
+        <!--<div class="footRight" >-->
+          <!--&lt;!&ndash;<span class="textTitle footspan" @click="goLogistics()">查看物流</span>&ndash;&gt;-->
+          <!--&lt;!&ndash;<span class="textTitle footspan">评价晒单</span>&ndash;&gt;-->
+          <!--<span class="textTitle footspan ">再次购买</span>-->
+        <!--</div>-->
+      <!--</div>-->
       <div class="flexRow spaceBetween goodsFoot footBottom" v-else-if="item.status == 'shipped'">
         <div class="footLeft">
           <!--<span class="textTitle delOrder" >删除订单</span>-->

@@ -3,7 +3,7 @@
     <div class="maskHide" @click="maskHide()"></div>
     <div class="box" v-for="item in goodsData">
       <div class="headerBox">
-        <img class="goodsImg" :src="item.thumbnail" alt="">
+        <img class="goodsImg | watchGoodsImg" :src="item.thumbnail" alt="">
         <div class="goodsInfo">
           <span class="priceNow">¥ {{item.price | watchPrice}}</span>
           <!--<span class="priceBefore sub_title" style="font-size: 14px">原价160.00</span>-->
@@ -73,6 +73,18 @@
     </div>
     <AddressList ref="address" @selectAddress="selectAddress" @addressAdd="addressAdd" @toastShow="toastShow"></AddressList>
     <AddressAdd ref="addressAdd" @selectAddress="selectAddress" @toastShow="toastShow"></AddressAdd>
+    <!--免密支付-->
+    <weui-dialog ref="dialog" type="confirm" title="免密支付" confirmButton="确认支付" cancelButton="取消"
+                 @weui-dialog-confirm="activate()"
+                 @weui-dialog-cancel="closeConfirm()" >
+      <div >
+        <p style="text-align: center;width: 100%;font-size: 13px;color: #444">{{payWay}}</p>
+      </div>
+      <div >
+        <p style="text-align: center;width: 100%;font-size: 25px;color: #000">¥{{finallPrice}}</p>
+      </div>
+    </weui-dialog>
+
     <Toast ref="toast"></Toast>
   </div>
 </template>
@@ -272,6 +284,7 @@
   import { POST, GET } from '../assets/fetch.js';
   import wx from 'weixin-js-sdk'
   import utils from '../assets/utils';
+  import Dialog from './dialog.vue';
   export default {
     components: {
       Toast,
@@ -281,7 +294,8 @@
       LinkCell,
       dropdown,
       AddressList,
-      AddressAdd
+      AddressAdd,
+      'weui-dialog':Dialog,
     },
     data: function () {
       return {
@@ -300,13 +314,19 @@
         couponName:'',
         articleId:'',
         receiverList:[],
-        onecReceiver:false
+        onecReceiver:false,
+        payWay:'账户余额',
+        paymentId:'',
+//        payPrice:'299',
       }
     },
     filters:{
       watchPrice:function (value) {
         return utils.currencyfmt(value);
-      }
+      },
+      watchGoodsImg:function (value) {
+        return utils.thumbnail(90,90);
+      },
     },
     methods: {
       hasReceiver:function () {
@@ -329,7 +349,6 @@
         var _this = this;
         POST("website/member/order/create.jhtml?id=" + this.productId + '&quantity=' + this.buyNum + '&receiverId=' + this.receiverList[0].id).then(
           function (data) {
-//            alert(data);
             console.log(data);
             if (data.type=="success") {
               _this.goPay(data.data.sn);
@@ -370,19 +389,32 @@
                   });
                 }
               }else if(data.data.paymentPluginId == 'cardPayPlugin'){//会员卡支付
-                let payInfo = {
-                  way:'会员卡支付',
-                  price:_this.finallPrice,
-                  sn:data.data.sn
-                };
-                _this.$emit('payConfirm',payInfo);
-              }else if(data.data.paymentPluginId == '"balancePayPlugin'){//余额支付
-                let payInfo = {
-                  way:'余额支付',
-                  price:_this.finallPrice,
-                  sn:data.data.sn
-                };
-                _this.$emit('payConfirm',payInfo);
+//                var payInfo = {
+//                  way:'会员卡支付',
+//                  price:_this.finallPrice,
+//                  sn:data.data.sn
+//                };
+//                payInfo = JSON.stringify(payInfo);
+//                _this.$emit('payConfirm',payInfo);
+                _this.sn = data.data.sn;
+                _this.payWay = '会员卡支付';
+                _this.paymentId = 'cardPayPlugin';
+                _this.$refs.dialog.show();
+              }else if(data.data.paymentPluginId == 'balancePayPlugin'){//余额支付
+//                var payInfo2 = {
+//                  way:'余额支付',
+//                  price:_this.finallPrice,
+//                  sn:data.data.sn
+//                };
+//                payInfo2 = JSON.stringify(payInfo2);
+//                _this.$emit('payConfirm',payInfo2);
+//                _this.payPrice = _this.finallPrice;
+                _this.paymentId = 'balancePayPlugin';
+                _this.sn = data.data.sn;
+                _this.payWay = '余额支付';
+                _this.$refs.dialog.show();
+              }else{
+                _this.close(utils.message("error","网络不稳定"));
               }
             } else {
               _this.close(data);
@@ -394,6 +426,40 @@
             alert(err);
             _this.disabledButton = false;
             _this.close(utils.message("error","网络不稳定"));
+          }
+        )
+      },
+
+//       取消免密支付
+      closeConfirm:function () {
+        let _this = this;
+        this.$refs.dialog.close();
+        this.$router.push({
+          name: "payment",
+          query: {psn: _this.sn, amount: _this.finallPrice ,title:'支付取消',type:encodeURI(_this.payWay)}
+        });
+      },
+//      确定免密支付
+      activate:function () {
+        let _this = this;
+        POST('payment/submit.jhtml?sn='+ this.sn + '&paymentPluginId='+ this.paymentId + '&safeKey=free').then(
+          function (data) {
+            if (data.type=="success") {
+              _this.$refs.toast.show('支付成功');
+              _this.$router.push({
+                name: "payment",
+                query: {psn: _this.sn, amount: _this.finallPrice , title:'支付成功',type:encodeURI(_this.payWay)}
+              });
+              _this.hide();
+            } else {
+              _this.$refs.toast.show(data.content);
+            }
+//            _this.disabledButton = false;
+            this.$refs.dialog.close();
+          },
+          function (err) {
+            _this.$refs.toast.show("网络不稳定");
+            this.$refs.dialog.close();
           }
         )
       },

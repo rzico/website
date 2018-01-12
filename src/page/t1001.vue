@@ -24,16 +24,16 @@
         </div>
       </div>
     </div>
-    <weui-dialog ref="dialog" type="confirm" title="免密支付" confirmButton="确认支付" cancelButton="取消"
-                 @weui-dialog-confirm="activate()"
-                 @weui-dialog-cancel="closeConfirm()">
-      <div >
-        <p style="text-align: center;width: 100%;font-size: 13px;color: #444">{{payWay}}</p>
-      </div>
-      <div >
-        <p style="text-align: center;width: 100%;font-size: 25px;color: #000">¥{{payPrice}}</p>
-      </div>
-    </weui-dialog>
+    <!--<weui-dialog ref="dialog" type="confirm" title="免密支付" confirmButton="确认支付" cancelButton="取消"-->
+                 <!--@weui-dialog-confirm="activate()"-->
+                 <!--@weui-dialog-cancel="closeConfirm()" style="z-index: 300000000111">-->
+      <!--<div >-->
+        <!--<p style="text-align: center;width: 100%;font-size: 13px;color: #444">{{payWay}}</p>-->
+      <!--</div>-->
+      <!--<div >-->
+        <!--<p style="text-align: center;width: 100%;font-size: 25px;color: #000">¥{{payPrice}}</p>-->
+      <!--</div>-->
+    <!--</weui-dialog>-->
     <Toast ref="toast"></Toast>
   </div>
 </template>
@@ -64,6 +64,7 @@
   import card from './member/card.vue';
   import getCoupon from './member/activate.vue';
   import Dialog from '../widget/dialog.vue';
+//  import Dialog from '../widget/dialog.vue';
   export default {
     data () { return {
       logined:false,
@@ -75,8 +76,8 @@
       musicPlay:0,
       noWeex:true,
       isPublish:true,
-      payWay:'账户余额',
-      payPrice:'299',
+//      payWay:'账户余额',
+//      payPrice:'299',
       sn:'',
     }
     },
@@ -100,7 +101,7 @@
       vote,
       card,
       buyGoods,
-      'weui-dialog':Dialog,
+//      'weui-dialog':Dialog,
     },
     props: {
       article: { default: function () {
@@ -249,44 +250,14 @@
         let _this = this;
         _this.$refs.buy.show(id,this.watchArticle.id);
       },
-      payConfirm:function (payInfo) {
-        this.payWay = payInfo.way;
-        this.payPrice = payInfo.price;
-        this.sn = payInfo.price;
-        this.$refs.dialog.show();
-      },
-//       取消支付
-      closeConfirm:function () {
-        let _this = this;
-        this.$refs.dialog.close();
-        this.$router.push({
-          name: "payment",
-          query: {psn: _this.sn, amount: _this.payPrice}
-        });
-      },
-//      确定免密支付
-      activate:function () {
-        let _this = this;
-        POST('website/member/order/payment.jhtml?sn=' + this.sn).then(
-          function (data) {
-            if (data.type=="success") {
-              _this.$refs.toast.show('支付成功');
-              _this.$refs.buyGoods.hide();
-              this.$router.push({
-                name: "payment",
-                query: {psn: _this.sn, amount: _this.payPrice}
-              });
-            } else {
-              _this.$refs.toast.show(data.content);
-            }
-//            _this.disabledButton = false;
-          },
-          function (err) {
-            _this.$refs.toast.show("网络不稳定");
-          }
-        )
-        this.$refs.dialog.hide();
-      },
+//      payConfirm:function (payInfo) {
+//        alert(payInfo);
+//        payInfo = JSON.parse(payInfo);
+//        this.payWay = payInfo.way;
+//        this.payPrice = payInfo.price;
+//        this.sn = payInfo.sn;
+//        this.$refs.dialog.show();
+//      },
     }
   }
 

@@ -19,7 +19,7 @@
       </Message>
       <div class="footer">
         <div class="goodsNameBox">
-          <span class="gray">付款方式: 微信支付</span>
+          <span class="gray">付款方式: {{this.payWay | watchPayWay}}</span>
         </div>
         <div class="goodsNameBox">
           <span class="gray">商品说明: 线下收款</span>
@@ -28,6 +28,17 @@
         <span @click="goComplete()" v-if="isSuccess" class="complete">完成</span>
       </div>
     </div>
+    <!--免密支付-->
+    <weui-dialog ref="dialog" type="confirm" title="免密支付" confirmButton="确认支付" cancelButton="取消"
+                 @weui-dialog-confirm="activate()"
+                 @weui-dialog-cancel="closeConfirm()" style="z-index: 300000000111">
+      <div >
+        <p style="text-align: center;width: 100%;font-size: 13px;color: #444">{{payWay}}</p>
+      </div>
+      <div >
+        <p style="text-align: center;width: 100%;font-size: 25px;color: #000">¥{{amount}}</p>
+      </div>
+    </weui-dialog>
     <Toast ref="toast"></Toast>
   </div>
 </template>
@@ -81,11 +92,11 @@
   import Message from '../widget/message.vue';
   import Button from '../widget/button.vue';
   import utils from '../assets/utils.js';
+  import Dialog from '../widget/dialog.vue';
   export default {
     data() {
       return {
 //        waiting cancel
-        pageIcon:'waiting',
         amount:236,
         sn:'',
 //        goodsName:'',
@@ -93,12 +104,45 @@
 //        articleId:'',
         isCancel:false,
         isSuccess:false,
+        paymentId:''
       }
     },
     components: {
       Message,
       Toast,
-      'weui-button': Button
+      'weui-button': Button,
+      'weui-dialog':Dialog,
+    },
+    computed:{
+      pageIcon: function () {
+        switch (this.title){
+          case '支付中':
+            return 'waiting';
+            break;
+          case '支付取消':
+            return 'cancel';
+            break;
+          case '支付失败':
+            return 'cancel';
+            break;
+          case '支付成功':
+            return 'success';
+            break;
+          default:
+            return 'waiting';
+        }
+      },
+    },
+    filters:{
+      watchPayWay:function (value) {
+          if(value == 'weixin'){
+            return '微信支付';
+          }else if(value == 'alipay'){
+            return '支付宝付款';
+          }else{
+            return value;
+          }
+      }
     },
     created() {
       var _this = this;
@@ -112,12 +156,37 @@
 //      this.articleId = utils.getUrlParameter('articleId');
       if(!utils.isNull(utils.getUrlParameter("title"))){
         this.title = utils.getUrlParameter("title");
+        switch (this.title){
+          case '支付中':
+            break;
+          case '支付取消':
+            _this.isCancel = true;
+            break;
+          case '支付失败':
+            _this.isCancel = true;
+            break;
+          case '支付成功':
+            _this.isSuccess = true;
+            break;
+          default:
+            return ;
+        }
       }
-      if(utils.getUrlParameter('type') == 'weixin'){
+    let payType = utils.getUrlParameter('type');
+      if(payType == 'weixin'){
+            _this.payWay = payType;
             _this.weixin(this.sn);
-       }else if(utils.getUrlParameter('type') == 'alipay'){
+       }else if(payType == 'alipay'){
+           _this.payWay = payType;
             _this.alipay(this.sn);
-       }
+       }else{
+        _this.payWay = decodeURI(payType);
+        if(_this.payWay == '余额支付'){
+          _this.paymentId = 'balancePayPlugin'
+        }else{
+          _this.paymentId = 'cardPayPlugin'
+        }
+      }
     },
     methods:{
       close:function() {
@@ -152,7 +221,7 @@
               }, function(result){
                 if(result.resultCode == '9000'){
                   _this.title = '支付成功';
-                  _this.pageIcon = 'success';
+//                  _this.pageIcon = 'success';
                   _this.isCancel = false;
                   _this.isSuccess = true;
 //                  _this.$router.push({name:"message",query:{psn:sn,amount:_this.finallPrice}})
@@ -162,7 +231,7 @@
                 } else {
                   _this.$refs.toast.show('支付取消');
                   _this.title = '支付取消';
-                  _this.pageIcon = 'cancel';
+//                  _this.pageIcon = 'cancel';
                   _this.isCancel = true;
                 }
               });
@@ -170,26 +239,22 @@
             else {
               _this.title = '支付失败';
               _this.isCancel = true;
-              _this.pageIcon = 'cancel';
+//              _this.pageIcon = 'cancel';
               _this.$refs.toast.show("网络不稳定");
             }
           },
           function (err) {
             _this.title = '支付失败';
             _this.isCancel = true;
-            _this.pageIcon = 'cancel';
+//            _this.pageIcon = 'cancel';
             _this.$refs.toast.show("网络不稳定");
           }
         )
       },
       weixin:function(sn) {
         var _this = this;
-        alert('1');
         POST("payment/submit.jhtml?sn="+sn+"&paymentPluginId=weixinPayPlugin").then(
           function (res) {
-
-            let ss = JSON.stringify(res);
-            alert(ss);
             if (res.type=="success") {
               WeixinJSBridge.invoke('getBrandWCPayRequest',{
                 "appId" : res.data.appId,
@@ -199,11 +264,9 @@
                 "signType" :res.data.signType,
                 "paySign" : res.data.paySign,
               },function(result){
-                let ac = JSON.stringify(result);
-                alert(ac);
                 if(result.err_msg == "get_brand_wcpay_request:ok" ) {
                   _this.title = '支付成功';
-                  _this.pageIcon = 'success';
+//                  _this.pageIcon = 'success';
                   _this.isSuccess = true;
                   _this.isCancel = false;
                   setTimeout(function () {
@@ -214,7 +277,7 @@
                   _this.$refs.toast.show("支付取消");
 //                  _this.$refs.toast.show(result.memo);
                   _this.title = '支付取消';
-                  _this.pageIcon = 'cancel';
+//                  _this.pageIcon = 'cancel';
                   _this.isCancel = true;
                 }
 
@@ -223,14 +286,13 @@
             else {
               _this.title = '支付失败';
               _this.isCancel = true;
-              _this.pageIcon = 'cancel';
+//              _this.pageIcon = 'cancel';
               _this.$refs.toast.show("网络不稳定");
             }
-
           },
           function (err) {
             _this.title = '支付失败';
-            _this.pageIcon = 'cancel';
+//            _this.pageIcon = 'cancel';
             _this.isCancel = true;
             _this.$refs.toast.show("网络不稳定");
           }
@@ -247,15 +309,52 @@
 //          });
 //        }
       },
+//      再次支付
       payAgain(){
         this.title = '支付中';
-        this.pageIcon = 'waiting';
-        if(utils.getUrlParameter('type') == 'weixin'){
+//        this.pageIcon = 'waiting';
+        if(this.payWay == 'weixin'){
           this.weixin(this.sn);
-        }else if(utils.getUrlParameter('type') == 'alipay'){
+        }else if(this.payWay == 'alipay'){
           this.alipay(this.sn);
+        }else{
+          this.$refs.dialog.show();
         }
-      }
+      },
+
+//       取消免密支付
+      closeConfirm:function () {
+        this.title = '支付取消';
+        _this.$refs.toast.show("支付取消");
+        this.$refs.dialog.close();
+      },
+//      确定免密支付
+      activate:function () {
+        let _this = this;
+        POST('payment/submit.jhtml?sn='+ this.sn + '&paymentPluginId='+ this.paymentId + '&safeKey=free').then(
+          function (data) {
+            if (data.type=="success") {
+              _this.$refs.toast.show('支付成功');
+              _this.title = '支付成功';
+              _this.isSuccess = true;
+              _this.isCancel = false;
+            } else {
+              _this.title = '支付失败';
+              _this.isCancel = true;
+//              _this.pageIcon = 'cancel';
+              _this.$refs.toast.show("网络不稳定");
+            }
+            this.$refs.dialog.close();
+//            _this.disabledButton = false;
+          },
+          function (err) {
+            _this.$refs.toast.show("网络不稳定");
+            this.$refs.dialog.close();
+            _this.title = '支付失败';
+            _this.isCancel = true;
+          }
+        )
+      },
     }
   }
 </script>

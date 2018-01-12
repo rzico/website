@@ -1,86 +1,87 @@
 <template>
-  <div class="page" style="background-color: #eee;" >
+  <div  class="page" style="background-color: #eee;" >
     <div class="categoryBox" style="position: fixed;z-index: 1">
       <span class="cataText" v-for="(item,index) in catagoryList" @click="catagoryChange(index,item.id)" :class = "[whichCorpus == index ? 'corpusActive' : 'noActive',item.id == 4 ? 'flex-2' : '']">{{item.name}}</span>
     </div>
     <div style="height: 40px"></div>
     <v-loadmore :top-method="loadTop" :bottom-method="loadBottom"  :bottom-all-loaded="allLoaded" :auto-fill="false" ref="loadmore">
-      <div class="goodsLine"  v-for="(item,index) in ordersList"  v-if="hasOrder()">
-        <div class=" goodsHead">
-          <div class="flexRow" @click="goAuthor(item.sellerId)">
-            <img :src="item.sellerLogo" class="shopImg"></img>
-            <span class="shopName">{{item.sellerName}}</span>
-            <span class="arrow" :style="{fontFamily:'iconfont'}">&#xe630;</span>
-          </div>
-          <div>
-            <span class="textTitle red">{{item.statusDescr}}</span>
-            <!--<span class="textTitle coral" style="font-size: 14px">{{item.statusDescr}}</span>-->
-          </div>
-        </div>
-        <div class="flexRow goodsBody" style="justify-content: space-between" v-for="goods in item.orderItems" @click="goDetails(item.sn)">
-          <img :src="goods.thumbnail" :style="'height:' + goodsHeight + 'px;' + 'width:' + (goodsHeight )+ 'px'"></img>
-          <div class="goodsInfo" :style="'height:' + goodsHeight + 'px;'">
-            <p class="goodsName">{{goods.name}}</p>
-            <p class="subTitle marginTop5">规格:{{goods.spec | watchSpec}}</p>
-          </div>
-          <div class="goodsPriceNum" :style="'height:' + goodsHeight + 'px;' + 'width:' + (goods20Width)+ 'px'">
-            <p class="goodsPrice ">¥ {{goods.price | watchPrice}}</p>
-            <p class="subTitle">x{{goods.quantity}}</p>
-          </div>
-        </div>
-        <div class="flexRow goodsTotalPrice ">
-          <span class="textTitle marginRight10">共{{item.orderItems[0].quantity}}件商品</span>
-          <span class="textTitle">合计:¥ {{item.orderItems[0].price | watchPrice}}</span>
-        </div>
-        <div class="goodsFoot" v-if="item.status == 'completed'">
-          <div class="footLeft">
-            <!--<span class=" subTitle">删除</span>-->
-          </div>
-          <div class="footRight">
-            <!--<span class="textTitle footText">查看物流</span>-->
-            <!--<span class="textTitle footText">评价晒单</span>-->
-            <span class="textTitle footText red redBorder" @click="buyAgain(item)">再次购买</span>
-          </div>
-        </div>
 
-        <!--退款中 不渲染-->
-        <!--<div v-else-if="item.status == 'refunding'"></div>-->
+          <div class="goodsLine"  v-for="(item,index) in ordersList"  v-if="hasOrder()">
+            <div class=" goodsHead">
+              <div class="flexRow" @click="goAuthor(item.sellerId)">
+                <img :src="item.sellerLogo" class="shopImg"></img>
+                <span class="shopName">{{item.sellerName}}</span>
+                <span class="arrow" :style="{fontFamily:'iconfont'}">&#xe630;</span>
+              </div>
+              <div>
+                <span class="textTitle red">{{item.statusDescr}}</span>
+                <!--<span class="textTitle coral" style="font-size: 14px">{{item.statusDescr}}</span>-->
+              </div>
+            </div>
+            <div class="flexRow goodsBody" style="justify-content: space-between" v-for="goods in item.orderItems" @click="goDetails(item.sn)">
+              <img :src="goods.thumbnail" :style="'height:' + goodsHeight + 'px;' + 'width:' + (goodsHeight )+ 'px'"></img>
+              <div class="goodsInfo" :style="'height:' + goodsHeight + 'px;'">
+                <p class="goodsName">{{goods.name}}</p>
+                <p class="subTitle marginTop5">规格:{{goods.spec | watchSpec}}</p>
+              </div>
+              <div class="goodsPriceNum" :style="'height:' + goodsHeight + 'px;' + 'width:' + (goods20Width)+ 'px'">
+                <p class="goodsPrice ">¥ {{goods.price | watchPrice}}</p>
+                <p class="subTitle">x{{goods.quantity}}</p>
+              </div>
+            </div>
+            <div class="flexRow goodsTotalPrice ">
+              <span class="textTitle marginRight10">共{{item.orderItems[0].quantity}}件商品</span>
+              <span class="textTitle">合计:¥ {{item.orderItems[0].price | watchPrice}}</span>
+            </div>
+            <!--<div class="goodsFoot" v-if="item.status == 'completed'">-->
+            <!--<div class="footLeft">-->
+            <!--&lt;!&ndash;<span class=" subTitle">删除</span>&ndash;&gt;-->
+            <!--</div>-->
+            <!--<div class="footRight">-->
+            <!--&lt;!&ndash;<span class="textTitle footText">查看物流</span>&ndash;&gt;-->
+            <!--&lt;!&ndash;<span class="textTitle footText">评价晒单</span>&ndash;&gt;-->
+            <!--<span class="textTitle footText red redBorder" @click="buyAgain(item)">再次购买</span>-->
+            <!--</div>-->
+            <!--</div>-->
 
-        <div class="goodsFoot" v-else-if="item.status == 'unpaid'">
-          <div class="footLeft">
-            <span class="subTitle"></span>
+            <!--退款中 不渲染-->
+            <!--<div v-else-if="item.status == 'refunding'"></div>-->
+
+            <div class="goodsFoot" v-if="item.status == 'unpaid'">
+              <div class="footLeft">
+                <span class="subTitle"></span>
+              </div>
+              <div class="footRight" >
+                <!--<span class="textTitle footText">查看物流</span>-->
+                <span class="textTitle footText" @click="showDialog(item.sn,index)">取消订单</span>
+                <span class="textTitle footText red redBorder" style="padding: 2.5px 10px" @click="goPay(item,item.sn)">付款</span>
+              </div>
+            </div>
+            <div class="goodsFoot" v-else-if="item.status == 'unshipped'">
+              <div class="footLeft">
+                <span class="subTitle"></span>
+              </div>
+              <div class="footRight" >
+                <!--<span class="textTitle footText">查看物流</span>-->
+                <span class="textTitle footText" @click="urgedGoods(item,item.sn)" :class="[item.hadUrged ? 'grayColor' : '']">催发货</span>
+                <span class="textTitle footText red redBorder" style="padding: 2.5px 10px" @click="refundMoney(item.sn)">退款</span>
+              </div>
+            </div>
+            <div class="goodsFoot" v-else-if="item.status == 'shipped'">
+              <div class="footLeft">
+                <span class="subTitle"></span>
+              </div>
+              <div class="footRight">
+                <!--<span class="textTitle footText">查看物流</span>-->
+                <span class="textTitle footText" @click="acceptOrder(item.sn)">确认签收</span>
+                <span class="textTitle footText red redBorder" style="padding: 2.5px 10px" @click="returnGoods(item.sn)">退货</span>
+              </div>
+            </div>
           </div>
-          <div class="footRight" >
-            <!--<span class="textTitle footText">查看物流</span>-->
-            <span class="textTitle footText" @click="showDialog(item.sn,index)">取消订单</span>
-            <span class="textTitle footText red redBorder" style="padding: 2.5px 10px" @click="goPay(item,item.sn)">付款</span>
+          <div class="noData" v-if="!hasOrder()">
+            <i class="iconfont icon-wodedingdan"></i>
+            <span>暂无订单</span>
           </div>
-        </div>
-        <div class="goodsFoot" v-else-if="item.status == 'unshipped'">
-          <div class="footLeft">
-            <span class="subTitle"></span>
-          </div>
-          <div class="footRight" >
-            <!--<span class="textTitle footText">查看物流</span>-->
-            <span class="textTitle footText" @click="urgedGoods(item,item.sn)" :class="[item.hadUrged ? 'grayColor' : '']">催发货</span>
-            <span class="textTitle footText red redBorder" style="padding: 2.5px 10px" @click="refundMoney(item.sn)">退款</span>
-          </div>
-        </div>
-        <div class="goodsFoot" v-else-if="item.status == 'shipped'">
-          <div class="footLeft">
-            <span class="subTitle"></span>
-          </div>
-          <div class="footRight">
-            <!--<span class="textTitle footText">查看物流</span>-->
-            <span class="textTitle footText" @click="acceptOrder(item.sn)">确认签收</span>
-            <span class="textTitle footText red redBorder" style="padding: 2.5px 10px" @click="returnGoods(item.sn)">退货</span>
-          </div>
-        </div>
-      </div>
-      <div class="noData" v-if="!hasOrder()">
-        <i class="iconfont icon-wodedingdan"></i>
-        <span>暂无订单</span>
-      </div>
     </v-loadmore>
     <weui-dialog ref="dialog" type="confirm" title="取消订单" confirmButton="确定" cancelButton="取消"
                  @weui-dialog-confirm="activateConfirm()"
@@ -89,6 +90,18 @@
         <p style="text-align: center;width: 100%;font-size: 13px;color: #444">{{confirmContent}}</p>
       </div>
     </weui-dialog>
+    <!--免密支付-->
+    <weui-dialog ref="freePay" type="confirm" title="免密支付" confirmButton="确认支付" cancelButton="取消"
+                 @weui-dialog-confirm="freeComplete()"
+                 @weui-dialog-cancel="freeCancel()" >
+      <div >
+        <p style="text-align: center;width: 100%;font-size: 13px;color: #444">{{payWay}}</p>
+      </div>
+      <div >
+        <p style="text-align: center;width: 100%;font-size: 25px;color: #000">¥{{payPrice}}</p>
+      </div>
+    </weui-dialog>
+
     <Toast ref="toast"></Toast>
   </div>
 </template>
@@ -137,7 +150,9 @@
           name:'退款/售后',
           id:4
         }],
-        allLoaded:false
+        allLoaded:false,
+        payPrice:'',
+        payWay:'',
       }
     },
     props:{
@@ -247,7 +262,6 @@
 //      确认购买
       buyAgain:function (item) {
         var _this = this;
-        alert("website/member/order/create.jhtml?id=" + item.orderItems[0].id + '&quantity=' + item.orderItems[0].quantity + '&receiverId=1');
         POST("website/member/order/create.jhtml?id=" + item.orderItems[0].id + '&quantity=' + item.orderItems[0].quantity + '&receiverId=1').then(
           function (data) {
 //            alert(data);
@@ -257,11 +271,11 @@
             } else {
               _this.$refs.toast.show(data.content);
             }
-            _this.disabledButton = false;
+//            _this.disabledButton = false;
           },
           function (err) {
 //            console.log('1');
-            _this.disabledButton = false;
+//            _this.disabledButton = false;
             _this.$refs.toast.show("网络不稳定");
           }
         )
@@ -287,27 +301,25 @@
                   });
                 }
               }else if(data.data.paymentPluginId == 'cardPayPlugin'){//会员卡支付
-                let payInfo = {
-                  way:'会员卡支付',
-                  price:item.orderItems[0].price,
-                  sn:data.data.sn
-                };
-                _this.$emit('payConfirm',payInfo);
-              }else if(data.data.paymentPluginId == '"balancePayPlugin'){//余额支付
-                let payInfo = {
-                  way:'余额支付',
-                  price:item.orderItems[0].price,
-                  sn:data.data.sn
-                };
-                _this.$emit('payConfirm',payInfo);
+                _this.sn = data.data.sn;
+                _this.payPrice = item.orderItems[0].price;
+                _this.payWay = '会员卡支付';
+                _this.paymentId = 'cardPayPlugin';
+                _this.$refs.freePay.show();
+              }else if(data.data.paymentPluginId == 'balancePayPlugin'){//余额支付
+                _this.payPrice = item.orderItems[0].price;
+                _this.paymentId = 'balancePayPlugin';
+                _this.sn = data.data.sn;
+                _this.payWay = '余额支付';
+                _this.$refs.freePay.show();
               }
             } else {
               _this.$refs.toast.show(data.content);
             }
-            _this.disabledButton = false;
+//            _this.disabledButton = false;
           },
           function (err) {
-            _this.disabledButton = false;
+//            _this.disabledButton = false;
             _this.$refs.toast.show("网络不稳定");
           }
         )
@@ -326,7 +338,7 @@
 //            _this.ordersList.splice(_this.selectIndex,1);
             _this.ordersList[_this.selectIndex].status = 'completed',
               _this.ordersList[_this.selectIndex].statusDescr = '已取消',
-            _this.$refs.toast.show('取消订单成功');
+              _this.$refs.toast.show('取消订单成功');
           }else{
             _this.$refs.toast.show(data.content);
           }
@@ -414,7 +426,40 @@
 //      前往订单详情
       goDetails:function (sn) {
         this.$router.push({name:"orderDetails",query:{sn:sn}});
-      }
+      },
+//       取消免密支付
+      freeCancel:function () {
+        let _this = this;
+        this.$refs.freePay.close();
+        this.$router.push({
+          name: "payment",
+          query: {psn: _this.sn, amount: _this.payPrice ,title:'支付取消',type:encodeURI(_this.payWay)}
+        });
+      },
+//      确定免密支付
+      freeComplete:function () {
+        let _this = this;
+        POST('payment/submit.jhtml?sn='+ this.sn + '&paymentPluginId='+ this.paymentId + '&safeKey=free').then(
+          function (data) {
+            if (data.type=="success") {
+              _this.$refs.toast.show('支付成功');
+              _this.$router.push({
+                name: "payment",
+                query: {psn: _this.sn, amount: _this.payPrice , title:'支付成功',type:encodeURI(_this.payWay)}
+              });
+              _this.hide();
+            } else {
+              _this.$refs.toast.show(data.content);
+            }
+//            _this.disabledButton = false;
+            this.$refs.freePay.close();
+          },
+          function (err) {
+            _this.$refs.toast.show("网络不稳定");
+            this.$refs.freePay.close();
+          }
+        )
+      },
     }
   }
 </script>
