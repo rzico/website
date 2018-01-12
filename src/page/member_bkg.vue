@@ -29,7 +29,7 @@
   import metaInfo from './member/meta.vue';
   import navbar from './member/nav.vue';
   import card from './member/card.vue';
-  import coupon from './member/coupon.vue';
+  import coupon from './coupon/coupon.vue';
   import reward from './member/reward.vue';
   export default {
     data() {

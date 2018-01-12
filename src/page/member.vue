@@ -180,7 +180,7 @@
   import { POST, GET, AUTH} from '../assets/fetch.js';
   import utils from '../assets/utils.js';
   import Toast from '../widget/toast.vue';
-  import couponList from './member/couponList.vue';
+  import couponList from './coupon/couponList.vue';
   export default {
     data () {
       return {
