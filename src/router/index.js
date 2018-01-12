@@ -16,14 +16,10 @@ import OrderLogistics from '../page/order/logistics'
 import activate from '../page/member/activate'
 import deposit from '../page/member/deposit'
 import reward from '../page/member/reward'
-import city from '../widget/city'
-import newReceiver from '../page/member/newReceiver'
-import receiverList from '../page/member/receiverList'
-import AddressList from '../widget/addressList'
+import addAddress from '../page/address/addAddress'
+import addressList from '../page/address/addressList'
 import couponList from '../page/member/couponList'
 import memberIndex from '../page/member/memberIndex'
-import banner from '../page/member/banner'
-import swiper from '../page/member/swiper'
 Vue.use(Router);
 Vue.use(VueResource);
 
@@ -122,28 +118,16 @@ var router = new Router({
       component: reward
     },
     {
-      path: '/city',
-      name: 'city',
+      path: '/addAddress',
+      name: 'addAddress',
       meta: {requireAuth:true},
-      component: city
-    },
-    {
-      path: '/newReceiver',
-      name: 'newReceiver',
-      meta: {requireAuth:true},
-      component: newReceiver
-    },
-    {
-      path: '/receiverList',
-      name: 'receiverList',
-      meta: {requireAuth:true},
-      component: receiverList
+      component: addAddress
     },
     {
       path: '/addressList',
       name: 'addressList',
       meta: {requireAuth:true},
-      component: AddressList
+      component: addressList
     },
     {
       path: '/couponList',
@@ -156,18 +140,6 @@ var router = new Router({
       name: 'memberIndex',
       meta: {requireAuth:true},
       component: memberIndex
-    },
-    {
-      path: '/banner',
-      name: 'banner',
-      meta: {requireAuth:true},
-      component: banner
-    },
-    {
-      path: '/swiper',
-      name: 'swiper',
-      meta: {requireAuth:true},
-      component: swiper
     },
    ]
 })
