@@ -2,7 +2,7 @@
   <div class="container">
     <div class="page slideIn topic" @scroll="onscroll" offset-accuracy="0">
     <v-loadmore :top-method="loadTop" :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" :auto-fill="false" ref="loadmore">
-      <ceshi :topic="topic" :id ="id" :isFixed = "isfixed"></ceshi>
+      <banner :topic="topic" :id ="id" :isFixed = "isfixed"></banner>
       <navbar :isFixed = "isfixed" :navs="catalogs" :idx="idx" @navChange="navChange"></navbar>
       <list ref="list" :id="id" :idx="idx"></list>
     </v-loadmore>
@@ -19,7 +19,7 @@
     import {Loadmore} from 'mint-ui';
     import { POST, GET,AUTH,SHARE} from '../assets/fetch.js';
     import utils from '../assets/utils.js';
-    import ceshi from '../page/member/ceshi.vue';
+    import banner from './member/banner.vue';
     import navbar from './topic/nav.vue';
     import list from './topic/list.vue';
     export default {
@@ -35,7 +35,7 @@
         },
         components: {
           'v-loadmore':Loadmore, // 为组件起别名，vue转换template标签时不会区分大小写，例如：loadMore这种标签转换完就会变成loadmore，容易出现一些匹配问题
-          ceshi,
+          banner,
           navbar,
           list
         },

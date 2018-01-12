@@ -13,7 +13,6 @@
           <!--<reward  :article="watchArticle" @showDialog="showRewardDialog"></reward>-->
           <report  :article="watchArticle.hits"></report>
           <coupon ref="coupon"></coupon>
-          <cardImg ref="cardImg"></cardImg>
           <auther ref="auther" :article="watchArticle"></auther>
           <review ref="review" :article="watchArticle"></review>
           <recommend ref="recommend" v-if="isPublish" :article="watchArticle" @go="fetchData"></recommend>
@@ -52,7 +51,6 @@
   import reward from './article/reward.vue';
   import report from './article/report.vue';
   import coupon from './article/coupon.vue';
-  import cardImg from './article/cardImg.vue';
   import auther from './article/auther.vue';
   import recommend from './article/recommend.vue';
   import review from './article/review.vue';
@@ -62,7 +60,7 @@
   import payment from '../widget/payment.vue';
   import buyGoods from '../widget/buyGoods.vue';
   import card from './member/card.vue';
-  import getCoupon from './member/activate.vue';
+  import getCoupon from './coupon/activate.vue';
   import Dialog from '../widget/dialog.vue';
 //  import Dialog from '../widget/dialog.vue';
   export default {
@@ -91,7 +89,6 @@
       reward,
       report,
       coupon,
-      cardImg,
       auther,
       recommend,
       review,
