@@ -129,7 +129,7 @@
       },
       id:{default:0}
     },
-    created() {
+    mounted() {
      this.onArticle()
     },
     methods:{

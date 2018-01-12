@@ -144,7 +144,7 @@
     },
     methods:{
       jumpAddress:function() {
-        this.$router.push({name:"receiverList",query:{}});
+        this.$router.push({name:"addressList",query:{}});
       },
       jumpReward:function() {
         this.$router.push({name:"reward",query:{}});
@@ -170,7 +170,7 @@
               });
             } else {
               _this.$refs.toast.show("网络不稳定");
-              
+
             }
           }, function () {
             _this.$refs.toast.show("网络不稳定");

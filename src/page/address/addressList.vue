@@ -176,10 +176,10 @@
       },
       editor:function(c,id) {
         c=JSON.stringify(c)
-        this.$router.push({name:"newReceiver",query:{c:c,id:id}});
+        this.$router.push({name:"addAddress",query:{c:c,id:id}});
       },
       jump:function() {
-        this.$router.push({name:"newReceiver",query:{}});
+        this.$router.push({name:"addAddress",query:{}});
       },
       open:function () {
         var _this = this;
