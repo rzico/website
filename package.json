@@ -17,7 +17,7 @@
     "less-loader": "^4.0.5",
     "mint-ui": "^2.2.9",
     "store": "^2.0.12",
-    "swiper": "^4.0.7",
+    "swiper": "^3.4.1",
     "v-distpicker": "^1.0.14",
     "vue": "^2.5.2",
     "vue-area-linkage": "^1.2.5",
