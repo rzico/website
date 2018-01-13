@@ -101,18 +101,17 @@
 <script>
   import { POST, GET,AUTH} from '../../assets/fetch.js';
   import utils from '../../assets/utils.js';
-  import swiper from './swiper.vue';
+  import swiper from '../../widget/swiper.vue';
   export default {
     data() {
       return {
         listImg: [
-          {url:''},
-          {url:''},
-          {url:''},
-          {url:''},
-          {url:''}
+          {url:'',articleId:0},
+          {url:'',articleId:0},
+          {url:'',articleId:0},
+          {url:'',articleId:0},
+          {url:'',articleId:0}
         ],
-        //        置顶文章
         isTop:true,
       }
     },
@@ -123,37 +122,32 @@
       topic: {
         default: function () {
           return {
-            name:'',autograph:'', article:0, product: 0, favorite: 0, follow: 0, fans: 0, logo: "", hits: 0
+            id:0,name:'',autograph:'', article:0, product: 0, favorite: 0, follow: 0, fans: 0, logo: "", hits: 0
           }
         }
       },
       id:{default:0}
     },
-    mounted() {
-     this.onArticle()
+    created() {
     },
     methods:{
       //      获取置顶文章
-      onArticle:function () {
+      load:function () {
         var _this = this;
-        GET('website/article/list.jhtml?isTop='+_this.isTop+'&authorId='+_this.id).then(
+        var id = utils.getUrlParameter("id");
+        if (utils.isNull(id)) {
+            id = this.topic.id;
+        }
+        GET('website/article/list.jhtml?isTop='+_this.isTop+'&authorId='+_this.id+"&pageStart=0&pageSize=5").then(
           function (mes) {
-//            mes=JSON.stringify(mes)
-//            alert(mes)
             if(mes.type == 'success'){
-//              mes.data.data.forEach(function (item,index) {
-//                if(index <=4) {
-//                  _this.listImg.push({url: item.thumbnail})
-//                }
-//              })
-//              _this.listImg=JSON.stringify(_this.listImg)
-//              alert(_this.listImg)
-              _this.$set(_this.listImg[0],'url',mes.data.data[0].thumbnail);
-              _this.$set(_this.listImg[1],'url',mes.data.data[1].thumbnail);
-              _this.$set(_this.listImg[2],'url',mes.data.data[2].thumbnail);
-              _this.$set(_this.listImg[3],'url',mes.data.data[3].thumbnail);
-              _this.$set(_this.listImg[4],'url',mes.data.data[4].thumbnail);
-              _this.$refs.swiper.Shuffling();
+              _this.listImg = [];
+              mes.data.data.forEach(function (item,index) {
+                if(index <=4) {
+                  _this.listImg.push({url: item.thumbnail,articleId:item.id})
+                }
+              })
+              //_this.$refs.swiper.Shuffling();
             }else{
             }
           }, function () {

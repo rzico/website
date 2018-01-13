@@ -12,7 +12,7 @@ Vue.use(VueResource);
 export function AUTH(redirectURL,func) {
   var _this = this;
   var scope = "base";
-  if (utils.isNull(redirectURL)) {
+  if (!utils.isNull(redirectURL)) {
       scope = "user"
   }
   GET("/website/login/isAuthenticated.jhtml?scope="+scope).then(

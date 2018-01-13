@@ -1,3 +1,4 @@
+<!--文章，卡包页内列表-->
 <template>
   <div class="bg" >
     <div class="top marbottom15" v-for="c in coupons"  v-if="hasCoupon()">

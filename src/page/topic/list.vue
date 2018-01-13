@@ -68,7 +68,7 @@
             id = this.id;
         }
         _this.idx = idx;
-        GET('website/article/list.jhtml?authorId='+id+"&articleCatalogId="+idx+"&pageStart="+_this.pageStart+"&pageSize="+_this.pageSize).then(
+        GET('website/article/list.jhtml?authorId='+id+"&isTop=false&articleCatalogId="+idx+"&pageStart="+_this.pageStart+"&pageSize="+_this.pageSize).then(
           function (response) {
             if (response.type=="success") {
               if (_this.pageStart==0) {

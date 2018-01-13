@@ -5,10 +5,8 @@ import Login from '../page/login'
 import Index from '../page/index'
 import Member from '../page/member'
 import T1001 from '../page/t1001'
-import T1002 from '../page/t1002'
 import C1001 from '../page/c1001'
 import Card from '../page/card'
-import Coupon from '../page/Coupon'
 import Payment from '../page/payment'
 import OrderList from '../page/order/list'
 import OrderDetails from '../page/order/details'
@@ -19,7 +17,8 @@ import reward from '../page/member/reward'
 import addAddress from '../page/address/addAddress'
 import addressList from '../page/address/addressList'
 import couponList from '../page/coupon/couponList'
-import memberIndex from '../page/member/memberIndex'
+import memberIndex from '../page/member/index'
+
 Vue.use(Router);
 Vue.use(VueResource);
 
@@ -46,12 +45,6 @@ var router = new Router({
       component: Card
     },
     {
-      path: '/coupon',
-      name: 'coupon',
-      meta: {requireAuth:false},
-      component: Coupon
-    },
-    {
       path: '/login',
       name: 'login',
       meta: {requireAuth:false},
@@ -62,12 +55,6 @@ var router = new Router({
       name: 't1001',
       meta: {requireAuth:true},
       component: T1001
-    },
-    {
-      path: '/t1002',
-      name: 't1002',
-      meta: {requireAuth:true},
-      component: T1002
     },
     {
       path: '/c1001',
@@ -118,25 +105,25 @@ var router = new Router({
       component: reward
     },
     {
-      path: '/addAddress',
-      name: 'addAddress',
+      path: '/address/add',
+      name: 'addressAdd',
       meta: {requireAuth:true},
       component: addAddress
     },
     {
-      path: '/addressList',
+      path: '/address/list',
       name: 'addressList',
       meta: {requireAuth:true},
       component: addressList
     },
     {
-      path: '/couponList',
+      path: '/coupon/list',
       name: 'couponList',
       meta: {requireAuth:true},
       component: couponList
     },
     {
-      path: '/memberIndex',
+      path: '/member/index',
       name: 'memberIndex',
       meta: {requireAuth:true},
       component: memberIndex
