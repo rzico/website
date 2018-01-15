@@ -103,7 +103,7 @@
   import {Loadmore} from 'mint-ui';
   import { POST, GET,AUTH} from '../../assets/fetch.js';
   import utils from '../../assets/utils.js';
-  import metaInfo from '../topic/meta.vue';
+  import metaInfo from './meta.vue';
   export default {
     data() {
       return {

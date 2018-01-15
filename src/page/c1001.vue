@@ -2,13 +2,13 @@
   <div class="container" style="padding-bottom: 50px">
     <div class="page slideIn topic" @scroll="onscroll" offset-accuracy="0">
     <v-loadmore :top-method="loadTop" :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" :auto-fill="false" ref="loadmore">
-      <banner :topic="topic" :id ="id" :isFixed = "isfixed"></banner>
+      <banner :topic="topic" ref="banner" :id ="id" :isFixed = "isfixed"></banner>
       <navbar :isFixed = "isfixed" :navs="catalogs" :idx="idx" @navChange="navChange"></navbar>
       <list ref="list" :id="id" :idx="idx"></list>
     </v-loadmore>
     </div>
     <div class="topic">
-      <navbar  v-if="isfixed" :navs="catalogs" :isFixed = "isfixed" :idx="idx" @navChange="navChange"></navbar>
+      <navbar v-if="isfixed" :navs="catalogs" :isFixed = "isfixed" :idx="idx" @navChange="navChange"></navbar>
     </div>
     <Tabbar id=0></Tabbar>
   </div>
@@ -20,7 +20,7 @@
     import {Loadmore} from 'mint-ui';
     import { POST, GET,AUTH,SHARE} from '../assets/fetch.js';
     import utils from '../assets/utils.js';
-    import banner from './member/banner.vue';
+    import banner from './topic/banner.vue';
     import navbar from './topic/nav.vue';
     import list from './topic/list.vue';
     import Tabbar from '../widget/tabbar-whole.vue';
@@ -66,6 +66,7 @@
                     _this.topic.logo = utils.thumbnail(_this.topic.logo,150,150)
                     _this.id = _this.topic.id;
                     _this.catalogs = response.data.catalogs;
+                    _this.$refs.banner.load();
                     //设置分享标题
                     utils.setConfig({
                       title:_this.topic.name+"的"+utils.getConfig().siteName+"专栏",

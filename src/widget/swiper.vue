@@ -9,22 +9,22 @@
 
 <script>
   import Swiper from 'swiper';
-  import '../../../static/swiper.min.css';
+  import '../../static/swiper.css';
   export default {
     props: ['listImg'],
-//    mounted() {
-//      console.log('mounted', this)
-//      var swiper = new Swiper('.swiper-container', {
-//        pagination: '.swiper-pagination',
-//        paginationClickable: true,
-//        loop: true,
-//        speed: 600,
-//        autoplay: 4000,
-//        onTouchEnd: function() {
-//          swiper.startAutoplay()
-//        }
-//      });
-//    }
+    mounted() {
+      console.log('mounted', this)
+      var swiper = new Swiper('.swiper-container', {
+        pagination: '.swiper-pagination',
+        paginationClickable: true,
+        loop: true,
+        speed: 600,
+        autoplay: 4000,
+        onTouchEnd: function() {
+          swiper.startAutoplay()
+        }
+      });
+    },
     methods: {
       Shuffling:function () {
         console.log('mounted', this)

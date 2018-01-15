@@ -145,7 +145,7 @@
       loadBottom:function() {
         this.$refs.loadmore.onBottomLoaded();// 固定方法，查询完要调用一次，用于重新定位
       },
-      load:function () {
+      load:function (flag) {
           var _this = this;
           GET("website/member/card/view.jhtml?id="+_this.id+"&code="+_this.code).then(
               function (res) {
@@ -158,6 +158,11 @@
                   _this.cardExt = res.data.cardExt;
                   if (utils.isNull(_this.card.background)) {
                     _this.card.background = "./static/card.png"
+                  }
+                  if (_this.card.status!='none') {
+                      if (utils.isNull(flag)) {
+                        _this.openWeixinCard();
+                      }
                   }
                 } else {
                   _this.errMsg = res.content;
@@ -239,7 +244,7 @@
           function (res) {
             if (res.type=='success') {
               _this.close();
-              _this.load();
+              _this.load("refresh");
               _this.openWeixinCard();
             } else {
               _this.close();
