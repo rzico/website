@@ -1,6 +1,12 @@
 <template>
   <div class="header">
-    <swiper ref="swiper" :listImg="listImg"></swiper>
+    <mt-swipe ref="swipe" class="swipe" :auto="4000">
+        <mt-swipe-item v-for="c in listImg" :key="c.id">
+          <a :href="c.url">
+          <img class="swipeImg" :src="c.thumbnail"/>
+          </a>
+        </mt-swipe-item>
+    </mt-swipe>
     <div class="Content">
       <div class="leftContent">
         <img class="logo" :src="topic.logo">
@@ -11,12 +17,20 @@
       </div>
       <div class="rightContent">
         <div class="top"><i class="iconfont icon-moban13zhengshu" style="color:white;font-size: 14px"></i><span style="color: white;font-size: 12px">点击量</span></div>
-        <div class="bottom"><span style="color:#cccccc;font-size: 12px">{{topic.hits}}人</span></div>
+        <div class="bottom"><span style="color:white;font-size: 12px">{{topic.hits}}人</span></div>
       </div>
     </div>
   </div>
 </template>
 <style scoped>
+  .swipe{
+    height: 194px;
+    width: 100%;
+  }
+  .swipeImg{
+    height: 194px;
+    width: 100%;
+  }
   .header {
     height: 194px;
     width: 100%;
@@ -99,24 +113,19 @@
 
 </style>
 <script>
+  import { Swipe, SwipeItem } from 'mint-ui';
   import { POST, GET,AUTH} from '../../assets/fetch.js';
   import utils from '../../assets/utils.js';
-  import swiper from '../../widget/swiper.vue';
   export default {
     data() {
       return {
-        listImg: [
-          {url:'',articleId:0},
-          {url:'',articleId:0},
-          {url:'',articleId:0},
-          {url:'',articleId:0},
-          {url:'',articleId:0}
-        ],
+        listImg:[],
         isTop:true,
       }
     },
     components: {
-      swiper,
+      'mt-swipe':Swipe,
+      'mt-swipe-item':SwipeItem
     },
     props:{
       topic: {
@@ -129,6 +138,7 @@
       id:{default:0}
     },
     created() {
+      this.load()
     },
     methods:{
       //      获取置顶文章
@@ -144,7 +154,7 @@
               _this.listImg = [];
               mes.data.data.forEach(function (item,index) {
                 if(index <=4) {
-                  _this.listImg.push({url: item.thumbnail,articleId:item.id})
+                  _this.listImg.push(item)
                 }
               })
               //_this.$refs.swiper.Shuffling();
