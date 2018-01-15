@@ -17,7 +17,7 @@
       </div>
       <div class="rightContent">
         <div class="top"><i class="iconfont icon-moban13zhengshu" style="color:white;font-size: 14px"></i><span style="color: white;font-size: 12px">点击量</span></div>
-        <div class="bottom"><span style="color:#cccccc;font-size: 12px">{{topic.hits}}人</span></div>
+        <div class="bottom"><span style="color:white;font-size: 12px">{{topic.hits}}人</span></div>
       </div>
     </div>
   </div>
