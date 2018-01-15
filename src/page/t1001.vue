@@ -19,7 +19,7 @@
           <ad v-if="noWeex" :article="watchArticle"></ad>
           <rewardDialog  ref="rwd"  @rewardNumber="rewardNumber"></rewardDialog>
           <payment  ref="pay" @notify="onPayNotify"></payment>
-          <buyGoods  ref="buy" @payConfirm="payConfirm" @notify="onPayNotify"></buyGoods>
+          <buyGoods  ref="buy" @notify="onPayNotify"></buyGoods>
         </div>
       </div>
     </div>

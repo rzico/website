@@ -30,7 +30,7 @@
             </div>
             <div class="flexRow goodsTotalPrice ">
               <span class="textTitle marginRight10">共{{item.orderItems[0].quantity}}件商品</span>
-              <span class="textTitle">合计:¥ {{item.orderItems[0].price | watchPrice}}</span>
+              <span class="textTitle">合计:¥ {{item.amount | watchPrice}}</span>
             </div>
             <!--<div class="goodsFoot" v-if="item.status == 'completed'">-->
             <!--<div class="footLeft">-->
@@ -82,7 +82,7 @@
             <span>暂无订单</span>
           </div>
     </v-loadmore>
-    <Tabbar id=1></Tabbar>
+    <Tabbar id=1 ref="tabWidget"></Tabbar>
     <weui-dialog ref="dialog" type="confirm" :title="dialogTitle" confirmButton="确定" cancelButton="取消"
                  @weui-dialog-confirm="activateConfirm()"
                  @weui-dialog-cancel="closeConfirm()">
@@ -216,6 +216,8 @@
               _this.pageStart = 0;
               _this.open();
               _this.$refs.toast.show('签收成功');
+//              获取未处理订单最新数量
+              _this.tabRefresh();
             }else{
               _this.$refs.toast.show(data.content);
             }
@@ -295,22 +297,22 @@
                 if(utils.isweixin()){
                   _this.$router.push({
                     name: "payment",
-                    query: {psn: data.data.sn, amount: item.orderItems[0].price, name:item.orderItems[0].name,type:'weixin'}
+                    query: {psn: data.data.sn, amount: item.amount, name:item.orderItems[0].name,type:'weixin'}
                   });
                 }else if(utils.isalipay()){
                   _this.$router.push({
                     name: "payment",
-                    query: {psn: data.data.sn, amount: item.orderItems[0].price, name:item.orderItems[0].name,type:'alipay'}
+                    query: {psn: data.data.sn, amount: item.amount, name:item.orderItems[0].name,type:'alipay'}
                   });
                 }
               }else if(data.data.paymentPluginId == 'cardPayPlugin'){//会员卡支付
                 _this.sn = data.data.sn;
-                _this.payPrice = item.orderItems[0].price;
+                _this.payPrice = item.amount;
                 _this.payWay = '会员卡支付';
                 _this.paymentId = 'cardPayPlugin';
                 _this.$refs.freePay.show();
               }else if(data.data.paymentPluginId == 'balancePayPlugin'){//余额支付
-                _this.payPrice = item.orderItems[0].price;
+                _this.payPrice = item.amount;
                 _this.paymentId = 'balancePayPlugin';
                 _this.sn = data.data.sn;
                 _this.payWay = '余额支付';
@@ -385,6 +387,7 @@
       closeConfirm:function () {
         this.$refs.dialog.close();
       },
+//      订单取消
       cancelOrder:function () {
         let _this = this;
         POST('website/member/order/cancel.jhtml?sn=' + this.selectSn).then(function (data) {
@@ -393,6 +396,8 @@
             _this.ordersList[_this.selectIndex].status = 'completed',
               _this.ordersList[_this.selectIndex].statusDescr = '已取消',
               _this.$refs.toast.show('取消订单成功');
+//              获取未处理订单最新数量
+            _this.tabRefresh();
           }else{
             _this.$refs.toast.show(data.content);
           }
@@ -510,6 +515,9 @@
           }
         )
       },
+      tabRefresh(){
+        this.$refs.tabWidget.open();
+      }
     }
   }
 </script>

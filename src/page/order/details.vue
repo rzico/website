@@ -91,7 +91,7 @@
         <div class="priceLine boderBottom">
           <div class="spaceBetween">
             <span class="subTitle">商品总额</span>
-            <span class="subTitle">¥{{item.orderItems[0].price | watchPrice}}</span>
+            <span class="subTitle">¥{{item.price | watchPrice}}</span>
           </div>
           <div class="spaceBetween">
             <span class="subTitle">优惠折扣</span>
@@ -416,7 +416,6 @@
 //      退款
       refundMoney:function (sn) {
         let _this = this;
-        alert('website/member/order/refunds.jhtml?sn=' + sn);
         POST('website/member/order/refunds.jhtml?sn=' + sn).then(
           function (data) {
             if(data.type == 'success'){
@@ -434,7 +433,6 @@
       urgedGoods:function (item,sn) {
         let _this = this;
         if(item.hadUrged){
-          alert(item.hadUrged);
           return;
         }
         console.log(item);
@@ -482,6 +480,7 @@
       },
 //      发起支付
       goPay(item,sn){
+        let a = JSON.stringify(item);
         let _this = this;
         POST('website/member/order/payment.jhtml?sn=' + sn).then(
           function (data) {
@@ -490,25 +489,25 @@
                 if(utils.isweixin()){
                   _this.$router.push({
                     name: "payment",
-                    query: {psn: data.data.sn, amount: item.orderItems[0].price, name:item.orderItems[0].name,type:'weixin'}
+                    query: {psn: data.data.sn, amount: item.price, name:item.orderItems[0].name,type:'weixin'}
                   });
                 }else if(utils.isalipay()){
                   _this.$router.push({
                     name: "payment",
-                    query: {psn: data.data.sn, amount: item.orderItems[0].price, name:item.orderItems[0].name,type:'alipay'}
+                    query: {psn: data.data.sn, amount: item.price, name:item.orderItems[0].name,type:'alipay'}
                   });
                 }
               }else if(data.data.paymentPluginId == 'cardPayPlugin'){//会员卡支付
                 let payInfo = {
                   way:'会员卡支付',
-                  price:item.orderItems[0].price,
+                  price:item.price,
                   sn:data.data.sn
                 };
                 _this.$emit('payConfirm',payInfo);
               }else if(data.data.paymentPluginId == '"balancePayPlugin'){//余额支付
                 let payInfo = {
                   way:'余额支付',
-                  price:item.orderItems[0].price,
+                  price:item.price,
                   sn:data.data.sn
                 };
                 _this.$emit('payConfirm',payInfo);
