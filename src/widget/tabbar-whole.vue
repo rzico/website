@@ -1,54 +1,130 @@
 <template>
-  <div class="page tabbar">
-    <div class="bd" style="height: 100%;">
-      <tab>
-        <div slot="body">
-
-        </div>
-        <tabbar slot="tabbar">
-          <tabbar-item v-for="(bar,index) in bars" :key="index" :is-on="!!bar.isOn">
-            <img slot="icon" :src="bar.icon" alt="">
-            <span slot="label">{{bar.label}}</span>
-          </tabbar-item>
-        </tabbar>
-      </tab>
+  <div>
+    <div class="weui-tabbar">
+      <router-link to="/c1001" class="weui-tabbar__item"  :class="[id == 0 ? 'weui-bar__item_on':'']">
+      <!--<a href="javascript:;" class="weui-tabbar__item " :class="[id == 0 ? 'weui-bar__item_on':'']">-->
+        <span style="display: inline-block;position: relative;">
+          <!--<img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1515992382238&di=395605bef33b7058b1a22a4c039f93a4&imgtype=0&src=http%3A%2F%2Fimg.zcool.cn%2Fjob%2Fgroups%2Fb445558d077800000141f02f67a5.jpg" alt="" class="weui-tabbar__icon">-->
+          <span class="weui-tabbar__icon fftIcon" :style="{fontFamily:'iconfont'}">&#xe643;</span>
+          <span class="weui-badge" style="position: absolute;top: -2px;right: -13px;">8</span>
+          <p class="weui-tabbar__label">专栏</p>
+        </span>
+      <!--</a>-->
+      </router-link>
+      <router-link to="/order/list" class="weui-tabbar__item"  :class="[id == 1 ? 'weui-bar__item_on':'']">
+        <span style="display: inline-block;position: relative;">
+          <span class="weui-tabbar__icon fftIcon" :style="{fontFamily:'iconfont'}">&#xe600;</span>
+          <span class="weui-badge" style="position: absolute;top: -2px;right: -13px;">8</span>
+          <p class="weui-tabbar__label">订单</p>
+        </span>
+      </router-link>
+      <router-link to="/addressList" class="weui-tabbar__item"  :class="[id == 2 ? 'weui-bar__item_on':'']">
+        <span style="display: inline-block;position: relative;">
+          <span class="weui-tabbar__icon fftIcon" :style="{fontFamily:'iconfont'}">&#xe792;</span>
+          <span class="weui-badge weui-badge_dot" style="position: absolute;top: 0;right: -6px;"></span>
+          <p class="weui-tabbar__label">地址</p>
+        </span>
+      </router-link>
     </div>
   </div>
 </template>
-
+<style>
+  .fftIcon{
+    font-size: 27px;line-height: 27px;
+  }
+  .weui-tabbar__label {
+    text-align: center;
+    color: #999999;
+    font-size: 10px;
+    line-height: 1.8;
+    /*line-height: 1.5;*/
+  }
+  .weui-tabbar__item.weui-bar__item_on .weui-tabbar__icon, .weui-tabbar__item.weui-bar__item_on .weui-tabbar__icon > i, .weui-tabbar__item.weui-bar__item_on .weui-tabbar__label {
+    color: #09BB07;
+  }
+  .weui-tabbar{
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    /*position: absolute;*/
+    position: fixed;
+    z-index: 1 !important;
+    height: 50px;
+    bottom: 0;
+    width: 100%;
+    background-color: #F7F7FA;
+  }
+  .weui-tabbar:before{
+    content: " ";
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    height: 1px;
+    border-top: 1px solid #C0BFC4;
+    color: #C0BFC4;
+    -webkit-transform-origin: 0 0;
+    transform-origin: 0 0;
+    -webkit-transform: scaleY(0.5);
+    transform: scaleY(0.5);
+  }
+  .weui-tabbar__item{
+    display: block;
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    flex: 1;
+    padding: 5px 0 0;
+    font-size: 0;
+    color: #999999;
+    text-align: center;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  }
+  .weui-tabbar__icon {
+    display: inline-block;
+    width: 27px;
+    height: 27px;
+  }
+  a img {
+    border: 0;
+  }
+  .weui-badge {
+    display: inline-block;
+    padding: .15em .4em;
+    min-width: 8px;
+    border-radius: 18px;
+    background-color: #F43530;
+    color: #FFFFFF;
+    line-height: 1.2;
+    txt-align: center;
+    font-size: 12px;
+    vertical-align: middle;
+  }
+  .weui-badge_dot {
+    padding: .4em;
+    min-width: 0;
+  }
+  /*p {*/
+  /*display: block;*/
+  /*-webkit-margin-before: 1em;*/
+  /*-webkit-margin-after: 1em;*/
+  /*-webkit-margin-start: 0px;*/
+  /*-webkit-margin-end: 0px;*/
+  /*}*/
+</style>
 <script>
-  import Tab from './tab.vue';
-  import  Tabbar from './tabbar.vue';
-  import TabbarItem from './tabbar-item.vue';
-//  import icon_nav_button from '../../images/icon_nav_button.png';
-//  import icon_nav_msg from '../../images/icon_nav_msg.png';
-//  import icon_nav_article from '../../images/icon_nav_article.png';
-//  import icon_nav_cell from '../../images/icon_nav_cell.png';
-
   export default {
-    data() {
-      return {
-        bars: [{
-          icon: '',
-          label: '微信',
-          isOn: true
-        }, {
-          icon: '',
-          label: '通讯录'
-        }, {
-          icon: '',
-          label: '发现'
-        }, {
-          icon: '',
-          label: '我'
-        }]
+    data:function () {
+      return{
+
       }
     },
+    props: {
+      id :{default:0},
+    },
+    created(){
+    },
+    methods:{
 
-    components: {
-      Tab,
-      Tabbar,
-      TabbarItem
     }
   }
 </script>

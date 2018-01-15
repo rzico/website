@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container" style="padding-bottom: 50px">
     <div class="page slideIn bg" >
         <div class="content" v-for="c in receiverList">
         <div class="topDiv" @click="chooseAddress(c)">
@@ -27,6 +27,7 @@
     <div class="button" @click="jump()">
       <span class="span">+新建地址</span>
     </div>
+    <Tabbar id=2></Tabbar>
   </div>
 </template>
 <style scoped>
@@ -41,7 +42,8 @@
     align-items: center;
     justify-content: center;
     position: absolute;
-    bottom: 20px;
+    /*bottom: 20px;*/
+    bottom: 60px;
     left: 15px;
     right: 15px;
   }
@@ -127,6 +129,7 @@
   import { POST, GET, AUTH} from '../../assets/fetch.js';
   import utils from '../../assets/utils.js';
   import Toast from '../../widget/toast.vue';
+  import Tabbar from '../../widget/tabbar-whole.vue';
   export default {
     data() {
       return {
@@ -138,7 +141,7 @@
       }
     },
     components: {
-      Toast,
+      Toast,Tabbar
     },
     filters: {
 

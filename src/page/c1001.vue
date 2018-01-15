@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container" style="padding-bottom: 50px">
     <div class="page slideIn topic" @scroll="onscroll" offset-accuracy="0">
     <v-loadmore :top-method="loadTop" :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" :auto-fill="false" ref="loadmore">
       <banner :topic="topic" :id ="id" :isFixed = "isfixed"></banner>
@@ -10,6 +10,7 @@
     <div class="topic">
       <navbar  v-if="isfixed" :navs="catalogs" :isFixed = "isfixed" :idx="idx" @navChange="navChange"></navbar>
     </div>
+    <Tabbar id=0></Tabbar>
   </div>
 </template>
 <style scoped>
@@ -22,6 +23,7 @@
     import banner from './member/banner.vue';
     import navbar from './topic/nav.vue';
     import list from './topic/list.vue';
+    import Tabbar from '../widget/tabbar-whole.vue';
     export default {
         data() {
           return {
@@ -37,7 +39,8 @@
           'v-loadmore':Loadmore, // 为组件起别名，vue转换template标签时不会区分大小写，例如：loadMore这种标签转换完就会变成loadmore，容易出现一些匹配问题
           banner,
           navbar,
-          list
+          list,
+          Tabbar
         },
       created() {
           var _this = this;

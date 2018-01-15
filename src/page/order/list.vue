@@ -1,11 +1,10 @@
 <template>
-  <div  class="page" style="background-color: #eee;" >
+  <div  class="page" style="background-color: #eee;padding-bottom: 50px;" >
     <div class="categoryBox" style="position: fixed;z-index: 1">
       <span class="cataText" v-for="(item,index) in catagoryList" @click="catagoryChange(index,item.id)" :class = "[whichCorpus == index ? 'corpusActive' : 'noActive',item.id == 4 ? 'flex-2' : '']">{{item.name}}</span>
     </div>
     <div style="height: 40px"></div>
     <v-loadmore :top-method="loadTop" :bottom-method="loadBottom"  :bottom-all-loaded="allLoaded" :auto-fill="false" ref="loadmore">
-
           <div class="goodsLine"  v-for="(item,index) in ordersList"  v-if="hasOrder()">
             <div class=" goodsHead">
               <div class="flexRow" @click="goAuthor(item.sellerId)">
@@ -14,7 +13,7 @@
                 <span class="arrow" :style="{fontFamily:'iconfont'}">&#xe630;</span>
               </div>
               <div>
-                <span class="textTitle red">{{item.statusDescr}}</span>
+                <span class="textTitle red" :class="item.statusDescr == '已关闭' || item.statusDescr == '已退款' || item.statusDescr == '已退货'  ? 'grayColor' : ''">{{item.statusDescr}}</span>
                 <!--<span class="textTitle coral" style="font-size: 14px">{{item.statusDescr}}</span>-->
               </div>
             </div>
@@ -53,7 +52,7 @@
               </div>
               <div class="footRight" >
                 <!--<span class="textTitle footText">查看物流</span>-->
-                <span class="textTitle footText" @click="showDialog(item.sn,index)">取消订单</span>
+                <span class="textTitle footText" @click="showDialog(item.sn,'取消订单',index)">取消订单</span>
                 <span class="textTitle footText red redBorder" style="padding: 2.5px 10px" @click="goPay(item,item.sn)">付款</span>
               </div>
             </div>
@@ -64,7 +63,7 @@
               <div class="footRight" >
                 <!--<span class="textTitle footText">查看物流</span>-->
                 <span class="textTitle footText" @click="urgedGoods(item,item.sn)" :class="[item.hadUrged ? 'grayColor' : '']">催发货</span>
-                <span class="textTitle footText red redBorder" style="padding: 2.5px 10px" @click="refundMoney(item.sn)">退款</span>
+                <span class="textTitle footText red redBorder" style="padding: 2.5px 10px" @click="showDialog(item.sn,'申请退款')">申请退款</span>
               </div>
             </div>
             <div class="goodsFoot" v-else-if="item.status == 'shipped'">
@@ -73,8 +72,8 @@
               </div>
               <div class="footRight">
                 <!--<span class="textTitle footText">查看物流</span>-->
-                <span class="textTitle footText" @click="acceptOrder(item.sn)">确认签收</span>
-                <span class="textTitle footText red redBorder" style="padding: 2.5px 10px" @click="returnGoods(item.sn)">退货</span>
+                <span class="textTitle footText" @click="showDialog(item.sn,'确认签收')">确认签收</span>
+                <span class="textTitle footText red redBorder" style="padding: 2.5px 10px" @click="showDialog(item.sn,'申请退货')">申请退货</span>
               </div>
             </div>
           </div>
@@ -83,7 +82,8 @@
             <span>暂无订单</span>
           </div>
     </v-loadmore>
-    <weui-dialog ref="dialog" type="confirm" title="取消订单" confirmButton="确定" cancelButton="取消"
+    <Tabbar id=1></Tabbar>
+    <weui-dialog ref="dialog" type="confirm" :title="dialogTitle" confirmButton="确定" cancelButton="取消"
                  @weui-dialog-confirm="activateConfirm()"
                  @weui-dialog-cancel="closeConfirm()">
       <div >
@@ -121,12 +121,14 @@
   import { POST,GET} from '../../assets/fetch.js';
   import Toast from '../../widget/toast.vue';
   import Dialog from '../../widget/dialog.vue';
+  import Tabbar from '../../widget/tabbar-whole.vue';
   export default {
     data:function(){
       return{
         selectSn:'',
         selectIndex:'',
         confirmContent:'确定取消该订单?',
+        dialogTitle:'取消订单',
         ordersList:[],
         refreshImg:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1515550007&di=e7530b5267c25b0bb5113c048dc948db&imgtype=jpg&er=1&src=http%3A%2F%2Fpic.qiantucdn.com%2F58pic%2F18%2F27%2F68%2F55f95158e34f2_1024.jpg',
         refreshing:false,
@@ -173,6 +175,7 @@
       Toast,
       'v-loadmore': Loadmore, // 为组件起别名，vue转换template标签时不会区分大小写，例如：loadMore这种标签转换完就会变成loadmore，容易出现一些匹配问题
       'weui-dialog':Dialog,
+      Tabbar
     },
     created() {
       this.goodsHeight = document.documentElement.clientWidth * 0.25;
@@ -195,7 +198,7 @@
             if(data.type == 'success'){
               _this.pageStart = 0;
               _this.open();
-              _this.$refs.toast.show('退货成功');
+              _this.$refs.toast.show('申请退货成功');
             }else{
               _this.$refs.toast.show(data.content);
             }
@@ -229,7 +232,7 @@
             if(data.type == 'success'){
               _this.pageStart = 0;
               _this.open();
-              _this.$refs.toast.show('退款成功');
+              _this.$refs.toast.show('申请退款成功');
             }else{
               _this.$refs.toast.show(data.content);
             }
@@ -244,7 +247,7 @@
         if(item.hadUrged){
           return;
         }
-        GET('website/member/order/shipp_remind.jhtml?sn=' + sn).then(
+        POST('website/member/order/shipp_remind.jhtml?sn=' + sn).then(
           function (data) {
             if(data.type == 'success'){
               _this.pageStart = 0;
@@ -325,13 +328,64 @@
         )
       },
 //    显示对话框
-      showDialog:function (sn,index) {
+      showDialog:function (sn,status,index) {
+        let _this = this;
+        switch (status){
+          case '取消订单':
+            _this.confirmContent = '确定取消该订单?';
+            _this.dialogTitle = status;
+            break;
+          case '申请退款':
+            _this.confirmContent = '确定申请退款？';
+            _this.dialogTitle = status;
+            break;
+          case '确认签收':
+            _this.confirmContent = '确定签收该订单?';
+            _this.dialogTitle = status;
+            break;
+          case '申请退货':
+            _this.confirmContent = '确定申请退货?';
+            _this.dialogTitle = status;
+            break;
+          default:
+            break;
+        }
         this.selectSn = sn;
-        this.selectIndex = index;
+        if(!utils.isNull(index)){
+          this.selectIndex = index;
+        }
         this.$refs.dialog.show();
       },
 //      对话框确认取消订单
       activateConfirm:function () {
+        let _this = this;
+        switch (_this.dialogTitle){
+          case '取消订单':
+            _this.cancelOrder();
+            this.$refs.dialog.close();
+            break;
+          case '申请退款':
+            _this.refundMoney(_this.selectSn);
+            this.$refs.dialog.close();
+            break;
+          case '确认签收':
+            _this.acceptOrder(_this.selectSn);
+            this.$refs.dialog.close();
+            break;
+          case '申请退货':
+            _this.returnGoods(_this.selectSn);
+            this.$refs.dialog.close();
+            break;
+          default:
+            break;
+        }
+
+      },
+//      对话框订单 取消按钮
+      closeConfirm:function () {
+        this.$refs.dialog.close();
+      },
+      cancelOrder:function () {
         let _this = this;
         POST('website/member/order/cancel.jhtml?sn=' + this.selectSn).then(function (data) {
           if(data.type == 'success'){
@@ -345,10 +399,6 @@
         },function (err) {
           _this.$refs.toast.show(err.content);
         })
-      },
-//      对话框取消订单 取消按钮
-      closeConfirm:function () {
-        this.$refs.dialog.close();
       },
       loadTop:function() { //组件提供的下拉触发方法
         this.pageStart = 0;
