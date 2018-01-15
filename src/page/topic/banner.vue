@@ -11,7 +11,7 @@
       <div class="leftContent">
         <img class="logo" :src="topic.logo">
         <div class="information">
-          <span class="font-size14">{{topic.name}}</span>
+          <span class="name">{{topic.name}}</span>
           <span class="autograph">{{topic.autograph}}</span>
         </div>
       </div>
@@ -68,6 +68,11 @@
     flex-direction: column;
     align-items: flex-start;
     margin-left: 10px;
+  }
+  .Content .leftContent .information .name{
+    font-size: 16px;
+    lines:1;
+    text-overflow: ellipsis;
   }
   .Content .leftContent .information .autograph{
     font-size: 14px;
