@@ -5,9 +5,24 @@
       <div class="avatar bg" :style="'background-image: url('+member.logo+')'">
       </div>
       <span class="profile">
-        <div class="nickname oneline">{{member.nickName}}</div>
-        <div class="signature">{{member.autograph}}</div>
+        <div class="nickname oneline">{{member.name}}</div>
+        <div class="signature oneline">{{member.autograph}}</div>
+        <div class="num oneline">文章 {{member.article}}&nbsp;&nbsp;宝贝 {{member.product}}&nbsp;&nbsp;{{member.hits==0?'':'被访问'+member.hits}}</div>
       </span>
+      <div class="about">
+        <span class="mark">
+          <em class="oneline">{{member.favorite}}</em>
+          <span>收藏</span>
+        </span>
+        <span class="pink">
+          <em class="oneline">{{member.follow}}</em>
+          <span>关注</span>
+        </span>
+        <span class="fans">
+          <em class="oneline">{{member.fans}}</em>
+          <span>粉丝</span>
+        </span>
+      </div>
     </div>
   </div>
 </template>
@@ -17,7 +32,13 @@
   import utils from '../../assets/utils.js';
   export default {
     props:{
-      member:{nickName:"",autograph:"",logo:""}
+      member: {
+        default: function () {
+          return {
+            id:0,name:'',autograph:'', article:0, product: 0, favorite: 0, follow: 0, fans: 0, logo: "", hits: 0
+          }
+        }
+      },
     }
   }
 </script>
