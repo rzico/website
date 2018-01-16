@@ -1,9 +1,9 @@
 <template>
   <div class="container">
     <div class="page slideIn topic" style="background-color: #eeeeee" @scroll="onscroll" offset-accuracy="0">
-      <metaInfo :topic="topic" :isFixed = "isfixed"></metaInfo>
+      <metaInfo :member="member" :isFixed = "isfixed"></metaInfo>
         <div class="advertising">
-          <img class="img" :src="'./static/card_picker.jpg'">
+          <img class="img" :src="'../../../static/card_picker.jpg'">
         </div>
         <div class="containsOne">
         <div class="address" @click="jumpAddress">
@@ -110,7 +110,7 @@
     data() {
       return {
         allLoaded: false, //是否可以上拉属性，false可以上拉，true为禁止上拉，就是不让往上划加载数据了
-        topic:{},
+        member:{},
         catalogs:[],
         isfixed:false,
         id:'',
@@ -159,16 +159,16 @@
         GET('website/topic/view.jhtml?id='+_this.id).then(
           function (response) {
             if (response.type=="success") {
-              _this.topic = response.data;
-              _this.topic.logo = utils.thumbnail(_this.topic.logo,150,150)
-              _this.id = _this.topic.id;
+              _this.member = response.data;
+              _this.member.logo = utils.thumbnail(_this.member.logo,150,150)
+              _this.id = _this.member.id;
               _this.catalogs = response.data.catalogs;
               //设置分享标题
               utils.setConfig({
-                title:_this.topic.name+"的"+utils.getConfig().siteName+"专栏",
+                title:_this.member.name+"的"+utils.getConfig().siteName+"专栏",
                 desc:"超强图文小视频分享社区，中国版Facebook",
                 link:location.href,
-                thumbnail:_this.topic.logo
+                thumbnail:_this.member.logo
               });
             } else {
               _this.$refs.toast.show("网络不稳定");
