@@ -53,6 +53,8 @@ let utilsFunc = {
         if(this.isNull(url)){
            return;
         }
+        h = Math.round(h);
+        w = Math.round(w);
         if (url.substring(0,11) == "http://cdnx") {
             return url+"?x-oss-process=image/resize,w_"+w+",h_"+h+"/quality,q_90";
         } else
@@ -66,6 +68,7 @@ let utilsFunc = {
         if (w>1080) {
           w = 1080
         }
+        w = Math.round(w);
         if (url.substring(0,11) == "http://cdnx") {
            return url+"?x-oss-process=image/resize,w_"+w+"/quality,q_90";
         } else
