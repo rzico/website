@@ -37,6 +37,7 @@
         </div>
         </div>
     </div>
+    <Tabbar id=2></Tabbar>
   </div>
 </template>
 <style scoped>
@@ -104,6 +105,7 @@
   import { POST, GET,AUTH} from '../../assets/fetch.js';
   import utils from '../../assets/utils.js';
   import metaInfo from './meta.vue';
+  import Tabbar from '../../widget/tabbar-whole.vue';
   export default {
     data() {
       return {
@@ -125,7 +127,7 @@
     },
     components: {
       'v-loadmore':Loadmore, // 为组件起别名，vue转换template标签时不会区分大小写，例如：loadMore这种标签转换完就会变成loadmore，容易出现一些匹配问题
-      metaInfo,
+      metaInfo,Tabbar
     },
     created() {
       var _this = this;

@@ -374,19 +374,29 @@
             console.log('===');
             console.log(data);
             if (data.type=="success") {
+//              判断支付方式,为null值时就是微信支付或者支付宝支付
               if(utils.isNull(data.data.paymentPluginId)){
                 if(utils.isweixin()){
 //                  + '&name=' + encodeURI(_this.goodsData[0].name) + '&articleId=' + _this.articleId;
-//                  location.href = 'http://dev.rzico.com/weixin/payment/view.html?psn=' + data.data.sn + '&amount=' + _this.finallPrice  + '&type=weixin';
-                  _this.$router.push({
-                    name: "payment",
-                    query: {psn: data.data.sn, amount: _this.finallPrice,type:'weixin'}
-                  });
+                  alert(utils.isIos());
+//                 判断是否是ios系统，ios系统下 router过去的url路径不会改变，无法正常调起支付
+                  if(utils.isIos()){
+                    location.href = 'http://dev.rzico.com/weixin/payment/view.html?psn=' + data.data.sn + '&amount=' + _this.finallPrice  + '&name=' +  item.orderItems[0].name + '&type=weixin';
+                  }else{
+                    _this.$router.push({
+                      name: "payment",
+                      query: {psn: data.data.sn, amount: _this.finallPrice,type:'weixin'}
+                    });
+                  }
                 }else if(utils.isalipay()){
-                  _this.$router.push({
-                    name: "payment",
-                    query: {psn: data.data.sn, amount: _this.finallPrice,type:'alipay'}
-                  });
+                  if(utils.isIos()){
+                    location.href = 'http://dev.rzico.com/weixin/payment/view.html?psn=' + data.data.sn + '&amount=' + item.amount  + '&name=' +  item.orderItems[0].name + '&type=alipay';
+                  }else {
+                    _this.$router.push({
+                      name: "payment",
+                      query: {psn: data.data.sn, amount: _this.finallPrice, type: 'alipay'}
+                    });
+                  }
                 }
               }else if(data.data.paymentPluginId == 'cardPayPlugin'){//会员卡支付
 //                var payInfo = {

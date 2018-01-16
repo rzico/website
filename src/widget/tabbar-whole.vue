@@ -5,7 +5,7 @@
       <!--<a href="javascript:;" class="weui-tabbar__item " :class="[id == 0 ? 'weui-bar__item_on':'']">-->
         <span style="display: inline-block;position: relative;">
           <!--<img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1515992382238&di=395605bef33b7058b1a22a4c039f93a4&imgtype=0&src=http%3A%2F%2Fimg.zcool.cn%2Fjob%2Fgroups%2Fb445558d077800000141f02f67a5.jpg" alt="" class="weui-tabbar__icon">-->
-          <span class="weui-tabbar__icon fftIcon" :style="{fontFamily:'iconfont'}">&#xe643;</span>
+          <span class="weui-tabbar__icon fftIcon" :style="{fontFamily:'iconfont'}">&#xe628;</span>
           <!--<span class="weui-badge" style="position: absolute;top: -2px;right: -13px;">8</span>-->
           <p class="weui-tabbar__label">专栏</p>
         </span>
@@ -18,11 +18,11 @@
           <p class="weui-tabbar__label">订单</p>
         </span>
       </router-link>
-      <router-link to="/address/list" class="weui-tabbar__item"  :class="[id == 2 ? 'weui-bar__item_on':'']">
+      <router-link to="/member/index" class="weui-tabbar__item"  :class="[id == 2 ? 'weui-bar__item_on':'']">
         <span style="display: inline-block;position: relative;">
-          <span class="weui-tabbar__icon fftIcon" :style="{fontFamily:'iconfont'}">&#xe792;</span>
+          <span class="weui-tabbar__icon fftIcon" :style="{fontFamily:'iconfont'}">&#xe643;</span>
           <!--<span class="weui-badge weui-badge_dot" style="position: absolute;top: 0;right: -6px;"></span>-->
-          <p class="weui-tabbar__label">地址</p>
+          <p class="weui-tabbar__label">我的</p>
         </span>
       </router-link>
     </div>

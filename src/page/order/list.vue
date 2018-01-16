@@ -87,7 +87,7 @@
                  @weui-dialog-confirm="activateConfirm()"
                  @weui-dialog-cancel="closeConfirm()">
       <div >
-        <p style="text-align: center;width: 100%;font-size: 13px;color: #444">{{confirmContent}}</p>
+        <p class="dialogP">{{confirmContent}}</p>
       </div>
     </weui-dialog>
     <!--免密支付-->
@@ -95,10 +95,10 @@
                  @weui-dialog-confirm="freeComplete()"
                  @weui-dialog-cancel="freeCancel()" >
       <div >
-        <p style="text-align: center;width: 100%;font-size: 13px;color: #444">{{payWay}}</p>
+        <p  class="dialogP">{{payWay}}</p>
       </div>
       <div >
-        <p style="text-align: center;width: 100%;font-size: 25px;color: #000">¥{{payPrice}}</p>
+        <p  class="dialogP">¥{{payPrice}}</p>
       </div>
     </weui-dialog>
 
@@ -107,6 +107,9 @@
 </template>
 <style scoped>
   @import '../../less/order/list.less';
+  .dialogP{
+    text-align: center;width: 100%;font-size: 13px;color: #444;
+  }
   .header{
     background-color: #fff;
     padding: 10px;
@@ -295,15 +298,23 @@
             if (data.type=="success") {
               if(utils.isNull(data.data.paymentPluginId)){
                 if(utils.isweixin()){
-                  _this.$router.push({
-                    name: "payment",
-                    query: {psn: data.data.sn, amount: item.amount, name:item.orderItems[0].name,type:'weixin'}
-                  });
+                  if(utils.isIos()){
+                    location.href = 'http://dev.rzico.com/weixin/payment/view.html?psn=' + data.data.sn + '&amount=' + item.amount  + '&name=' +  item.orderItems[0].name + '&type=weixin';
+                  }else{
+                    _this.$router.push({
+                      name: "payment",
+                      query: {psn: data.data.sn, amount: item.amount, name:item.orderItems[0].name,type:'weixin'}
+                    });
+                  }
                 }else if(utils.isalipay()){
-                  _this.$router.push({
-                    name: "payment",
-                    query: {psn: data.data.sn, amount: item.amount, name:item.orderItems[0].name,type:'alipay'}
-                  });
+                  if(utils.isIos()){
+                    location.href = 'http://dev.rzico.com/weixin/payment/view.html?psn=' + data.data.sn + '&amount=' + item.amount  + '&name=' +  item.orderItems[0].name + '&type=alipay';
+                  }else {
+                    _this.$router.push({
+                      name: "payment",
+                      query: {psn: data.data.sn, amount: item.amount, name: item.orderItems[0].name, type: 'alipay'}
+                    });
+                  }
                 }
               }else if(data.data.paymentPluginId == 'cardPayPlugin'){//会员卡支付
                 _this.sn = data.data.sn;
