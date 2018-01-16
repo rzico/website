@@ -1,12 +1,13 @@
 <template>
   <div class="header">
-    <mt-swipe ref="swipe" class="swipe" :auto="4000">
+    <mt-swipe ref="swipe" class="swipe" :auto="4000" v-if="changeIstop()">
         <mt-swipe-item v-for="c in listImg" :key="c.id">
           <a :href="c.url">
           <img class="swipeImg" :src="c.thumbnail"/>
           </a>
         </mt-swipe-item>
     </mt-swipe>
+    <div class="mask bg" :style="'background-image: url('+topic.logo+')'" v-else></div>
     <div class="Content">
       <div class="leftContent">
         <img class="logo" :src="topic.logo">
@@ -15,8 +16,8 @@
           <span class="autograph">{{topic.autograph}}</span>
         </div>
       </div>
-      <div class="rightContent">
-        <div class="top"><i class="iconfont icon-moban13zhengshu" style="color:white;font-size: 14px"></i><span style="color: white;font-size: 12px">点击量</span></div>
+      <div class="rightContent" @click="focus()">
+        <div class="top"><i class="iconfont icon-moban13zhengshu" style="color:white;font-size: 14px"></i><span style="color: white;font-size: 12px">{{focusOn}}</span></div>
         <div class="bottom"><span style="color:white;font-size: 12px">{{topic.hits}}人</span></div>
       </div>
     </div>
@@ -70,11 +71,13 @@
     margin-left: 10px;
   }
   .Content .leftContent .information .name{
+    color:#ffffff;
     font-size: 16px;
     lines:1;
     text-overflow: ellipsis;
   }
   .Content .leftContent .information .autograph{
+    color:#ffffff;
     font-size: 14px;
     margin-top: 10px;
     lines:1;
@@ -126,6 +129,8 @@
       return {
         listImg:[],
         isTop:true,
+        focusOn:'',
+        followed:false
       }
     },
     components: {
@@ -143,9 +148,68 @@
       id:{default:0}
     },
     created() {
-      this.load()
+      this.load();
+      this.open();
+      this.changeIstop();
+    },
+    mounted(){
+
     },
     methods:{
+
+      open:function() {
+        var _this = this;
+        GET('website/topic/view.jhtml?id='+_this.id).then(
+          function (response) {
+            if (response.type=="success") {
+              _this.followed = response.data.followed
+              if(_this.followed == false){
+                _this.focusOn = '关注'
+              }else{
+                _this.focusOn = '已关注'
+              }
+            } else {
+              _this.$refs.toast.show("网络不稳定");
+            }
+          }, function () {
+            _this.$refs.toast.show("网络不稳定");
+          });
+      },
+      focus:function () {
+        if(this.followed == false) {
+          let _this = this;
+          POST('website/member/follow/add.jhtml?authorId=' + _this.id).then(
+            function (mes) {
+              if (mes.type == 'success') {
+                _this.focusOn = '已关注'
+                _this.open()
+              } else {
+              }
+            }, function () {
+
+            });
+        }else{
+          let _this =this
+          POST('website/member/follow/delete.jhtml?authorId=' + _this.id).then(
+            function (e) {
+              if (e.type == 'success') {
+                _this.focusOn = '关注'
+                _this.open()
+              } else {
+              }
+            }, function () {
+
+            });
+        }
+      },
+      changeIstop:function () {
+        let _this = this
+        if (!utils.isNull(_this.listImg)) {
+          return true
+        }else {
+          return false
+        }
+      },
       //      获取置顶文章
       load:function () {
         var _this = this;
