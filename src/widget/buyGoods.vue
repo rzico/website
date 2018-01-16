@@ -22,7 +22,7 @@
             <span class="iconfont icon-jia1 iconAddSub"   @click="numAdd()"></span>
           </div>
         </div>
-        <div class="specBox" v-if="item.products[0].spec1 != ''">
+        <div class="specBox" v-if="hasSpecOne">
           <div class="flexRow"  style="margin-top: 10px;align-items: flex-start" >
             <div class="specName" >
               <span class="fontSize16">规格1</span>
@@ -31,7 +31,7 @@
               <span v-for="(spec1,index) in item.products"  v-if="isSpec1Rrepeat(index,item.products)" :class="[spec1Name == spec1.spec1 ? 'specChoose' : '',spec1.isSpec1 != '1' ? '' : 'grayColor']" class="specStyle" @click="spec1Choose(spec1,item.products)">{{spec1.spec1}}</span>
             </div>
           </div>
-          <div class="flexRow"  v-if="hasSpec2(item.products)" style="align-items: flex-start">
+          <div class="flexRow"  v-if="hasSpecTwo" style="align-items: flex-start">
             <div class="specName">
               <span class="fontSize16">规格2</span>
             </div>
@@ -317,6 +317,8 @@
         onecReceiver:false,
         payWay:'账户余额',
         paymentId:'',
+        hasSpecTwo:false,
+        hasSpecOne:true,
 //        payPrice:'299',
       }
     },
@@ -378,7 +380,7 @@
               if(utils.isNull(data.data.paymentPluginId)){
                 if(utils.isweixin()){
 //                  + '&name=' + encodeURI(_this.goodsData[0].name) + '&articleId=' + _this.articleId;
-                  alert(utils.isIos());
+//                  alert(utils.isIos());
 //                 判断是否是ios系统，ios系统下 router过去的url路径不会改变，无法正常调起支付
                   if(utils.isIos()){
                     location.href = 'http://dev.rzico.com/weixin/payment/view.html?psn=' + data.data.sn + '&amount=' + _this.finallPrice  + '&name=' +  item.orderItems[0].name + '&type=weixin';
@@ -473,15 +475,17 @@
           }
         )
       },
-
-
-
 //      购买数量+1
       numAdd:function () {
         this.buyNum ++ ;
-        if(this.spec1Name != '' && this.spec2Name != ''){
+        if(!this.hasSpecOne){
+          this.calcPrice();
+        }else if(!this.hasSpecTwo){
+          this.calcPrice();
+        }else if(this.spec1Name != '' && this.spec2Name != ''){
           this.calcPrice();
         }
+
       },
 //      购买数量-1
       numSub:function () {
@@ -489,7 +493,11 @@
           return;
         }
         this.buyNum -- ;
-        if(this.spec1Name != '' && this.spec2Name != ''){
+        if(!this.hasSpecOne){
+          this.calcPrice();
+        }else if(!this.hasSpecTwo){
+          this.calcPrice();
+        }else if(this.spec1Name != '' && this.spec2Name != ''){
           this.calcPrice();
         }
       },
@@ -558,7 +566,7 @@
         this.spec1Name = spec1.spec1;
 //        调用赋值方法
         this.spec1Change(spec1.spec1);
-        if(this.hasSpec2(products) && utils.isNull(this.spec2Name)){//判断有没有规格2并且有没有选择规格2
+        if(this.hasSpecTwo && utils.isNull(this.spec2Name)){//判断有没有规格2并且有没有选择规格2
           return;
         }else{
           let _this = this;
@@ -624,9 +632,11 @@
           }
         })
         if(spec2Num > 0){
-          return true;
+//          return true;
+          this.hasSpecTwo = true;
         }else{
-          return false;
+//          return false;
+          this.hasSpecTwo = false;
         }
       },
       //判断规格1重复
@@ -660,11 +670,11 @@
         }
       },
 //       开始时触发
-      show:function (sn,articleId) {
+      show:function (id,articleId) {
         this.articleId = articleId;
         this.isShow = true;
         let _this = this;
-        GET('website/product/view.jhtml?id='+sn).then(
+        GET('website/product/view.jhtml?id='+id).then(
           function (data) {
             if(data.type == 'success'){
               console.log(data);
@@ -688,8 +698,19 @@
                 _this.spec2Name = sp2;
                 _this.spec2Change(sp2);
               }
+
 //              调用计算接口
               _this.calcPrice();
+
+//              判断该商品是否有规格2
+              _this.hasSpec2(data.data.products);
+//              判断该商品是否有规格1
+              if(utils.isNull(data.data.products[0].spec1)){
+                _this.hasSpecOne = false;
+              }else{
+                _this.hasSpecOne = true;
+              }
+
             }else{
               _this.isShow = false;
               _this.close(data);

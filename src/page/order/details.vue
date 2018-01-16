@@ -11,7 +11,7 @@
           <span class="carIcon"  :style="{fontFamily:'iconfont'}">&#xe62e;</span>
         </div>
         <div>
-          <p class=" titleColor" v-for="(orderLog,index) in item.orderLogs" :class="[index != 0 ? 'marginTop5' : '']">
+          <p class=" titleColor logBox" v-for="(orderLog,index) in item.orderLogs" :class="[index != 0 ? 'marginTop5' : '']">
             <span class="logTitle">{{orderLog.content}} </span>
             <span class="logSub"> {{orderLog.createDate | watchLogDate}}</span>
           </p>
@@ -166,6 +166,12 @@
   @import '../../less/order/list.less';
 </style>
 <style scoped>
+  .logBox{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
   .logTitle{
     color: #444;
     font-size: 15px;
@@ -337,6 +343,15 @@
         switch (value){
           case "online":
             return '在线支付';
+            break;
+          case 'offline':
+            return '线下支付';
+            break;
+          case 'deposit':
+            return '余额支付';
+            break;
+          case 'card':
+            return '会员卡支付';
             break;
           default:
             return '在线支付';
