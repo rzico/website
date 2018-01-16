@@ -1,6 +1,7 @@
 <!--文章，卡包页内列表-->
 <template>
-  <div class="bg" >
+  <div class="container">
+    <div class="page slideIn bg">
     <div class="top marbottom15" v-for="c in coupons"  v-if="hasCoupon()">
       <div class="flex-r" style="height: 60px;border-width: 0 0 1px 0;border-color: #cccccc;border-style: dashed;padding-right: 10px">
         <span class="f30 color flex2" style="">{{c.amount}}</span>
@@ -17,9 +18,11 @@
       <div class="left"></div>
       <div class="right"></div>
     </div>
+
     <div class="noData" v-if="!hasCoupon()">
       <i class="iconfont icon-zanwushuju"></i>
       <span>很抱歉，您暂无优惠券</span>
+    </div>
     </div>
     </div>
 </template>
