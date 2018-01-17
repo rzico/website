@@ -186,8 +186,11 @@
     },
     created() {
       this.couponId = utils.getUrlParameter('id');
-      this.open();
 
+
+    },
+    mounted(){
+      this.open();
     },
     methods:{
 //      控制使用说明是否渲染
@@ -201,11 +204,11 @@
         GET("website/coupon/view.jhtml?id="+_this.couponId).then(
           function (res) {
             if (res.type=='success') {
-              _this.logo = res.data.logo;
-              _this.name = res.data.name;
-              _this.beginDate = res.data.beginDate;
-              _this.endDate = res.data.endDate;
-              _this.shopName =res.data.shopName;
+              _this.logo = res.data.coupon.logo;
+              _this.name = res.data.coupon.name;
+              _this.beginDate = res.data.coupon.beginDate;
+              _this.endDate = res.data.coupon.endDate;
+              _this.shopName =res.data.coupon.shopName;
             }
           },
           function (err) {
