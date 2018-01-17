@@ -1,5 +1,5 @@
 <template>
-  <div class="bg" v-if="lists.length > 0">
+  <div class="background" v-if="lists.length > 0">
     <div class="top" v-for="num in lists">
       <div class="flex-r" style="height: 60px;border-width: 0 0 1px 0;border-color: #cccccc;border-style: dashed;padding-right: 10px">
         <span class="f30 color flex2">{{num.amount}}</span>
@@ -23,7 +23,7 @@
   </div>
 </template>
 <style scoped>
-  .bg{
+  .background{
     background-color: #eeeeee;
     width: 100%;
     padding:10px;
@@ -138,6 +138,7 @@
       article: { default: function () {}}
     },
     mounted () {
+
     },
     methods:{
 
@@ -153,8 +154,8 @@
           }
         )
       },
-      jump:function(id) {
-        this.$router.push({name:"activate",query:{id:id}});
+      jump:function(numid) {
+        this.$router.push({name:"activate",query:{id:numid}});
       }
     }
   }
