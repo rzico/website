@@ -2,8 +2,8 @@
   <div class="container">
     <div class="page slideIn topic" style="background-color: #eeeeee" @scroll="onscroll" offset-accuracy="0">
       <metaInfo :member="member" :isFixed = "isfixed"></metaInfo>
-        <div class="advertising">
-          <img class="img" :src="'../../../static/card_picker.jpg'">
+        <div class="advertising" @click="godownload()">
+          <img class="img" :src="'../../../static/download.jpg'">
         </div>
         <div class="containsOne">
         <div class="address" @click="jumpAddress">
@@ -145,6 +145,9 @@
       this.open();
     },
     methods:{
+      godownload:function () {
+        this.$router.push({name:"index",query:{}});
+      },
       jumpAddress:function() {
         this.$router.push({name:"addressList",query:{}});
       },
