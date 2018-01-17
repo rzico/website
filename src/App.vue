@@ -19,6 +19,14 @@ export default {
        url:""
      }
   },
+  created () {
+    utils.setConfig({
+      title:utils.getConfig().siteName,
+      desc:"超强图文小视频分享社区,中国版Facebook.",
+      link:utils.getConfig().baseURL,
+      thumbnail:utils.getConfig().logo
+    });
+  },
   mounted() {
      SHARE(location.href);
   }

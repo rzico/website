@@ -18,7 +18,6 @@ import addAddress from '../page/address/addAddress'
 import addressList from '../page/address/addressList'
 import couponList from '../page/coupon/couponList'
 import memberIndex from '../page/member/index'
-import T1003 from '../page/t1003'
 
 Vue.use(Router);
 Vue.use(VueResource);
@@ -56,12 +55,6 @@ var router = new Router({
       name: 't1001',
       meta: {requireAuth:true},
       component: T1001
-    },
-    {
-      path: '/t1003',
-      name: 't1003',
-      meta: {requireAuth:true},
-      component: T1003
     },
     {
       path: '/c1001',

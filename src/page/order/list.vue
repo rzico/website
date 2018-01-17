@@ -29,7 +29,7 @@
               </div>
             </div>
             <div class="flexRow goodsTotalPrice ">
-              <span class="textTitle marginRight10">共{{item.orderItems[0].quantity}}件商品</span>
+              <span class="textTitle marginRight10">共{{item.quantity}}件商品</span>
               <span class="textTitle">合计:¥ {{item.amount | watchPrice}}</span>
             </div>
             <!--<div class="goodsFoot" v-if="item.status == 'completed'">-->

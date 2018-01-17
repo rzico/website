@@ -16,7 +16,7 @@
         <div class="video-warp">
           <div id="articleNum">{{count}}</div>
           <p>篇文章使用{{conf.siteName}}创作</p>
-          <button class="only-mobile baseBgColor" @click="download()">立即下载</button>
+          <button class="only-mobile baseBgColor" @click="download()">注册下载</button>
         </div>
       </div>
     </div>

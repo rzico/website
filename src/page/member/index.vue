@@ -49,7 +49,6 @@
   }
   .advertising .img{
     width: 100%;
-    height: 100px;
   }
   .containsOne{
     margin-top:20px;
