@@ -22,6 +22,11 @@ import memberCoupon from '../page/member/coupon'
 Vue.use(Router);
 Vue.use(VueResource);
 
+router.beforeEach((to, from, next) => {
+    to.query.xuid = from.query.xuid;
+    next();
+})
+
 var router = new Router({
   mode: 'history',
   base: "/",

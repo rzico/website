@@ -349,7 +349,7 @@
           return ;
         }
         var _this = this;
-        POST("website/member/order/create.jhtml?id=" + this.productId + '&quantity=' + this.buyNum + '&receiverId=' + this.receiverList[0].id).then(
+        POST("website/member/order/create.jhtml?id=" + this.productId + '&quantity=' + this.buyNum + '&receiverId=' + this.receiverList[0].id+'&xuid='+utils.getUrlParameter("xuid")).then(
           function (data) {
             console.log(data);
             if (data.type=="success") {
