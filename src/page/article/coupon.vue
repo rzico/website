@@ -1,4 +1,5 @@
 <template>
+  <!--文章优惠券列表-->
   <div class="background" v-if="lists.length > 0">
     <div class="top" v-for="num in lists">
       <div class="flex-r" style="height: 60px;border-width: 0 0 1px 0;border-color: #cccccc;border-style: dashed;padding-right: 10px">
