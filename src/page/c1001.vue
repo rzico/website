@@ -67,6 +67,7 @@
                     _this.id = _this.topic.id;
                     _this.catalogs = response.data.catalogs;
                     _this.$refs.banner.load();
+                    _this.$refs.list.load();
                     //设置分享标题
                     utils.setConfig({
                       title:_this.topic.name+"的"+utils.getConfig().siteName+"专栏",
