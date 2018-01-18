@@ -2,9 +2,9 @@
   <div class="container">
     <div class="page slideIn topic" style="background-color: #eeeeee" @scroll="onscroll" offset-accuracy="0">
       <metaInfo :member="member" :isFixed = "isfixed"></metaInfo>
-        <div class="advertising" @click="godownload()">
-          <img class="img" :src="'../../../static/download.jpg'">
-        </div>
+
+          <img class="img" :src="'../../../static/download.jpg'" @click="godownload()">
+
         <div class="containsOne">
         <div class="address" @click="jumpAddress">
           <div>
@@ -37,22 +37,17 @@
         </div>
         </div>
     </div>
-    <!--<Tabbar id=2></Tabbar>-->
+    <Tabbar id=2></Tabbar>
   </div>
 </template>
 <style scoped>
-  .advertising{
-    background-color: white;
+
+  .img{
+    width: 100%;
     margin-top: 20px;
-    width: 100%;
-    height: 100px;
-  }
-  .advertising .img{
-    width: 100%;
-    height: 100px;
+    margin-bottom: 10px;
   }
   .containsOne{
-    margin-top:20px;
     padding-left: 10px;
     width: 100%;
     background-color: white;
@@ -105,7 +100,7 @@
   import { POST, GET,AUTH} from '../../assets/fetch.js';
   import utils from '../../assets/utils.js';
   import metaInfo from './meta.vue';
-//  import Tabbar from '../../widget/tabbar-whole.vue';
+  import Tabbar from '../../widget/tabbar-whole.vue';
   export default {
     data() {
       return {
@@ -128,7 +123,7 @@
     components: {
       'v-loadmore':Loadmore, // 为组件起别名，vue转换template标签时不会区分大小写，例如：loadMore这种标签转换完就会变成loadmore，容易出现一些匹配问题
       metaInfo,
-//      Tabbar
+      Tabbar
     },
 
     created() {

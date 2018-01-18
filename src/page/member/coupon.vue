@@ -2,15 +2,17 @@
 <template>
   <div class="container">
     <div class="page slideIn bg" >
-    <div class="top marbottom15" v-for="c in coupons"  v-if="hasCoupon()">
+      <div class="top marbottom15" v-for="c in coupons"  v-if="hasCoupon()">
       <div class="flex-r" style="height: 60px;border-width: 0 0 1px 0;border-color: #cccccc;border-style: dashed;padding-right: 10px">
         <span class="f30 color flex2" style="">{{c.amount}}</span>
-        <span class="f16 flex3_5 " >{{c.couponName}}</span>
-        <div class="button flex1_5"></div>
+        <div class="flex5 flex-c" >
+          <span class="f16" style="white-space: nowrap;text-overflow: ellipsis">{{c.couponName}}</span>
+          <span class="f12" style="color: #cccccc">{{c.descr}}</span>
+        </div>
       </div>
       <div class="flex-r" style="height: 40px;padding-right: 20px">
         <span class="f12 color flex2 ">优惠券</span>
-        <span class="f12 flex5 " style="color: #cccccc">{{c.descr}}</span>
+        <span class="f12 flex5 " style="color: #cccccc;white-space: nowrap; text-overflow: ellipsis">{{c.introduction}}</span>
       </div>
       <!--两个小半圆-->
       <div class="left"></div>
@@ -75,6 +77,11 @@
     display: -webkit-flex;
     flex-direction: row;
     align-items: center;
+  }
+  .flex-c{
+    display: flex;
+    display: -webkit-flex;
+    flex-direction: column;
   }
   .flex1_5{
     display: flex;
