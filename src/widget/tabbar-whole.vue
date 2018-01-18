@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="weui-tabbar">
-      <router-link to="/c1001" class="weui-tabbar__item"  :class="[id == 0 ? 'weui-bar__item_on':'']">
+      <div  class="weui-tabbar__item"  :class="[id == 0 ? 'weui-bar__item_on':'']" @click="goC1001()">
       <!--<a href="javascript:;" class="weui-tabbar__item " :class="[id == 0 ? 'weui-bar__item_on':'']">-->
         <span style="display: inline-block;position: relative;">
           <!--<img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1515992382238&di=395605bef33b7058b1a22a4c039f93a4&imgtype=0&src=http%3A%2F%2Fimg.zcool.cn%2Fjob%2Fgroups%2Fb445558d077800000141f02f67a5.jpg" alt="" class="weui-tabbar__icon">-->
@@ -10,21 +10,21 @@
           <p class="weui-tabbar__label">专栏</p>
         </span>
       <!--</a>-->
-      </router-link>
-      <router-link to="/order/list" class="weui-tabbar__item"  :class="[id == 1 ? 'weui-bar__item_on':'']">
+      </div>
+      <div  class="weui-tabbar__item"  :class="[id == 1 ? 'weui-bar__item_on':'']" @click="goorderList()">
         <span style="display: inline-block;position: relative;">
           <span class="weui-tabbar__icon fftIcon" :style="{fontFamily:'iconfont'}">&#xe600;</span>
           <span class="weui-badge" style="position: absolute;top: -2px;right: -10px;" v-if="hasUntreated()">{{untreatedOrder | watchOrderNum}}</span>
           <p class="weui-tabbar__label">订单</p>
         </span>
-      </router-link>
-      <router-link to="/member/index" class="weui-tabbar__item"  :class="[id == 2 ? 'weui-bar__item_on':'']">
+      </div>
+      <div class="weui-tabbar__item"  :class="[id == 2 ? 'weui-bar__item_on':'']" @click="gomemberIndex()">
         <span style="display: inline-block;position: relative;">
           <span class="weui-tabbar__icon fftIcon" :style="{fontFamily:'iconfont'}">&#xe643;</span>
           <!--<span class="weui-badge weui-badge_dot" style="position: absolute;top: 0;right: -6px;"></span>-->
           <p class="weui-tabbar__label">我的</p>
         </span>
-      </router-link>
+      </div>
     </div>
   </div>
 </template>
@@ -137,6 +137,21 @@
       this.open();
     },
     methods:{
+      gomemberIndex:function () {
+        var vars  =  utils.router(location.href);
+        vars.name ="memberIndex";
+        this.$router.push(vars);
+      },
+      goC1001:function () {
+        var vars  =  utils.router(location.href);
+        vars.name ="c1001";
+        this.$router.push(vars);
+      },
+      goorderList:function () {
+        var vars  =  utils.router(location.href);
+        vars.name ="orderList";
+        this.$router.push(vars);
+      },
       open(){
         let _this = this;
         GET('website/member/view.jhtml').then(
