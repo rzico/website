@@ -18,7 +18,7 @@ import addAddress from '../page/address/addAddress'
 import addressList from '../page/address/addressList'
 import couponList from '../page/coupon/couponList'
 import memberIndex from '../page/member/index'
-
+import memberCoupon from '../page/member/coupon'
 Vue.use(Router);
 Vue.use(VueResource);
 
@@ -127,6 +127,12 @@ var router = new Router({
       name: 'memberIndex',
       meta: {requireAuth:true},
       component: memberIndex
+    },
+    {
+      path: '/member/coupon',
+      name: 'memberCoupon',
+      meta: {requireAuth:true},
+      component: memberCoupon
     },
    ]
 })
