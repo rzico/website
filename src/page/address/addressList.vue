@@ -1,8 +1,8 @@
 <template>
-  <div class="container" style="padding-bottom: 50px">
-    <div class="page slideIn bg" >
+  <div class="container">
+    <div class="page bg" >
         <div class="content" v-for="c in receiverList">
-        <div class="topDiv" @click="chooseAddress(c)">
+        <div class="topDiv">
           <div class="information">
             <span class="name">{{c.consignee}}</span><span class="tel">{{c.phone}}</span>
           </div>
@@ -32,6 +32,7 @@
 <style scoped>
   .bg{
     background-color: #eeeeee;
+    overflow: auto;
   }
   .button{
     height: 40px;
@@ -148,14 +149,6 @@
       this.open()
     },
     methods: {
-//      选择收货地址
-      chooseAddress(info){
-        if(this.type == 'buyGoods'){
-          this.$router.go(-1);
-        }
-        console.log(info);
-      },
-
       hasReward:function () {
         return this.receiverList.length>0;
       },
@@ -176,10 +169,10 @@
       },
       editor:function(c,id) {
         c=JSON.stringify(c)
-        this.$router.push({name:"addAddress",query:{c:c,id:id}});
+        this.$router.push({name:"addressAdd",query:{c:c,id:id}});
       },
       jump:function() {
-        this.$router.push({name:"addAddress",query:{}});
+        this.$router.push({name:"addressAdd",query:{}});
       },
       open:function () {
         var _this = this;

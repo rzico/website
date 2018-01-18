@@ -31,8 +31,8 @@
         <span class="span">保存</span>
       </div>
       <div style="min-height: 70%"></div>
-      <city :control="citycontrol" @name="cityname"></city>
     </div>
+    <city :control="citycontrol" @name="cityname"></city>
   </div>
 </template>
 <style scoped>
@@ -236,7 +236,7 @@
             function (res) {
               if (res.type == "success") {
                 alert('添加成功')
-                _this.$router.push({name:"receiverList",query:{}});
+                _this.$router.push({name:"addressList",query:{}});
               } else {
 
               }
@@ -260,7 +260,7 @@
             function (res) {
               if (res.type == "success") {
                 alert('修改成功');
-                _this.$router.push({name:"receiverList",query:{}});
+                _this.$router.push({name:"addressList",query:{}});
               } else {
 
               }
