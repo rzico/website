@@ -1,14 +1,11 @@
-<!--文章，卡包页内列表-->
+<!--卡包页内列表-->
 <template>
-  <div class="container">
-    <div class="page slideIn bg">
+    <div class="bg">
     <div class="top marbottom15" v-for="c in coupons"  v-if="hasCoupon()">
       <div class="flex-r" style="height: 60px;border-width: 0 0 1px 0;border-color: #cccccc;border-style: dashed;padding-right: 10px">
         <span class="f30 color flex2" style="">{{c.amount}}</span>
         <span class="f16 flex3_5 " >{{c.couponName}}</span>
-        <div class="button flex1_5" @click="openCoupon(c.id)">
-          <span class="f14" style="color:#ffffff">去使用</span>
-        </div>
+        <div class="button flex1_5"></div>
       </div>
       <div class="flex-r" style="height: 40px;padding-right: 20px">
         <span class="f12 color flex2 ">优惠券</span>
@@ -18,13 +15,12 @@
       <div class="left"></div>
       <div class="right"></div>
     </div>
-
     <div class="noData" v-if="!hasCoupon()">
       <i class="iconfont icon-zanwushuju"></i>
       <span>很抱歉，您暂无优惠券</span>
     </div>
     </div>
-    </div>
+
 </template>
 <style scoped>
   .bg{
@@ -152,9 +148,6 @@
           }
         )
       },
-      openCoupon:function(cid) {
-        this.$router.push({name:"coupon",query:{id:cid}});
-      }
     }
   }
 </script>
