@@ -1,26 +1,27 @@
 <!--卡包页内列表-->
 <template>
     <div class="bg">
-    <div class="top marbottom15" v-for="c in coupons"  v-if="hasCoupon()">
-      <div class="flex-r" style="height: 60px;border-width: 0 0 1px 0;border-color: #cccccc;border-style: dashed;padding-right: 10px">
-        <span class="f30 color flex2" style="">{{c.amount}}</span>
-        <span class="f16 flex3_5 " >{{c.couponName}}</span>
-        <div class="button flex1_5"></div>
+      <div class="top marbottom15" v-for="c in coupons"  v-if="hasCoupon()">
+        <div class="flex-r" style="height: 60px;border-width: 0 0 1px 0;border-color: #cccccc;border-style: dashed;padding-right: 10px">
+          <span class="f30 color flex2" style="">{{c.amount}}</span>
+          <div class="flex5 flex-c" >
+            <span class="f16" style="white-space: nowrap;text-overflow: ellipsis">{{c.couponName}}</span>
+            <span class="f12" style="color: #cccccc">{{c.descr}}</span>
+          </div>
+        </div>
+        <div class="flex-r" style="height: 40px;padding-right: 20px">
+          <span class="f12 color flex2 ">优惠券</span>
+          <span class="f12 flex5 " style="color: #cccccc;white-space: nowrap; text-overflow: ellipsis">{{c.introduction}}</span>
+        </div>
+        <!--两个小半圆-->
+        <div class="left"></div>
+        <div class="right"></div>
       </div>
-      <div class="flex-r" style="height: 40px;padding-right: 20px">
-        <span class="f12 color flex2 ">优惠券</span>
-        <span class="f12 flex5 " style="color: #cccccc">{{c.descr}}</span>
-      </div>
-      <!--两个小半圆-->
-      <div class="left"></div>
-      <div class="right"></div>
-    </div>
     <div class="noData" v-if="!hasCoupon()">
       <i class="iconfont icon-zanwushuju"></i>
       <span>很抱歉，您暂无优惠券</span>
     </div>
     </div>
-
 </template>
 <style scoped>
   .bg{
@@ -80,12 +81,6 @@
     flex-direction: row;
     align-items: center;
   }
-  .flex1_5{
-    display: flex;
-    display: -webkit-flex;
-    flex: 1.5;
-    justify-content:center;
-  }
   .flex2{
     display: flex;
     display: -webkit-flex;
@@ -97,19 +92,8 @@
     display: -webkit-flex;
     flex: 5;
   }
-  .flex3_5{
-    display: flex;
-    display: -webkit-flex;
-    flex: 3.5;
-  }
   .marbottom15{
     margin-bottom: 15px;
-  }
-  .button{
-    padding-left: 5px;
-    padding-right: 5px;
-    background-color:#EB4E40;
-    border-radius: 3px;
   }
   .color{
     color:#EB4E40
