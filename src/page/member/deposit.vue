@@ -21,7 +21,7 @@
           </div>
         </div>
         </div>
-        <div class="noData" v-else>
+        <div class="noData" v-if="!hasReward()">
           <i class="iconfont icon-zanwushuju"></i>
           <span>暂无记录</span>
         </div>
