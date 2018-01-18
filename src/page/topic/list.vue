@@ -44,7 +44,7 @@
       id:{default:0}
     },
     mounted() {
-      this.loadTop(0);
+
     },
     methods:{
       loadTop:function(idx) { //组件提供的下拉触发方法
