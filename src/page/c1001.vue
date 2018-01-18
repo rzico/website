@@ -10,7 +10,7 @@
     <div class="topic">
       <navbar v-if="isfixed" :navs="catalogs" :isFixed = "isfixed" :idx="idx" @navChange="navChange"></navbar>
     </div>
-    <Tabbar id=0></Tabbar>
+    <Tabbar id=0 :id="id"></Tabbar>
   </div>
 </template>
 <style scoped>
