@@ -1,12 +1,12 @@
 <template>
-  <div>
-    <div class="content">
+  <div  :class="[templateId == 1003 ? 't1003_content_margin_LR_15' : '']">
+    <div class="content"  :class="[templateId == 1003 ? 't1003_content_padding_LR_16' : '']">
       <div  v-for="(template,index) in now">
         <div class="margin-section section section-on section-border text-up fill" v-if="isShow(index)">
           <!--template里没有title的字段-->
           <div class="text"><h3>{{template.title}}</h3></div>
           <!--判断是否是商品-->
-          <div class="text-box" v-html="template.content"></div>
+          <div class="text-box" v-html="template.content" :class="[templateId == 1003 ? 't1003_content_padding_0' : '']"></div>
           <!--判断类型是图文还是小视频-->
           <div class="img-box" v-if="template.mediaType == 'image' || template.mediaType == 'product'">
             <img
@@ -18,8 +18,8 @@
             <video :src="template.original" controls="controls" :poster="template.thumbnail"  width="100%" height="300"></video>
           </div>
         </div>
-        <div v-if="template.mediaType == 'product'" class="goodsLineBox">
-          <div class="goodsLineInside boderStyle"  @click="buyNow(template.id)">
+        <div v-if="template.mediaType == 'product'" class="goodsLineBox" :class="[templateId == 1003 ? 't1003_content_padding_0' : '']">
+          <div class="goodsLineInside boderStyle" :class="[templateId == 1003 ? 't1003_goods_borderColor' : '']"  @click="buyNow(template.id)">
             <!--商品图片-->
             <img class="goodsImg" :src="template.original | watchGoodsImg" :style="'height:' + goodsHeight + 'px;' + 'width:' + (goodsHeight -10)+ 'px'"/>
             <!--商品描述内容-->
@@ -67,7 +67,8 @@
       },
       htmlStr: {
         default:""
-      }
+      },
+      templateId:{default:1001}
     },
     computed:{
       now: function () {

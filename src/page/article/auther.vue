@@ -1,6 +1,6 @@
 <template>
-  <div class="auther" @click="jump(article.member.url,article.member.id)">
-    <div class="autherwrap" style="min-height: 96px;">
+  <div class="auther" :class="[templateId == 1003] ? 't1003_Bg_bottom' : ''" @click="jump(article.member.url,article.member.id)">
+    <div class="autherwrap" style="min-height: 96px;" :class="[templateId == 1003] ? 't1003_Bg_up' : ''">
       <a class="toappuser">
         <div class="autherHead">
           <img v-bind:src="article.member.logo | watchImg"/>
@@ -31,7 +31,8 @@
     props: {
       article: { default: function () {
         return {member:{logo:"",autograph:"",nickName:""}}
-      }
+      },
+        templateId:{default:1001}
       }
     },
     filters:{

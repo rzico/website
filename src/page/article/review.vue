@@ -1,17 +1,17 @@
 <template>
-    <div class="review">
-        <div class="list" style="background-color: #fff;" >
-            <div class="item"  v-for="review in reviews" >
-                <div class="logo"
-                     :style="'width:30px;height:30px;background-image:url('+thumbnail(review.logo,30,30)+')'"></div>
-                <div class="content">
-                    <span class="name">{{review.nickName}}</span>
-                    <p class="text">{{review.content}}</p>
-                    <span class="time">{{review.createDate | timefmt}}</span>
-                </div>
-            </div>
+  <div class="review"  :class="[templateId == 1003] ? 't1003_Bg_bottom' : ''">
+    <div class="list" style="background-color: #fff;"  :class="[templateId == 1003] ? 't1003_Bg_up' : ''">
+      <div class="item"  v-for="review in reviews" >
+        <div class="logo"
+             :style="'width:30px;height:30px;background-image:url('+thumbnail(review.logo,30,30)+')'"></div>
+        <div class="content">
+          <span class="name">{{review.nickName}}</span>
+          <p class="text">{{review.content}}</p>
+          <span class="time">{{review.createDate | timefmt}}</span>
         </div>
+      </div>
     </div>
+  </div>
 </template>
 <script>
   import { POST, GET } from '../../assets/fetch.js';
@@ -27,7 +27,9 @@
         return utils.datetimefmt(val);
       }
     },
-
+    props: {
+        templateId:{default:1001}
+    },
     mounted () {
       var _this = this;
       let id = utils.getUrlParameter("id");
@@ -37,7 +39,7 @@
     },
     methods:{
       thumbnail:function (url,w,h) {
-          return utils.thumbnail(url,w,h);
+        return utils.thumbnail(url,w,h);
       },
       open:function (id) {
         var _this = this;

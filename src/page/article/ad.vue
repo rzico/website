@@ -1,5 +1,5 @@
 <template>
-    <div class="footer">
+    <div class="footer" :class="[templateId == 1003 ? 't1003_Bg_bottom' : '']">
         <div class="wrap" style="background-color: #fff;">
           <img style="width: 100%;display: block;" :src="src" alt="" @click="jump()"/>
         </div>
@@ -16,8 +16,8 @@
       props:{
         article: { default: function () {
           return {member:{id}}
-        }
-        }
+        }},
+        templateId:{default:1001}
       },
       methods:{
         jump() {

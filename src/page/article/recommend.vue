@@ -1,5 +1,5 @@
 <template>
-    <div class="recommend">
+    <div class="recommend" :class="[templateId == 1003 ? 't1003_Bg_up' : '',templateId == 1003 ? 't1003_borderTop_color' : '']">
         <div class="title">
             <i class="fl color-lump"></i>
             <h2 class="fl brilliant">推荐文章</h2>
@@ -35,6 +35,9 @@
           _this.open(id);
         },4000);
       },
+    props: {
+      templateId:{default:1001}
+    },
       methods:{
         articleclick:function (id,url) {
           if(utils.isweex()){
