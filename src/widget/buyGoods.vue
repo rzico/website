@@ -351,7 +351,6 @@
         var _this = this;
         POST("website/member/order/create.jhtml?id=" + this.productId + '&quantity=' + this.buyNum + '&receiverId=' + this.receiverList[0].id+'&xuid='+utils.getUrlParameter("xuid")).then(
           function (data) {
-            console.log(data);
             if (data.type=="success") {
               _this.goPay(data.data.sn);
             } else {
@@ -360,8 +359,8 @@
             _this.disabledButton = false;
           },
           function (err) {
-            err = JSON.stringify(err);
-            alert(err);
+//            err = JSON.stringify(err);
+//            alert(err);
 //            console.log('1');
             _this.disabledButton = false;
             _this.close(utils.message("error","网络不稳定"));
@@ -373,17 +372,18 @@
         let _this = this;
         POST('website/member/order/payment.jhtml?sn=' + sn).then(
           function (data) {
-            console.log('===');
-            console.log(data);
             if (data.type=="success") {
 //              判断支付方式,为null值时就是微信支付或者支付宝支付
               if(utils.isNull(data.data.paymentPluginId)){
                 if(utils.isweixin()){
 //                  + '&name=' + encodeURI(_this.goodsData[0].name) + '&articleId=' + _this.articleId;
 //                  alert(utils.isIos());
+
+//                  alert(utils.isIos());
 //                 判断是否是ios系统，ios系统下 router过去的url路径不会改变，无法正常调起支付
                   if(utils.isIos()){
-                    location.href = 'http://dev.rzico.com/weixin/payment/view.html?psn=' + data.data.sn + '&amount=' + _this.finallPrice  + '&name=' +  item.orderItems[0].name + '&type=weixin';
+//                    window.location.href = 'http://www.baidu.com/'
+                    window.location.href = 'http://dev.rzico.com/weixin/payment/view.html?psn=' + data.data.sn + '&amount=' + _this.finallPrice  + '&type=weixin';
                   }else{
                     _this.$router.push({
                       name: "payment",
@@ -392,7 +392,7 @@
                   }
                 }else if(utils.isalipay()){
                   if(utils.isIos()){
-                    location.href = 'http://dev.rzico.com/weixin/payment/view.html?psn=' + data.data.sn + '&amount=' + item.amount  + '&name=' +  item.orderItems[0].name + '&type=alipay';
+                    window.location.href = 'http://dev.rzico.com/weixin/payment/view.html?psn=' + data.data.sn + '&amount=' + item.amount   + '&type=alipay';
                   }else {
                     _this.$router.push({
                       name: "payment",
@@ -434,8 +434,8 @@
             _this.disabledButton = false;
           },
           function (err) {
-            err = JSON.stringify(err);
-            alert(err);
+//            err = JSON.stringify(err);
+//            alert(err);
             _this.disabledButton = false;
             _this.close(utils.message("error","网络不稳定"));
           }
