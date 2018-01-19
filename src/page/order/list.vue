@@ -1,108 +1,116 @@
 <template>
-  <div  class="page" style="background-color: #eee;padding-bottom: 50px;" >
+  <div class="container">
     <div class="categoryBox" style="position: fixed;z-index: 1">
       <span class="cataText" v-for="(item,index) in catagoryList" @click="catagoryChange(index,item.id)" :class = "[whichCorpus == index ? 'corpusActive' : 'noActive',item.id == 4 ? 'flex-2' : '']">{{item.name}}</span>
     </div>
-    <div style="height: 40px"></div>
-    <v-loadmore :top-method="loadTop" :bottom-method="loadBottom"  :bottom-all-loaded="allLoaded" :auto-fill="false" ref="loadmore">
-          <div class="goodsLine"  v-for="(item,index) in ordersList"  v-if="hasOrder()">
-            <div class=" goodsHead">
-              <div class="flexRow" @click="goAuthor(item.sellerId)">
-                <img :src="item.sellerLogo" class="shopImg"></img>
-                <span class="shopName">{{item.sellerName}}</span>
-                <span class="arrow" :style="{fontFamily:'iconfont'}">&#xe630;</span>
-              </div>
-              <div>
-                <span class="textTitle red" :class="item.statusDescr == '已关闭' || item.statusDescr == '已退款' || item.statusDescr == '已退货'  ? 'grayColor' : ''">{{item.statusDescr}}</span>
-                <!--<span class="textTitle coral" style="font-size: 14px">{{item.statusDescr}}</span>-->
-              </div>
+    <div  class="page slideIn"  style="background-color: #eee;padding-bottom: 50px;">
+      <div style="height: 40px"></div>
+      <v-loadmore :top-method="loadTop" :bottom-method="loadBottom"  :bottom-all-loaded="allLoaded" :auto-fill="false" ref="loadmore">
+        <div class="goodsLine"  v-for="(item,index) in ordersList"  v-if="hasOrder()">
+          <div class=" goodsHead">
+            <div class="flexRow" @click="goAuthor(item.sellerId)">
+              <img :src="item.sellerLogo" class="shopImg"></img>
+              <span class="shopName">{{item.sellerName}}</span>
+              <span class="arrow" :style="{fontFamily:'iconfont'}">&#xe630;</span>
             </div>
-            <div class="flexRow goodsBody" style="justify-content: space-between" v-for="goods in item.orderItems" @click="goDetails(item.sn)">
-              <img :src="goods.thumbnail" :style="'height:' + goodsHeight + 'px;' + 'width:' + (goodsHeight )+ 'px'"></img>
-              <div class="goodsInfo" :style="'height:' + goodsHeight + 'px;'">
-                <p class="goodsName">{{goods.name}}</p>
-                <p class="subTitle marginTop5">规格:{{goods.spec | watchSpec}}</p>
-              </div>
-              <div class="goodsPriceNum" :style="'height:' + goodsHeight + 'px;' + 'width:' + (goods20Width)+ 'px'">
-                <p class="goodsPrice ">¥ {{goods.price | watchPrice}}</p>
-                <p class="subTitle">x{{goods.quantity}}</p>
-              </div>
+            <div>
+              <span class="textTitle red" :class="item.statusDescr == '已关闭' || item.statusDescr == '已退款' || item.statusDescr == '已退货'  ? 'grayColor' : ''">{{item.statusDescr}}</span>
+              <!--<span class="textTitle coral" style="font-size: 14px">{{item.statusDescr}}</span>-->
             </div>
-            <div class="flexRow goodsTotalPrice ">
+          </div>
+          <div class="flexRow goodsBody" style="justify-content: space-between" v-for="goods in item.orderItems" @click="goDetails(item.sn)">
+            <img :src="goods.thumbnail" :style="'height:' + goodsHeight + 'px;' + 'width:' + (goodsHeight )+ 'px'"></img>
+            <div class="goodsInfo" :style="'height:' + goodsHeight + 'px;'">
+              <p class="goodsName">{{goods.name}}</p>
+              <p class="subTitle marginTop5">规格:{{goods.spec | watchSpec}}</p>
+            </div>
+            <div class="goodsPriceNum" :style="'height:' + goodsHeight + 'px;' + 'width:' + (goods20Width)+ 'px'">
+              <p class="goodsPrice ">¥ {{goods.price | watchPrice}}</p>
+              <p class="subTitle">x{{goods.quantity}}</p>
+            </div>
+          </div>
+          <div class="flexRow goodsTotalPrice ">
+            <div>
+              <span class="subTitle">{{item.createDate | watchCreateDate}}</span>
+            </div>
+            <div>
               <span class="textTitle marginRight10">共{{item.quantity}}件商品</span>
               <span class="textTitle">合计:¥ {{item.amount | watchPrice}}</span>
             </div>
-            <!--<div class="goodsFoot" v-if="item.status == 'completed'">-->
-            <!--<div class="footLeft">-->
-            <!--&lt;!&ndash;<span class=" subTitle">删除</span>&ndash;&gt;-->
-            <!--</div>-->
-            <!--<div class="footRight">-->
-            <!--&lt;!&ndash;<span class="textTitle footText">查看物流</span>&ndash;&gt;-->
-            <!--&lt;!&ndash;<span class="textTitle footText">评价晒单</span>&ndash;&gt;-->
-            <!--<span class="textTitle footText red redBorder" @click="buyAgain(item)">再次购买</span>-->
-            <!--</div>-->
-            <!--</div>-->
+          </div>
+          <!--<div class="goodsFoot" v-if="item.status == 'completed'">-->
+          <!--<div class="footLeft">-->
+          <!--&lt;!&ndash;<span class=" subTitle">删除</span>&ndash;&gt;-->
+          <!--</div>-->
+          <!--<div class="footRight">-->
+          <!--&lt;!&ndash;<span class="textTitle footText">查看物流</span>&ndash;&gt;-->
+          <!--&lt;!&ndash;<span class="textTitle footText">评价晒单</span>&ndash;&gt;-->
+          <!--<span class="textTitle footText red redBorder" @click="buyAgain(item)">再次购买</span>-->
+          <!--</div>-->
+          <!--</div>-->
 
-            <!--退款中 不渲染-->
-            <!--<div v-else-if="item.status == 'refunding'"></div>-->
+          <!--退款中 不渲染-->
+          <!--<div v-else-if="item.status == 'refunding'"></div>-->
 
-            <div class="goodsFoot" v-if="item.status == 'unpaid'">
-              <div class="footLeft">
-                <span class="subTitle"></span>
-              </div>
-              <div class="footRight" >
-                <!--<span class="textTitle footText">查看物流</span>-->
-                <span class="textTitle footText" @click="showDialog(item.sn,'取消订单',index)">取消订单</span>
-                <span class="textTitle footText red redBorder" style="padding: 2.5px 10px" @click="goPay(item,item.sn)">付款</span>
-              </div>
+          <div class="goodsFoot" v-if="item.status == 'unpaid'">
+            <div class="footLeft">
+              <span class="subTitle"></span>
             </div>
-            <div class="goodsFoot" v-else-if="item.status == 'unshipped'">
-              <div class="footLeft">
-                <span class="subTitle"></span>
-              </div>
-              <div class="footRight" >
-                <!--<span class="textTitle footText">查看物流</span>-->
-                <span class="textTitle footText" @click="urgedGoods(item,item.sn)" :class="[item.hadUrged ? 'grayColor' : '']">催发货</span>
-                <span class="textTitle footText red redBorder" style="padding: 2.5px 10px" @click="showDialog(item.sn,'申请退款')">申请退款</span>
-              </div>
-            </div>
-            <div class="goodsFoot" v-else-if="item.status == 'shipped'">
-              <div class="footLeft">
-                <span class="subTitle"></span>
-              </div>
-              <div class="footRight">
-                <!--<span class="textTitle footText">查看物流</span>-->
-                <span class="textTitle footText" @click="showDialog(item.sn,'确认签收')">确认签收</span>
-                <span class="textTitle footText red redBorder" style="padding: 2.5px 10px" @click="showDialog(item.sn,'申请退货')">申请退货</span>
-              </div>
+            <div class="footRight" >
+              <!--<span class="textTitle footText">查看物流</span>-->
+              <span class="textTitle footText" @click="showDialog(item.sn,'取消订单',index)">取消订单</span>
+              <span class="textTitle footText red redBorder" style="padding: 2.5px 10px" @click="goPay(item,item.sn)">付款</span>
             </div>
           </div>
-          <div class="noData" v-if="!hasOrder()">
-            <i class="iconfont icon-wodedingdan"></i>
-            <span>暂无订单</span>
+          <div class="goodsFoot" v-else-if="item.status == 'unshipped'">
+            <div class="footLeft">
+              <span class="subTitle"></span>
+            </div>
+            <div class="footRight" >
+              <!--<span class="textTitle footText">查看物流</span>-->
+              <span class="textTitle footText" @click="urgedGoods(item,item.sn)" :class="[item.hadUrged ? 'grayColor' : '']">催发货</span>
+              <span class="textTitle footText red redBorder" style="padding: 2.5px 10px" @click="showDialog(item.sn,'申请退款')">申请退款</span>
+            </div>
           </div>
-    </v-loadmore>
-    <Tabbar id=1 ref="tabWidget"></Tabbar>
-    <weui-dialog ref="dialog" type="confirm" :title="dialogTitle" confirmButton="确定" cancelButton="取消"
-                 @weui-dialog-confirm="activateConfirm()"
-                 @weui-dialog-cancel="closeConfirm()">
-      <div >
-        <p class="dialogP">{{confirmContent}}</p>
-      </div>
-    </weui-dialog>
-    <!--免密支付-->
-    <weui-dialog ref="freePay" type="confirm" title="免密支付" confirmButton="确认支付" cancelButton="取消"
-                 @weui-dialog-confirm="freeComplete()"
-                 @weui-dialog-cancel="freeCancel()" >
-      <div >
-        <p  class="dialogP">{{payWay}}</p>
-      </div>
-      <div >
-        <p  class="dialogP">¥{{payPrice}}</p>
-      </div>
-    </weui-dialog>
+          <div class="goodsFoot" v-else-if="item.status == 'shipped'">
+            <div class="footLeft">
+              <span class="subTitle"></span>
+            </div>
+            <div class="footRight">
+              <!--<span class="textTitle footText">查看物流</span>-->
+              <span class="textTitle footText" @click="showDialog(item.sn,'确认签收')">确认签收</span>
+              <span class="textTitle footText red redBorder" style="padding: 2.5px 10px" @click="showDialog(item.sn,'申请退货')">申请退货</span>
+            </div>
+          </div>
+        </div>
+        <div class="noData" v-if="!hasOrder()">
+          <i class="iconfont icon-wodedingdan"></i>
+          <span>暂无订单</span>
+        </div>
+      </v-loadmore>
+      <weui-dialog ref="dialog" type="confirm" :title="dialogTitle" confirmButton="确定" cancelButton="取消"
+                   @weui-dialog-confirm="activateConfirm()"
+                   @weui-dialog-cancel="closeConfirm()">
+        <div >
+          <p class="dialogP">{{confirmContent}}</p>
+        </div>
+      </weui-dialog>
+      <!--免密支付-->
+      <weui-dialog ref="freePay" type="confirm" title="免密支付" confirmButton="确认支付" cancelButton="取消"
+                   @weui-dialog-confirm="freeComplete()"
+                   @weui-dialog-cancel="freeCancel()" >
+        <div >
+          <p  class="dialogP">{{payWay}}</p>
+        </div>
+        <div >
+          <p  class="dialogP">¥{{payPrice}}</p>
+        </div>
+      </weui-dialog>
+    </div>
 
     <Toast ref="toast"></Toast>
+    <Tabbar id=1 ref="tabWidget"></Tabbar>
+
   </div>
 </template>
 <style scoped>
@@ -172,7 +180,10 @@
         }else{
           return value;
         }
-      }
+      },
+      watchCreateDate:function (value) {
+        return utils.datetimehms(value);
+      },
     },
     components: {
       Toast,
