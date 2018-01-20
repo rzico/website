@@ -23,11 +23,6 @@ import T1003 from '../page/t1003'
 Vue.use(Router);
 Vue.use(VueResource);
 
-router.beforeEach((to, from, next) => {
-    to.query.xuid = from.query.xuid;
-    next();
-})
-
 var router = new Router({
   mode: 'history',
   base: "/",
@@ -147,6 +142,11 @@ var router = new Router({
       component: memberCoupon
     },
    ]
+})
+
+router.beforeEach((to, from, next) => {
+  to.query.xuid = from.query.xuid;
+next();
 })
 
 export default router
