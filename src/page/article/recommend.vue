@@ -1,5 +1,5 @@
 <template>
-    <div class="recommend" :class="[templateId == 1003 ? 't1003_Bg_up' : '',templateId == 1003 ? 't1003_borderTop_color' : '']">
+    <div class="recommend" :class="[templateId == 1003 ? 't1003_Bg_up' : '',templateId == 1003 ? 't1003_borderTop_color' : '']" v-if="hasData()">
         <div class="title">
             <i class="fl color-lump"></i>
             <h2 class="fl brilliant">推荐文章</h2>
@@ -39,6 +39,13 @@
       templateId:{default:1001}
     },
       methods:{
+        hasData(){
+          if(utils.isNull(this.data)){
+            return false;
+          }else{
+            return true;
+          }
+        },
         articleclick:function (id,url) {
           if(utils.isweex()){
              location.href = 'yundian://article?id=' + id;
