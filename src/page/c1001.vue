@@ -3,7 +3,7 @@
     <div class="page slideIn topic" @scroll="onscroll" offset-accuracy="0">
     <v-loadmore :top-method="loadTop" :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" :auto-fill="false" ref="loadmore">
       <banner :topic="topic" ref="banner" :id ="id" :isFixed = "isfixed"></banner>
-      <navbar :isFixed = "isfixed" :navs="catalogs" :idx="idx" @navChange="navChange"></navbar>
+      <navbar ref="nav" :isFixed = "isfixed" :navs="catalogs" :idx="idx" @navChange="navChange"></navbar>
       <list ref="list" :id="id" :idx="idx"></list>
     </v-loadmore>
     </div>

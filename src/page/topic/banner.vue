@@ -48,7 +48,7 @@
     position: absolute;
     bottom: 10px;
     left: 5px;
-    right: 5px;
+    right: 0;
     z-index: 10;
     transform: translate3d(0,0,0);
   }
@@ -61,7 +61,7 @@
   .Content .leftContent .logo{
     height: 50px;
     width: 80px;
-    border-radius: 5px;
+    border-radius: 3px;
     background-color: #888888;
   }
   .Content .leftContent .information{
@@ -90,8 +90,7 @@
     align-items: center;
   }
   .rightContent .top{
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
+    border-top-left-radius: 3px;
     width: 100%;
     padding-top: 3px;
     padding-bottom: 3px;
@@ -104,8 +103,7 @@
     justify-content: center;
   }
   .rightContent .bottom{
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 3px;
     width: 100%;
     padding-top: 3px;
     padding-bottom: 3px;

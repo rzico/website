@@ -61,14 +61,10 @@
         // 上拉加载
         this.load(this.idx);// 上拉触发的分页查询
       },
-      load:function (idx) {
+      load:function () {
         var _this = this;
-        var id = utils.getUrlParameter("id");
-        if (utils.isNull(id)) {
-            id = this.id;
-        }
-        _this.idx = idx;
-        GET('website/article/list.jhtml?authorId='+id+"&isTop=false&articleCatalogId="+idx+"&pageStart="+_this.pageStart+"&pageSize="+_this.pageSize).then(
+
+        GET('website/article/list.jhtml?authorId='+_this.id+"&isTop=false&articleCatalogId="+_this.idx+"&pageStart="+_this.pageStart+"&pageSize="+_this.pageSize).then(
           function (response) {
             if (response.type=="success") {
               if (_this.pageStart==0) {
