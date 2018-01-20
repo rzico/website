@@ -19,6 +19,7 @@ import addressList from '../page/address/addressList'
 import couponList from '../page/coupon/couponList'
 import memberIndex from '../page/member/index'
 import memberCoupon from '../page/member/coupon'
+import cardPackage from '../page/member/cardPackage'
 import T1003 from '../page/t1003'
 Vue.use(Router);
 Vue.use(VueResource);
@@ -145,6 +146,12 @@ var router = new Router({
       name: 'memberCoupon',
       meta: {requireAuth:true},
       component: memberCoupon
+    },
+    {
+      path: '/cardPackage',
+      name: 'cardPackage',
+      meta: {requireAuth:true},
+      component: cardPackage
     },
    ]
 })
