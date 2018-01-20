@@ -44,6 +44,7 @@ const addressList = resolve => require(['../page/address/addressList'], resolve)
 const couponList = resolve => require(['../page/coupon/couponList'], resolve)
 const memberIndex = resolve => require(['../page/member/index'], resolve)
 const memberCoupon = resolve => require(['../page/member/coupon'], resolve)
+const cardPackage = resolve => require(['../page/member/cardPackage'], resolve)
 const T1003 = resolve => require(['../page/t1003'], resolve)
 // import T1003 from '../page/t1003'
 // import T1004 from '../page/t1004'
@@ -182,6 +183,12 @@ var router = new Router({
       name: 'memberCoupon',
       meta: {requireAuth:true},
       component: memberCoupon
+    },
+    {
+      path: '/cardPackage',
+      name: 'cardPackage',
+      meta: {requireAuth:true},
+      component: cardPackage
     },
    ]
 })
