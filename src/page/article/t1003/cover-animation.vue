@@ -28,7 +28,7 @@
     <div class="daizi" style="animation-name: Y; animation-duration: 2s; animation-timing-function: linear; animation-iteration-count: infinite;"><div class="money" :style="bgHongBao4" style="height: 50px; width: 30px;  background-size: 100%; background-repeat: no-repeat; animation-name: to10; animation-duration: 2s; animation-iteration-count: infinite; transform: scale(0.3);"></div></div>
     <div class="daizi" style="animation-name: Y; animation-duration: 2s; animation-timing-function: linear; animation-iteration-count: infinite;animation-delay:1.5s;"><div :style="bgHongBao2"  class="money" style="height: 50px; width: 30px; background-size: 100%; background-repeat: no-repeat; animation-name: to60; animation-duration: 2s; animation-iteration-count: infinite; transform: scale(0.3);"></div></div>
     <div class="daizi" style="animation-name: Y; animation-duration: 2s; animation-timing-function: linear; animation-iteration-count: infinite;animation-delay:3s;"><div class="money"  :style="bgHongBao2" style="height: 50px; width: 30px; background-size: 100%; background-repeat: no-repeat; animation-name: to20; animation-duration: 2s; animation-iteration-count: infinite; transform: scale(0.3);"></div></div>
-    <div class="daizi" style="animation-name: Y; animation-duration: 2s; animation-timing-function: linear; animation-iteration-count: infinite;"><div class="money" style="height: 50px; width: 30px; background-image: url(&quot;../../../img/t1003/yuanbao2.png&quot;); background-size: 100%; background-repeat: no-repeat; animation-name: to40; animation-duration: 2s; animation-iteration-count: infinite; transform: scale(0.3);"></div></div>
+    <div class="daizi" style="animation-name: Y; animation-duration: 2s; animation-timing-function: linear; animation-iteration-count: infinite;"><div class="money":style="bgYuanBao2" style="height: 50px; width: 30px;  background-size: 100%; background-repeat: no-repeat; animation-name: to40; animation-duration: 2s; animation-iteration-count: infinite; transform: scale(0.3);"></div></div>
     <div class="daizi" style="animation-name: Y; animation-duration: 2s; animation-timing-function: linear; animation-iteration-count: infinite;animation-delay:4s;"><div class="money":style="bgYuanBao3"  style="height: 50px; width: 30px;  background-size: 100%; background-repeat: no-repeat; animation-name: to30; animation-duration: 2s; animation-iteration-count: infinite; transform: scale(0.3);"></div></div>
     <div class="daizi" style="animation-name: Y; animation-duration: 2s; animation-timing-function: linear; animation-iteration-count: infinite;"><div class="money" :style="bgHongBao2" style="height: 50px; width: 30px; background-size: 100%; background-repeat: no-repeat; animation-name: to100; animation-duration: 2s; animation-iteration-count: infinite; transform: scale(0.3);"></div></div>
     <div class="daizi" style="animation-name: Y; animation-duration: 2s; animation-timing-function: linear; animation-iteration-count: infinite;"><div class="money" :style="bgHongBao3" style="height: 50px; width: 30px;  background-size: 100%; background-repeat: no-repeat; animation-name: to70; animation-duration: 2s; animation-iteration-count: infinite; transform: scale(0.3);"></div></div>
@@ -50,6 +50,9 @@
         },
         bgYuanBao3: {
           backgroundImage: 'url(' + require('../../../img/t1003/yuanbao3.png') + ')',
+        },
+        bgYuanBao2: {
+          backgroundImage: 'url(' + require('../../../img/t1003/yuanbao2.png') + ')',
         },
         bgYuanBao1: {
           backgroundImage: 'url(' + require('../../../img/t1003/yuanbao1.png') + ')',

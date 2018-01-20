@@ -7,16 +7,16 @@
       <div class="article root bgStyle">
         <div class="main marginNega140" >
           <music :musicData="watchMusicData" @judgeMusic="judgeMusic" ref="musicTemplete" :downloadShow="downloadShow"></music>
-          <article_content @buyNow="buyNow"  :templates="watchTemplates" :htmlStr="htmlStr" :templateId=1003></article_content>
+          <article_content @buyNow="buyNow"  :templates="watchTemplates" :htmlStr="htmlStr" templateId=1003></article_content>
           <!--<vote  :article="watchArticle"></vote>-->
           <!--<reward  :article="watchArticle" @showDialog="showRewardDialog"></reward>-->
           <report  :article="watchArticle.hits"></report>
           <coupon ref="coupon"></coupon>
-          <auther ref="auther" :article="watchArticle" :templateId=1003></auther>
-          <review ref="review" :article="watchArticle" :templateId=1003></review>
-          <recommend ref="recommend" v-if="isPublish" :article="watchArticle" @go="fetchData" :templateId=1003></recommend>
-          <ad v-if="noWeex" :article="watchArticle" :templateId=1003></ad>
-          <rewardDialog  ref="rwd"  @rewardNumber="rewardNumber" :templateId=1003></rewardDialog>
+          <auther ref="auther" :article="watchArticle" templateId=1003></auther>
+          <review ref="review" :article="watchArticle" templateId=1003></review>
+          <recommend ref="recommend" v-if="isPublish" article="watchArticle" @go="fetchData" templateId=1003></recommend>
+          <ad v-if="noWeex" :article="watchArticle" templateId=1003></ad>
+          <rewardDialog  ref="rwd"  @rewardNumber="rewardNumber" templateId=1003></rewardDialog>
           <payment  ref="pay" @notify="onPayNotify"></payment>
           <buyGoods  ref="buy" @notify="onPayNotify"></buyGoods>
         </div>
