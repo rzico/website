@@ -1,6 +1,6 @@
 <template>
-  <div class="review"  :class="[templateId == 1003] ? 't1003_Bg_bottom' : ''">
-    <div class="list" style="background-color: #fff;"  :class="[templateId == 1003] ? 't1003_Bg_up' : ''">
+  <div class="review"  :class="[templateId == 1003 ? 't1003_Bg_bottom' : '']">
+    <div class="list" style="background-color: #fff;"  :class="[templateId == 1003 ? 't1003_Bg_up' : '']">
       <div class="item"  v-for="review in reviews" >
         <div class="logo"
              :style="'width:30px;height:30px;background-image:url('+thumbnail(review.logo,30,30)+')'"></div>
