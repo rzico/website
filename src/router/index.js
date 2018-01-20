@@ -19,15 +19,14 @@ import addressList from '../page/address/addressList'
 import couponList from '../page/coupon/couponList'
 import memberIndex from '../page/member/index'
 import memberCoupon from '../page/member/coupon'
-import cardPackage from '../page/member/cardPackage'
 import T1003 from '../page/t1003'
 Vue.use(Router);
 Vue.use(VueResource);
 
-// router.beforeEach((to, from, next) => {
-//     to.query.xuid = from.query.xuid;
-//     next();
-// })
+router.beforeEach((to, from, next) => {
+    to.query.xuid = from.query.xuid;
+    next();
+})
 
 var router = new Router({
   mode: 'history',
@@ -146,12 +145,6 @@ var router = new Router({
       name: 'memberCoupon',
       meta: {requireAuth:true},
       component: memberCoupon
-    },
-    {
-      path: '/cardPackage',
-      name: 'cardPackage',
-      meta: {requireAuth:true},
-      component: cardPackage
     },
    ]
 })

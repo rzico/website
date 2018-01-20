@@ -1,6 +1,6 @@
 <template>
-  <div class="auther" :class="[templateId == 1003 ? 't1003_Bg_bottom' : '']" @click="jump(article.member.url,article.member.id)">
-    <div class="autherwrap" style="min-height: 96px;" :class="[templateId == 1003 ? 't1003_Bg_up' : '']">
+  <div class="auther"  :class="[articleTempId == 1003 ? 't1003_Bg_bottom' : '']" @click="jump(article.member.url,article.member.id)">
+    <div class="autherwrap" style="min-height: 96px;" :class="[articleTempId == 1003 ? 't1003_Bg_up' : '']">
       <a class="toappuser">
         <div class="autherHead">
           <img v-bind:src="article.member.logo | watchImg"/>
@@ -26,14 +26,15 @@
       return{
         twoSecond:1,
         hadLoad:0,
+        articleTempId:this.templateId,
       }
     },
     props: {
       article: { default: function () {
         return {member:{logo:"",autograph:"",nickName:""}}
+        }
       },
-        templateId:{default:1001}
-      }
+      templateId:{default:1001}
     },
     filters:{
 //        用原图去阿里云获取缩略图
@@ -44,9 +45,9 @@
     methods:{
       jump:function (url,id) {
         if(utils.isweex()){
-            location.href = 'yundian://topic?id=' + id;
+          location.href = 'yundian://topic?id=' + id;
         }else{
-            this.$router.push(utils.router(url));
+          this.$router.push(utils.router(url));
         }
       },
 //      jump:function (url,id) {
