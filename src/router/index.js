@@ -46,7 +46,7 @@ const memberIndex = resolve => require(['../page/member/index'], resolve)
 const memberCoupon = resolve => require(['../page/member/coupon'], resolve)
 const T1003 = resolve => require(['../page/t1003'], resolve)
 // import T1003 from '../page/t1003'
-import T1004 from '../page/t1004'
+// import T1004 from '../page/t1004'
 // const Home = resolve => require(['./components/Home.vue'], resolve)
 
 Vue.use(Router);
@@ -99,12 +99,12 @@ var router = new Router({
       meta: {requireAuth:true},
       component: T1003
     },
-    {
-      path: '/t1004',
-      name: 't1004',
-      meta: {requireAuth:true},
-      component: T1004
-    },
+    // {
+    //   path: '/t1004',
+    //   name: 't1004',
+    //   meta: {requireAuth:true},
+    //   component: T1004
+    // },
     {
       path: '/c1001',
       name: 'c1001',
