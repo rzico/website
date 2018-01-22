@@ -5,9 +5,11 @@
       <div class="avatar bg" :style="'background-image: url('+member.logo+')'">
       </div>
       <span class="profile">
-        <div class="nickname oneline">{{member.name}}</div>
+        <div class="nickname oneline">{{member.nickName}}</div>
         <div class="signature oneline">{{member.autograph}}</div>
-        <div class="num oneline">文章 {{member.article}}&nbsp;&nbsp;宝贝 {{member.product}}&nbsp;&nbsp;{{member.hits==0?'':'被访问'+member.hits}}</div>
+        <!--<div class="num oneline">文章 {{member.article}}&nbsp;&nbsp;宝贝 {{member.product}}&nbsp;&nbsp;{{member.hits==0?'':'被访问'+member.hits}}</div>-->
+        <!--需要显示文章、宝贝等 把下行代码删除,恢复上行代码-->
+        <div class="num oneline"> </div>
       </span>
       <div class="about">
         <span class="mark">
@@ -35,7 +37,7 @@
       member: {
         default: function () {
           return {
-            id:0,name:'',autograph:'', article:0, product: 0, favorite: 0, follow: 0, fans: 0, logo: "", hits: 0
+            id:0,nickName:'',autograph:'', article:0, product: 0, favorite: 0, follow: 0, fans: 0, logo: "", hits: 0
           }
         }
       },

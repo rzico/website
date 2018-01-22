@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="page slideIn bg" >
-      <v-loadmore :top-method="loadTop" :bottom-method="loadBottom"  :bottom-all-loaded="allLoaded" :auto-fill="true" ref="loadmore">
+      <v-loadmore :top-method="loadTop" :bottom-method="loadBottom"  :bottom-all-loaded="allLoaded" :auto-fill="false" ref="loadmore">
         <div v-for="(deposit,index) in depositList" v-if="hasReward()">
           <!--如果月份重复就不渲染该区域-->
         <div class="monthDiv" v-if="isRepeat(index)">
@@ -32,6 +32,7 @@
 <style scoped>
   .bg{
     background-color: #eeeeee;
+    padding-top: 10px;
   }
   .monthDiv{
     height: 30px;

@@ -1,8 +1,11 @@
 <template>
   <div class="container">
     <div class="page slideIn bg">
-      <v-loadmore :top-method="loadTop" :bottom-method="loadBottom"  :bottom-all-loaded="allLoaded" :auto-fill="true" ref="loadmore">
+      <v-loadmore :top-method="loadTop" :bottom-method="loadBottom"  :bottom-all-loaded="allLoaded" :auto-fill="false" ref="loadmore">
         <div style="min-height: 600px" v-if="hasReward()">
+          <div class="heads">
+            <span class="headSpan">累计赏金: {{total}}元</span>
+          </div>
         <div v-for="(c,index) in rewards">
           <!--如果月份重复就不渲染该区域-->
           <div class="monthDiv" v-if="isRepeat(index)">
@@ -34,6 +37,22 @@
   .bg{
     background-color: #eeeeee;
   }
+  .heads{
+    height:60px;
+    width: 100%;
+    background-color: white;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding-left: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+  .headSpan{
+    font-size: 16px;
+    color:#EB4E40;
+  }
+
   .monthDiv{
     height: 30px;
     background-color: #cccccc;
@@ -84,12 +103,6 @@
   .f12{
     font-size: 12px;
   }
-  .colorRed{
-    color:red;
-  }
-  .color888{
-    color:#888888
-  }
   .colorccc{
     color:#cccccc
   }
@@ -107,6 +120,7 @@
         pageSize:20,
         rewards:[],
         allLoaded:false,
+        total:0
 
       }
     },
@@ -131,6 +145,7 @@
     },
     created() {
       this.load()
+      this.summary()
     },
     methods:{
       hasReward:function () {
@@ -139,9 +154,11 @@
       loadTop:function() { //组件提供的下拉触发方法
         this.pageStart = 0;
         this.load('loadTop');
+        this.summary()
       },
       loadBottom:function() {
         this.load('loadBottom');
+        this.summary()
       },
       //判断月份是否重复
       isRepeat(index){
@@ -184,6 +201,20 @@
           }
         )
       },
+      summary:function () {
+        var _this = this;
+        GET('website/member/rebate/summary.jhtml?type=rebate').then (function (res) {
+          if (res.type == 'success') {
+            if(!utils.isNull(res.data)) {
+              _this.total = res.data;
+            }
+          } else {
+
+          }
+        }, function (err) {
+
+        })
+      }
     }
   }
 </script>

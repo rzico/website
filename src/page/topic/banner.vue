@@ -73,14 +73,14 @@
   .Content .leftContent .information .name{
     color:#ffffff;
     font-size: 16px;
-    lines:1;
-    text-overflow: ellipsis;
   }
   .Content .leftContent .information .autograph{
     color:#ffffff;
     font-size: 14px;
     margin-top: 10px;
-    lines:1;
+    width: 200px;
+    overflow: hidden;
+    white-space: nowrap;
     text-overflow: ellipsis;
   }
   .rightContent{

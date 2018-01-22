@@ -256,11 +256,11 @@
       },
 
       jumpreward:function() {
-      this.$router.push({name:"reward",query:{}});
+      this.$router.push({name:"rebate",query:{}});
       },
 
       jumpdeposit:function(id) {
-      this.$router.push({name:"deposit",query:{"id":id}});
+      this.$router.push({name:"bill",query:{"id":id}});
       },
     }
   }

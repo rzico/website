@@ -2,9 +2,7 @@
   <div class="container">
     <div class="page slideIn topic" style="background-color: #eeeeee" @scroll="onscroll" offset-accuracy="0">
       <metaInfo :member="member" :isFixed = "isfixed"></metaInfo>
-
           <img class="img" :src="'../../../static/download.jpg'" @click="godownload()">
-
         <div class="containsOne">
         <div class="address" @click="jumpAddress">
           <div>
@@ -107,7 +105,6 @@
       return {
         allLoaded: false, //是否可以上拉属性，false可以上拉，true为禁止上拉，就是不让往上划加载数据了
         member:{},
-        catalogs:[],
         isfixed:false,
         id:'',
 //        优惠券数量
@@ -157,13 +154,12 @@
       },
       load:function() {
         var _this = this;
-        GET('website/topic/view.jhtml?id='+_this.id).then(
+        GET('website/member/view.jhtml').then(
           function (response) {
             if (response.type=="success") {
               _this.member = response.data;
               _this.member.logo = utils.thumbnail(_this.member.logo,150,150)
               _this.id = _this.member.id;
-              _this.catalogs = response.data.catalogs;
               //设置分享标题
               utils.setConfig({
                 title:_this.member.name+"的"+utils.getConfig().siteName+"专栏",
