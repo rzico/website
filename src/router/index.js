@@ -37,8 +37,8 @@ const OrderList = resolve => require(['../page/order/list'], resolve)
 const OrderDetails = resolve => require(['../page/order/details'], resolve)
 const OrderLogistics = resolve => require(['../page/order/logistics'], resolve)
 const activate = resolve => require(['../page/coupon/activate'], resolve)
-const deposit = resolve => require(['../page/member/deposit'], resolve)
-const reward = resolve => require(['../page/member/reward'], resolve)
+const bill = resolve => require(['../page/member/bill'], resolve)
+const rebate = resolve => require(['../page/member/rebate'], resolve)
 const addAddress = resolve => require(['../page/address/addAddress'], resolve)
 const addressList = resolve => require(['../page/address/addressList'], resolve)
 const couponList = resolve => require(['../page/coupon/couponList'], resolve)
@@ -46,6 +46,7 @@ const memberIndex = resolve => require(['../page/member/index'], resolve)
 const memberCoupon = resolve => require(['../page/member/coupon'], resolve)
 const cardPackage = resolve => require(['../page/member/cardPackage'], resolve)
 const T1003 = resolve => require(['../page/t1003'], resolve)
+const goodsList = resolve => require(['../page/goods/list'], resolve)
 // import T1003 from '../page/t1003'
 // import T1004 from '../page/t1004'
 // const Home = resolve => require(['./components/Home.vue'], resolve)
@@ -143,16 +144,16 @@ var router = new Router({
       component: activate
     },
     {
-      path: '/deposit',
-      name: 'deposit',
+      path: '/bill',
+      name: 'bill',
       meta: {requireAuth:true},
-      component: deposit
+      component: bill
     },
     {
-      path: '/reward',
-      name: 'reward',
+      path: '/rebate',
+      name: 'rebate',
       meta: {requireAuth:true},
-      component: reward
+      component: rebate
     },
     {
       path: '/address/add',
@@ -189,6 +190,12 @@ var router = new Router({
       name: 'cardPackage',
       meta: {requireAuth:true},
       component: cardPackage
+    },
+    {
+      path: '/goods/list',
+      name: 'goodsList',
+      meta: {requireAuth:true},
+      component: goodsList
     },
    ]
 })
