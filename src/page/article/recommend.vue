@@ -32,7 +32,7 @@
         var _this = this;
         let id = utils.getUrlParameter("id");
         setTimeout(function () {
-          _this.open(id);
+            _this.open(id);
         },4000);
       },
     props: {
@@ -50,7 +50,8 @@
           if(utils.isweex()){
              location.href = 'yundian://article?id=' + id;
           }else{
-             this.$emit("go",id);
+             location.href = url;
+            // this.$emit("go",id);
             //this.$router.push(utils.router(url));
           }
         },

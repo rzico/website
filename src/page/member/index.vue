@@ -147,7 +147,7 @@
         this.$router.push({name:"addressList",query:{}});
       },
       jumpReward:function() {
-        this.$router.push({name:"reward",query:{}});
+        this.$router.push({name:"rebate",query:{}});
       },
       jumpCoupon:function() {
         this.$router.push({name:"memberCoupon",query:{}});

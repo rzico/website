@@ -134,8 +134,8 @@
       }
     },
     created() {
-      this.open()
       this.cardId = utils.getUrlParameter('id');
+      this.open()
     },
     mounted(){
 
@@ -190,7 +190,8 @@
           } else {
             _this.$refs.loadmore.onTopLoaded();// 固定方法，查询完要调用一次，用于重新定位
           }
-        }, function (err) {
+        },
+          function (err) {
             if (type=='loadBottom')
             {
               _this.$refs.loadmore.onBottomLoaded();// 固定方法，查询完要调用一次，用于重新定位
