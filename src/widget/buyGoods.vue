@@ -381,15 +381,14 @@
 
 //                  alert(utils.isIos());
 //                 判断是否是ios系统，ios系统下 router过去的url路径不会改变，无法正常调起支付
-                  if(utils.isIos()){
-//                    window.location.href = 'http://www.baidu.com/'
+//                  if(utils.isIos()){
                     window.location.href = 'http://dev.rzico.com/weixin/payment/view.html?psn=' + data.data.sn + '&amount=' + _this.finallPrice  + '&type=weixin';
-                  }else{
-                    _this.$router.push({
-                      name: "payment",
-                      query: {psn: data.data.sn, amount: _this.finallPrice,type:'weixin'}
-                    });
-                  }
+//                  }else{
+//                    _this.$router.push({
+//                      name: "payment",
+//                      query: {psn: data.data.sn, amount: _this.finallPrice,type:'weixin'}
+//                    });
+//                  }
                 }else if(utils.isalipay()){
                   if(utils.isIos()){
                     window.location.href = 'http://dev.rzico.com/weixin/payment/view.html?psn=' + data.data.sn + '&amount=' + item.amount   + '&type=alipay';
