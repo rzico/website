@@ -354,6 +354,7 @@
             if (data.type=="success") {
               _this.goPay(data.data.sn);
             } else {
+              alert('我弹的窗');
               _this.close(data);
             }
             _this.disabledButton = false;
@@ -397,7 +398,7 @@
                   if(utils.isIos()){
                     let config = utils.getConfig();
                     if(config){
-                      window.location.href = config.baseURL +'weixin/payment/view.html?psn=' + data.data.sn + '&amount=' + item.amount   + '&type=alipay';
+                      window.location.href = config.baseURL +'weixin/payment/view.html?psn=' + data.data.sn + '&amount=' + _this.finallPrice   + '&type=alipay';
                     }
                   }else {
                     _this.$router.push({
