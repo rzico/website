@@ -1,7 +1,7 @@
 <template>
   <div  :class="[templateId == 1003 ? 't1003_content_margin_LR_15' : '']">
     <div class="content"  :class="[templateId == 1003 ? 't1003_content_padding_LR_16' : '']">
-      <div  v-for="(template,index) in now">
+      <div  v-for="(template,index) in templatesList">
         <div class="margin-section section section-on section-border text-up fill" v-if="isShow(index)">
           <!--template里没有title的字段-->
           <div class="text"><h3>{{template.title}}</h3></div>
@@ -31,7 +31,7 @@
                 ¥ {{template.price | watchPrice}}
                 </span>
                   <!--<span class=" sub_title" style="font-size: 14px;text-decoration:line-through;">-->
-                    <!--¥ 160.00-->
+                  <!--¥ 160.00-->
                   <!--</span>-->
                 </div>
                 <span class="doBuy" >立即购买</span>
@@ -63,7 +63,7 @@
     props: {
       templates: { default: function () {
         return []
-      }
+        }
       },
       htmlStr: {
         default:""
@@ -71,16 +71,16 @@
       templateId:{default:1001}
     },
     computed:{
-      now: function () {
+      templatesList: function () {
         return this.templates;
       }
     },
     filters:{
 //        用原图去阿里云获取缩略图
       watchImg:function(value) {
-          if (utils.isNull(value)) {
-              return "";
-          }
+        if (utils.isNull(value)) {
+          return "";
+        }
         return utils.thumbnail_cover(value,utils.screenWidth());
       },
       watchGoodsImg:function (value) {
@@ -127,7 +127,6 @@
       buyNow:function (id) {
         this.$emit('buyNow',id);
       }
-
     }
 
   }
