@@ -1,34 +1,120 @@
 <template>
-  <div class="header">
-    <div class="mask bg" :style="'background-image: url('+member.logo+')'"></div>
-    <div class="field">
-      <div class="avatar bg" :style="'background-image: url('+member.logo+')'">
+  <div class="head">
+    <div class="backg bg" :style="'background-image: url('+member.logo+')'"></div>
+    <div class="logo">
+      <div class="logoimg bg" :style="'background-image: url('+member.logo+')'">
       </div>
       <span class="profile">
-        <div class="nickname oneline">{{member.nickName}}</div>
-        <div class="signature oneline">{{member.autograph}}</div>
+        <div class="nickname">{{member.nickName}}</div>
+        <div class="signature">{{member.autograph}}</div>
         <!--<div class="num oneline">文章 {{member.article}}&nbsp;&nbsp;宝贝 {{member.product}}&nbsp;&nbsp;{{member.hits==0?'':'被访问'+member.hits}}</div>-->
         <!--需要显示文章、宝贝等 把下行代码删除,恢复上行代码-->
-        <div class="num oneline"> </div>
+        <div class="num"> </div>
       </span>
       <div class="about">
         <span class="mark">
-          <em class="oneline">{{member.favorite}}</em>
+          <em class="">{{member.favorite}}</em>
           <span>收藏</span>
         </span>
         <span class="pink">
-          <em class="oneline">{{member.follow}}</em>
+          <em class="">{{member.follow}}</em>
           <span>关注</span>
         </span>
         <span class="fans">
-          <em class="oneline">{{member.fans}}</em>
+          <em class="">{{member.fans}}</em>
           <span>粉丝</span>
         </span>
       </div>
     </div>
   </div>
 </template>
-<style scoped="">
+<style scoped>
+   .head {
+    height: 180px;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    letter-spacing: 0;
+    line-height: 1;
+    margin-top: 0;
+  }
+   .head .logo {
+    background-color: rgba(0,0,0,.2);
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-pack: start;
+    -ms-flex-pack: start;
+    justify-content: flex-start;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    color: #ccc;
+  }
+
+   .head .logo .logoimg {
+    margin-top: 12px;
+    margin-bottom: 15px;
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    background-color: #bad0e8;
+    position: relative;
+    background-size: cover;
+  }
+   .head .backg {
+    z-index: 0;
+    position: absolute;
+    width: 120%;
+    height: 120%;
+    background-size: cover;
+    -webkit-filter: blur(25px);
+    -ms-filter: blur(25px);
+    filter: blur(25px);
+    filter: progid:DXImageTransform.Microsoft.Blur(PixelRadius=25,MakeShadow=false);
+  }
+
+   .head .logo .profile {
+    display: block;
+    color: #fff;
+  }
+
+   .head .logo .profile .nickname {
+    width: 210px;
+    font-size: 16px;
+    font-weight: 700;
+    text-align: center;
+    margin: 0 auto 15px;
+  }
+
+
+   .head .logo .profile .signature {
+    margin: 0 auto 20px;
+    width: 270px;
+    font-size: 12px;
+    text-align: center;
+     white-space:nowrap;          /* 不换行 */
+     overflow:hidden;               /* 内容超出宽度时隐藏超出部分的内容 */
+     text-overflow:ellipsis;
+  }
+
+   .head .logo .profile .num {
+    margin: 0 auto 15px;
+    width: 270px;
+    font-size: 12px;
+    text-align: center;
+  }
+
+
 </style>
 <script>
   import utils from '../../assets/utils.js';

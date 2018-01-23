@@ -9,7 +9,7 @@
         </div>
         <div class="detailsDiv">
           <img class="logo" :src="deposit.logo | logoImg">
-          <div class="flex-c" style="width: 88%;padding-left: 30px;  box-sizing: border-box;">
+          <div class="flex-c" style="width: 88%;padding-left: 10px;  box-sizing: border-box;">
           <div class="flex-r flex-ju">
             <span class="f16">{{deposit.memo}}</span>
             <span class="amountfont" :style="moneyColor(deposit.amount)">{{deposit.amount | currencyfmt}}</span>
@@ -47,6 +47,7 @@
     width: 100%;
     box-sizing: border-box;
     padding-left: 10px;
+    padding-right: 10px;
     border-width: 0 0 1px 0;
     border-color: #cccccc;
     border-style: solid;

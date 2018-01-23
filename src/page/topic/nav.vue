@@ -4,10 +4,8 @@
      <li :class="liState(0)" @click="load(0)"> 全部 </li>
      <li v-for="n in Navs"  :class="liState(n.id)" @click="load(n.id)"> {{n.name}} </li>
    </ul>
-
  </div>
 </template>
-
 <script>
   import utils from '../../assets/utils.js';
   export default {
