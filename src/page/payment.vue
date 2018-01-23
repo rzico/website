@@ -145,6 +145,7 @@
       }
     },
     created() {
+      alert('创建前');
       var _this = this;
       this.sn = utils.getUrlParameter("psn");
       if(!utils.isNull(utils.getUrlParameter("amount"))){
@@ -173,6 +174,7 @@
         }
       }
     let payType = utils.getUrlParameter('type');
+      alert(payType);
       if(payType == 'weixin'){
             _this.payWay = payType;
             _this.weixin(this.sn);
@@ -187,6 +189,7 @@
           _this.paymentId = 'cardPayPlugin'
         }
       }
+
     },
     methods:{
       close:function() {
@@ -253,9 +256,11 @@
       },
       weixin:function(sn) {
         var _this = this;
+        alert('调起微信支付接口');
         POST("payment/submit.jhtml?sn="+sn+"&paymentPluginId=weixinPayPlugin").then(
           function (res) {
             if (res.type=="success") {
+              alert('调起微信支付');
               WeixinJSBridge.invoke('getBrandWCPayRequest',{
                 "appId" : res.data.appId,
                 "timeStamp":res.data.timeStamp,
@@ -273,6 +278,7 @@
                   _this.query()
                 },2000)
                 } else {
+                  alert('调起微信支付error');
                   let a = JSON.stringify(result);
                   alert(a);
                   _this.$refs.toast.show("支付取消");
@@ -285,6 +291,9 @@
               });
             }
             else {
+              alert('调起微信支付接口error');
+              let a = JSON.stringify(res);
+              alert(a);
               _this.title = '支付失败';
               _this.isCancel = true;
 //              _this.pageIcon = 'cancel';
@@ -292,6 +301,9 @@
             }
           },
           function (err) {
+            alert('调起微信支付接口失败');
+            let a = JSON.stringify(err);
+            alert(a);
             _this.title = '支付失败';
 //            _this.pageIcon = 'cancel';
             _this.isCancel = true;
