@@ -151,10 +151,6 @@
       if(!utils.isNull(utils.getUrlParameter("amount"))){
         this.amount = utils.getUrlParameter("amount");
       }
-//      if(!utils.isNull(utils.getUrlParameter("name"))){
-//        this.goodsName = decodeURI(utils.getUrlParameter("name"));
-//      }
-//      this.articleId = utils.getUrlParameter('articleId');
       if(!utils.isNull(utils.getUrlParameter("title"))){
         this.title = utils.getUrlParameter("title");
         switch (this.title){
@@ -176,8 +172,9 @@
       this.payType = utils.getUrlParameter('type');
     },
     mounted() {
+      var _this = this;
       setTimeout(function (){
-          this.doPay();
+          _this.doPay();
       }
       ,1000);
     },
