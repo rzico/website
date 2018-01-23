@@ -3,7 +3,7 @@
     <div class="page slideIn backg">
       <v-loadmore :top-method="loadTop" :bottom-method="loadBottom" :bottom-all-loaded="false" :auto-fill="false" ref="loadmore">
         <div class="twoContent" v-if="hasReward()">
-        <div class="content" v-for="c in lists">
+        <div class="content" v-for="c in lists" @click="buyNow(c.id)">
           <div class="logo">
           <img class="img" :src="c.thumbnail"/>
           </div>
@@ -26,6 +26,7 @@
           <span>暂无商品</span>
         </div>
       </v-loadmore>
+      <buyGoods  ref="buy"></buyGoods>
     </div>
   </div>
 </template>
@@ -98,6 +99,7 @@
   import { POST, GET, AUTH} from '../../assets/fetch.js';
   import utils from '../../assets/utils.js';
   import Toast from '../../widget/toast.vue';
+  import buyGoods from '../../widget/buyGoods.vue';
   export default {
     data() {
       return {
@@ -113,6 +115,7 @@
     components: {
       'v-loadmore':Loadmore,
       Toast,
+      buyGoods,
     },
     filters:{
       watchType:function (value) {
@@ -177,6 +180,10 @@
             }
           }
         )
+      },
+      buyNow:function (id) {
+        let _this = this;
+        _this.$refs.buy.show(id);
       },
     }
   }
