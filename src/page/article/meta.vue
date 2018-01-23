@@ -34,7 +34,7 @@
        methods:{
          jump:function (url,id) {
            if(utils.isweex()){
-             location.href = 'yundian://topic?id=' + id;
+             location.href = utils.setDummyUrl('topic',id);
            }else{
              this.$router.push(utils.router(url));
            }

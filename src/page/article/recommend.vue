@@ -48,7 +48,7 @@
         },
         articleclick:function (id,url) {
           if(utils.isweex()){
-             location.href = 'yundian://article?id=' + id;
+             location.href = utils.setDummyUrl('article',id);
           }else{
              location.href = url;
             // this.$emit("go",id);

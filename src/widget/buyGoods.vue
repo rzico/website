@@ -47,11 +47,11 @@
         <!--<cell-footer ><span class="arrow" style="color:red;font-size: 14px;padding-right: 10px">-¥ 3.00</span></cell-footer>-->
         <!--</div>-->
         <!--</cells>-->
-          <div class="address"  v-for="(item,index) in receiverList" v-if="hasReceiver()" @click="goAddress()">
-              <p class="fontSize18">{{item.consignee}} {{item.phone}}</p>
-              <p class="fontSize18" style="font-size: 14px">{{item.areaName}}{{item.address}}</p>
-            <p class="rightArrow"></p>
-          </div>
+        <div class="address"  v-for="(item,index) in receiverList" v-if="hasReceiver()" @click="goAddress()">
+          <p class="fontSize18">{{item.consignee}} {{item.phone}}</p>
+          <p class="fontSize18" style="font-size: 14px">{{item.areaName}}{{item.address}}</p>
+          <p class="rightArrow"></p>
+        </div>
         <div class="address noAddress" v-else @click="goAddress()">
           <p class="fontSize18 fontSize14" >点击选择收货地址</p>
           <p class="rightArrow top18" ></p>
@@ -354,7 +354,6 @@
             if (data.type=="success") {
               _this.goPay(data.data.sn);
             } else {
-              alert('我弹的窗');
               _this.close(data);
             }
             _this.disabledButton = false;
@@ -382,18 +381,17 @@
 
 //                  alert(utils.isIos());
 //                 判断是否是ios系统，ios系统下 router过去的url路径不会改变，无法正常调起支付
-//                  if(utils.isIos()){
-                  let config = utils.getConfig();
-                  if(config){
-                    window.location.href = config.baseURL + 'weixin/payment/view.html?psn=' + data.data.sn + '&amount=' + _this.finallPrice  + '&type=weixin';
+                  if(utils.isIos()){
+                    let config = utils.getConfig();
+                    if(config){
+                      window.location.href = config.baseURL + 'weixin/payment/view.html?psn=' + data.data.sn + '&amount=' + _this.finallPrice  + '&type=weixin';
+                    }
+                  }else{
+                    _this.$router.push({
+                      name: "payment",
+                      query: {psn: data.data.sn, amount: _this.finallPrice,type:'weixin'}
+                    });
                   }
-
-//                  }else{
-//                    _this.$router.push({
-//                      name: "payment",
-//                      query: {psn: data.data.sn, amount: _this.finallPrice,type:'weixin'}
-//                    });
-//                  }
                 }else if(utils.isalipay()){
                   if(utils.isIos()){
                     let config = utils.getConfig();

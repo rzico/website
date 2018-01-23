@@ -104,7 +104,8 @@
 //        articleId:'',
         isCancel:false,
         isSuccess:false,
-        paymentId:''
+        paymentId:'',
+        payType:""
       }
     },
     components: {
@@ -145,16 +146,11 @@
       }
     },
     created() {
-      alert('创建前');
       var _this = this;
       this.sn = utils.getUrlParameter("psn");
       if(!utils.isNull(utils.getUrlParameter("amount"))){
         this.amount = utils.getUrlParameter("amount");
       }
-//      if(!utils.isNull(utils.getUrlParameter("name"))){
-//        this.goodsName = decodeURI(utils.getUrlParameter("name"));
-//      }
-//      this.articleId = utils.getUrlParameter('articleId');
       if(!utils.isNull(utils.getUrlParameter("title"))){
         this.title = utils.getUrlParameter("title");
         switch (this.title){
@@ -173,25 +169,34 @@
             return ;
         }
       }
-    let payType = utils.getUrlParameter('type');
-      alert(payType);
-      if(payType == 'weixin'){
-            _this.payWay = payType;
-            _this.weixin(this.sn);
-       }else if(payType == 'alipay'){
-           _this.payWay = payType;
-            _this.alipay(this.sn);
-       }else{
-        _this.payWay = decodeURI(payType);
-        if(_this.payWay == '余额支付'){
-          _this.paymentId = 'balancePayPlugin'
-        }else{
-          _this.paymentId = 'cardPayPlugin'
-        }
+      this.payType = utils.getUrlParameter('type');
+    },
+    mounted() {
+      var _this = this;
+      setTimeout(function (){
+          _this.doPay();
       }
-
+      ,1000);
     },
     methods:{
+        doPay:function () {
+          var _this = this;
+          let payType = this.payType;
+          if(payType == 'weixin'){
+            _this.payWay = payType;
+            _this.weixin(this.sn);
+          }else if(payType == 'alipay'){
+            _this.payWay = payType;
+            _this.alipay(this.sn);
+          }else{
+            _this.payWay = decodeURI(payType);
+            if(_this.payWay == '余额支付'){
+              _this.paymentId = 'balancePayPlugin'
+            }else{
+              _this.paymentId = 'cardPayPlugin'
+            }
+          }
+        },
       close:function() {
         if (utils.isweixin()) {
           WeixinJSBridge.call('closeWindow');
@@ -256,11 +261,9 @@
       },
       weixin:function(sn) {
         var _this = this;
-        alert('调起微信支付接口');
         POST("payment/submit.jhtml?sn="+sn+"&paymentPluginId=weixinPayPlugin").then(
           function (res) {
             if (res.type=="success") {
-              alert('调起微信支付');
               WeixinJSBridge.invoke('getBrandWCPayRequest',{
                 "appId" : res.data.appId,
                 "timeStamp":res.data.timeStamp,
@@ -278,9 +281,6 @@
                   _this.query()
                 },2000)
                 } else {
-                  alert('调起微信支付error');
-                  let a = JSON.stringify(result);
-                  alert(a);
                   _this.$refs.toast.show("支付取消");
 //                  _this.$refs.toast.show(result.memo);
                   _this.title = '支付取消';
@@ -291,9 +291,6 @@
               });
             }
             else {
-              alert('调起微信支付接口error');
-              let a = JSON.stringify(res);
-              alert(a);
               _this.title = '支付失败';
               _this.isCancel = true;
 //              _this.pageIcon = 'cancel';
@@ -301,9 +298,6 @@
             }
           },
           function (err) {
-            alert('调起微信支付接口失败');
-            let a = JSON.stringify(err);
-            alert(a);
             _this.title = '支付失败';
 //            _this.pageIcon = 'cancel';
             _this.isCancel = true;

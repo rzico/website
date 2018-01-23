@@ -508,18 +508,18 @@
 //                  });
 
 //                 判断是否是ios系统，ios系统下 router过去的url路径不会改变，无法正常调起支付
-//                  if(utils.isIos()){
+                  if(utils.isIos()){
                     let config = utils.getConfig();
                     if(config){
                       window.location.href = config.baseURL + 'weixin/payment/view.html?psn=' + data.data.sn + '&amount=' + item.price + '&type=weixin';
                     }
 
-//                  }else{
-//                    _this.$router.push({
-//                      name: "payment",
-//                      query: {psn: data.data.sn, amount: _this.finallPrice,type:'weixin'}
-//                    });
-//                  }
+                  }else{
+                    _this.$router.push({
+                      name: "payment",
+                      query: {psn: data.data.sn, amount: item.price,type:'weixin'}
+                    });
+                  }
                 }else if(utils.isalipay()){
 //                  _this.$router.push({
 //                    name: "payment",
