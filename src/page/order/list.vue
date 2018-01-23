@@ -309,7 +309,7 @@
             if (data.type=="success") {
               if(utils.isNull(data.data.paymentPluginId)){
                 if(utils.isweixin()){
-//                  if(utils.isIos()){
+                  if(utils.isIos()){
 
                     let config = utils.getConfig();
                     if(config){
@@ -317,12 +317,12 @@
                     }
 
 //                    location.href = 'http://dev.rzico.com/weixin/payment/view.html?psn=' + data.data.sn + '&amount=' + item.amount  + '&name=' +  item.orderItems[0].name + '&type=weixin';
-//                  }else{
-//                    _this.$router.push({
-//                      name: "payment",
-//                      query: {psn: data.data.sn, amount: item.amount, name:item.orderItems[0].name,type:'weixin'}
-//                    });
-//                  }
+                  }else{
+                    _this.$router.push({
+                      name: "payment",
+                      query: {psn: data.data.sn, amount: item.amount,type:'weixin'}
+                    });
+                  }
                 }else if(utils.isalipay()){
                   if(utils.isIos()){
 //                    location.href = 'http://dev.rzico.com/weixin/payment/view.html?psn=' + data.data.sn + '&amount=' + item.amount   + '&type=alipay';
@@ -334,7 +334,7 @@
                   }else {
                     _this.$router.push({
                       name: "payment",
-                      query: {psn: data.data.sn, amount: item.amount, name: item.orderItems[0].name, type: 'alipay'}
+                      query: {psn: data.data.sn, amount: item.amount, type: 'alipay'}
                     });
                   }
                 }
