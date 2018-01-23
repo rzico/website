@@ -308,35 +308,9 @@
             console.log(data);
             if (data.type=="success") {
               if(utils.isNull(data.data.paymentPluginId)){
-                if(utils.isweixin()){
-                  if(utils.isIos()){
-
-                    let config = utils.getConfig();
-                    if(config){
-                      window.location.href = config.baseURL + 'weixin/payment/view.html?psn=' + data.data.sn + '&amount=' + item.amount  + '&type=weixin';
-                    }
-
-//                    location.href = 'http://dev.rzico.com/weixin/payment/view.html?psn=' + data.data.sn + '&amount=' + item.amount  + '&name=' +  item.orderItems[0].name + '&type=weixin';
-                  }else{
-                    _this.$router.push({
-                      name: "payment",
-                      query: {psn: data.data.sn, amount: item.amount,type:'weixin'}
-                    });
-                  }
-                }else if(utils.isalipay()){
-                  if(utils.isIos()){
-//                    location.href = 'http://dev.rzico.com/weixin/payment/view.html?psn=' + data.data.sn + '&amount=' + item.amount   + '&type=alipay';
-                    let config = utils.getConfig();
-                    if(config){
-                      window.location.href = config.baseURL + 'weixin/payment/view.html?psn=' + data.data.sn + '&amount=' + item.amount  + '&type=alipay';
-                    }
-
-                  }else {
-                    _this.$router.push({
-                      name: "payment",
-                      query: {psn: data.data.sn, amount: item.amount, type: 'alipay'}
-                    });
-                  }
+                let config = utils.getConfig();
+                if(config){
+                  window.location.href = config.baseURL + 'payment/index.jhtml?sn=' + data.data.sn;
                 }
               }else if(data.data.paymentPluginId == 'cardPayPlugin'){//会员卡支付
                 _this.sn = data.data.sn;

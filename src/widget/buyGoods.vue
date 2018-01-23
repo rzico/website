@@ -375,36 +375,10 @@
             if (data.type=="success") {
 //              判断支付方式,为null值时就是微信支付或者支付宝支付
               if(utils.isNull(data.data.paymentPluginId)){
-                if(utils.isweixin()){
-//                  + '&name=' + encodeURI(_this.goodsData[0].name) + '&articleId=' + _this.articleId;
-//                  alert(utils.isIos());
-
-//                  alert(utils.isIos());
-//                 判断是否是ios系统，ios系统下 router过去的url路径不会改变，无法正常调起支付
-                  if(utils.isIos()){
                     let config = utils.getConfig();
                     if(config){
-                      window.location.href = config.baseURL + 'weixin/payment/view.html?psn=' + data.data.sn + '&amount=' + _this.finallPrice  + '&type=weixin';
+                      window.location.href = config.baseURL + 'payment/index.jhtml?sn=' + data.data.sn;
                     }
-                  }else{
-                    _this.$router.push({
-                      name: "payment",
-                      query: {psn: data.data.sn, amount: _this.finallPrice,type:'weixin'}
-                    });
-                  }
-                }else if(utils.isalipay()){
-                  if(utils.isIos()){
-                    let config = utils.getConfig();
-                    if(config){
-                      window.location.href = config.baseURL +'weixin/payment/view.html?psn=' + data.data.sn + '&amount=' + _this.finallPrice   + '&type=alipay';
-                    }
-                  }else {
-                    _this.$router.push({
-                      name: "payment",
-                      query: {psn: data.data.sn, amount: _this.finallPrice, type: 'alipay'}
-                    });
-                  }
-                }
               }else if(data.data.paymentPluginId == 'cardPayPlugin'){//会员卡支付
 //                var payInfo = {
 //                  way:'会员卡支付',

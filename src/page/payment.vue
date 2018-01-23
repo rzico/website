@@ -176,7 +176,7 @@
       setTimeout(function (){
           _this.doPay();
       }
-      ,1000);
+      ,100);
     },
     methods:{
         doPay:function () {
@@ -196,7 +196,7 @@
               _this.paymentId = 'cardPayPlugin'
             }
           }
-        },
+      },
       close:function() {
         if (utils.isweixin()) {
           WeixinJSBridge.call('closeWindow');
@@ -278,8 +278,8 @@
                   _this.isSuccess = true;
                   _this.isCancel = false;
                   setTimeout(function () {
-                  _this.query()
-                },2000)
+                     _this.query()
+                  },2000)
                 } else {
                   _this.$refs.toast.show("支付取消");
 //                  _this.$refs.toast.show(result.memo);
