@@ -88,26 +88,26 @@
           <span>暂无订单</span>
         </div>
       </v-loadmore>
-      <weui-dialog ref="dialog" type="confirm" :title="dialogTitle" confirmButton="确定" cancelButton="取消"
-                   @weui-dialog-confirm="activateConfirm()"
-                   @weui-dialog-cancel="closeConfirm()">
-        <div >
-          <p class="dialogP">{{confirmContent}}</p>
-        </div>
-      </weui-dialog>
-      <!--免密支付-->
-      <weui-dialog ref="freePay" type="confirm" title="免密支付" confirmButton="确认支付" cancelButton="取消"
-                   @weui-dialog-confirm="freeComplete()"
-                   @weui-dialog-cancel="freeCancel()" >
-        <div >
-          <p  class="dialogP">{{payWay}}</p>
-        </div>
-        <div >
-          <p  class="dialogP">¥{{payPrice}}</p>
-        </div>
-      </weui-dialog>
     </div>
 
+    <weui-dialog ref="dialog" type="confirm" :title="dialogTitle" confirmButton="确定" cancelButton="取消"
+                 @weui-dialog-confirm="activateConfirm()"
+                 @weui-dialog-cancel="closeConfirm()">
+      <div >
+        <p class="dialogP">{{confirmContent}}</p>
+      </div>
+    </weui-dialog>
+    <!--免密支付-->
+    <weui-dialog ref="freePay" type="confirm" title="免密支付" confirmButton="确认支付" cancelButton="取消"
+                 @weui-dialog-confirm="freeComplete()"
+                 @weui-dialog-cancel="freeCancel()" >
+      <div >
+        <p  class="dialogP">{{payWay}}</p>
+      </div>
+      <div >
+        <p  class="dialogP">¥{{payPrice}}</p>
+      </div>
+    </weui-dialog>
     <Toast ref="toast"></Toast>
     <Tabbar id=1 ref="tabWidget"></Tabbar>
 
@@ -425,12 +425,15 @@
         let _this = this;
         POST('website/member/order/cancel.jhtml?sn=' + this.selectSn).then(function (data) {
           if(data.type == 'success'){
-//            _this.ordersList.splice(_this.selectIndex,1);
-            _this.ordersList[_this.selectIndex].status = 'completed',
-              _this.ordersList[_this.selectIndex].statusDescr = '已取消',
-              _this.$refs.toast.show('取消订单成功');
+//            _this.ordersList[_this.selectIndex].status = 'completed',
+//              _this.ordersList[_this.selectIndex].statusDescr = '已取消',
+
+              _this.pageStart = 0;
+              _this.open();
+              _this.$refs.toast.show('取消订单成功.');
+
 //              获取未处理订单最新数量
-            _this.tabRefresh();
+//            _this.tabRefresh();
           }else{
             _this.$refs.toast.show(data.content);
           }
@@ -473,7 +476,6 @@
         }
         GET('website/member/order/list.jhtml?status=' + status + '&pageStart=' + this.pageStart + '&pageSize=' + this.pageSize).then(
           function (res) {
-            console.log(res);
             if (res.type=="success") {
               if (res.data.start==0) {
                 _this.ordersList = res.data.data;
