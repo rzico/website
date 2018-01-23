@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div class="page slideIn topic" style="background-color: #eeeeee" @scroll="onscroll" offset-accuracy="0">
+    <div class="page slideIn topic" style="background-color: #eeeeee">
       <metaInfo :member="member" :isFixed = "isfixed"></metaInfo>
           <img class="img" :src="'../../../static/download.jpg'" @click="godownload()">
         <div class="containsOne">
@@ -195,14 +195,6 @@
           }, function () {
 
           });
-      },
-      onscroll(e){
-        console.log(e.target.scrollTop);
-        if(e.target.scrollTop >= 194){
-          this.isfixed = true;
-        }else{
-          this.isfixed = false;
-        }
       },
     }
   }
