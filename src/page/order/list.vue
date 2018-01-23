@@ -313,7 +313,7 @@
 
                     let config = utils.getConfig();
                     if(config){
-                      window.location.href = config.baseURL + 'weixin/payment/view.html?psn=' + data.data.sn + '&amount=' + _this.finallPrice  + '&type=weixin';
+                      window.location.href = config.baseURL + 'weixin/payment/view.html?psn=' + data.data.sn + '&amount=' + item.amount  + '&type=weixin';
                     }
 
 //                    location.href = 'http://dev.rzico.com/weixin/payment/view.html?psn=' + data.data.sn + '&amount=' + item.amount  + '&name=' +  item.orderItems[0].name + '&type=weixin';
@@ -328,7 +328,7 @@
 //                    location.href = 'http://dev.rzico.com/weixin/payment/view.html?psn=' + data.data.sn + '&amount=' + item.amount   + '&type=alipay';
                     let config = utils.getConfig();
                     if(config){
-                      window.location.href = config.baseURL + 'weixin/payment/view.html?psn=' + data.data.sn + '&amount=' + _this.finallPrice  + '&type=alipay';
+                      window.location.href = config.baseURL + 'weixin/payment/view.html?psn=' + data.data.sn + '&amount=' + item.amount  + '&type=alipay';
                     }
 
                   }else {
