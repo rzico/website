@@ -11,25 +11,19 @@
           <span class="f14 martop30">{{card.name}}</span>
           <span class="f18 martop15">NO.{{card.code | codefmt}}</span>
           <span class="martop10 f30" style="color: #EB4E40">{{card.balance}}</span>
-          <div class="martop10">
-            <span class=" f14 fontColor888" @click="jumpdeposit(card.id)">我的账单 | </span><span class=" f14 fontColor888" @click="jumpreward()">我的奖金</span>
-          </div>
         </div>
         <div class="insthree">
           <div class="codeDiv" ></div>
-          <div class="zezhu">
-            <i class="iconfont icon-erweima" style="font-size: 30px;position: absolute;top: -10px;" @click="iscontrol()" v-show="!isPopup"></i>
-            <i class="iconfont icon-youhuiquan-copy" style="font-size: 30px;position: absolute;top: -10px;" @click="iscontrol()" v-show="isPopup"></i>
+          <div class="zezhu" @click="goC1001()">
+            <i class="iconfont icon-dianpu" style="font-size: 30px;position: absolute;top: -15px;color: white" ></i>
+            <span class=" f14" style="color: white;position: absolute;bottom: 0">我的专栏</span>
           </div>
           <div class="couponDiv">
-            <div class="instwo" v-if="isPopup">
+            <div class="instwo">
               <div class="qrcode" :style="'background-image: url(http://pan.baidu.com/share/qrcode?w=200&h=200&url='+payCode+')'"></div>
               <span class="marbot15 f14">使用时，出示此码</span>
             </div>
           </div>
-        </div>
-        <div class="insfour" v-show="!isPopup">
-          <couponList></couponList>
         </div>
       </v-loadmore>
     </div>
@@ -67,7 +61,7 @@
     margin-right: 30px;
     margin-left: 30px;
     margin-top: 40px;
-    height: 210px;
+    height: 200px;
     align-items: center;
     border-radius: 5px;
     display: flex;
@@ -180,19 +174,17 @@
   import { POST, GET, AUTH} from '../assets/fetch.js';
   import utils from '../assets/utils.js';
   import Toast from '../widget/toast.vue';
-  import couponList from './coupon/couponList.vue';
   export default {
     data () {
       return {
         card:{id:0,status:'none',name:"样例",logo:"./static/logo.png",background:"./static/card.png",color:"c8",balance:0,code:"8800000000000000"},
         cardId:'',
-        isPopup:true,
-        payCode:''
+        payCode:'',
+        topicId:''
       }
     },
     components: {
       Toast,
-      couponList,
       'v-loadmore':Loadmore, // 为组件起别名，vue转换template标签时不会区分大小写，例如：loadMore这种标签转换完就会变成loadmore，容易出现一些匹配问题
     },
     filters: {
@@ -234,12 +226,9 @@
         }
       },
 
-//      控制二维码是否渲染
-
-      iscontrol:function () {
-        this.isPopup = !this.isPopup;
+      goC1001:function () {
+        this.$router.push({name:"c1001",query:{id:this.topicId}});
       },
-
       load:function () {
         var _this = this;
         GET("website/member/card/bkg.jhtml?cardId="+_this.cardId).then(
@@ -247,20 +236,12 @@
             if (res.type=='success') {
               _this.card = res.data.card;
               _this.payCode = res.data.payCode;
-              _this.isPopup = true;
+              _this.topicId = res.data.topicId
             }
           },function (err) {
 
           }
         )
-      },
-
-      jumpreward:function() {
-      this.$router.push({name:"rebate",query:{}});
-      },
-
-      jumpdeposit:function(id) {
-      this.$router.push({name:"bill",query:{"id":id}});
       },
     }
   }
