@@ -40,6 +40,24 @@ let utilsFunc = {
             } catch (_e) {
                 return "";
             }
+        }else{
+          //当url里有2个 ？时的参数获取
+          if(this.isNull(url.split('?')[2])){
+            return ""
+          }
+          let r2 = url.split('?')[2].match(reg);
+          if (r2 != null) {
+            try {
+              if (name=='xuid') {
+                alert(decodeURIComponent(r2[2]));
+              }
+              //这边会返回r2[2]的原因是因为 会match出一个数组，数组里第3个为我们需要的参数值;
+              return decodeURIComponent(r2[2]);
+            } catch (_e) {
+              return "";
+            }
+          }
+          return "";
         }
         return "";
     },
