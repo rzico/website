@@ -295,8 +295,6 @@
                     _this.query()
                   },2000)
                 } else {
-                  let a = JSON.stringify(result);
-                  alert(a);
                   _this.$refs.toast.show("支付取消");
 //                  _this.$refs.toast.show(result.memo);
                   _this.title = '支付取消';
@@ -307,8 +305,6 @@
               });
             }
             else {
-              let a = JSON.stringify(res);
-              alert(a);
               _this.title = '支付失败';
               _this.isCancel = true;
 //              _this.pageIcon = 'cancel';
@@ -316,9 +312,6 @@
             }
           },
           function (err) {
-            alert('post失败');
-            let a = JSON.stringify(err);
-            alert(a);
             _this.title = '支付失败';
 //            _this.pageIcon = 'cancel';
             _this.isCancel = true;

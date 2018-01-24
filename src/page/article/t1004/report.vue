@@ -3,31 +3,33 @@
     <div class="footer-bg">
       <footer class="footer-container" v-if="article.hasProduct" :class="[article.hasProduct ? 'goodsNewHeight':'']"><!---->
         <!--<a href="javascript:;" class="btn-comment">-->
-          <!--<i class="iconfont icon-pinglun1"></i>-->
-          <!--<span class="comment-number">1</span></a>-->
+        <!--<i class="iconfont icon-pinglun1"></i>-->
+        <!--<span class="comment-number">1</span></a>-->
         <!--<a href="#" class="btn btn-download">一键购物</a>-->
         <!--<div v-if="template.mediaType == 'product'" class="goodsLineBox" :class="[templateId == 1003 ? 't1003_content_padding_0' : '']">-->
-          <div class="goodsLineInside boderStyle"  @click="buyNow(template.id)" v-for="(template,index) in productTemplates" v-if="showProduct(template,index)">
-            <!--商品图片-->
-            <img class="goodsImg" :src="template.original | watchGoodsImg" :style="'height:' + goodsHeight + 'px;' + 'width:' + (goodsHeight -10)+ 'px'"/>
-            <!--商品描述内容-->
-            <div class="infoBox"  :style="'height:' + goodsHeight + 'px'">
-              <p class="linesCtrl"  style="-webkit-box-orient: vertical;overflow: hidden;-webkit-line-clamp: 2;line-height: 23px;display: -webkit-box;text-overflow: ellipsis;height: 66%;font-size: 16px;color: #fff">{{template.name}}</p>
-              <div class="goodsPrice"  style="height: 34%">
-                <div>
+        <div class="goodsLineInside boderStyle"  @click="buyNow(template.id)" v-for="(template,index) in productTemplates" v-if="showProduct(template,index)">
+          <!--商品图片-->
+          <img class="goodsImg" :src="template.original | watchGoodsImg" :style="'height:' + goodsHeight + 'px;' + 'width:' + (goodsHeight -10)+ 'px'"/>
+          <!--商品描述内容-->
+          <div class="infoBox"  :style="'height:' + goodsHeight + 'px'">
+            <p class="linesCtrl"  style="-webkit-box-orient: vertical;overflow: hidden;-webkit-line-clamp: 2;line-height: 23px;display: -webkit-box;text-overflow: ellipsis;height: 66%;font-size: 16px;color: #fff">{{template.name}}</p>
+            <div class="goodsPrice"  style="height: 34%">
+              <div>
+                <!--商品价格-->
                 <span >
                 ¥ {{template.price | watchPrice}}
                 </span>
-                  <!--<span class=" sub_title" style="font-size: 14px;text-decoration:line-through;">-->
-                  <!--¥ 160.00-->
-                  <!--</span>-->
-                </div>
-                <span class="doBuy" >立即购买</span>
+                <!--<span class=" sub_title" style="font-size: 14px;text-decoration:line-through;">-->
+                <!--¥ 160.00-->
+                <!--</span>-->
               </div>
+              <span class="doBuy" >立即购买</span>
             </div>
           </div>
+        </div>
         <!--</div>-->
       </footer>
+      <!--阅读数与时间-->
       <div class="time-read" :class="[article.hasProduct && this.nowIndex != 0 && this.nowIndex <= this.productTemplates[this.productTemplates.length - 1].index + 1 ? 'bottomDistance' : '']">
         <span class="time">{{article.createDate | datetimefmt}}</span>阅读
         <span class="read">{{article.hits}}</span>
@@ -46,10 +48,10 @@
     <!--<h3 class="title">热门评论<span>(1)</span></h3>-->
     <!--<div><div><div class="comment-item" indec="0">&lt;!&ndash;&ndash;&gt;-->
     <!--<div class="comment-box"><div class="avatar-box">-->
-    <!--<img src="http://static2.ivwen.com/users/12119279/17fed1c168af4363ab485aef9b5c74b8.jpg" alt="" class="avatar"> &lt;!&ndash;&ndash;&gt;-->
+    <!--<img src="" alt="" class="avatar"> &lt;!&ndash;&ndash;&gt;-->
     <!--</div> <a class="btn-admire"><i class="iconfont icon-zan"></i> <span class="admire-count">0</span></a>-->
     <!--<h4 class="nickname line-clamp-1"><span>柯志杰了他他</span></h4> <p class="comment-detail line-clamp-3">好的</p>-->
-    <!--&lt;!&ndash;&ndash;&gt; <span class="comment-time">18分钟前</span></div> <div class="more"><div>&lt;!&ndash;&ndash;&gt; <a class="btn btn-block btn-comment">打开美篇查看全部评论</a>-->
+    <!--&lt;!&ndash;&ndash;&gt; <span class="comment-time">18分钟前</span></div> <div class="more"><div>&lt;!&ndash;&ndash;&gt; <a class="btn btn-block btn-comment">打开app查看全部评论</a>-->
     <!--</div>-->
     <!--</div>-->
     <!--</div>-->
@@ -85,11 +87,11 @@
       }
     },
     props: {
-        article: { default:function () {
-          return '';
-          }
-        },
-        animationIndex:{default: 0 }
+      article: { default:function () {
+        return '';
+      }
+      },
+      animationIndex:{default: 0 }
     },
     filters: {
       datetimefmt(val) {
@@ -121,8 +123,8 @@
         console.log(_this.article);
         _this.article.templates.forEach(function (item,index) {
           if(item.mediaType == 'product'){
-              item.index = index;
-              _this.productTemplates.push(item);
+            item.index = index;
+            _this.productTemplates.push(item);
           }
         })
 
@@ -139,16 +141,16 @@
         this.$emit('buyNow',id);
       },
       showProduct(template,index){
-        if(this.productTemplates.length == 1){
+//        if(this.productTemplates.length == 1 && this.nowIndex != 0 && template.index >= this.nowIndex - 1){
+//          return true;
+//        }else{
+        if(this.nowIndex != 0 && template.index >= this.nowIndex - 1){
           return true;
         }else{
-          if(this.nowIndex != 0 && template.index >= this.nowIndex - 1){
-            return true;
-          }else{
-            return false;
-          }
+          return false;
         }
       }
+//      }
     }
   }
 </script>
