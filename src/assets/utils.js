@@ -317,10 +317,11 @@ let utilsFunc = {
     if (len<0) {
         len = surl.length;
     }
-    let m = surl.slice(surl.indexOf('/')+1,len);
+    let m = surl.slice(surl.indexOf('#')+2,len);
     if (m.indexOf('/')>0) {
       m = m.slice(1,m.indexOf('/'))
     }
+    alert(m);
     return {name:m,query:vars};
   },
   screenWidth() {
