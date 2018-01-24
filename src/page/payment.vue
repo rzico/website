@@ -275,7 +275,7 @@
       },
       weixin:function(sn) {
         var _this = this;
-        POST("payment/submit.jhtml?sn="+sn+"&paymentPluginId=weixinPayPlugin").then(
+        POST("payment/submit.jhtml?sn="+sn+"&paymentPluginId=weixinOcPayPlugin").then(
           function (res) {
             if (res.type=="success") {
               WeixinJSBridge.invoke('getBrandWCPayRequest',{
@@ -295,8 +295,6 @@
                     _this.query()
                   },2000)
                 } else {
-                  let a = JSON.stringify(result);
-                  alert(a);
                   _this.$refs.toast.show("支付取消");
 //                  _this.$refs.toast.show(result.memo);
                   _this.title = '支付取消';
@@ -306,9 +304,6 @@
               });
             }
             else {
-              alert('post type不为success:');
-              let a = JSON.stringify(res);
-              alert(a);
               _this.title = '支付失败';
               _this.isCancel = true;
 //              _this.pageIcon = 'cancel';
@@ -316,9 +311,6 @@
             }
           },
           function (err) {
-            alert('post失败:');
-            let a = JSON.stringify(err);
-            alert(a);
             _this.title = '支付失败';
 //            _this.pageIcon = 'cancel';
             _this.isCancel = true;
