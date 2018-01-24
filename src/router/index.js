@@ -22,7 +22,6 @@
 // import T1003 from '../page/t1003'
 // import T1004 from '../page/t1004'
 
-
 import Vue from 'vue'
 import VueResource from 'vue-resource'
 import Router from 'vue-router'
@@ -64,7 +63,6 @@ Vue.use(VueResource);
 
 var router = new Router({
   // mode: 'history',
-  // base: "/",
   routes: [
     {
       path: '/',
