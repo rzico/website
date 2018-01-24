@@ -6,7 +6,7 @@ const config = {
   link:"http://weixin.rzico.com",
   thumbnail:'./static/logo.png',
   desc:'超强图文小视频分享社区,中国版Facebook.',
-  baseURL:"http://dev.rzico.com/",
+  baseURL:"http://weixin.rzico.com/",
   wxAppid:"wx88a1ec3b5c3bc9c3"
 }
 //伪链接主体。  mopian  或 yundian
@@ -317,7 +317,7 @@ let utilsFunc = {
     if (len<0) {
         len = surl.length;
     }
-    let m = surl.slice(surl.indexOf('/')+1,len);
+    let m = surl.slice(surl.indexOf('#')+2,len);
     if (m.indexOf('/')>0) {
       m = m.slice(1,m.indexOf('/'))
     }

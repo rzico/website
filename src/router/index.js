@@ -4,7 +4,7 @@
 // import Login from '../page/login'
 // import Index from '../page/index'
 // import Member from '../page/member'
-// // import T1001 from '../page/t1001'
+// import T1001 from '../page/t1001'
 // import C1001 from '../page/c1001'
 // import Card from '../page/card'
 // import Payment from '../page/payment'
@@ -22,10 +22,10 @@
 // import T1003 from '../page/t1003'
 // import T1004 from '../page/t1004'
 
-
 import Vue from 'vue'
 import VueResource from 'vue-resource'
 import Router from 'vue-router'
+
 const Login = resolve => require(['../page/login'], resolve)
 const Index = resolve => require(['../page/index'], resolve)
 const Member = resolve => require(['../page/member'], resolve)
@@ -48,6 +48,7 @@ const cardPackage = resolve => require(['../page/member/cardPackage'], resolve)
 const T1003 = resolve => require(['../page/t1003'], resolve)
 const T1004 = resolve => require(['../page/t1004'], resolve)
 const goodsList = resolve => require(['../page/goods/list'], resolve)
+
 // import T1003 from '../page/t1003'
 // import T1004 from '../page/t1004'
 // const Home = resolve => require(['./components/Home.vue'], resolve)
@@ -64,7 +65,6 @@ Vue.use(VueResource);
 
 var router = new Router({
   // mode: 'history',
-  // base: "/",
   routes: [
     {
       path: '/',
@@ -121,19 +121,19 @@ var router = new Router({
       component: Payment
     },
     {
-      path: '/order/list',
+      path: '/orderList',
       name: 'orderList',
       meta: {requireAuth:true},
       component: OrderList
     },
     {
-      path: '/order/details',
+      path: '/orderDetails',
       name: 'orderDetails',
       meta: {requireAuth:true},
       component: OrderDetails
     },
     {
-      path: '/order/logistics',
+      path: '/orderLogistics',
       name: 'orderLogistics',
       meta: {requireAuth:true},
       component: OrderLogistics
@@ -157,31 +157,31 @@ var router = new Router({
       component: rebate
     },
     {
-      path: '/address/add',
+      path: '/addressAdd',
       name: 'addressAdd',
       meta: {requireAuth:true},
       component: addAddress
     },
     {
-      path: '/address/list',
+      path: '/addressList',
       name: 'addressList',
       meta: {requireAuth:true},
       component: addressList
     },
     {
-      path: '/coupon/list',
+      path: '/couponList',
       name: 'couponList',
       meta: {requireAuth:true},
       component: couponList
     },
     {
-      path: '/member/index',
+      path: '/memberIndex',
       name: 'memberIndex',
       meta: {requireAuth:true},
       component: memberIndex
     },
     {
-      path: '/member/coupon',
+      path: '/memberCoupon',
       name: 'memberCoupon',
       meta: {requireAuth:true},
       component: memberCoupon
@@ -193,7 +193,7 @@ var router = new Router({
       component: cardPackage
     },
     {
-      path: '/goods/list',
+      path: '/goodsList',
       name: 'goodsList',
       meta: {requireAuth:true},
       component: goodsList

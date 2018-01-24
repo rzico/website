@@ -375,17 +375,17 @@
             if (data.type=="success") {
 //              判断支付方式,为null值时就是微信支付或者支付宝支付
               if(utils.isNull(data.data.paymentPluginId)){
-//                    let config = utils.getConfig();
-//                    if(config){
-////                      window.location.href = config.baseURL + 'payment/index.jhtml?sn=' + data.data.sn;
-//                      window.location.href = config.baseURL + 'weixin/payment/view.html?psn=' + data.data.sn + '&amount=' + _this.finallPrice  + '&type=weixin';
-//                    }
-                _this.$router.push({
-                  name: "payment",
-                  query: {psn: data.data.sn, amount: _this.finallPrice, type: 'weixin'}
-                });
-
-
+                if(utils.isweixin()){
+                  _this.$router.push({
+                    name: "payment",
+                    query: {psn: data.data.sn, amount:  _this.finallPrice,type:'weixin'}
+                  });
+                }else if(utils.isalipay()){
+                  _this.$router.push({
+                    name: "payment",
+                    query: {psn: data.data.sn, amount:  _this.finallPrice,type:'alipay'}
+                  });
+                }
               }else if(data.data.paymentPluginId == 'cardPayPlugin'){//会员卡支付
 //                var payInfo = {
 //                  way:'会员卡支付',

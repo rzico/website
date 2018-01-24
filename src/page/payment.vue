@@ -7,14 +7,14 @@
             <span>订单付款</span>
           </div>
           <div>
-          <span class="moneyIcon">¥ </span>
-          <span>
+            <span class="moneyIcon">¥ </span>
+            <span>
           {{amount | watchAmount}}</span>
           </div>
         </div>
         <!--<button-area slot="operation">-->
-          <!--<weui-button type="primary" @onclick="close()">确定</weui-button>-->
-          <!--&lt;!&ndash;<weui-button type="default">取消</weui-button>&ndash;&gt;-->
+        <!--<weui-button type="primary" @onclick="close()">确定</weui-button>-->
+        <!--&lt;!&ndash;<weui-button type="default">取消</weui-button>&ndash;&gt;-->
         <!--</button-area>-->
       </Message>
       <div class="footer">
@@ -137,19 +137,28 @@
     },
     filters:{
       watchPayWay:function (value) {
-          if(value == 'weixin'){
-            return '微信支付';
-          }else if(value == 'alipay'){
-            return '支付宝付款';
-          }else{
-            return value;
-          }
+        if(value == 'weixin'){
+          return '微信支付';
+        }else if(value == 'alipay'){
+          return '支付宝付款';
+        }else{
+          return value;
+        }
       },
       watchAmount:function (value) {
         return utils.currencyfmt(value);
       }
     },
     created() {
+//      将数据存到 session中，不管前进后退还是刷新，数据依然还在，关闭窗口后再进页面才会清空session数据，可以控制页面只刷新一次
+//      if (sessionStorage.getItem('flag')) {
+//        sessionStorage.removeItem('flag')
+//      } else {
+//        sessionStorage.setItem('flag','close');
+////        页面刷新
+//        location.reload()
+//        return;
+//      }
 //      this.setCurrentPage(location.href)
       var _this = this;
       this.sn = utils.getUrlParameter("psn");
@@ -179,28 +188,28 @@
     mounted() {
       var _this = this;
 //      setTimeout(function (){
-          _this.doPay();
+      _this.doPay();
 //      }
 //      ,100);
     },
     methods:{
-        doPay:function () {
-          var _this = this;
-          let payType = this.payType;
-          if(payType == 'weixin'){
-            _this.payWay = payType;
-            _this.weixin(this.sn);
-          }else if(payType == 'alipay'){
-            _this.payWay = payType;
-            _this.alipay(this.sn);
+      doPay:function () {
+        var _this = this;
+        let payType = this.payType;
+        if(payType == 'weixin'){
+          _this.payWay = payType;
+          _this.weixin(this.sn);
+        }else if(payType == 'alipay'){
+          _this.payWay = payType;
+          _this.alipay(this.sn);
+        }else{
+          _this.payWay = decodeURI(payType);
+          if(_this.payWay == '余额支付'){
+            _this.paymentId = 'balancePayPlugin'
           }else{
-            _this.payWay = decodeURI(payType);
-            if(_this.payWay == '余额支付'){
-              _this.paymentId = 'balancePayPlugin'
-            }else{
-              _this.paymentId = 'cardPayPlugin'
-            }
+            _this.paymentId = 'cardPayPlugin'
           }
+        }
       },
       close:function() {
         if (utils.isweixin()) {
@@ -239,7 +248,7 @@
                   _this.isSuccess = true;
 //                  _this.$router.push({name:"message",query:{psn:sn,amount:_this.finallPrice}})
                   setTimeout(function () {
-                   _this.query()
+                    _this.query()
                   },2000)
                 } else {
                   _this.$refs.toast.show('支付取消');
@@ -283,7 +292,7 @@
                   _this.isSuccess = true;
                   _this.isCancel = false;
                   setTimeout(function () {
-                     _this.query()
+                    _this.query()
                   },2000)
                 } else {
                   let a = JSON.stringify(result);
@@ -294,10 +303,12 @@
 //                  _this.pageIcon = 'cancel';
                   _this.isCancel = true;
                 }
-
               });
             }
             else {
+              alert('post type不为success:');
+              let a = JSON.stringify(res);
+              alert(a);
               _this.title = '支付失败';
               _this.isCancel = true;
 //              _this.pageIcon = 'cancel';
@@ -305,6 +316,9 @@
             }
           },
           function (err) {
+            alert('post失败:');
+            let a = JSON.stringify(err);
+            alert(a);
             _this.title = '支付失败';
 //            _this.pageIcon = 'cancel';
             _this.isCancel = true;
@@ -315,7 +329,7 @@
       goComplete(){
         let _this = this;
 //        if(utils.isNull(this.articleId)){
-          _this.$router.go(-1);
+        _this.$router.go(-1);
 //        }else{
 //          _this.$router.push({
 //            name: "t1001",
