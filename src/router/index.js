@@ -62,8 +62,8 @@ Vue.use(VueResource);
 
 
 var router = new Router({
-  mode: 'history',
-  base: "/",
+  // mode: 'history',
+  // base: "/",
   routes: [
     {
       path: '/',

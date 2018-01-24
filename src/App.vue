@@ -26,9 +26,9 @@ export default {
       link:utils.getConfig().baseURL,
       thumbnail:utils.getConfig().logo
     });
+    SHARE(location.href);
   },
   mounted() {
-     SHARE(location.href);
   }
 }
 </script>
