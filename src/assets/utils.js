@@ -6,11 +6,17 @@ const config = {
   link:"http://weixin.rzico.com",
   thumbnail:'./static/logo.png',
   desc:'超强图文小视频分享社区,中国版Facebook.',
-  baseURL:"http://weixin.rzico.com/",
+  baseURL:"http://dev.rzico.com/",
   wxAppid:"wx88a1ec3b5c3bc9c3"
 }
+//伪链接主体。  mopian  或 yundian
+const dummyHost = 'yundian';
 
 let utilsFunc = {
+    //跳转的伪链接路径
+    setDummyUrl(page,id){
+      return dummyHost + '://'+ page +'?id=' + id;
+    },
     getConfig () {
       return config
     },
@@ -204,6 +210,15 @@ let utilsFunc = {
       }
       let timeObj = this.resolvetimefmt(value);
       return timeObj.y +'-'+ timeObj.m + '-' + timeObj.d + '  ' + timeObj.h + ':' + timeObj.i + ':' + timeObj.s ;
+  },
+  // /*
+  // 返回处理后的值 2017/01/01
+  datetimeslash(value) {
+    if(value == '' || value == null || value == undefined){
+      return value;
+    }
+    let timeObj = this.resolvetimefmt(value);
+    return timeObj.y +'/'+ timeObj.m + '/' + timeObj.d;
   },
   // 返回处理后的值 2017年01月01日 00:00
   datedayhms(value) {

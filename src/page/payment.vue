@@ -286,6 +286,8 @@
                      _this.query()
                   },2000)
                 } else {
+                  let a = JSON.stringify(result);
+                  alert(a);
                   _this.$refs.toast.show("支付取消");
 //                  _this.$refs.toast.show(result.memo);
                   _this.title = '支付取消';

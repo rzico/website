@@ -22,12 +22,16 @@
             <img :src="goods.thumbnail" :style="'height:' + goodsHeight + 'px;' + 'width:' + (goodsHeight )+ 'px'"></img>
             <div class="goodsInfo" :style="'height:' + goodsHeight + 'px;'">
               <p class="goodsName">{{goods.name}}</p>
-              <p class="subTitle marginTop5">规格:{{goods.spec | watchSpec}}</p>
+              <p class="subTitle ">规格:{{goods.spec | watchSpec}}</p>
+              <p class="goodsPrice ">
+                <span>¥ {{goods.price | watchPrice}}</span>
+                <span class="subTitle">x{{goods.quantity}}</span>
+              </p>
             </div>
-            <div class="goodsPriceNum" :style="'height:' + goodsHeight + 'px;' + 'width:' + (goods20Width)+ 'px'">
-              <p class="goodsPrice ">¥ {{goods.price | watchPrice}}</p>
-              <p class="subTitle">x{{goods.quantity}}</p>
-            </div>
+            <!--<div class="goodsPriceNum" :style="'height:' + goodsHeight + 'px;' + 'width:' + (goods20Width)+ 'px'">-->
+              <!--<p class="goodsPrice ">¥ {{goods.price | watchPrice}}</p>-->
+              <!--<p class="subTitle">x{{goods.quantity}}</p>-->
+            <!--</div>-->
           </div>
           <div class="flexRow goodsTotalPrice ">
             <div>

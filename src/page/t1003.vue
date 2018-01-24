@@ -29,7 +29,8 @@
 </template>
 <style scoped>
   @import '../less/t1003.less';
-</style><script>
+</style>
+<script>
   import {Loadmore} from 'mint-ui';
   import { POST,GET,AUTH,SHARE} from '../assets/fetch.js';
   import utils from '../assets/utils.js';

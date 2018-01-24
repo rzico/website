@@ -1,68 +1,34 @@
 <template>
-  <div @touchmove="onscroll" offset-accuracy="0">
-    <div class="slideIn"  >
-      <download_bar :isShow="downloadShow" :authorId="watchArticle.member.id" @closeDownload="closeDownload"></download_bar>
-      <div class="article" :class="[downloadShow ? '':'noMt']">
-        <!--<div class="bg">-->
-        <!--</div>-->
-        <div class="main">
-          <article_meta :article="watchArticle"></article_meta>
-          <music :musicData="watchMusicData" @judgeMusic="judgeMusic" ref="musicTemplete" :downloadShow="downloadShow"></music>
-          <article_content @buyNow="buyNow"  :templates="watchTemplates" :htmlStr="htmlStr"></article_content>
-          <!--<vote  :article="watchArticle"></vote>-->
-          <!--<reward  :article="watchArticle" @showDialog="showRewardDialog"></reward>-->
-          <report  :article="watchArticle.hits"></report>
-          <coupon ref="coupon"></coupon>
-          <auther ref="auther" :article="watchArticle"></auther>
-          <review ref="review" :article="watchArticle"></review>
-          <recommend ref="recommend" v-if="isPublish" :article="watchArticle" @go="fetchData"></recommend>
-          <ad v-if="noWeex" :article="watchArticle"></ad>
-          <rewardDialog  ref="rwd"  @rewardNumber="rewardNumber"></rewardDialog>
-          <payment  ref="pay" @notify="onPayNotify"></payment>
-          <buyGoods  ref="buy" @notify="onPayNotify"></buyGoods>
-        </div>
+  <div class="main-box">
+    <div class="main-box">
+      <div class="root meipian">
+        <!--顶部下载栏-->
+        <download_bar :isShow="downloadShow" :authorId="watchArticle.member.id" @closeDownload="closeDownload"></download_bar>
+        <article_meta :article="watchArticle" :musicData="watchMusicData" @judgeMusic="judgeMusic" ref="musicTemplete" :downloadShow="downloadShow"></article_meta>
+        <report  :article="watchArticle"  @buyNow="buyNow" :animationIndex="animationIndex"></report>
+        <article_content  :article="watchArticle" @sendAnimationIndex="sendAnimationIndex"  :htmlStr="htmlStr"></article_content>
+        <buyGoods  ref="buy" @notify="onPayNotify"></buyGoods>
       </div>
     </div>
-    <!--<weui-dialog ref="dialog" type="confirm" title="免密支付" confirmButton="确认支付" cancelButton="取消"-->
-    <!--@weui-dialog-confirm="activate()"-->
-    <!--@weui-dialog-cancel="closeConfirm()" style="z-index: 300000000111">-->
-    <!--<div >-->
-    <!--<p style="text-align: center;width: 100%;font-size: 13px;color: #444">{{payWay}}</p>-->
-    <!--</div>-->
-    <!--<div >-->
-    <!--<p style="text-align: center;width: 100%;font-size: 25px;color: #000">¥{{payPrice}}</p>-->
-    <!--</div>-->
-    <!--</weui-dialog>-->
     <Toast ref="toast"></Toast>
   </div>
 </template>
 <style scoped>
-  @import '../less/t1001.less';
+  @import '../less/t1004.less';
 </style>
 <script>
   import {Loadmore} from 'mint-ui';
   import { POST,GET,AUTH,SHARE} from '../assets/fetch.js';
   import utils from '../assets/utils.js';
   import download_bar from './article/download_bar.vue';
-  import article_meta from './article/meta.vue';
+  import article_meta from './article/t1004/meta.vue';
   import music from './article/music.vue';
-  import article_content from './article/content.vue';
-  import vote from './article/vote.vue';
-  import reward from './article/reward.vue';
-  import report from './article/report.vue';
-  import coupon from './article/coupon.vue';
+  import article_content from './article/t1004/content.vue';
+  import report from './article/t1004/report.vue';
   import auther from './article/auther.vue';
-  import recommend from './article/recommend.vue';
-  import review from './article/review.vue';
-  import ad from './article/ad.vue';
-  import rewardDialog from './article/rewardDialog.vue';
   import Toast from '../widget/toast.vue';
   import payment from '../widget/payment.vue';
   import buyGoods from '../widget/buyGoods.vue';
-  import card from './member/card.vue';
-  import getCoupon from './coupon/activate.vue';
-  import Dialog from '../widget/dialog.vue';
-  //  import Dialog from '../widget/dialog.vue';
   export default {
     data () { return {
       logined:false,
@@ -77,6 +43,7 @@
 //      payWay:'账户余额',
 //      payPrice:'299',
       sn:'',
+      animationIndex:0
     }
     },
     components: {
@@ -86,24 +53,15 @@
       article_meta,
       music,
       article_content,
-      reward,
       report,
-      coupon,
       auther,
-      recommend,
-      review,
-      ad,
-      rewardDialog,
       payment,
-      vote,
-      card,
       buyGoods,
-//      'weui-dialog':Dialog,
     },
     props: {
       article: { default: function () {
         return {hits:0,title:"样例",nickName:"author",createDate:null,member:{}}
-      }
+        }
       },
       musicData: { default: function () {
         return {id: ""}
@@ -128,6 +86,7 @@
       this.go(id);
     },
     methods: {
+
       loadTop:function() { //组件提供的下拉触发方法
         this.$refs.loadmore.onTopLoaded();// 固定方法，查询完要调用一次，用于重新定位
       },
@@ -141,21 +100,22 @@
           this.$refs.toast.show(data.content);
         }
       },
-      fetchData:function (id) {
-        this.go(id);
-        this.$refs.review.open(id);
-        this.$refs.cardImg.open(id);
-        document.documentElement.scrollTop = 0;
-        document.body.scrollTop = 0;
-      },
+//      fetchData:function (id) {
+//        this.go(id);
+//        this.$refs.review.open(id);
+//        this.$refs.cardImg.open(id);
+//        document.documentElement.scrollTop = 0;
+//        document.body.scrollTop = 0;
+//      },
       go:function (id) {
         var _this = this;
         GET('website/article/view.jhtml?id='+id).then(
           function (response) {
+            console.log(response);
             if (response.type=="success") {
               _this.watchArticle = response.data;
               _this.isPublish = response.data.isPublish;
-              _this.$refs.coupon.open(response.data.member.id);
+//              _this.$refs.coupon.open(response.data.member.id);
               console.log('watchArticle');
               console.log(response.data);
               //设置分享标题
@@ -175,8 +135,11 @@
                 if (response.data.mediaType==0) {
                   _this.htmlStr = response.data.templates;
                 } else {
+                  var productNum = 0;
                   response.data.templates.forEach(function (item) {
                     if(item.mediaType == 'product'){
+                      productNum ++;
+                      _this.$set(response.data, 'hasProduct', true);
                       GET('website/article/goods.jhtml?id=' + item.id).then(
                         function (data) {
                           if(data.type == 'success'){
@@ -190,6 +153,11 @@
                           _this.$refs.toast.show("网络不稳定");
                         }
                       )
+                    }
+                    if(productNum = 1){
+                      _this.$set(response.data, 'oneProduct', true);
+                    }else{
+
                     }
                   })
                   _this.watchTemplates = response.data.templates;
@@ -207,30 +175,30 @@
 
           });
       },
-      showRewardDialog:function () {
-        this.$refs.rwd.show();
-      },
-      rewardNumber:function (m) {
-        var _this = this;
-        _this.$refs.toast.loading();
-        POST("website/member/reward/submit.jhtml?amount="+m+"&articleId="+this.watchArticle.id).then(
-          function (data) {
-            if (data.type=="success") {
-              _this.$refs.toast.hide();
-              _this.$refs.toast.show(data);
-              _this.$refs.pay.show(data.data);
-            } else {
-              alert(data.content);
-              _this.$refs.toast.hide();
-              _this.$refs.toast.show(data.content);
-            }
-          },
-          function (err) {
-            _this.$refs.toast.hide();
-            _this.$refs.toast.show("网络不稳定");
-          }
-        )
-      },
+//      showRewardDialog:function () {
+//        this.$refs.rwd.show();
+//      },
+//      rewardNumber:function (m) {
+//        var _this = this;
+//        _this.$refs.toast.loading();
+//        POST("website/member/reward/submit.jhtml?amount="+m+"&articleId="+this.watchArticle.id).then(
+//          function (data) {
+//            if (data.type=="success") {
+//              _this.$refs.toast.hide();
+//              _this.$refs.toast.show(data);
+//              _this.$refs.pay.show(data.data);
+//            } else {
+//              alert(data.content);
+//              _this.$refs.toast.hide();
+//              _this.$refs.toast.show(data.content);
+//            }
+//          },
+//          function (err) {
+//            _this.$refs.toast.hide();
+//            _this.$refs.toast.show("网络不稳定");
+//          }
+//        )
+//      },
       closeDownload:function () {//关闭顶部下载组件。并控制页面上移
         this.downloadShow = false;
       },
@@ -247,6 +215,9 @@
         let _this = this;
         _this.$refs.buy.show(id,this.watchArticle.id);
       },
+      sendAnimationIndex:function (animationIndex) {
+        this.animationIndex = animationIndex;
+      }
 //      payConfirm:function (payInfo) {
 //        alert(payInfo);
 //        payInfo = JSON.parse(payInfo);
@@ -259,4 +230,5 @@
   }
 
 </script>
+
 

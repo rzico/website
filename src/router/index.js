@@ -46,6 +46,7 @@ const memberIndex = resolve => require(['../page/member/index'], resolve)
 const memberCoupon = resolve => require(['../page/member/coupon'], resolve)
 const cardPackage = resolve => require(['../page/member/cardPackage'], resolve)
 const T1003 = resolve => require(['../page/t1003'], resolve)
+const T1004 = resolve => require(['../page/t1004'], resolve)
 const goodsList = resolve => require(['../page/goods/list'], resolve)
 // import T1003 from '../page/t1003'
 // import T1004 from '../page/t1004'
@@ -101,12 +102,12 @@ var router = new Router({
       meta: {requireAuth:true},
       component: T1003
     },
-    // {
-    //   path: '/t1004',
-    //   name: 't1004',
-    //   meta: {requireAuth:true},
-    //   component: T1004
-    // },
+    {
+      path: '/t1004',
+      name: 't1004',
+      meta: {requireAuth:true},
+      component: T1004
+    },
     {
       path: '/c1001',
       name: 'c1001',
@@ -114,7 +115,7 @@ var router = new Router({
       component: C1001
     },
     {
-      path: '/weixin/payment/view.html',
+      path: '/payment',
       name: 'payment',
       meta: {requireAuth:true},
       component: Payment
