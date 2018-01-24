@@ -377,8 +377,12 @@
               if(utils.isNull(data.data.paymentPluginId)){
                     let config = utils.getConfig();
                     if(config){
-                      window.location.href = config.baseURL + 'payment/index.jhtml?sn=' + data.data.sn;
+//                      window.location.href = config.baseURL + 'payment/index.jhtml?sn=' + data.data.sn;
+                      window.location.href = config.baseURL + 'weixin/payment/view.html?psn=' + data.data.sn + '&amount=' + _this.finallPrice  + '&type=weixin';
                     }
+
+
+
               }else if(data.data.paymentPluginId == 'cardPayPlugin'){//会员卡支付
 //                var payInfo = {
 //                  way:'会员卡支付',
