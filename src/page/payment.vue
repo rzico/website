@@ -9,7 +9,7 @@
           <div>
           <span class="moneyIcon">¥ </span>
           <span>
-          {{amount}}</span>
+          {{amount | watchAmount}}</span>
           </div>
         </div>
         <!--<button-area slot="operation">-->
@@ -105,7 +105,8 @@
         isCancel:false,
         isSuccess:false,
         paymentId:'',
-        payType:""
+        payType:"",
+        payWay:'微信支付'
       }
     },
     components: {
@@ -143,9 +144,13 @@
           }else{
             return value;
           }
+      },
+      watchAmount:function (value) {
+        return utils.currencyfmt(value);
       }
     },
     created() {
+//      this.setCurrentPage(location.href)
       var _this = this;
       this.sn = utils.getUrlParameter("psn");
       if(!utils.isNull(utils.getUrlParameter("amount"))){
@@ -173,10 +178,10 @@
     },
     mounted() {
       var _this = this;
-      setTimeout(function (){
+//      setTimeout(function (){
           _this.doPay();
-      }
-      ,100);
+//      }
+//      ,100);
     },
     methods:{
         doPay:function () {

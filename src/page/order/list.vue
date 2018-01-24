@@ -308,10 +308,14 @@
             console.log(data);
             if (data.type=="success") {
               if(utils.isNull(data.data.paymentPluginId)){
-                let config = utils.getConfig();
-                if(config){
-                  window.location.href = config.baseURL + 'payment/index.jhtml?sn=' + data.data.sn;
-                }
+//                let config = utils.getConfig();
+//                if(config){
+//                  window.location.href = config.baseURL + 'payment/index.jhtml?sn=' + data.data.sn;
+//                }
+                _this.$router.push({
+                  name: "payment",
+                  query: {psn: data.data.sn, amount: item.amount,type:'weixin'}
+                });
               }else if(data.data.paymentPluginId == 'cardPayPlugin'){//会员卡支付
                 _this.sn = data.data.sn;
                 _this.payPrice = item.amount;
