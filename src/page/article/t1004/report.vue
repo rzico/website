@@ -9,7 +9,7 @@
         <!--<div v-if="template.mediaType == 'product'" class="goodsLineBox" :class="[templateId == 1003 ? 't1003_content_padding_0' : '']">-->
           <div class="goodsLineInside boderStyle"  @click="buyNow(template.id)" v-for="(template,index) in productTemplates" v-if="showProduct(template,index)">
             <!--商品图片-->
-            <img class="goodsImg" :src="template.thumbnail" :style="'height:' + goodsHeight + 'px;' + 'width:' + (goodsHeight -10)+ 'px'"/>
+            <img class="goodsImg" :src="template.original | watchGoodsImg" :style="'height:' + goodsHeight + 'px;' + 'width:' + (goodsHeight -10)+ 'px'"/>
             <!--商品描述内容-->
             <div class="infoBox"  :style="'height:' + goodsHeight + 'px'">
               <p class="linesCtrl"  style="-webkit-box-orient: vertical;overflow: hidden;-webkit-line-clamp: 2;line-height: 23px;display: -webkit-box;text-overflow: ellipsis;height: 66%;font-size: 16px;color: #fff">{{template.name}}</p>
@@ -107,7 +107,8 @@
       },
       watchPrice:function (value) {
         return utils.currencyfmt(value);
-      }
+      },
+
     },
     created() {
       this.goodsHeight = document.documentElement.clientWidth * 0.2;
