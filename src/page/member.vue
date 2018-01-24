@@ -98,15 +98,6 @@
     align-items: center;
     position: relative;
   }
-  .insfour{
-    margin-left: 30px;
-    margin-right: 30px;
-    min-height:400px;
-    background-color:#eeeeee;
-    border-top-left-radius: 3px;
-    border-top-right-radius: 3px;
-
-  }
   .codeDiv{
     height: 60px;
     width: 60px;
@@ -132,26 +123,11 @@
   .f14{
     font-size: 14px;
   }
-  .f16{
-    font-size: 16px;
-  }
   .f30{
     font-size: 30px;
   }
   .f18{
     font-size: 18px;
-  }
-  .martop40{
-    margin-top: 40px;
-  }
-  .martop50{
-    margin-top: 50px;
-  }
-  .martop25{
-    margin-top: 25px;
-  }
-  .martop20{
-    margin-top: 20px;
   }
   .martop30{
     margin-top: 30px;
@@ -164,9 +140,6 @@
   }
   .marbot15{
     margin-bottom: 15px;
-  }
-  .fontColor888{
-    color: #888;
   }
 </style>
 <script>
