@@ -321,7 +321,6 @@ let utilsFunc = {
     if (m.indexOf('/')>0) {
       m = m.slice(1,m.indexOf('/'))
     }
-    alert(m);
     return {name:m,query:vars};
   },
   screenWidth() {
