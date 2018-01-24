@@ -5,7 +5,7 @@
     </div>
     <div class="page slideIn" style="background-color: #eeeeee">
       <div style="height: 40px"></div>
-      <v-loadmore :top-method="loadTop" :bottom-method="loadBottom" :bottom-all-loaded="false" :auto-fill="false" ref="loadmore">
+      <v-loadmore :top-method="loadTop" :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" ref="loadmore">
         <div class="twoContent" v-if="hasReward()">
         <div class="content" v-for="c in lists" @click="buyNow(c.id)">
           <div class="logo">
@@ -138,6 +138,7 @@
         pageStart:0,
         pageSize:10,
         id:'',
+        allLoaded:false,
 //        库存变量
         inventoryType:'',
         availableStock:'',
@@ -209,7 +210,9 @@
 //              }else if(res.data.data.availableStock >= 5){
 //                _this.inventoryType = '有货'
 //              }
-              _this.allLoaded = res.data.data.length<_this.pageSize;
+             if(res.data.data.length<_this.pageSize){
+                _this.allLoaded = true
+             }
               _this.pageStart = res.data.start+res.data.data.length;
             }
             if (type=='loadBottom')
