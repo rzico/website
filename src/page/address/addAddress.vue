@@ -33,6 +33,7 @@
       <div style="min-height: 70%"></div>
     </div>
     <city :control="citycontrol" @name="cityname"></city>
+    <Toast ref="toast"></Toast>
   </div>
 </template>
 <style scoped>
@@ -223,19 +224,19 @@
       },
       open:function () {
         if(this.name == ''){
-          alert('请填写收货人')
+          this.$refs.toast.show("请填写收货人");
         }else if(this.number == ''){
-          alert('请填写手机号码')
+          this.$refs.toast.show("请填写手机号码");
         }else if(this.regionName == ''){
-          alert('请选择收货区域')
+          this.$refs.toast.show("请选择收货区域");
         }else if(this.address == ''){
-          alert('请填写收货地址')
+          this.$refs.toast.show("请填写收货地址");
         }else {
           var _this = this;
           POST('website/member/receiver/add.jhtml?areaId=' + this.regionId + '&address=' + encodeURI(this.address) + '&consignee=' + encodeURI(this.name) + '&phone=' + this.number + '&isDefault=' + this.isDefault).then(
             function (res) {
               if (res.type == "success") {
-                alert('添加成功')
+                _this.$refs.toast.show("添加成功");
                 _this.$router.push({name:"addressList",query:{}});
               } else {
 
@@ -247,19 +248,19 @@
       },
       change:function () {
         if(this.name == ''){
-          alert('请填写收货人')
+          this.$refs.toast.show("请填写收货人");
         }else if(this.number == ''){
-          alert('请填写手机号码')
+          this.$refs.toast.show("请填写手机号码");
         }else if(this.regionName == ''){
-          alert('请选择收货区域')
+          this.$refs.toast.show("请选择收货区域");
         }else if(this.address == ''){
-          alert('请填写收货地址')
+          this.$refs.toast.show("请填写收货地址");
         }else {
           var _this = this;
           POST('website/member/receiver/update.jhtml?id='+this.id+'&areaId=' + this.regionId + '&address=' + encodeURI(this.address) + '&consignee=' + encodeURI(this.name) + '&phone=' + this.number + '&isDefault=' + this.isDefault).then(
             function (res) {
               if (res.type == "success") {
-                alert('修改成功');
+                _this.$refs.toast.show("添加成功");
                 _this.$router.push({name:"addressList",query:{}});
               } else {
 
