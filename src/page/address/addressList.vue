@@ -27,6 +27,7 @@
     <div class="button" @click="jump()">
       <span class="span">+新建地址</span>
     </div>
+    <Toast ref="toast"></Toast>
   </div>
 </template>
 <style scoped>
@@ -157,7 +158,7 @@
         POST('website/member/receiver/delete.jhtml?id='+id).then(
           function (mes) {
             if (mes.type=="success") {
-              alert('删除成功')
+              _this.$refs.toast.show("删除成功");
               _this.open()
             } else {
 

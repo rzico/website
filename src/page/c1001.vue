@@ -11,6 +11,7 @@
       <navbar v-if="isfixed" :navs="catalogs" :isFixed = "isfixed" :idx="idx" @navChange="navChange"></navbar>
     </div>
     <Tabbar id=0 ></Tabbar>
+    <Toast ref="toast"></Toast>
   </div>
 </template>
 <style scoped>
@@ -24,6 +25,7 @@
     import navbar from './topic/nav.vue';
     import list from './topic/list.vue';
     import Tabbar from '../widget/tabbar-whole.vue';
+    import Toast from '../widget/toast.vue';
     export default {
         data() {
           return {

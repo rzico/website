@@ -2,7 +2,9 @@
   <div class="container">
     <div class="page slideIn topic" style="background-color: #eeeeee">
       <metaInfo :member="member" :isFixed = "isfixed"></metaInfo>
+      <div class="imgDiv">
           <img class="img" :src="'../../../static/download.jpg'" @click="godownload()">
+      </div>
         <div class="containsOne">
         <div class="address" @click="jumpAddress">
           <div>
@@ -40,11 +42,14 @@
   </div>
 </template>
 <style scoped>
-
+  .imgDiv{
+    height:122.59px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
   .img{
     width: 100%;
-    margin-top: 20px;
-    margin-bottom: 10px;
+    height: 100%;
   }
   .containsOne{
     padding-left: 10px;
@@ -60,13 +65,13 @@
     box-sizing: border-box;
   }
   .font-size16{
-    padding-left: 10px;
+    padding-left: 2px;
     font-size: 16px;
   }
   .containsOne .address{
     height: 45px;
     background-color: white;
-    padding-right: 10px;
+    padding-right: 3px;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -76,9 +81,9 @@
     height: 45px;
     background-color: white;
     border-width: 0 0 1px 0;
-    border-color: #cccccc;
+    border-color: #eee;
     border-style: solid;
-    padding-right: 10px;
+    padding-right: 3px;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -87,7 +92,7 @@
   .containsTwo .coupon{
     height: 45px;
     background-color: white;
-    padding-right: 10px;
+    padding-right: 3px;
     display: flex;
     flex-direction: row;
     align-items: center;

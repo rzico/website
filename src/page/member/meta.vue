@@ -11,26 +11,26 @@
         <!--需要显示文章、宝贝等 把下行代码删除,恢复上行代码-->
         <div class="num"> </div>
       </span>
-      <div class="about">
-        <span class="mark">
-          <em class="">{{member.favorite}}</em>
-          <span>收藏</span>
-        </span>
-        <span class="pink">
-          <em class="">{{member.follow}}</em>
-          <span>关注</span>
-        </span>
-        <span class="fans">
-          <em class="">{{member.fans}}</em>
-          <span>粉丝</span>
-        </span>
-      </div>
+      <!--<div class="about">-->
+        <!--<span class="mark">-->
+          <!--<em class="">{{member.favorite}}</em>-->
+          <!--<span>收藏</span>-->
+        <!--</span>-->
+        <!--<span class="pink">-->
+          <!--<em class="">{{member.follow}}</em>-->
+          <!--<span>关注</span>-->
+        <!--</span>-->
+        <!--<span class="fans">-->
+          <!--<em class="">{{member.fans}}</em>-->
+          <!--<span>粉丝</span>-->
+        <!--</span>-->
+      <!--</div>-->
     </div>
   </div>
 </template>
 <style scoped>
    .head {
-    height: 180px;
+    height: 160px;
     width: 100%;
     position: relative;
     overflow: hidden;

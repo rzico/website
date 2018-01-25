@@ -95,7 +95,6 @@
       },
       onPayNotify:function (data) {
         if ("success"==data.type) {
-          alert(data);
         } else {
           this.$refs.toast.show(data.content);
         }

@@ -48,6 +48,7 @@
   .cataText{
     /*display: flex;*/
     /*flex: 1;*/
+    font-size: 15px;
     display: inline-block;
     width:19%;
     /*justify-content: center;*/
