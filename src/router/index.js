@@ -199,6 +199,9 @@ router.beforeEach((to, from, next) => {
   if(from.query != null && from.query.xuid != null){
     to.query.xuid = from.query.xuid;
   }
+  next();
+
+
   // if(to.name == 'payment' ){
   //   alert('进来了 to。name');
   //
@@ -215,7 +218,6 @@ router.beforeEach((to, from, next) => {
   //
   //   return;
   // }
-  next();
 })
 
 
