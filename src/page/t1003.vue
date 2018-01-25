@@ -131,7 +131,6 @@
       },
       onPayNotify:function (data) {
         if ("success"==data.type) {
-          alert(data);
         } else {
           this.$refs.toast.show(data.content);
         }
@@ -215,7 +214,6 @@
               _this.$refs.toast.show(data);
               _this.$refs.pay.show(data.data);
             } else {
-              alert(data.content);
               _this.$refs.toast.hide();
               _this.$refs.toast.show(data.content);
             }
