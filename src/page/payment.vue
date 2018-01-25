@@ -197,8 +197,9 @@
     },
     mounted() {
       var _this = this;
+//      此处延迟500毫秒再执行支付函数，是因为location.href重定向页面后需要等待一下，才能正常发起支付。
       setTimeout(function (){
-      _this.doPay();
+        _this.doPay();
       }
       ,500);
     },
