@@ -16,7 +16,7 @@
           <div class="codeDiv" ></div>
           <div class="zezhu" @click="goC1001()">
             <i class="iconfont icon-dianpu" style="font-size: 30px;position: absolute;top: -15px;color: white" ></i>
-            <span class=" f14" style="color: white;position: absolute;bottom: 0">我的专栏</span>
+            <span class=" f14" style="color: white;position: absolute;bottom: 0">进入芸店</span>
           </div>
           <div class="couponDiv">
             <div class="instwo">
@@ -61,7 +61,7 @@
     margin-right: 30px;
     margin-left: 30px;
     margin-top: 40px;
-    height: 200px;
+    height: 180px;
     align-items: center;
     border-radius: 5px;
     display: flex;
