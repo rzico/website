@@ -56,13 +56,6 @@ const goodsList = resolve => require(['../page/goods/list'], resolve)
 Vue.use(Router);
 Vue.use(VueResource);
 
-// router.beforeEach((to, from, next) => {
-//     to.query.xuid = from.query.xuid;
-//     next();
-// })
-
-
-
 var router = new Router({
   // mode: 'history',
   routes: [
@@ -200,5 +193,31 @@ var router = new Router({
     },
    ]
 })
+
+
+router.beforeEach((to, from, next) => {
+  if(from.query != null && from.query.xuid != null){
+    to.query.xuid = from.query.xuid;
+  }
+  // if(to.name == 'payment' ){
+  //   alert('进来了 to。name');
+  //
+  //   if (sessionStorage.getItem('once')) {
+  //     sessionStorage.removeItem('once')
+  //     next();
+  //   } else {
+  //     sessionStorage.setItem('once','close');
+  //     next({
+  //       name: "payment",
+  //       query: to.psn
+  //     })
+  //   }
+  //
+  //   return;
+  // }
+  next();
+})
+
+
 
 export default router
