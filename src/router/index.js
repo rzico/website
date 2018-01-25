@@ -56,10 +56,11 @@ const goodsList = resolve => require(['../page/goods/list'], resolve)
 Vue.use(Router);
 Vue.use(VueResource);
 
-// router.beforeEach((to, from, next) => {
-//     to.query.xuid = from.query.xuid;
-//     next();
-// })
+ router.beforeEach((to, from, next) => {
+     if (from.query)
+     to.query.xuid = from.query.xuid;
+     next();
+ })
 
 
 

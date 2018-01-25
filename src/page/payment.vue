@@ -151,14 +151,16 @@
     },
     created() {
 //      将数据存到 session中，不管前进后退还是刷新，数据依然还在，关闭窗口后再进页面才会清空session数据，可以控制页面只刷新一次
-//      if (sessionStorage.getItem('flag')) {
-//        sessionStorage.removeItem('flag')
-//      } else {
-//        sessionStorage.setItem('flag','close');
-////        页面刷新
-//        location.reload()
-//        return;
-//      }
+      if(utils.isIos()){//判断是否是ios
+        if (sessionStorage.getItem('flag')) {
+          sessionStorage.removeItem('flag')
+        } else {
+          sessionStorage.setItem('flag','close');
+//        页面刷新
+          location.reload()
+          return;
+        }
+      }
 //      this.setCurrentPage(location.href)
       var _this = this;
       this.sn = utils.getUrlParameter("psn");

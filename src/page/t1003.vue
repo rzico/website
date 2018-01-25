@@ -131,7 +131,6 @@
       },
       onPayNotify:function (data) {
         if ("success"==data.type) {
-          alert(data);
         } else {
           this.$refs.toast.show(data.content);
         }
@@ -215,7 +214,6 @@
               _this.$refs.toast.show(data);
               _this.$refs.pay.show(data.data);
             } else {
-              alert(data.content);
               _this.$refs.toast.hide();
               _this.$refs.toast.show(data.content);
             }
@@ -239,6 +237,10 @@
         this.musicPlay = 1;
       },
       buyNow:function (id) {
+        if(utils.isweex()==true){
+          this.$refs.toast.show('请分享到微信进行购买');
+          return;
+        }
         let _this = this;
         _this.$refs.buy.show(id,this.watchArticle.id);
       },

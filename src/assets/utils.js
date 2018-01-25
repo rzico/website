@@ -33,9 +33,6 @@ let utilsFunc = {
         let r = url.slice(url.indexOf('?')+1).match(reg);
         if (r != null) {
             try {
-                if (name=='xuid') {
-                   alert(decodeURIComponent(r[2]));
-                }
                 return decodeURIComponent(r[2]);
             } catch (_e) {
                 return "";
@@ -48,9 +45,6 @@ let utilsFunc = {
           let r2 = url.split('?')[2].match(reg);
           if (r2 != null) {
             try {
-              if (name=='xuid') {
-                alert(decodeURIComponent(r2[2]));
-              }
               //这边会返回r2[2]的原因是因为 会match出一个数组，数组里第3个为我们需要的参数值;
               return decodeURIComponent(r2[2]);
             } catch (_e) {
@@ -355,9 +349,6 @@ let utilsFunc = {
     // alert('是否是Android：'+isAndroid);
     return isiOS;
   }
-
-
-
 };
 
 export default utilsFunc;
