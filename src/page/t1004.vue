@@ -1,5 +1,5 @@
 <template>
-  <div class="main-box">
+  <div class="main-box t1004">
     <div class="main-box">
       <div class="root meipian">
         <!--顶部下载栏-->
@@ -15,6 +15,7 @@
 </template>
 <style scoped>
   @import '../less/t1004.less';
+
 </style>
 <script>
   import {Loadmore} from 'mint-ui';
@@ -44,7 +45,7 @@
 //      payPrice:'299',
       sn:'',
       animationIndex:0
-    }
+     }
     },
     components: {
       'v-loadmore':Loadmore, // 为组件起别名，vue转换template标签时不会区分大小写，例如：loadMore这种标签转换完就会变成loadmore，容易出现一些匹配问题

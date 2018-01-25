@@ -1,5 +1,5 @@
 <template>
-  <div class=""  @touchmove="onscroll" offset-accuracy="0" style="background-color: #fff3d9">
+  <div class="t1003"  @touchmove="onscroll" offset-accuracy="0" style="background-color: #fff3d9">
     <div class="slideIn">
       <coverAnimation></coverAnimation>
       <download_bar :isShow="downloadShow" :authorId="watchArticle.member.id" @closeDownload="closeDownload"></download_bar>

@@ -6,138 +6,9 @@
 
 
 
-
-html[data-pc] body {
-  overflow: auto;
-}
-html[data-pc] .root.meipian {
-  position: relative;
-  width: 750px;
-  margin: 110px auto 0 120px;
-}
-html[data-pc] .avatar-stand-alone, html[data-pc] .music-icon {
-  position: absolute !important;
-}
-html[data-pc] .main-box {
-  position: relative;
-  max-width: 1230px;
-  margin: 110px auto 0;
-  position: relative;
-}
 .main-box {
   height: 100%;
 }
-html[data-pc] .main-box {
-  position: relative;
-  max-width: 1230px;
-  margin: 110px auto 0;
-  height: 100%; /* 动态模板必须这么设置，不影响普通模板 */
-}
-html[data-pc] .img-caption {
-  bottom: 128px;
-}
-
-/*        */
-
-/*! normalize.css v5.0.0 | MIT License | github.com/necolas/normalize.css */
-/**
- * 1. Change the default font family in all browsers (opinionated).
- * 2. Correct the line height in all browsers.
- * 3. Prevent adjustments of font size after orientation changes in
- *    IE on Windows Phone and in iOS.
- */
-/* Document
-   ========================================================================== */
-html {
-  font-family: sans-serif;
-  /* 1 */
-  line-height: 1.15;
-  /* 2 */
-  -ms-text-size-adjust: 100%;
-  /* 3 */
-  -webkit-text-size-adjust: 100%;
-  /* 3 */ }
-
-/* Sections
-   ========================================================================== */
-/**
- * Remove the margin in all browsers (opinionated).
- */
-body {
-  margin: 0; }
-
-
-/**
- * Correct the font size and margin on `h1` elements within `section` and
- * `article` contexts in Chrome, Firefox, and Safari.
- */
-h1 {
-  font-size: 2em;
-  margin: 0.67em 0; }
-
-/* Text-level semantics
-   ========================================================================== */
-/**
- * 1. Remove the gray background on active links in IE 10.
- * 2. Remove gaps in links underline in iOS 8+ and Safari 8+.
- */
-a {
-  background-color: transparent;
-  /* 1 */
-  -webkit-text-decoration-skip: objects;
-  /* 2 */ }
-
-/**
- * Remove the outline on focused links when they are also active or hovered
- * in all browsers (opinionated).
- */
-a:active,
-a:hover {
-  outline-width: 0; }
-
-/* Embedded content
-   ========================================================================== */
-/**
- * Add the correct display in IE 9-.
- */
-audio,
-video {
-  display: inline-block; }
-
-/**
- * Add the correct display in iOS 4-7.
- */
-audio:not([controls]) {
-  display: none;
-  height: 0; }
-
-/**
- * Remove the border on images inside links in IE 10-.
- */
-img {
-  border-style: none; }
-
-/* Scripting
-   ========================================================================== */
-/**
- * Add the correct display in IE 9-.
- */
-canvas {
-  display: inline-block; }
-
-/**
- * Add the correct display in IE.
- */
-template {
-  display: none; }
-
-/* Hidden
-   ========================================================================== */
-/**
- * Add the correct display in IE 10-.
- */
-[hidden] {
-  display: none; }
 
 * {
   margin: 0;
@@ -188,22 +59,22 @@ i,
 i * {
   font-style: italic; }
 
-.clearfix {
+.t1004 .clearfix {
   zoom: 1; }
 
-.clearfix:before {
+.t1004 .clearfix:before {
   display: table;
   content: ""; }
 
-.clearfix:after {
+.t1004 .clearfix:after {
   display: table;
   content: "";
   clear: both; }
 
-.well {
+.t1004 .well {
   padding: 0 15px; }
 
-.footer-section {
+.t1004 .footer-section {
   margin: 8px 0; }
 
 .line-clamp-1 {
@@ -239,16 +110,13 @@ i * {
 .root {
   height: 100%; }
 
-html {
-  height: 100%;
-  font-family: Helvetica Neue, Helvetica, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif;
-  -webkit-tap-highlight-color: transparent; }
-
-body {
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  height: 100%; }
+.t1004 {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left:0;
+  right:0;
+}
 
 .root.meipian {
   height: 100%;
@@ -286,17 +154,17 @@ body.in-app .footer-bg {
   height: 58px; }
 
 
-.time-read {
+.t1004 .time-read {
   position: absolute;
   bottom: 19px;
   z-index: 1;
   color: rgba(255, 255, 255, 0.6);
   font-size: 12px;
   padding: 0 19px; }
-.time-read span {
+.t1004 .time-read span {
   margin-right: 20px; }
 
-.btn-report {
+.t1004 .btn-report {
   color: rgba(255, 255, 255, 0.6); }
 
 //.popup {
@@ -538,34 +406,7 @@ body.top-banner-show .music-icon {
 //.comment-item-nolist {
 //  padding: 0px 15px; }
 
-html[data-pc] .comment .well h3.title {
-  padding-left: 50px; }
 
-html[data-pc] .comment .well .comment-item {
-  border-top: 1px solid #F5F6F9; }
-
-html[data-pc] .comment .well .compatible-left {
-  right: 50px; }
-
-html[data-pc] .comment-item {
-  position: relative;
-  padding-left: 50px; }
-html[data-pc] .comment-item .comment-box {
-  border: none;
-  padding-right: 50px; }
-html[data-pc] .comment-item .comment-box .btn-admire {
-  right: 50px; }
-html[data-pc] .comment-item .more {
-  padding: 25px 50px 25px 0px; }
-
-//.mp-dialog .inner.comment:before {
-//  position: absolute;
-//  content: "";
-//  display: block;
-//  width: 100%;
-//  height: 0;
-//  background: none;
-//  top: 0; }
 
 
 .icon-music:before { content: "\e616"; }

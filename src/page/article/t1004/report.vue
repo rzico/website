@@ -30,7 +30,7 @@
         <!--</div>-->
       </footer>
       <!--阅读数与时间-->
-      <div class="time-read" :class="[article.hasProduct && this.nowIndex != 0 && this.nowIndex <= this.productTemplates[this.productTemplates.length - 1].index + 1 ? 'bottomDistance' : '']">
+      <div class="time-read" :class="[timeReadHeight() ? 'bottomDistance' : '']">
         <span class="time">{{article.createDate | datetimefmt}}</span>阅读
         <span class="read">{{article.hits}}</span>
         <!--<a href="https://www.meipian.cn/resources/components/report.php?id=11vczzir" class="btn btn-report">举报</a>-->
@@ -63,11 +63,11 @@
     <!--</div>-->
   </div>
 </template>
-<style>
-  .bottomDistance{
+<style scoped>
+  .t1004 .bottomDistance{
     bottom: 105px;
   }
-  .goodsNewHeight{
+  .t1004 .goodsNewHeight{
     height: 97px;
     position: absolute !important;
     left: 0;
@@ -137,20 +137,29 @@
       },
     },
     methods:{
-      buyNow:function (id) {
-        this.$emit('buyNow',id);
-      },
-      showProduct(template,index){
-//        if(this.productTemplates.length == 1 && this.nowIndex != 0 && template.index >= this.nowIndex - 1){
-//          return true;
-//        }else{
-        if(this.nowIndex != 0 && template.index >= this.nowIndex - 1){
+//      控制时间 阅读的高度
+      timeReadHeight:function () {
+        if(this.article.hasProduct && this.nowIndex != 0 && (this.nowIndex <= this.productTemplates[this.productTemplates.length - 1].index + 1 ||  this.productTemplates.length == 1 &&  this.nowIndex <= this.article.templates.length)){
           return true;
         }else{
           return false;
         }
+      },
+      buyNow:function (id) {
+        this.$emit('buyNow',id);
+      },
+//      判断商品链接的显示
+      showProduct(template,index){
+        if(this.productTemplates.length == 1 && this.nowIndex != 0 &&  this.nowIndex <= this.article.templates.length){
+          return true;
+        }else{
+          if(this.nowIndex != 0 && template.index >= this.nowIndex - 1){
+            return true;
+          }else{
+            return false;
+          }
+        }
       }
-//      }
     }
   }
 </script>
