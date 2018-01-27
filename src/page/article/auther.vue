@@ -1,14 +1,14 @@
 <template>
-  <div class="auther"  :class="[articleTempId == 1003 ? 't1003_Bg_bottom' : '']" @click="jump(article.member.url,article.member.id)">
-    <div class="autherwrap" style="min-height: 96px;" :class="[articleTempId == 1003 ? 't1003_Bg_up' : '']">
+  <div class="auther"  :class="[articleTempId == 1003 ? 't1003_Bg_bottom' : '',articleTempId == 1002 ? 't1002_Bg_bottom' : '']" @click="jump(article.member.url,article.member.id)">
+    <div class="autherwrap" style="min-height: 96px;" :class="[articleTempId == 1003 ? 't1003_Bg_up' : '',articleTempId == 1002 ? 't1002_Bg_up' : '']">
       <a class="toappuser">
         <div class="autherHead">
           <img v-bind:src="article.member.logo | watchImg"/>
         </div>
         <div class="userMessage">
-          <p class="wusername" style="overflow: hidden">
+          <p class="wusername" style="overflow: hidden"  :class="[templateId == 1002 ? 't1002_text_color_white' : '']">
             {{article.member.nickName}}</p>
-          <p class="wsign">
+          <p class="wsign" :class="[templateId == 1002 ? 't1002_hits_color_primary' : '']">
             {{article.member.autograph==null?"留下签名有助于提升知名度":article.member.autograph}}  </p>
         </div>
         <img v-if="article.member.qrcode != null" :src='article.member.qrcode'  alt="" class="qrcode">

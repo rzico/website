@@ -6,7 +6,7 @@ const config = {
   link:"http://weixin.rzico.com",
   thumbnail:'./static/logo.png',
   desc:'超强图文小视频分享社区,中国版Facebook.',
-  baseURL:"http://weixin.rzico.com/",
+  baseURL:"http://dev.rzico.com/",
   wxAppid:"wx88a1ec3b5c3bc9c3"
 }
 //伪链接主体。  mopian  或 yundian
@@ -224,12 +224,16 @@ let utilsFunc = {
       return timeObj.y +'-'+ timeObj.m + '-' + timeObj.d + '  ' + timeObj.h + ':' + timeObj.i + ':' + timeObj.s ;
   },
   // /*
-  // 返回处理后的值 2017/01/01
-  datetimeslash(value) {
+  // 返回处理后的值 2017/01/01 或者 2017.01.01
+  datetimeslash(value,interval) {
     if(value == '' || value == null || value == undefined){
       return value;
     }
     let timeObj = this.resolvetimefmt(value);
+    if(interval){
+      return timeObj.y +'.'+ timeObj.m + '.' + timeObj.d;
+    }
+
     return timeObj.y +'/'+ timeObj.m + '/' + timeObj.d;
   },
   // 返回处理后的值 2017年01月01日 00:00
@@ -241,6 +245,7 @@ let utilsFunc = {
     return timeObj.y +'年'+ timeObj.m + '月' + timeObj.d + '日' + '  ' + timeObj.h + ':' + timeObj.i + ':' + timeObj.s ;
   },
   // * */
+
 
   resolvetimefmt:function (value) {
 //value 传进来是个整数型，要判断是10位还是13位需要转成字符串。这边的方法是检测13位的时间戳 所以要*1000；并且转回整型。安卓下，时间早了8个小时

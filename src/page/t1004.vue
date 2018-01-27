@@ -1,7 +1,7 @@
 <template>
   <div class="main-box t1004">
     <div class="main-box">
-      <div class="root meipian">
+      <div class="root mopian">
         <!--顶部下载栏-->
         <download_bar :isShow="downloadShow" :authorId="watchArticle.member.id" @closeDownload="closeDownload"></download_bar>
         <article_meta :article="watchArticle" :musicData="watchMusicData" @judgeMusic="judgeMusic" ref="musicTemplete" :downloadShow="downloadShow"></article_meta>

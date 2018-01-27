@@ -1,5 +1,5 @@
 <template>
-    <div id="download_bar" class="download_bar" v-if="isShow">
+    <div id="download_bar" class="download_bar" v-if="isShow" :class="[templateId == 1002 ? 't1002_downLoad_bottom0' : '']">
         <div class="title">
           <img class="logo" :src="config.logo" :alt="config.siteName">
             <p>
@@ -24,7 +24,8 @@
      },
     props: {
       isShow: {default:true},
-      authorId:{default:""}
+      authorId:{default:""},
+      templateId:{default : 1001}
     },
      created() {
        this.config = utils.getConfig();

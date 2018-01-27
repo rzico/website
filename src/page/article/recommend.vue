@@ -1,15 +1,15 @@
 <template>
-    <div class="recommend" :class="[templateId == 1003 ? 't1003_Bg_up' : '',templateId == 1003 ? 't1003_borderTop_color' : '']" v-if="hasData()">
+    <div class="recommend" :class="[templateId == 1003 ? 't1003_Bg_up' : '',templateId == 1003 ? 't1003_borderTop_color' : '',templateId == 1002 ? 't1002_BgBt_up' : '',templateId == 1002]" v-if="hasData()">
         <div class="title">
-            <i class="fl color-lump"></i>
-            <h2 class="fl brilliant">推荐文章</h2>
+            <i class="fl color-lump" :class="[templateId == 1002 ? 't1002_recommend_icon_bgColor' : '']"></i>
+            <h2 class="fl brilliant"  :class="[templateId == 1002 ? 't1002_text_color_white' : '']">推荐文章</h2>
         </div>
         <div class="list" v-for="rmmd in data">
             <div  class="item clearfix" style="padding: 7.5px 0 7.5px;" @click="articleclick(rmmd.id,rmmd.url)">
                 <div class="img fl" :style="'width:115px;height:70px;background-image:url('+ thumbnail(rmmd.thumbnail,115,70)+')'"></div>
                 <div class="content">
-                    <p style="height:43px;font-size:18px;">{{rmmd.title}}</p>
-                    <div class="linkdesc">
+                    <p style="height:43px;font-size:18px;" :class="[templateId == 1002 ? 't1002_text_color_white' : '']">{{rmmd.title}}</p>
+                    <div class="linkdesc"  :class="[templateId == 1002 ? 't1002_hits_color_primary' : '']">
                       <i class="iconfont icon-my-yanjing-on"></i>
                       <span style="position: absolute;top: 62px;">&nbsp;{{rmmd.hits}}</span>
                     </div>
