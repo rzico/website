@@ -1,5 +1,5 @@
 <template>
-  <div class="cover">
+  <div class="coverHead">
     <div class="header">
       <p class="time-read">
         <span>{{article.createDate | datetimefmt}}</span>

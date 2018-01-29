@@ -1,7 +1,7 @@
 <template>
   <div class="main-box t1002" @touchmove="onscroll" offset-accuracy="0">
     <div class="main-box">
-      <div class="article root mopian" >
+      <div class="article root mopian">
         <download_bar :isShow="downloadShow" :authorId="watchArticle.member.id" @closeDownload="closeDownload" templateId=1002 ></download_bar>
         <article_cover :article="watchArticle"></article_cover>
         <music :musicData="watchMusicData" @judgeMusic="judgeMusic" ref="musicTemplete" templateId=1002 :downloadShow="false"></music>
@@ -28,6 +28,9 @@
 </template>
 <style scoped>
   @import '../less/t1002.less';
+  .t1002 .article{
+    margin-top: 0 !important;
+  }
 </style>
 <script>
   import {Loadmore} from 'mint-ui';
@@ -68,7 +71,7 @@
 //      payWay:'账户余额',
 //      payPrice:'299',
       sn:'',
-    }
+      }
     },
     components: {
       'v-loadmore':Loadmore, // 为组件起别名，vue转换template标签时不会区分大小写，例如：loadMore这种标签转换完就会变成loadmore，容易出现一些匹配问题
