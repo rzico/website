@@ -8,7 +8,7 @@
           <!--判断是否是商品-->
           <div class="text-box" v-html="template.content" :class="[templateId == 1003 ? 't1003_content_padding_0' : '']"></div>
           <!--判断类型是图文还是小视频-->
-          <div class="img-box" v-if="template.mediaType == 'image' || template.mediaType == 'product'">
+          <div class="img-box" v-if="hasImage(template)">
             <img
               v-bind:src="template.original | watchImg"
               class="images shadow img-border" @click="preview(0)"/>
@@ -94,6 +94,14 @@
       this.goodsHeight = document.documentElement.clientWidth * 0.2;
     },
     methods: {
+//      判断是否有图片
+      hasImage(template){
+        if(!utils.isNull(template.original) && (template.mediaType == 'image' || template.mediaType == 'product')){
+          return true;
+        }else{
+          return false;
+        }
+      },
       preview:function (data) {
       }
       ,
