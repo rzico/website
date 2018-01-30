@@ -72,8 +72,8 @@
             </div>
             <div class="footRight" >
               <!--<span class="textTitle footText">查看物流</span>-->
-              <span class="textTitle footText" @click="urgedGoods(item,item.sn)" :class="[item.hadUrged ? 'grayColor' : '']">催发货</span>
-              <span class="textTitle footText red redBorder" style="padding: 2.5px 10px" @click="showDialog(item.sn,'申请退款')">申请退款</span>
+              <span class="textTitle footText "  @click="showDialog(item.sn,'申请退款')">申请退款</span>
+              <span class="textTitle footText red redBorder" @click="urgedGoods(item,item.sn)" :class="[item.hadUrged ? 'grayColor' : '']">提醒发货</span>
             </div>
           </div>
           <div class="goodsFoot" v-else-if="item.status == 'shipped'">
@@ -81,9 +81,10 @@
               <span class="subTitle"></span>
             </div>
             <div class="footRight">
+              <!--style="padding: 2.5px 10px"-->
               <!--<span class="textTitle footText">查看物流</span>-->
-              <span class="textTitle footText" @click="showDialog(item.sn,'确认签收')">确认签收</span>
-              <span class="textTitle footText red redBorder" style="padding: 2.5px 10px" @click="showDialog(item.sn,'申请退货')">申请退货</span>
+              <span class="textTitle footText"  @click="showDialog(item.sn,'申请退货')">申请退货</span>
+              <span class="textTitle footText red redBorder" @click="showDialog(item.sn,'确认签收')">确认签收</span>
             </div>
           </div>
         </div>
