@@ -382,8 +382,6 @@
         var _this = this;
         POST("website/member/order/create.jhtml?id=" + this.productId + '&quantity=' + this.buyNum + '&receiverId=' + this.receiverList[0].id+'&xuid='+utils.getUrlParameter("xuid")).then(
           function (data) {
-            let a = JSON.stringify(data);
-            alert(a);
             if (data.type=="success") {
               _this.goPay(data.data.sn);
             } else {
@@ -403,8 +401,6 @@
         let _this = this;
         POST('website/member/order/payment.jhtml?sn=' + sn).then(
           function (data) {
-            let a = JSON.stringify(data);
-            alert(a);
             if (data.type=="success") {
 //              判断支付方式,为null值时就是微信支付或者支付宝支付
               if(utils.isNull(data.data.paymentPluginId)){
