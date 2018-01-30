@@ -105,7 +105,7 @@
         <div class="priceLine flexEnd">
           <div class="flexRow">
             <span class="textTitle mr10">{{item.status | watchStatus}}:</span>
-            <span class="textTitle" style="color: red">¥{{item.price | watchPrice}}</span>
+            <span class="textTitle" style="color: red">¥{{item.amount | watchPrice}}</span>
           </div>
         </div>
       </div>
@@ -504,12 +504,12 @@
                 if(utils.isweixin()){
                   _this.$router.push({
                     name: "payment",
-                    query: {psn: data.data.sn, amount: item.price,type:'weixin'}
+                    query: {psn: data.data.sn, amount: item.amount,type:'weixin'}
                   });
                 }else if(utils.isalipay()){
                   _this.$router.push({
                     name: "payment",
-                    query: {psn: data.data.sn, amount: item.price,type:'alipay'}
+                    query: {psn: data.data.sn, amount: item.amount,type:'alipay'}
                   });
                 }
               }else if(data.data.paymentPluginId == 'cardPayPlugin'){//会员卡支付

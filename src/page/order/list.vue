@@ -288,7 +288,7 @@
         POST("website/member/order/create.jhtml?id=" + item.orderItems[0].id + '&quantity=' + item.orderItems[0].quantity + '&receiverId=1').then(
           function (data) {
 //            alert(data);
-            console.log(data);
+//            console.log(data);
             if (data.type=="success") {
               _this.goPay(item,data.data.sn);
             } else {
