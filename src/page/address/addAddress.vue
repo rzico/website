@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div class="page slideIn bg" >
+    <div class="page slideIn bg">
       <div class="name">
         <span class="font-size">收货人:</span>
         <input class="input" type="text" v-model="name"  autofocus="autofocus" />
@@ -32,7 +32,7 @@
       </div>
       <div style="min-height: 70%"></div>
     </div>
-    <city :control="citycontrol" @name="cityname"></city>
+    <city :control="citycontrol" :ismask="ismask" @name="cityname"></city>
     <Toast ref="toast"></Toast>
   </div>
 </template>
@@ -159,7 +159,8 @@
         regionId:'',
         regionName:'',
         address:'',
-        isDefault:false,
+        isDefault:true,
+        ismask:false
       }
     },
     components: {
@@ -186,12 +187,14 @@
     },
     methods: {
       show:function () {
+        this.ismask = true
         this.citycontrol = !this.citycontrol
       },
       cityname:function (data,mes) {
         this.regionName = data;
         this.regionId = mes;
         this.citycontrol =false
+        this.ismask = false
       },
       yesColor:function () {
         if(this.isDefault == true){
@@ -233,7 +236,7 @@
           this.$refs.toast.show("请填写收货地址");
         }else {
           var _this = this;
-          POST('website/member/receiver/add.jhtml?areaId=' + this.regionId + '&address=' + encodeURI(this.address) + '&consignee=' + encodeURI(this.name) + '&phone=' + this.number + '&isDefault=' + this.isDefault).then(
+          POST('website/member/receiver/add.jhtml?areaId=' + this.regionId + '&address=' + encodeURIComponent(this.address) + '&consignee=' + encodeURIComponent(this.name) + '&phone=' + this.number + '&isDefault=' + this.isDefault).then(
             function (res) {
               if (res.type == "success") {
                 _this.$refs.toast.show("添加成功");
@@ -257,7 +260,7 @@
           this.$refs.toast.show("请填写收货地址");
         }else {
           var _this = this;
-          POST('website/member/receiver/update.jhtml?id='+this.id+'&areaId=' + this.regionId + '&address=' + encodeURI(this.address) + '&consignee=' + encodeURI(this.name) + '&phone=' + this.number + '&isDefault=' + this.isDefault).then(
+          POST('website/member/receiver/update.jhtml?id='+this.id+'&areaId=' + this.regionId + '&address=' + encodeURIComponent(this.address) + '&consignee=' + encodeURIComponent(this.name) + '&phone=' + this.number + '&isDefault=' + this.isDefault).then(
             function (res) {
               if (res.type == "success") {
                 _this.$refs.toast.show("添加成功");
