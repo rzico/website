@@ -206,7 +206,7 @@
         regionId:'',
         regionName:'',
         address:'',
-        isDefault:false,
+        isDefault:true,
         isShow:false,
         ismask:false
       }

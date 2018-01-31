@@ -249,25 +249,37 @@
         POST("payment/submit.jhtml?sn="+sn+"&paymentPluginId=aliPayPlugin").then(
           function (res) {
             if (res.type=="success") {
-              AlipayJSBridge.call("tradePay",{
-                "tradeNO": res.data.tradeNO
-              }, function(result){
-                if(result.resultCode == '9000'){
-                  _this.title = '支付成功';
+              let jsApiCall = function () {
+                AlipayJSBridge.call("tradePay",{
+                  "tradeNO": res.data.tradeNO
+                }, function(result){
+                  if(result.resultCode == '9000'){
+                    _this.title = '支付成功';
 //                  _this.pageIcon = 'success';
-                  _this.isCancel = false;
-                  _this.isSuccess = true;
+                    _this.isCancel = false;
+                    _this.isSuccess = true;
 //                  _this.$router.push({name:"message",query:{psn:sn,amount:_this.finallPrice}})
-                  setTimeout(function () {
-                    _this.query()
-                  },2000)
-                } else {
-                  _this.$refs.toast.show('支付取消');
-                  _this.title = '支付取消';
+                    setTimeout(function () {
+                      _this.query()
+                    },2000)
+                  } else {
+                    _this.$refs.toast.show('支付取消');
+                    _this.title = '支付取消';
 //                  _this.pageIcon = 'cancel';
-                  _this.isCancel = true;
+                    _this.isCancel = true;
+                  }
+                });
+              }
+              if (typeof AlipayJSBridge == "undefined") {
+                if (document.addEventListener) {
+                  document.addEventListener('AlipayJSBridge', jsApiCall, false);
+                } else if (document.attachEvent) {
+                  document.attachEvent('AlipayJSBridge', jsApiCall);
+                  document.attachEvent('onAlipayJSBridge', jsApiCall);
                 }
-              });
+              } else {
+                jsApiCall();
+              }
             }
             else {
               _this.title = '支付失败';
@@ -290,30 +302,42 @@
         POST("payment/submit.jhtml?sn="+sn+"&paymentPluginId=weixinOcPayPlugin").then(
           function (res) {
             if (res.type=="success") {
-              WeixinJSBridge.invoke('getBrandWCPayRequest',{
-                "appId" : res.data.appId,
-                "timeStamp":res.data.timeStamp,
-                "nonceStr" :res.data.nonceStr,
-                "package" :res.data.package,
-                "signType" :res.data.signType,
-                "paySign" : res.data.paySign,
-              },function(result){
-                if(result.err_msg == "get_brand_wcpay_request:ok" ) {
-                  _this.title = '支付成功';
+              let jsApiCall = function () {
+                WeixinJSBridge.invoke('getBrandWCPayRequest',{
+                  "appId" : res.data.appId,
+                  "timeStamp":res.data.timeStamp,
+                  "nonceStr" :res.data.nonceStr,
+                  "package" :res.data.package,
+                  "signType" :res.data.signType,
+                  "paySign" : res.data.paySign,
+                },function(result){
+                  if(result.err_msg == "get_brand_wcpay_request:ok" ) {
+                    _this.title = '支付成功';
 //                  _this.pageIcon = 'success';
-                  _this.isSuccess = true;
-                  _this.isCancel = false;
-                  setTimeout(function () {
-                    _this.query()
-                  },2000)
-                } else {
-                  _this.$refs.toast.show("支付取消");
+                    _this.isSuccess = true;
+                    _this.isCancel = false;
+                    setTimeout(function () {
+                      _this.query()
+                    },2000)
+                  } else {
+                    _this.$refs.toast.show("支付取消");
 //                  _this.$refs.toast.show(result.memo);
-                  _this.title = '支付取消';
+                    _this.title = '支付取消';
 //                  _this.pageIcon = 'cancel';
-                  _this.isCancel = true;
+                    _this.isCancel = true;
+                  }
+                });
+              }
+              if (typeof WeixinJSBridge == "undefined") {
+                if (document.addEventListener) {
+                  document.addEventListener('WeixinJSBridgeReady', jsApiCall, false);
+                } else if (document.attachEvent) {
+                  document.attachEvent('WeixinJSBridgeReady', jsApiCall);
+                  document.attachEvent('onWeixinJSBridgeReady', jsApiCall);
                 }
-              });
+              } else {
+                jsApiCall();
+              }
             }
             else {
               _this.title = '支付失败';

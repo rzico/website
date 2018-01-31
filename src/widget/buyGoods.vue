@@ -342,6 +342,7 @@
         hasSpecTwo:false,
         hasSpecOne:true,
 //        payPrice:'299',
+        clicked:false,
       }
     },
     filters:{
@@ -362,6 +363,15 @@
       },
 //      确认购买
       completeBuy:function () {
+        var _this = this;
+        if (this.clicked) {
+          return;
+        }
+        this.clicked = true;
+        setTimeout(function () {
+          _this.clicked = false;
+        },1500)
+
         if(utils.isNull(this.buyNum) || this.buyNum <= 0){
           this.$refs.toast.show('请添加数量');
           return;
@@ -379,7 +389,6 @@
           return ;
         }
 
-        var _this = this;
         POST("website/member/order/create.jhtml?id=" + this.productId + '&quantity=' + this.buyNum + '&receiverId=' + this.receiverList[0].id+'&xuid='+utils.getUrlParameter("xuid")).then(
           function (data) {
             if (data.type=="success") {
