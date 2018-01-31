@@ -6,7 +6,7 @@
       </div>
       <!--文章标题跟作者昵称-->
       <div class="ani-box title" :class="[animationIndex == 0 ? 'setOpac-Zindex' : '']" >{{articleData.title}}</div>
-      <p class="ani-caption author setOpacity" :class="[animationIndex == 0 && authorNameShow? 'setOpac-Zindex' : '']">{{articleData.author}}</p>
+      <p class="ani-caption author setOpacity" :class="[animationIndex == 0 ? 'setOpac-Zindex' : '']">{{articleData.author}}</p>
     </div>
     <!--内容幻灯片-->
     <div class="flex-outer"  v-for="(template,index) in articleData.templates" >
@@ -40,7 +40,7 @@
         goodsHeight:'',
         testData:'',
         animationIndex:-1,
-        authorNameShow:false,
+//        authorNameShow:false,
       }
     },
     props: {
@@ -94,9 +94,6 @@
 //      内容动画
       pageAnimation(){
         let _this = this;
-        setTimeout(function () {
-          _this.authorNameShow = true;
-        },1000)
 //        每过3.9秒渲染下一个content  绑定的动画持续时间为4s
         if (this.animationIndex < this.templatesLength + 2) {
           setTimeout(function () {
@@ -106,6 +103,13 @@
             _this.pageAnimation();
           }, 3900)
         }
+
+//        if(!_this.authorNameShow){
+//          setTimeout(function () {
+//            _this.authorNameShow = true;
+//          },1000)
+//        }
+
       },
       doAnimation(){
         this.animationIndex = 0 ;

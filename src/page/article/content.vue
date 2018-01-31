@@ -1,5 +1,5 @@
 <template>
-  <div  :class="[templateId == 1003 ? 't1003_content_margin_LR_15' : '']">
+  <div  :class="[templateId == 1003 ? 't1003_content_margin_LR_15' : '',templateId == 1002 ? 't1002_content_padding_10' : '']" >
     <div class="content"  :class="[templateId == 1003 ? 't1003_content_padding_LR_16' : '']">
       <div  v-for="(template,index) in templatesList">
         <div class="margin-section section section-on section-border text-up fill" v-if="isShow(index)">
@@ -8,7 +8,7 @@
           <!--判断是否是商品-->
           <div class="text-box" v-html="template.content" :class="[templateId == 1003 ? 't1003_content_padding_0' : '']"></div>
           <!--判断类型是图文还是小视频-->
-          <div class="img-box" v-if="template.mediaType == 'image' || template.mediaType == 'product'">
+          <div class="img-box" v-if="hasImage(template)">
             <img
               v-bind:src="template.original | watchImg"
               class="images shadow img-border" @click="preview(0)"/>
@@ -19,7 +19,7 @@
           </div>
         </div>
         <div v-if="template.mediaType == 'product'" class="goodsLineBox" :class="[templateId == 1003 ? 't1003_content_padding_0' : '']">
-          <div class="goodsLineInside boderStyle" :class="[templateId == 1003 ? 't1003_goods_borderColor' : '']"  @click="buyNow(template.id)">
+          <div class="goodsLineInside boderStyle" :class="[templateId == 1003 ? 't1003_goods_borderColor' : '',templateId == 1002 ? 't1002_goods_borderColor' : '']"  @click="buyNow(template.id)">
             <!--商品图片-->
             <img class="goodsImg" :src="template.original | watchGoodsImg" :style="'height:' + goodsHeight + 'px;' + 'width:' + (goodsHeight -10)+ 'px'"/>
             <!--商品描述内容-->
@@ -94,6 +94,14 @@
       this.goodsHeight = document.documentElement.clientWidth * 0.2;
     },
     methods: {
+//      判断是否有图片
+      hasImage(template){
+        if(!utils.isNull(template.original) && (template.mediaType == 'image' || template.mediaType == 'product')){
+          return true;
+        }else{
+          return false;
+        }
+      },
       preview:function (data) {
       }
       ,

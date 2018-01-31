@@ -23,7 +23,7 @@ nav,
 section {
   display: block; }
 
-h1 {
+.t1003 h1 {
   font-size: 2em;
   margin: 0.67em 0; }
 
@@ -45,16 +45,16 @@ img {
   font-style: normal;
   -webkit-box-sizing: border-box;
   box-sizing: border-box; }
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
+.t1003 h1,
+.t1003 h2,
+.t1003 h3,
+.t1003 h4,
+.t1003 h5,
+.t1003 h6 {
   font-weight: 400;
   font-size: 16px; }
 
-h1 {
+.t1003 h1 {
   font-size: 24px;
   font-weight: normal;
   color: #6E5B28;
@@ -103,7 +103,7 @@ body.top-banner-show .music-icon {
     transform: rotate(-360deg);
     -webkit-transform: rotate(-360deg); } }
 
-.root.bgStyle {
+.t1003 .root.bgStyle {
   position: relative;
   z-index: 0;
   background-image: url(../img/t1003/pingpu_bg.png);
@@ -111,22 +111,22 @@ body.top-banner-show .music-icon {
   background-size: 100%;
   background-color: #fff3d9;
 }
-.marginNega140{
+.t1003 .marginNega140{
   margin-top: -140px;
   padding-top: 10px;
 }
-.daizi {
+.t1003 .daizi {
   position: absolute;
   top: 0;
   right: 80px;
   width: 100%;
   z-index: 3; }
-.daizi .money {
+.t1003 .daizi .money {
   position: absolute;
   top: 150px;
   right: 0px; }
 
-.cover {
+.t1003 .cover {
   position: relative;
   background-image: url(../img/t1003/top_bg.png);
   background-size: 100% 100%;
@@ -135,9 +135,9 @@ body.top-banner-show .music-icon {
   //由于hidden会隐藏掉一些红包特效，所以注释了,在动画优化后可以还原
   //overflow: hidden;
 }
-.cover .caishen {
+.t1003 .cover .caishen {
   position: relative; }
-.cover .caishen .caishenye {
+.t1003 .cover .caishen .caishenye {
   width: 134px;
   height: 176px;
   position: absolute;
@@ -148,7 +148,7 @@ body.top-banner-show .music-icon {
   //z-index = 1时,会遮挡住音乐icon,所以注释了。
   //z-index: 1;
 }
-.cover .caishen .fudai {
+.t1003 .cover .caishen .fudai {
   width: 108px;
   height: 103px;
   position: absolute;
@@ -175,10 +175,8 @@ body.top-banner-show .music-icon {
 
 
 
-.introduce-meipian img {
-  width: 100%; }
 
-
+//表示只有在屏幕尺寸小于600像素的时候才会应用
 @media screen and (min-width: 600px) {
   .circle-link .well {
     padding: 15px 50px; } }
@@ -202,7 +200,7 @@ body.top-banner-show .music-icon {
 
 
 @media screen and (min-width: 600px) {
-  .article-meta {
+  .t1003 .article-meta {
     overflow: hidden;
     text-align: center;
     background-size: 100%;
@@ -210,32 +208,32 @@ body.top-banner-show .music-icon {
     position: relative;
     z-index: 2;
     top: -220px; }
-  .mp-content {
+  .t1003 .mp-content {
     position: relative;
     margin: -220px 15px 0 15px;
     overflow: hidden; }
-  .music-icon__root {
+  .t1003 .music-icon__root {
     top: -730px; }
-  .daizi {
+  .t1003 .daizi {
     position: absolute;
     top: 0;
     right: 160px;
     width: 100%;
     z-index: 3; }
-  .daizi .money {
+  .t1003 .daizi .money {
     position: absolute;
     top: 330px;
     right: 0px; }
-  .cover {
+  .t1003 .cover {
     position: relative;
     background-image: url(../img/t1003/pingpu_bg.png);
     background-size: 100% 100%;
     padding-bottom: 85.86666666666666667%;
     height: 0;
     overflow: hidden; }
-  .cover .caishen {
+  .t1003 .cover .caishen {
     position: relative; }
-  .cover .caishen .caishenye {
+  .t1003 .cover .caishen .caishenye {
     width: 268px;
     height: 352px;
     position: absolute;
@@ -244,7 +242,7 @@ body.top-banner-show .music-icon {
     -webkit-animation: caishen 4s linear forwards 0s infinite;
     animation: caishen 4s linear forwards 0s infinite;
     z-index: 1; }
-  .cover .caishen .fudai {
+  .t1003 .cover .caishen .fudai {
     width: 216px;
     height: 206px;
     position: absolute;
@@ -255,15 +253,15 @@ body.top-banner-show .music-icon {
     //z-index = 1时,会遮挡住音乐icon,所以注释了。
     //z-index: 1;
   }
-  .mp-content .section {
+  .t1003 .mp-content .section {
     margin: 50px 0; }
-  .mp-content .section .text {
+  .t1003 .mp-content .section .text {
     margin: 30px 0px; }
-  .mp-content .section .img-box {
+  .t1003 .mp-content .section .img-box {
     margin: 50px 0px; }
-  .mp-content .well {
+  .t1003 .mp-content .well {
     padding: 0 35px; }
-  .vote .well {
+  .t1003 .vote .well {
     margin: 0 35px 32px; } }
 
 @-webkit-keyframes caishen {
@@ -711,13 +709,13 @@ body.top-banner-show .music-icon {
     top: 150px; } }
 
 
-.yanhua {
+.t1003 .yanhua {
   position: absolute;
   -ms-transform: scale(0);
   transform: scale(0);
   -webkit-transform: scale(0); }
 
-.comment-item .comment-box .btn-admire {
+.t1003 .comment-item .comment-box .btn-admire {
   color: #6E5B28; }
 
 
@@ -745,7 +743,7 @@ body.top-banner-show .music-icon {
 }
 
 
-.article .meta {
+.t1003 .article .meta {
   font-family: Helvetica Neue, Helvetica, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif;
   font-size: 16px;
   margin: 0 0 24px;

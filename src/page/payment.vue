@@ -151,16 +151,24 @@
     },
     created() {
 //      将数据存到 session中，不管前进后退还是刷新，数据依然还在，关闭窗口后再进页面才会清空session数据，可以控制页面只刷新一次
-      if(utils.isIos()){//判断是否是ios
-        if (sessionStorage.getItem('flag')) {
-          sessionStorage.removeItem('flag')
-        } else {
-          sessionStorage.setItem('flag','close');
-//        页面刷新
-          location.reload()
-          return;
-        }
+//      if(utils.isIos()){//判断是否是ios
+//        if (sessionStorage.getItem('flag')) {
+//          sessionStorage.removeItem('flag')
+//        } else {
+//          sessionStorage.setItem('flag','close');
+////        页面刷新
+//          location.reload()
+//          return;
+//        }
+//      }
+
+//      重新组建url
+      let url = location.href;
+      if(url.indexOf('/#/') == -1){
+        location.href = url.substring(0,url.indexOf('?')) + url.substring(url.indexOf('#/'));
+        return;
       }
+
 //      this.setCurrentPage(location.href)
       var _this = this;
       this.sn = utils.getUrlParameter("psn");
@@ -189,10 +197,11 @@
     },
     mounted() {
       var _this = this;
-//      setTimeout(function (){
-      _this.doPay();
-//      }
-//      ,100);
+//      此处延迟500毫秒再执行支付函数，是因为location.href重定向页面后需要等待一下，才能正常发起支付。
+      setTimeout(function (){
+        _this.doPay();
+      }
+      ,500);
     },
     methods:{
       doPay:function () {

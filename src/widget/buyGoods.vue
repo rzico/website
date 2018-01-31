@@ -15,11 +15,13 @@
           <div>
             <span class="fontSize16">购买数量</span>
           </div>
-          <div class="flexRow" style="align-items: center">
-            <span class="iconfont icon-jian iconAddSub"   @click="numSub()"></span>
+          <div class="flexRow" style="align-items: center;border: 1px solid #eee;height: 35px;border-radius: 5px">
+            <!--<span class="iconfont icon-jian iconAddSub"   @click="numSub()"></span>-->
+            <span class="addSub" :class="[buyNum <= 1 ? 'grayColor' : '']"  @click="numSub()"  :style="{fontFamily:'iconfont'}">&#xe649;</span>
             <input type="number" class="buyNumber" v-model="buyNum" @input="numInput()">
+            <span class="addSub"  @click="numAdd()" :style="{fontFamily:'iconfont'}">&#xe618;</span>
             <!--<span >{{buyNum}}</span>-->
-            <span class="iconfont icon-jia1 iconAddSub"   @click="numAdd()"></span>
+            <!--<span class="iconfont icon-jia1 iconAddSub"   @click="numAdd()"></span>-->
           </div>
         </div>
         <div class="specBox" v-if="hasSpecOne">
@@ -89,6 +91,17 @@
   </div>
 </template>
 <style scoped>
+
+  .addSub{
+    font-size: 14px;
+    line-height: 35px;
+    display: inline-block;
+    height: 35px;
+    font-weight: 700;
+    width:38px;
+    text-align: center;
+  }
+
   .noAddress{
     text-align: center;
   }
@@ -103,14 +116,23 @@
     line-height: 16px;
   }
   .buyNumberBox{
-    justify-content: space-between;padding-left:10px;align-items: center;border-bottom: 1px solid #eee;
+    justify-content: space-between;padding:10px;align-items: center;border-bottom: 1px solid #eee;
   }
   .buyNumber{
     /*padding: 0 10px;*/
-    height:24px;
-    width: 30px;
-    font-size: 16px;line-height: 16px;display: inline-block;
+    /*height:24px;*/
+    /*width: 30px;*/
+    height:35px;
+    width: 50px;
+    font-size: 16px;line-height: 35px;display: inline-block;
     text-align: center;
+
+
+    border:1px solid #eee;
+    /*outline:none;*/
+    -webkit-appearance: none;
+    border-radius: 0px;
+
   }
   .iconAddSub{
     font-size: 20px;padding: 10px 10px;
@@ -344,10 +366,19 @@
           this.$refs.toast.show('请添加数量');
           return;
         }
+        if(this.hasSpecOne && utils.isNull(this.spec1Name)){
+          this.$refs.toast.show('请选择规格1');
+          return ;
+        }
+        if(this.hasSpecTwo && utils.isNull(this.spec2Name)){
+          this.$refs.toast.show('请选择规格2');
+          return ;
+        }
         if(utils.isNull(this.receiverList[0].id) || utils.isNull(this.receiverList[0].id)){
           this.$refs.toast.show('请选择地址');
           return ;
         }
+
         var _this = this;
         POST("website/member/order/create.jhtml?id=" + this.productId + '&quantity=' + this.buyNum + '&receiverId=' + this.receiverList[0].id+'&xuid='+utils.getUrlParameter("xuid")).then(
           function (data) {
@@ -359,8 +390,6 @@
             _this.disabledButton = false;
           },
           function (err) {
-//            err = JSON.stringify(err);
-//            alert(err);
 //            console.log('1');
             _this.disabledButton = false;
             _this.close(utils.message("error","网络不稳定"));
@@ -673,17 +702,19 @@
 //              将页面list数据push进变量
               _this.goodsData.push(data.data);
 
-//              默认选中规格并调用方法判断规格2是否可选
+//              默认选中规格1并调用方法判断规格2是否可选
               let sp1 = data.data.products[0].spec1;
               if(!utils.isNull(sp1)){
                 _this.spec1Name = sp1;
                 _this.spec1Change(sp1);
               }
-              let sp2 = data.data.products[0].spec2;
-              if(!utils.isNull(sp2)){
-                _this.spec2Name = sp2;
-                _this.spec2Change(sp2);
-              }
+
+              //              默认选中规格2并调用方法判断规格2是否可选
+//              let sp2 = data.data.products[0].spec2;
+//              if(!utils.isNull(sp2)){
+//                _this.spec2Name = sp2;
+//                _this.spec2Change(sp2);
+//              }
 
 //              调用计算接口
               _this.calcPrice();

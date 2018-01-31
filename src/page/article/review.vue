@@ -1,12 +1,12 @@
 <template>
-  <div class="review"  :class="[templateId == 1003 ? 't1003_Bg_bottom' : '']">
-    <div class="list" style="background-color: #fff;"  :class="[templateId == 1003 ? 't1003_Bg_up' : '']">
-      <div class="item"  v-for="review in reviews" >
+  <div class="review"  :class="[templateId == 1003 ? 't1003_Bg_bottom' : '',templateId == 1002 ? 't1002_Bg_bottom' : '']" v-if="reviews.length > 0">
+    <div class="list" style="background-color: #fff;"  :class="[templateId == 1003 ? 't1003_Bg_up' : '',templateId == 1002 ? 't1002_Bg_up' : '']">
+      <div class="item"  v-for="review in reviews" :class="[templateId == 1002 ? 't1002_borderTop_color' : '']">
         <div class="logo"
              :style="'width:30px;height:30px;background-image:url('+thumbnail(review.logo,30,30)+')'"></div>
         <div class="content">
-          <span class="name">{{review.nickName}}</span>
-          <p class="text">{{review.content}}</p>
+          <span class="name" :class="[templateId == 1002 ? 't1002_text_color_white' : '']">{{review.nickName}}</span>
+          <p class="text":class="[templateId == 1002 ? 't1002_hits_color_primary' : '']">{{review.content}}</p>
           <span class="time">{{review.createDate | timefmt}}</span>
         </div>
       </div>

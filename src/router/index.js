@@ -45,6 +45,7 @@ const couponList = resolve => require(['../page/coupon/couponList'], resolve)
 const memberIndex = resolve => require(['../page/member/index'], resolve)
 const memberCoupon = resolve => require(['../page/member/coupon'], resolve)
 const cardPackage = resolve => require(['../page/member/cardPackage'], resolve)
+const T1002 = resolve => require(['../page/t1002'], resolve)
 const T1003 = resolve => require(['../page/t1003'], resolve)
 const T1004 = resolve => require(['../page/t1004'], resolve)
 const goodsList = resolve => require(['../page/goods/list'], resolve)
@@ -55,14 +56,6 @@ const goodsList = resolve => require(['../page/goods/list'], resolve)
 
 Vue.use(Router);
 Vue.use(VueResource);
-
- router.beforeEach((to, from, next) => {
-     if (from.query)
-     to.query.xuid = from.query.xuid;
-     next();
- })
-
-
 
 var router = new Router({
   // mode: 'history',
@@ -96,6 +89,12 @@ var router = new Router({
       name: 't1001',
       meta: {requireAuth:true},
       component: T1001
+    },
+    {
+      path: '/t1002',
+      name: 't1002',
+      meta: {requireAuth:true},
+      component: T1002
     },
     {
       path: '/t1003',
@@ -201,5 +200,33 @@ var router = new Router({
     },
    ]
 })
+
+
+router.beforeEach((to, from, next) => {
+  if(from.query != null && from.query.xuid != null){
+    to.query.xuid = from.query.xuid;
+  }
+  next();
+
+
+  // if(to.name == 'payment' ){
+  //   alert('进来了 to。name');
+  //
+  //   if (sessionStorage.getItem('once')) {
+  //     sessionStorage.removeItem('once')
+  //     next();
+  //   } else {
+  //     sessionStorage.setItem('once','close');
+  //     next({
+  //       name: "payment",
+  //       query: to.psn
+  //     })
+  //   }
+  //
+  //   return;
+  // }
+})
+
+
 
 export default router
