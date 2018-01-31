@@ -144,6 +144,8 @@
         inventoryType:'',
         availableStock:'',
         whichCorpus:0,
+//        分类id
+        productCategoryId:'',
         catagoryList:[{
           name:'全部',
           id:0
@@ -169,6 +171,8 @@
     } ,
     created() {
       this.id = utils.getUrlParameter("id");
+      //            获取分类列表
+      this.getCatagory();
       this.load()
     },
     methods:{
@@ -179,8 +183,34 @@
           return;
         }
         _this.whichCorpus = index;
+        _this.productCategoryId = id;
         _this.pageStart = 0;
         _this.load();
+      },
+      //            获取分类
+      getCatagory:function () {
+        var _this = this;
+        GET('website/shop/product_category/list.jhtml?authorId='+_this.id).then(
+          function (data) {
+          if (data.type == "success") {
+            if(data.data == ''){
+            }else{
+              _this.catagoryList = '';
+              _this.catagoryList =[{
+                name:'全部',
+                id:''
+              }];
+//                                将文集名循环插入数组中
+              for(let i = 0; i<data.data.length;i++){
+                _this.catagoryList.splice(1 + i,0,data.data[i]);
+              }
+            }
+          }else {
+            event.toast(data.content);
+          }
+        },function (err) {
+          event.toast(err.content);
+        })
       },
       hasReward:function () {
         return this.lists.length>0;
@@ -194,7 +224,7 @@
       },
       load:function (type) {
         var _this = this;
-        GET("website/shop/product/list.jhtml?pageStart="+_this.pageStart+"&pageSize="+_this.pageSize+"&authorId="+_this.id).then(
+        GET("website/shop/product/list.jhtml?pageStart="+_this.pageStart+"&pageSize="+_this.pageSize+"&authorId="+_this.id+'&productCategoryId=' + _this.productCategoryId).then(
           function (res) {
             if (res.type=='success') {
               if (res.data.start==0) {
@@ -204,13 +234,6 @@
                   _this.lists.push(item);
                 });
               }
-//              if(res.data.data.availableStock ==0){
-//                _this.inventoryType = '缺货'
-//              }else if(res.data.data.availableStock <=5){
-//                _this.inventoryType = '紧缺'
-//              }else if(res.data.data.availableStock >= 5){
-//                _this.inventoryType = '有货'
-//              }
              if(res.data.data.length<_this.pageSize){
                 _this.allLoaded = true
              }
