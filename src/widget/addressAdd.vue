@@ -45,7 +45,7 @@
         <span class="bottomButton" @click="activateConfirm()">添加</span>
       </div>
     <!--</weui-dialog>-->
-    <city :control="citycontrol" @name="cityname"></city>
+    <city :control="citycontrol" :ismask="ismask" @name="cityname"></city>
     <Toast ref="toast"></Toast>
     </div>
 </template>
@@ -208,6 +208,7 @@
         address:'',
         isDefault:false,
         isShow:false,
+        ismask:false
       }
     },
     components: {
@@ -230,12 +231,14 @@
         },50);
       },
       show:function () {
+        this.ismask = true
         this.citycontrol = !this.citycontrol
       },
       cityname:function (data,mes) {
         this.regionName = data;
         this.regionId = mes;
         this.citycontrol =false
+        this.ismask = false
       },
       yesColor:function () {
         if(this.isDefault == true){
@@ -268,7 +271,7 @@
           alert('请填写收货地址')
         }else {
           var _this = this;
-          POST('website/member/receiver/add.jhtml?areaId=' + this.regionId + '&address=' + encodeURI(this.address) + '&consignee=' + encodeURI(this.name) + '&phone=' + this.number + '&isDefault=' + this.isDefault).then(
+          POST('website/member/receiver/add.jhtml?areaId=' + this.regionId + '&address=' + encodeURIComponent(this.address) + '&consignee=' + encodeURIComponent(this.name) + '&phone=' + this.number + '&isDefault=' + this.isDefault).then(
             function (res) {
               if (res.type == "success") {
                 res.data = JSON.stringify(res.data);
