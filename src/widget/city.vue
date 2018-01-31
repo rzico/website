@@ -1,17 +1,18 @@
 <template>
+  <div class="page mask" style="position: fixed;bottom: 0;z-index: 900" v-if="ismask">
   <div style="height: 55%;width: 100%;position: absolute;bottom: 0; display: flex;flex-direction: column;background-color: #ffffff;z-index: 997" v-if="controlChild">
     <div class="title"><span class="font16">配送至</span> </div>
     <div style="display: flex;flex-direction: row">
     <div style="overflow:auto;display: flex;flex: 1;flex-direction: column;margin-left:30px" >
       <!--省份选择-->
       <div v-if="urlType == 'pro'" class="active " v-for="item in proList"  @click="checkChange(item.id,item.name,item.children)">
-        <div class="flex-row flex-space">
+        <div class="flex-row ">
         <div class="" style="display: flex;flex-direction: column;justify-content:center;height: 30px">
           <span class="font16">{{item.name}}</span>
         </div>
         <!--是否选择行-->
-        <div v-if="listId == item.id" >
-          <i class="iconfont icon-xuanzhong"  style="color: #EB4E40;margin-bottom: 1.5px;margin-right: 5px"></i>
+        <div v-if="listId == item.id"  style="margin-left: 30px">
+          <i class="iconfont icon-xuanzhong"  style="color: #EB4E40;margin-bottom: 1.5px;"></i>
         </div>
         </div>
       </div>
@@ -19,12 +20,12 @@
     <div style="overflow:auto;display: flex;flex: 1;flex-direction: column;margin-left:30px" >
       <!--城市选择-->
       <div  v-if="city == 'city'"  v-for="item in cityList">
-        <div class="active flex-row flex-space" v-for="city in item.children" @click="cityChange(city.id,city.name,city.children)">
+        <div class="active flex-row " v-for="city in item.children" @click="cityChange(city.id,city.name,city.children)">
           <div class=" " style="display: flex;justify-content: center;height: 30px">
             <span class="font16">{{city.name}}</span>
           </div>
-          <div v-if="listId == city.id" >
-            <i class="iconfont icon-xuanzhong"  style="color: #EB4E40;margin-bottom: 1.5px;margin-right: 5px"></i>
+          <div v-if="listId == city.id"  style="margin-left: 30px">
+            <i class="iconfont icon-xuanzhong"  style="color: #EB4E40;margin-bottom: 1.5px;"></i>
           </div>
         </div>
       </div>
@@ -32,17 +33,18 @@
     <div style="overflow:auto;display: flex;flex: 1;flex-direction: column;margin-left:30px;padding-right: 10px" >
       <!--区县选择-->
       <div  v-if="country == 'country'"  v-for="item in countryList">
-        <div class="active  flex-row flex-space" v-for="city in item.children" @click="countryChange(city.id,city.name,'')">
+        <div class="active  flex-row " v-for="city in item.children" @click="countryChange(city.id,city.name,'')">
           <div class=""  style="height: 30px">
             <span class="font16">{{city.name}}</span>
           </div>
-          <div v-if="listId == city.id" >
-            <i class="iconfont icon-xuanzhong"  style="color: #EB4E40;margin-bottom: 1.5px;margin-right: 5px"></i>
+          <div v-if="listId == city.id"  style="margin-left: 30px">
+            <i class="iconfont icon-xuanzhong"  style="color: #EB4E40;margin-bottom: 1.5px;"></i>
           </div>
         </div>
       </div>
     </div>
     </div>
+  </div>
   </div>
 </template>
 
@@ -92,13 +94,15 @@
         cityName:'',
         countryName:'',
         name:'',
+
       }
     },
     components: {
       Toast
     },
     props: {
-      control: {default:false}
+      control: {default:false},
+      ismask: {default:false}
     },
     computed:{
       controlChild:  {
@@ -129,6 +133,7 @@
         if(city == ''){
           _this.name = _this.proName + _this.cityName;
           _this.controlChild =false;
+          _this.ismask = false
           _this.$emit("name", this.name,this.listId);
         }else {
           _this.country = 'country';
@@ -141,6 +146,7 @@
         this.countryName =name;
         this.name = this.proName + this.cityName +this.countryName;
         this.controlChild =false;
+        this.ismask =false;
         this.$emit("name", this.name,this.listId);
       }
     }
