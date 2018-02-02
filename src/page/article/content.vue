@@ -11,7 +11,7 @@
           <div class="img-box" v-if="hasImage(template)">
             <img
               v-bind:src="template.original | watchImg"
-              class="images shadow img-border preview-img"  @click="imgPreview(template.original,templatesList.previewList)"/>
+              class="images shadow img-border preview-img"  @click="imgPreview(template.original,templatesList.previewList)" ref="imgRef"/>
           </div>
           <!--判断类型是否小视频-->
           <div class="img-box" v-if="template.mediaType == 'video'">
@@ -108,9 +108,21 @@
         if(!this.more){
           this.more = !this.more;
         }
+        var equalIndex = 0;
         for(var i = 0;i < previewList.length;i ++){
+//          判断是否取得该dom元素 避免出错
+          if(this.$refs.imgRef[i]){
+//          获取dom元素的宽高
+            previewList[i].w = this.$refs.imgRef[i].offsetWidth;
+            previewList[i].h = this.$refs.imgRef[i].offsetHeight;
+          }
+//          在循环过程中 将匹配到的下标存储起来.
           if(original == previewList[i].src){
-            this.$preview.open(i,previewList);
+              equalIndex = i;
+          }
+//          当循环执行到最后一个时，调用预览方法
+          if(i == previewList.length - 1){
+            this.$preview.open(equalIndex,previewList);
             return;
           }
         }
