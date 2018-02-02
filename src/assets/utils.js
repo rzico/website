@@ -69,9 +69,16 @@ let utilsFunc = {
             return false
         }
     },
+    //把缩略图过滤为原图
+    filterThumbnail(url){
+      if(url.indexOf('?x-oss-') != -1){
+        url = url.substring(0,url.indexOf('?x-oss-'));
+      }
+      return url;
+    },
     thumbnail(url,w,h) {
         if(this.isNull(url)){
-           return;
+           return ;
         }
         h = Math.round(h);
         w = Math.round(w);

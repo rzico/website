@@ -11,7 +11,7 @@
           <div class="img-box" v-if="hasImage(template)">
             <img
               v-bind:src="template.original | watchImg"
-              class="images shadow img-border" @click="preview(0)"/>
+              class="images shadow img-border preview-img"  @click="imgPreview(template.original,templatesList.previewList)"/>
           </div>
           <!--判断类型是否小视频-->
           <div class="img-box" v-if="template.mediaType == 'video'">
@@ -34,7 +34,7 @@
                   <!--¥ 160.00-->
                   <!--</span>-->
                 </div>
-                <span class="doBuy" >立即购买</span>
+                <span class="doBuy">立即购买</span>
               </div>
             </div>
           </div>
@@ -102,9 +102,19 @@
           return false;
         }
       },
-      preview:function (data) {
-      }
-      ,
+//      图片预览
+      imgPreview(original,previewList){
+//        预览图片时全文的图片就加载进去了。但是此时在加载更多里面有几张图没有渲染，那么如果在预览后面的图时就会找不到实例以至于出错
+        if(!this.more){
+          this.more = !this.more;
+        }
+        for(var i = 0;i < previewList.length;i ++){
+          if(original == previewList[i].src){
+            this.$preview.open(i,previewList);
+            return;
+          }
+        }
+      },
       isHtml:function () {
         if (this.htmlStr=="") {
           return false;
@@ -136,6 +146,5 @@
         this.$emit('buyNow',id);
       }
     }
-
   }
 </script>
