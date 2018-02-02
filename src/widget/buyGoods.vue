@@ -400,7 +400,6 @@
             _this.disabledButton = false;
           },
           function (err) {
-//            console.log('1');
             _this.disabledButton = false;
             _this.close(utils.message("error","网络不稳定"));
           }
@@ -554,7 +553,6 @@
               _this.productId = item.productId;
               _this.goodsData[0].price = item.price;
               _this.goodsData[0].thumbnail = item.thumbnail;
-              console.log(_this.goodsData);
             }
           })
           this.calcPrice();
@@ -641,7 +639,6 @@
               _this.close(data);
             }
           },function (err) {
-            console.log(err);
             _this.close(utils.message("error","网络不稳定"));
           }
         )
@@ -717,8 +714,6 @@
 //                }
 //              }
 //              if(num == 0){
-//                console.log('num为0');
-//                console.log(_this.previewList);
 //                _this.previewList.push({
 //                  src:product[index].thumbnail,
 //                  w:1200,

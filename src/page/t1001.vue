@@ -155,8 +155,6 @@
               _this.watchArticle = response.data;
               _this.isPublish = response.data.isPublish;
               _this.$refs.coupon.open(response.data.member.id);
-              console.log('watchArticle');
-              console.log(response.data);
               //设置分享标题
               utils.setConfig({
                 title:_this.watchArticle.title,
@@ -167,10 +165,8 @@
               SHARE(location.href);
               if (!utils.isNull(response.data.music)) {
                 _this.watchMusicData = JSON.parse(response.data.music);
-                console.log(_this.watchMusicData);
               }
               if (!utils.isNull(response.data.templates)) {
-                console.log(response.data.templates)
                 if (response.data.mediaType==0) {
                   _this.htmlStr = response.data.templates;
                 } else {
