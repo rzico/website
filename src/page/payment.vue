@@ -3,10 +3,10 @@
     <div class="page msg">
       <Message :icon="pageIcon" :title="title">
         <div slot="content" class="money">
-          <div class="goodsNameBox">
-            <span>订单付款</span>
-          </div>
-          <div>
+          <!--<div class="goodsNameBox">-->
+            <!--<span>订单付款</span>-->
+          <!--</div>-->
+          <div v-if="hasAmount()">
             <span class="moneyIcon">¥ </span>
             <span>
           {{amount | watchAmount}}</span>
@@ -18,11 +18,11 @@
         <!--</button-area>-->
       </Message>
       <div class="footer">
-        <div class="goodsNameBox">
+        <div class="goodsNameBox" v-if="hasPayWay()">
           <span class="gray">付款方式: {{this.payWay | watchPayWay}}</span>
         </div>
-        <div class="goodsNameBox">
-          <span class="gray">商品说明: 线下收款</span>
+        <div class="goodsNameBox" v-if="hasPayMemo()">
+          <span class="gray">商品说明: {{this.payMemo}}</span>
         </div>
         <span @click="payAgain()" v-if="isCancel" class="complete redStyle">继续支付</span>
         <span @click="goComplete()" v-if="isSuccess" class="complete">完成</span>
@@ -44,6 +44,9 @@
 </template>
 
 <style scoped>
+  [v-clock]{
+    display:none
+  }
   .redStyle{
     color: red !important;
     border: 1px solid red !important;
@@ -97,7 +100,7 @@
     data() {
       return {
 //        waiting cancel
-        amount:236,
+        amount:'',
         sn:'',
 //        goodsName:'',
         title:'支付中',
@@ -106,7 +109,7 @@
         isSuccess:false,
         paymentId:'',
         payType:"",
-        payWay:'微信支付'
+        payWay:''
       }
     },
     components: {
@@ -194,30 +197,60 @@
         }
       }
       this.payType = utils.getUrlParameter('type');
+
+      if(!utils.isNull(utils.getUrlParameter("memo"))){
+        _this.payMemo = decodeURI(utils.getUrlParameter('memo'));
+      }
+      if(!utils.isNull(this.payType)){
+        _this.payWay = decodeURI(this.payType);
+      }
+
     },
     mounted() {
       var _this = this;
 //      此处延迟500毫秒再执行支付函数，是因为location.href重定向页面后需要等待一下，才能正常发起支付。
       setTimeout(function (){
-        _this.doPay();
-      }
-      ,500);
+          _this.doPay();
+        }
+        ,500);
     },
     methods:{
+      hasPayMemo(){
+      if(utils.isNull(this.payMemo)){
+        return false;
+      }else {
+        return true;
+      }
+    },
+      hasPayWay(){
+        if(utils.isNull(this.payWay)){
+          return false;
+        }else {
+          return true;
+        }
+      },
+      hasAmount(){
+        if(utils.isNull(this.amount)){
+          return false;
+        }else {
+          return true;
+        }
+      },
       doPay:function () {
         var _this = this;
         let payType = this.payType;
         if(payType == 'weixin'){
-          _this.payWay = payType;
+//          _this.payWay = payType;
           _this.weixin(this.sn);
         }else if(payType == 'alipay'){
-          _this.payWay = payType;
+//          _this.payWay = payType;
           _this.alipay(this.sn);
         }else{
-          _this.payWay = decodeURI(payType);
           if(_this.payWay == '余额支付'){
             _this.paymentId = 'balancePayPlugin'
-          }else{
+          }else if(_this.payWay == '会员卡支付'){
+            _this.paymentId = 'cardPayPlugin'
+          }else {
             _this.paymentId = 'cardPayPlugin'
           }
         }

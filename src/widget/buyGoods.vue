@@ -344,6 +344,7 @@
 //        payPrice:'299',
         clicked:false,
         previewList:[],
+        payMemo:''
       }
     },
     filters:{
@@ -416,12 +417,12 @@
                 if(utils.isweixin()){
                   _this.$router.push({
                     name: "payment",
-                    query: {psn: data.data.sn, amount:  _this.finallPrice,type:'weixin'}
+                    query: {psn: data.data.sn, amount:  _this.finallPrice,type:'weixin',memo:encodeURI(data.data.memo)}
                   });
                 }else if(utils.isalipay()){
                   _this.$router.push({
                     name: "payment",
-                    query: {psn: data.data.sn, amount:  _this.finallPrice,type:'alipay'}
+                    query: {psn: data.data.sn, amount:  _this.finallPrice,type:'alipay',memo:encodeURI(data.data.memo)}
                   });
                 }
               }else if(data.data.paymentPluginId == 'cardPayPlugin'){//会员卡支付
@@ -435,6 +436,7 @@
                 _this.sn = data.data.sn;
                 _this.payWay = '会员卡支付';
                 _this.paymentId = 'cardPayPlugin';
+                _this.payMemo = data.data.memo;
                 _this.$refs.dialog.show();
               }else if(data.data.paymentPluginId == 'balancePayPlugin'){//余额支付
 //                var payInfo2 = {
@@ -448,6 +450,7 @@
                 _this.paymentId = 'balancePayPlugin';
                 _this.sn = data.data.sn;
                 _this.payWay = '余额支付';
+                _this.payMemo = data.data.memo;
                 _this.$refs.dialog.show();
               }else{
                 _this.close(utils.message("error","网络不稳定"));
@@ -472,7 +475,7 @@
         this.$refs.dialog.close();
         this.$router.push({
           name: "payment",
-          query: {psn: _this.sn, amount: _this.finallPrice ,title:'支付取消',type:encodeURI(_this.payWay)}
+          query: {psn: _this.sn, amount: _this.finallPrice ,title:'支付取消',type:encodeURI(_this.payWay),memo:encodeURI(_this.payMemo)}
         });
       },
 //      确定免密支付
@@ -484,7 +487,7 @@
               _this.$refs.toast.show('支付成功');
               _this.$router.push({
                 name: "payment",
-                query: {psn: _this.sn, amount: _this.finallPrice , title:'支付成功',type:encodeURI(_this.payWay)}
+                query: {psn: _this.sn, amount: _this.finallPrice , title:'支付成功',type:encodeURI(_this.payWay),memo:encodeURI(_this.payMemo)}
               });
               _this.hide();
             } else {

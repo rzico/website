@@ -73,7 +73,7 @@
             <div class="footRight" >
               <!--<span class="textTitle footText">查看物流</span>-->
               <span class="textTitle footText "  @click="showDialog(item.sn,'申请退款')">申请退款</span>
-              <span class="textTitle footText red redBorder" @click="urgedGoods(item,item.sn)" :class="[item.hadUrged ? 'grayColor' : '']">提醒发货</span>
+              <span class="textTitle footText " @click="urgedGoods(item,item.sn)" :class="[item.hadUrged ? 'grayColor' : '']">提醒发货</span>
             </div>
           </div>
           <div class="goodsFoot" v-else-if="item.status == 'shipped'">
@@ -171,6 +171,7 @@
         allLoaded:false,
         payPrice:'',
         payWay:'',
+        payMemo:''
       }
     },
     props:{
@@ -288,8 +289,6 @@
         var _this = this;
         POST("website/member/order/create.jhtml?id=" + item.orderItems[0].id + '&quantity=' + item.orderItems[0].quantity + '&receiverId=1').then(
           function (data) {
-//            alert(data);
-//            console.log(data);
             if (data.type=="success") {
               _this.goPay(item,data.data.sn);
             } else {
@@ -298,7 +297,6 @@
 //            _this.disabledButton = false;
           },
           function (err) {
-//            console.log('1');
 //            _this.disabledButton = false;
             _this.$refs.toast.show("网络不稳定");
           }
@@ -309,19 +307,17 @@
         let _this = this;
         POST('website/member/order/payment.jhtml?sn=' + sn).then(
           function (data) {
-            console.log('===');
-            console.log(data);
             if (data.type=="success") {
               if(utils.isNull(data.data.paymentPluginId)){
                 if(utils.isweixin()){
                   _this.$router.push({
                     name: "payment",
-                    query: {psn: data.data.sn, amount: item.amount,type:'weixin'}
+                    query: {psn: data.data.sn, amount: item.amount,type:'weixin',memo:encodeURI(data.data.memo)}
                   });
                 }else if(utils.isalipay()){
                   _this.$router.push({
                     name: "payment",
-                    query: {psn: data.data.sn, amount: item.amount,type:'alipay'}
+                    query: {psn: data.data.sn, amount: item.amount,type:'alipay',memo:encodeURI(data.data.memo)}
                   });
                 }
               }else if(data.data.paymentPluginId == 'cardPayPlugin'){//会员卡支付
@@ -329,12 +325,14 @@
                 _this.payPrice = item.amount;
                 _this.payWay = '会员卡支付';
                 _this.paymentId = 'cardPayPlugin';
+                _this.payMemo = data.data.memo;
                 _this.$refs.freePay.show();
               }else if(data.data.paymentPluginId == 'balancePayPlugin'){//余额支付
                 _this.payPrice = item.amount;
                 _this.paymentId = 'balancePayPlugin';
                 _this.sn = data.data.sn;
                 _this.payWay = '余额支付';
+                _this.payMemo = data.data.memo;
                 _this.$refs.freePay.show();
               }
             } else {
@@ -509,7 +507,7 @@
         this.$refs.freePay.close();
         this.$router.push({
           name: "payment",
-          query: {psn: _this.sn, amount: _this.payPrice ,title:'支付取消',type:encodeURI(_this.payWay)}
+          query: {psn: _this.sn, amount: _this.payPrice ,title:'支付取消',type:encodeURI(_this.payWay),memo:encodeURI(_this.payMemo)}
         });
       },
 //      确定免密支付
@@ -521,7 +519,7 @@
               _this.$refs.toast.show('支付成功');
               _this.$router.push({
                 name: "payment",
-                query: {psn: _this.sn, amount: _this.payPrice , title:'支付成功',type:encodeURI(_this.payWay)}
+                query: {psn: _this.sn, amount: _this.payPrice , title:'支付成功',type:encodeURI(_this.payWay),memo:encodeURI(_this.payMemo)}
               });
               _this.hide();
             } else {
