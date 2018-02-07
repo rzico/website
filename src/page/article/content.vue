@@ -14,8 +14,10 @@
               class="images shadow img-border preview-img"  @click="imgPreview(template.original,templatesList.previewList)" ref="imgRef"/>
           </div>
           <!--判断类型是否小视频-->
-          <div class="img-box" v-if="template.mediaType == 'video'">
-            <video :src="template.original" controls="controls" :poster="template.thumbnail"  width="100%" height="300"></video>
+          <div class="img-box positionRelative" v-if="template.mediaType == 'video'" >
+            <video :src="template.original" controls="controls" :poster="template.thumbnail"  width="100%" height="250"></video>
+            <!--视频背景颜色。-->
+            <div class="positionAbsolute videoBg"></div>
           </div>
         </div>
         <div v-if="template.mediaType == 'product'" class="goodsLineBox" :class="[templateId == 1003 ? 't1003_content_padding_0' : '']">
@@ -63,7 +65,7 @@
     props: {
       templates: { default: function () {
         return []
-        }
+      }
       },
       htmlStr: {
         default:""
@@ -88,7 +90,7 @@
       },
       watchPrice:function (value) {
         return utils.currencyfmt(value);
-      }
+      },
     },
     created() {
       this.goodsHeight = document.documentElement.clientWidth * 0.2;
@@ -118,7 +120,7 @@
           }
 //          在循环过程中 将匹配到的下标存储起来.
           if(original == previewList[i].src){
-              equalIndex = i;
+            equalIndex = i;
           }
 //          当循环执行到最后一个时，调用预览方法
           if(i == previewList.length - 1){
