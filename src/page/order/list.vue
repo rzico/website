@@ -198,10 +198,11 @@
       Tabbar
     },
     created() {
+        var _this =this;
       this.goodsHeight = document.documentElement.clientWidth * 0.25;
       this.goods20Width = document.documentElement.clientWidth * 0.20;
       AUTH(location.href,function (authed) {
-          this.open()
+        _this.open()
         }
       )
     },
