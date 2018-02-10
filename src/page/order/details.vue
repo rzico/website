@@ -48,13 +48,13 @@
         <div class="flexRow goodsBody  goodsBodyOther" v-for="goods in item.orderItems">
           <img :src="goods.thumbnail" class="goodsImg" :style="'height:' + (goodsHeight - 15) + 'px;' + 'width:' + (goodsHeight - 15)+ 'px'"></img>
           <div class="goodsInfo" :style="'height:' + (goodsHeight - 15) + 'px;'">
-            <span class="textTitle goodsName">{{goods.name}}</span>
-            <span class="subTitle mt10">规格:{{goods.spec | watchSpec}}</span>
-          </div>
-          <div class="goodsPriceNum" :style="'height:' + (goodsHeight - 15) + 'px;' + 'width:' + (goods20Width)+ 'px'">
-            <span class="textTitle ">¥ {{goods.price | watchPrice}}</span>
-            <span class="subTitle">x{{goods.quantity}}</span>
-            <!--<span class="subTitle border shopCar" >加购物车</span>-->
+            <span class="goodsName textTitle lineHeight18">{{goods.name}}</span>
+            <span class="subTitle ">规格:{{goods.spec | watchSpec}}</span>
+            <div class="goodsPrice" >
+              <span class="textTitle ">¥ {{goods.price | watchPrice}}</span>
+              <span class="subTitle">x{{goods.quantity}}</span>
+              <!--<span class="subTitle border shopCar" >加购物车</span>-->
+            </div>
           </div>
         </div>
         <!--<div class="flexRow goodsBody goodsBodyOther" >-->
@@ -71,20 +71,38 @@
         <!--</div>-->
       </div>
       <div class="marginTop10 detalisinfoBox">
+        <!--<div class="infoLines boderBottom">-->
+          <!--<div >-->
+            <!--<span class="subTitle">订单编号: {{item.sn}}</span>-->
+            <!--&lt;!&ndash;<span class="subTitle copyBtn border ml10">复制</span>&ndash;&gt;-->
+          <!--</div>-->
+          <!--<div class="mt10">-->
+            <!--<span class="subTitle">下单时间: {{item.createDate | watchCreateDate}}</span>-->
+          <!--</div>-->
+        <!--</div>-->
         <div class="infoLines boderBottom">
-          <div class="flexRow">
-            <span class="subTitle">订单编号: {{item.sn}}</span>
-            <!--<span class="subTitle copyBtn border ml10">复制</span>-->
+          <div>
+            <span class="subTitle ">订单编号: {{item.sn}}</span>
           </div>
-          <div class="mt10 ">
-            <span class="subTitle">下单时间: {{item.createDate | watchCreateDate}}</span>
+          <div class="mt10">
+            <span class="subTitle ">下单时间: {{item.createDate | watchCreateDate}}</span>
           </div>
         </div>
         <div class="infoLines boderBottom">
-          <span class="subTitle fz18">支付方式: {{item.paymentMethod | watchPayMethod}}</span>
+          <div>
+            <span class="subTitle ">支付方式: {{item.paymentMethod | watchPayMethod}}</span>
+          </div>
+          <div class="mt10">
+            <span class="subTitle ">支付状态: {{item.paymentStatus | watchPaymentStatus}}</span>
+          </div>
         </div>
         <div class="infoLines">
-          <span class="subTitle fz18">配送方式: 普通快递</span>
+          <div>
+            <span class="subTitle ">配送方式: 普通快递</span>
+          </div>
+          <div class="mt10">
+            <span class="subTitle ">配送状态: {{item.shippingStatus | watchShippingStatus}}</span>
+          </div>
         </div>
       </div>
       <div class="marginTop10  boderBottom" style="background-color: #fff">
@@ -93,7 +111,7 @@
             <span class="subTitle">商品总额</span>
             <span class="subTitle">¥{{item.price | watchPrice}}</span>
           </div>
-          <div class="spaceBetween">
+          <div class="spaceBetween marginTop10 marginBottom10">
             <span class="subTitle">优惠折扣</span>
             <span class="subTitle">-{{item.couponDiscount | watchPrice}}</span>
           </div>
@@ -166,6 +184,9 @@
   @import '../../less/order/list.less';
 </style>
 <style scoped>
+  .lineHeight18{
+    line-height: 18px;
+  }
   .logBox{
     display: flex;
     flex-direction: row;
@@ -370,7 +391,46 @@
             return '实付款';
             break;
         }
-      }
+      },
+
+      watchPaymentStatus:function (value) {
+        switch (value){
+          case 'unpaid':
+            return '未支付';
+            break;
+          case 'paid':
+            return '已支付';
+            break;
+          case 'refunding':
+            return '退款中';
+            break;
+          case 'refunded':
+            return '已退款';
+            break;
+          default:
+            return '暂无状态';
+            break;
+        }
+      },
+      watchShippingStatus:function (value) {
+        switch (value){
+          case 'unshipped':
+            return '未发货';
+            break;
+          case 'shipped':
+            return '已发货';
+            break;
+          case 'returning':
+            return '退货中';
+            break;
+          case 'returned':
+            return '已退货';
+            break;
+          default:
+            return '暂无状态';
+            break;
+        }
+      },
     },
     methods: {
       open:function () {
