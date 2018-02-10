@@ -487,7 +487,6 @@
       },
       //分类切换
       catagoryChange:function(index,id){
-//                event.toast(id);
         var _this = this;
         if(_this.whichCorpus == index){
           return;
