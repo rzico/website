@@ -200,7 +200,10 @@
     created() {
       this.goodsHeight = document.documentElement.clientWidth * 0.25;
       this.goods20Width = document.documentElement.clientWidth * 0.20;
-      this.open()
+      AUTH(location.href,function (authed) {
+          this.open()
+        }
+      )
     },
     methods:{
 //      前往专栏
