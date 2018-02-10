@@ -19,10 +19,7 @@ export function AUTH(redirectURL,func) {
     function (data) {
       if (data.type == "success") {
         var logined = false;
-        if (data.data.loginStatus && utils.isNull(redirectURL)) {
-            logined = true;
-        } else
-        if (data.data.loginStatus && !utils.isNull(redirectURL) && data.data.authed) {
+        if (data.data.loginStatus) {
             logined = true;
         }
         if (logined) {
