@@ -49,11 +49,13 @@
       <div>展开阅读全文</div>
       <i class="iconfont icon-xiajiantou icon-arrow"></i>
     </div>
+    <preview ref="vuePreview"></preview>
   </div>
 </template>
 <script>
   import { POST, GET } from '../../assets/fetch.js';
   import utils from '../../assets/utils.js';
+  import preview from '../../widget/preview.vue';
   export default {
     data() {
       return {
@@ -76,6 +78,9 @@
       templatesList: function () {
         return this.templates;
       }
+    },
+    components: {
+      preview
     },
     filters:{
 //        用原图去阿里云获取缩略图
@@ -124,7 +129,8 @@
           }
 //          当循环执行到最后一个时，调用预览方法
           if(i == previewList.length - 1){
-            this.$preview.open(equalIndex,previewList);
+//            this.$preview.open(equalIndex,previewList);
+            this.$refs.vuePreview.open(equalIndex,previewList);
             return;
           }
         }

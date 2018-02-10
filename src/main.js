@@ -6,9 +6,9 @@ import '../static/weui.css';
 import '../static/iconfont.css';
 import 'mint-ui/lib/style.css';
 
-//预览插件
-import VuePreview from 'vue-preview'
-Vue.use(VuePreview)
+  // //预览插件
+  // import VuePreview from 'vue-preview'
+  // Vue.use(VuePreview)
 
 Vue.config.productionTip = false
 /* eslint-disable no-new */
