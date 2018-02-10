@@ -248,7 +248,14 @@
           return;
         }
         let _this = this;
-        _this.$refs.buy.show(id,this.watchArticle.id);
+        AUTH(utils.getConfig().appUrl,function (authed) {
+            if (authed) {
+              location.href = utils.getConfig().appUrl;
+            }else{
+              _this.$refs.buy.show(id,_this.watchArticle.id);
+            }
+          }
+        )
       },
 //      payConfirm:function (payInfo) {
 //        alert(payInfo);

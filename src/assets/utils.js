@@ -330,6 +330,10 @@ let utilsFunc = {
     }
   },
   router(url) {
+    //  过滤掉因为分享微信出去而增加的'？from=singlemessage'字段
+    if(url.indexOf('/#/') == -1){
+      url = url.substring(0,url.indexOf('?')) + url.substring(url.indexOf('#/'));
+    }
     var vars = {}, hash;
     var hashes = url.slice(url.indexOf('?') + 1).split('&');
     for (var i = 0; i < hashes.length; i++) {
