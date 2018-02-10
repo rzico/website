@@ -144,7 +144,7 @@
       },
       go:function (id) {
         var _this = this;
-        GET('website/article/view.jhtml?id='+id).then(
+        GET('website/article/view.jhtml?id='+id+"&xuid="+utils.getUrlParameter("xuid")).then(
           function (response) {
             if (response.type=="success") {
               _this.watchArticle = response.data;

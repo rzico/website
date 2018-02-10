@@ -131,18 +131,10 @@
 
     created() {
       var _this = this;
-      _this.id = utils.getUrlParameter("id");
-      if (utils.isNull(_this.id)) {
-        _this.id = "";
-      }
-      if (utils.isNull(_this.id)) {
-        AUTH("",function (authed) {
-          _this.load();
-        })
-      } else {
-        _this.load();
-      }
-      this.open();
+      AUTH(location.href,function (authed) {
+         _this.load();
+         _this.open();
+      })
     },
     methods:{
       godownload:function () {
@@ -164,7 +156,6 @@
             if (response.type=="success") {
               _this.member = response.data;
               _this.member.logo = utils.thumbnail(_this.member.logo,150,150)
-              _this.id = _this.member.id;
               //设置分享标题
               utils.setConfig({
                 title:_this.member.name+"的"+utils.getConfig().siteName+"专栏",
