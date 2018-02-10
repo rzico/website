@@ -1,5 +1,5 @@
 <template>
-  <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="pswp zIndex"  tabindex="-1" role="dialog" aria-hidden="true">
 
     <!-- Background of PhotoSwipe.
          It's a separate element as animating opacity is faster than rgba(). -->
@@ -111,4 +111,7 @@
 <style>
   @import "../../node_modules/_vue-preview@1.0.5@vue-preview/node_modules/photoswipe/dist/photoswipe.css";
   @import "../../node_modules/_vue-preview@1.0.5@vue-preview/node_modules/photoswipe/dist/default-skin/default-skin.css";
+  .zIndex{
+    z-index: 99999999999991 !important;
+  }
 </style>
