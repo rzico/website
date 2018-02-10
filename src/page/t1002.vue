@@ -249,14 +249,11 @@
         }
 
         let _this = this;
-        AUTH(utils.getConfig().appUrl,function (authed) {
-            if (authed) {
-              location.href = utils.getConfig().appUrl;
-            }else{
-              _this.$refs.buy.show(id,_this.watchArticle.id);
-            }
+        AUTH(location.href,function (authed) {
+          if (authed) {
+            _this.$refs.buy.show(id,_this.watchArticle.id);
           }
-        )
+        })
 
       },
       onscroll(e){
