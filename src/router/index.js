@@ -48,6 +48,7 @@ const cardPackage = resolve => require(['../page/member/cardPackage'], resolve)
 const T1002 = resolve => require(['../page/t1002'], resolve)
 const T1003 = resolve => require(['../page/t1003'], resolve)
 const T1004 = resolve => require(['../page/t1004'], resolve)
+const T1005 = resolve => require(['../page/t1005'], resolve)
 const goodsList = resolve => require(['../page/goods/list'], resolve)
 
 // import T1003 from '../page/t1003'
@@ -107,6 +108,12 @@ var router = new Router({
       name: 't1004',
       meta: {requireAuth:true},
       component: T1004
+    },
+    {
+      path: '/t1005',
+      name: 't1005',
+      meta: {requireAuth:true},
+      component: T1005
     },
     {
       path: '/c1001',

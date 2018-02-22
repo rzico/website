@@ -55,6 +55,7 @@
 </div>
 </template>
 <style>
+  @import '../less/t1005.less';
   .mp-dialog .inner.comment > textarea {
     width: 100%;
     height: 90px;
@@ -1483,21 +1484,20 @@
 //      'weui-dialog':Dialog,
     },
     props: {
-      article: {
-        article: { default: function () {
-          return {hits:0,title:"样例",nickName:"author",createDate:null,member:{}}
-        }
-        },
-        musicData: { default: function () {
-          return {id: ""}
-        }
-        },
-        templates: { default: function () {
-          return []
-        }
-        },
-        htmlStr :{default:""},
+      article: { default: function () {
+        return {hits:0,title:"样例",nickName:"author",createDate:null,member:{}}
+      }
       },
+      musicData: { default: function () {
+        return {id: ""}
+      }
+      },
+      templates: { default: function () {
+        return []
+      }
+      },
+      htmlStr :{default:""},
+    },
       created() {
         var _this = this;
         AUTH("",function (authed) {
@@ -1651,6 +1651,5 @@
           }
         },
       }
-    }
   }
   </script>
