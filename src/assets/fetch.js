@@ -8,7 +8,7 @@ Vue.use(Router);
 Vue.use(VueResource);
 
 
-//检查静默授权
+//检查静默授权  不传url时是默认登录,用户不需要知道。只能获取openid 不能获取头像跟用户信息,一般用在支付场景下。
 export function AUTH(redirectURL,func) {
   var _this = this;
   var scope = "base";
@@ -19,10 +19,7 @@ export function AUTH(redirectURL,func) {
     function (data) {
       if (data.type == "success") {
         var logined = false;
-        if (data.data.loginStatus && utils.isNull(redirectURL)) {
-            logined = true;
-        } else
-        if (data.data.loginStatus && !utils.isNull(redirectURL) && data.data.authed) {
+        if (data.data.loginStatus) {
             logined = true;
         }
         if (logined) {

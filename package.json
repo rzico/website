@@ -21,6 +21,7 @@
     "v-distpicker": "^1.0.14",
     "vue": "^2.5.2",
     "vue-area-linkage": "^1.2.5",
+    "vue-preview": "^1.0.5",
     "vue-router": "^3.0.1",
     "weixin-js-sdk": "^1.2.0"
   },

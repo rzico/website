@@ -102,7 +102,7 @@
       },
       musicData: { default: function () {
         return {id: ""}
-      }
+        }
       },
       templates: { default: function () {
         return []
@@ -150,8 +150,6 @@
               _this.watchArticle = response.data;
               _this.isPublish = response.data.isPublish;
 //              _this.$refs.coupon.open(response.data.member.id);
-              console.log('watchArticle');
-              console.log(response.data);
               //设置分享标题
               utils.setConfig({
                 title:_this.watchArticle.title,
@@ -162,13 +160,13 @@
               SHARE(location.href);
               if (!utils.isNull(response.data.music)) {
                 _this.watchMusicData = JSON.parse(response.data.music);
-                console.log(_this.watchMusicData);
               }
               if (!utils.isNull(response.data.templates)) {
-                console.log(response.data.templates)
                 if (response.data.mediaType==0) {
                   _this.htmlStr = response.data.templates;
                 } else {
+//                  图片预览
+                  var previewList = [];
                   response.data.templates.forEach(function (item) {
                     if(item.mediaType == 'product'){
                       GET('website/article/goods.jhtml?id=' + item.id).then(
@@ -185,9 +183,17 @@
                         }
                       )
                     }
+//                    图片预览
+                    if(item.mediaType == 'product' || item.mediaType == 'image' && !utils.isNull(item.original)){
+                      previewList.push({
+                        src: utils.filterThumbnail(item.original),
+                        w: 900,
+                        h: 1000
+                      })
+                    }
                   })
+                  _this.$set(response.data.templates, 'previewList', previewList);
                   _this.watchTemplates = response.data.templates;
-                  console.log(_this.watchTemplates);
                 }
               }
 
@@ -241,8 +247,14 @@
           this.$refs.toast.show('请分享到微信进行购买');
           return;
         }
+
         let _this = this;
-        _this.$refs.buy.show(id,this.watchArticle.id);
+        AUTH(location.href,function (authed) {
+          if (authed) {
+            _this.$refs.buy.show(id,_this.watchArticle.id);
+          }
+        })
+
       },
       onscroll(e){
         if(this.musicPlay == 0){//控制判断音乐。来判断从未触发音乐时滚动触发音乐，而在触发过音乐后滚动时不触发音乐事件。

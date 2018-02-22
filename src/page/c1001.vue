@@ -94,7 +94,6 @@
            this.$refs.loadmore.onBottomLoaded();// 固定方法，查询完要调用一次，用于重新定位
          },
          onscroll(e){
-           console.log(e.target.scrollTop);
            if(e.target.scrollTop >= 194){
              this.isfixed = true;
            }else{

@@ -6,7 +6,7 @@ const config = {
   link:"http://weixin.rzico.com",
   thumbnail:'./static/logo.png',
   desc:'超强图文小视频分享社区,中国版Facebook.',
-  baseURL:"http://dev.rzico.com/",
+  baseURL:"http://weixin.rzico.com/",
   wxAppid:"wx88a1ec3b5c3bc9c3"
 }
 //伪链接主体。  mopian  或 yundian
@@ -69,14 +69,21 @@ let utilsFunc = {
             return false
         }
     },
+    //把缩略图过滤为原图
+    filterThumbnail(url){
+      if(url.indexOf('?x-oss-') != -1){
+        url = url.substring(0,url.indexOf('?x-oss-'));
+      }
+      return url;
+    },
     thumbnail(url,w,h) {
         if(this.isNull(url)){
-           return;
+           return ;
         }
         h = Math.round(h);
         w = Math.round(w);
         if (url.substring(0,11) == "http://cdnx") {
-            return url+"?x-oss-process=image/resize,w_"+w+",h_"+h+"/quality,q_90";
+            return url+"?x-oss-process=image/resize,m_fill,w_"+w+",h_"+h+"/quality,q_90";
         } else
         if (url.substring(0,10) == "http://cdn") {
             return url+"@"+w+"w_"+h+"h_1e_1c_100Q";
@@ -323,6 +330,10 @@ let utilsFunc = {
     }
   },
   router(url) {
+    //  过滤掉因为分享微信出去而增加的'？from=singlemessage'字段
+    if(url.indexOf('/#/') == -1){
+      url = url.substring(0,url.indexOf('?')) + url.substring(url.indexOf('#/'));
+    }
     var vars = {}, hash;
     var hashes = url.slice(url.indexOf('?') + 1).split('&');
     for (var i = 0; i < hashes.length; i++) {

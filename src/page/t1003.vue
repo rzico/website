@@ -144,14 +144,12 @@
       },
       go:function (id) {
         var _this = this;
-        GET('website/article/view.jhtml?id='+id).then(
+        GET('website/article/view.jhtml?id='+id+"&xuid="+utils.getUrlParameter("xuid")).then(
           function (response) {
             if (response.type=="success") {
               _this.watchArticle = response.data;
               _this.isPublish = response.data.isPublish;
               _this.$refs.coupon.open(response.data.member.id);
-              console.log('watchArticle');
-              console.log(response.data);
               //设置分享标题
               utils.setConfig({
                 title:_this.watchArticle.title,
@@ -162,13 +160,13 @@
               SHARE(location.href);
               if (!utils.isNull(response.data.music)) {
                 _this.watchMusicData = JSON.parse(response.data.music);
-                console.log(_this.watchMusicData);
               }
               if (!utils.isNull(response.data.templates)) {
-                console.log(response.data.templates)
                 if (response.data.mediaType==0) {
                   _this.htmlStr = response.data.templates;
                 } else {
+//                  图片预览
+                  var previewList = [];
                   response.data.templates.forEach(function (item) {
                     if(item.mediaType == 'product'){
                       GET('website/article/goods.jhtml?id=' + item.id).then(
@@ -185,9 +183,17 @@
                         }
                       )
                     }
+//                    图片预览
+                    if(item.mediaType == 'product' || item.mediaType == 'image' && !utils.isNull(item.original)){
+                      previewList.push({
+                        src: utils.filterThumbnail(item.original),
+                        w: 900,
+                        h: 1000
+                      })
+                    }
                   })
+                  _this.$set(response.data.templates, 'previewList', previewList);
                   _this.watchTemplates = response.data.templates;
-                  console.log(_this.watchTemplates);
                 }
               }
 
@@ -242,7 +248,11 @@
           return;
         }
         let _this = this;
-        _this.$refs.buy.show(id,this.watchArticle.id);
+        AUTH(location.href,function (authed) {
+          if (authed) {
+            _this.$refs.buy.show(id,_this.watchArticle.id);
+          }
+        })
       },
 //      payConfirm:function (payInfo) {
 //        alert(payInfo);

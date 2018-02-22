@@ -15,7 +15,6 @@
 </template>
 <style scoped>
   @import '../less/t1004.less';
-
 </style>
 <script>
   import {Loadmore} from 'mint-ui';
@@ -218,7 +217,11 @@
         }
 
         let _this = this;
-        _this.$refs.buy.show(id,this.watchArticle.id);
+        AUTH(location.href,function (authed) {
+          if (authed) {
+            _this.$refs.buy.show(id,_this.watchArticle.id);
+          }
+        })
       },
       sendAnimationIndex:function (animationIndex) {
         this.animationIndex = animationIndex;

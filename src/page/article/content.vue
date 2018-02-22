@@ -11,11 +11,13 @@
           <div class="img-box" v-if="hasImage(template)">
             <img
               v-bind:src="template.original | watchImg"
-              class="images shadow img-border" @click="preview(0)"/>
+              class="images shadow img-border preview-img"  @click="imgPreview(template.original,templatesList.previewList)" ref="imgRef"/>
           </div>
           <!--判断类型是否小视频-->
-          <div class="img-box" v-if="template.mediaType == 'video'">
-            <video :src="template.original" controls="controls" :poster="template.thumbnail"  width="100%" height="300"></video>
+          <div class="img-box positionRelative" v-if="template.mediaType == 'video'" >
+            <video :src="template.original" controls="controls" :poster="template.thumbnail"  width="100%" height="250"></video>
+            <!--视频背景颜色。-->
+            <div class="positionAbsolute videoBg"></div>
           </div>
         </div>
         <div v-if="template.mediaType == 'product'" class="goodsLineBox" :class="[templateId == 1003 ? 't1003_content_padding_0' : '']">
@@ -34,7 +36,7 @@
                   <!--¥ 160.00-->
                   <!--</span>-->
                 </div>
-                <span class="doBuy" >立即购买</span>
+                <span class="doBuy">立即购买</span>
               </div>
             </div>
           </div>
@@ -47,11 +49,13 @@
       <div>展开阅读全文</div>
       <i class="iconfont icon-xiajiantou icon-arrow"></i>
     </div>
+    <preview ref="vuePreview"></preview>
   </div>
 </template>
 <script>
   import { POST, GET } from '../../assets/fetch.js';
   import utils from '../../assets/utils.js';
+  import preview from '../../widget/preview.vue';
   export default {
     data() {
       return {
@@ -63,7 +67,7 @@
     props: {
       templates: { default: function () {
         return []
-        }
+      }
       },
       htmlStr: {
         default:""
@@ -74,6 +78,9 @@
       templatesList: function () {
         return this.templates;
       }
+    },
+    components: {
+      preview
     },
     filters:{
 //        用原图去阿里云获取缩略图
@@ -88,7 +95,7 @@
       },
       watchPrice:function (value) {
         return utils.currencyfmt(value);
-      }
+      },
     },
     created() {
       this.goodsHeight = document.documentElement.clientWidth * 0.2;
@@ -102,9 +109,32 @@
           return false;
         }
       },
-      preview:function (data) {
-      }
-      ,
+//      图片预览
+      imgPreview(original,previewList){
+//        预览图片时全文的图片就加载进去了。但是此时在加载更多里面有几张图没有渲染，那么如果在预览后面的图时就会找不到实例以至于出错
+        if(!this.more){
+          this.more = !this.more;
+        }
+        var equalIndex = 0;
+        for(var i = 0;i < previewList.length;i ++){
+//          判断是否取得该dom元素 避免出错
+          if(this.$refs.imgRef[i]){
+//          获取dom元素的宽高
+            previewList[i].w = this.$refs.imgRef[i].offsetWidth;
+            previewList[i].h = this.$refs.imgRef[i].offsetHeight;
+          }
+//          在循环过程中 将匹配到的下标存储起来.
+          if(original == previewList[i].src){
+            equalIndex = i;
+          }
+//          当循环执行到最后一个时，调用预览方法
+          if(i == previewList.length - 1){
+//            this.$preview.open(equalIndex,previewList);
+            this.$refs.vuePreview.open(equalIndex,previewList);
+            return;
+          }
+        }
+      },
       isHtml:function () {
         if (this.htmlStr=="") {
           return false;
@@ -136,6 +166,5 @@
         this.$emit('buyNow',id);
       }
     }
-
   }
 </script>

@@ -3,7 +3,7 @@
     <div class="maskHide" @click="maskHide()"></div>
     <div class="box" v-for="item in goodsData">
       <div class="headerBox">
-        <img class="goodsImg | watchGoodsImg" :src="item.thumbnail" alt="">
+        <img class="goodsImg preview-img" :src="item.thumbnail | watchGoodsImg"  @click="imgPreview(item.thumbnail,previewList)">
         <div class="goodsInfo">
           <span class="priceNow">¥ {{item.price | watchPrice}}</span>
           <!--<span class="priceBefore sub_title" style="font-size: 14px">原价160.00</span>-->
@@ -86,7 +86,6 @@
         <p style="text-align: center;width: 100%;font-size: 25px;color: #000">¥{{finallPrice}}</p>
       </div>
     </weui-dialog>
-
     <Toast ref="toast"></Toast>
   </div>
 </template>
@@ -100,6 +99,7 @@
     font-weight: 700;
     width:38px;
     text-align: center;
+
   }
 
   .noAddress{
@@ -342,6 +342,9 @@
         hasSpecTwo:false,
         hasSpecOne:true,
 //        payPrice:'299',
+        clicked:false,
+        previewList:[],
+        payMemo:''
       }
     },
     filters:{
@@ -349,7 +352,7 @@
         return utils.currencyfmt(value);
       },
       watchGoodsImg:function (value) {
-        return utils.thumbnail(90,90);
+        return utils.thumbnail(value,90,90);
       },
     },
     methods: {
@@ -362,6 +365,15 @@
       },
 //      确认购买
       completeBuy:function () {
+        var _this = this;
+        if (this.clicked) {
+          return;
+        }
+        this.clicked = true;
+        setTimeout(function () {
+          _this.clicked = false;
+        },1500)
+
         if(utils.isNull(this.buyNum) || this.buyNum <= 0){
           this.$refs.toast.show('请添加数量');
           return;
@@ -379,7 +391,6 @@
           return ;
         }
 
-        var _this = this;
         POST("website/member/order/create.jhtml?id=" + this.productId + '&quantity=' + this.buyNum + '&receiverId=' + this.receiverList[0].id+'&xuid='+utils.getUrlParameter("xuid")).then(
           function (data) {
             if (data.type=="success") {
@@ -390,7 +401,6 @@
             _this.disabledButton = false;
           },
           function (err) {
-//            console.log('1');
             _this.disabledButton = false;
             _this.close(utils.message("error","网络不稳定"));
           }
@@ -407,12 +417,12 @@
                 if(utils.isweixin()){
                   _this.$router.push({
                     name: "payment",
-                    query: {psn: data.data.sn, amount:  _this.finallPrice,type:'weixin'}
+                    query: {psn: data.data.sn, amount:  _this.finallPrice,type:'weixin',memo:encodeURI(data.data.memo)}
                   });
                 }else if(utils.isalipay()){
                   _this.$router.push({
                     name: "payment",
-                    query: {psn: data.data.sn, amount:  _this.finallPrice,type:'alipay'}
+                    query: {psn: data.data.sn, amount:  _this.finallPrice,type:'alipay',memo:encodeURI(data.data.memo)}
                   });
                 }
               }else if(data.data.paymentPluginId == 'cardPayPlugin'){//会员卡支付
@@ -426,6 +436,7 @@
                 _this.sn = data.data.sn;
                 _this.payWay = '会员卡支付';
                 _this.paymentId = 'cardPayPlugin';
+                _this.payMemo = data.data.memo;
                 _this.$refs.dialog.show();
               }else if(data.data.paymentPluginId == 'balancePayPlugin'){//余额支付
 //                var payInfo2 = {
@@ -439,6 +450,7 @@
                 _this.paymentId = 'balancePayPlugin';
                 _this.sn = data.data.sn;
                 _this.payWay = '余额支付';
+                _this.payMemo = data.data.memo;
                 _this.$refs.dialog.show();
               }else{
                 _this.close(utils.message("error","网络不稳定"));
@@ -463,7 +475,7 @@
         this.$refs.dialog.close();
         this.$router.push({
           name: "payment",
-          query: {psn: _this.sn, amount: _this.finallPrice ,title:'支付取消',type:encodeURI(_this.payWay)}
+          query: {psn: _this.sn, amount: _this.finallPrice ,title:'支付取消',type:encodeURI(_this.payWay),memo:encodeURI(_this.payMemo)}
         });
       },
 //      确定免密支付
@@ -475,7 +487,7 @@
               _this.$refs.toast.show('支付成功');
               _this.$router.push({
                 name: "payment",
-                query: {psn: _this.sn, amount: _this.finallPrice , title:'支付成功',type:encodeURI(_this.payWay)}
+                query: {psn: _this.sn, amount: _this.finallPrice , title:'支付成功',type:encodeURI(_this.payWay),memo:encodeURI(_this.payMemo)}
               });
               _this.hide();
             } else {
@@ -544,7 +556,6 @@
               _this.productId = item.productId;
               _this.goodsData[0].price = item.price;
               _this.goodsData[0].thumbnail = item.thumbnail;
-              console.log(_this.goodsData);
             }
           })
           this.calcPrice();
@@ -617,8 +628,6 @@
 //          计算价格信息
         POST('website/member/order/calculate.jhtml?id=' + this.productId + '&quantity=' + this.buyNum).then(
           function (data) {
-            console.log('32');
-            console.log(data);
             if(data.type == 'success'){
               if(data.type == 'success'){
                 _this.finallPrice = data.data.amount;
@@ -633,7 +642,6 @@
               _this.close(data);
             }
           },function (err) {
-            console.log(err);
             _this.close(utils.message("error","网络不稳定"));
           }
         )
@@ -684,6 +692,48 @@
           return true;
         }
       },
+
+//      图片预览
+      imgPreview(original,previewList){
+        for(var i = 0;i < previewList.length;i ++){
+          if(original == previewList[i].src){
+            this.$preview.open(i,previewList);
+            return;
+          }
+        }
+      },
+
+//      设置预览图片的列表
+      setPreviewList(product){
+        var _this = this;
+          for(var index = 0;index < product.length;index ++){
+//            过滤规格1重复的图
+//            if(index != 0){
+//              var num = 0;
+//              for(var i = index;i > 0;i--){
+//
+//                if (product[index].spec1 == product[i - 1].spec1) {
+//                  num ++ ;
+//                }
+//              }
+//              if(num == 0){
+//                _this.previewList.push({
+//                  src:product[index].thumbnail,
+//                  w:1200,
+//                  h:900
+//                })
+//              }
+//            } else {
+
+              _this.previewList.push({
+                src:utils.filterThumbnail(product[index].thumbnail),
+                w:900,
+                h:1000
+              })
+//            }
+          }
+      },
+
 //       开始时触发
       show:function (id,articleId) {
         this.articleId = articleId;
@@ -692,7 +742,6 @@
         GET('website/product/view.jhtml?id='+id).then(
           function (data) {
             if(data.type == 'success'){
-              console.log(data);
               _this.goodsData = [];
 //              _this.finallPrice = data.data.products[0].price;
               _this.productId = data.data.products[0].productId;
@@ -701,6 +750,10 @@
               _this.buyNum = 1;
 //              将页面list数据push进变量
               _this.goodsData.push(data.data);
+//              设置预览数组图
+              _this.setPreviewList(data.data.products);
+
+
 
 //              默认选中规格1并调用方法判断规格2是否可选
               let sp1 = data.data.products[0].spec1;
