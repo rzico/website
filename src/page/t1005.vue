@@ -1,8 +1,8 @@
 <template>
 <div class="main-box">
   <div class="main-box">
-    <div class="root meipian" data-mask-id="13yy1mbc">
-      <div class="top-download__root"><div class="top-fixed-download"><div class="title"><img src="http://static2.ivwen.com/web/a/logo.png" alt="美篇" class="logo"> <p><span class="name">美篇</span> <span class="desc">你也能发这样的图文</span></p> <button class="download-btn">马上制作</button></div> <button class="close"></button></div></div>
+    <div class="root moipian" data-mask-id="13yy1mbc">
+      <download_bar :isShow="downloadShow" :authorId="watchArticle.member.id" @closeDownload="closeDownload" templateId=1002 ></download_bar>
       <div class="cover">
         <div class="header">
         </div>
@@ -47,455 +47,14 @@
           </div>
         </div>
         <div class="footer__root"><!----> <div class="report" red-packet-type=""><div class="well">
-          阅读 <span class="read-count">14</span> <!----> <a class="btn-report">举报</a></div></div> <!----> <!----> <div id="comment"><div class="comment" red-packet-type=""><div class="footer-section"><div class="well"><h3 class="title">热门评论<span>(0)</span></h3> <div><div><div class="comment-item"><div class="more"><a class="add-btn-text"><!----> 写下你的感受</a> <a class="btn btn-block btn-comment">一键制作你自己的美篇</a></div></div></div></div></div></div></div></div> <div class="qrcode-banner"><div class="footer-section"><img src="https://ss2.meipian.me/config/1518853571370.jpg" alt=""></div></div> <div class="recommend"><div class="footer-section"><div class="well"><h3 class="title">推荐文章</h3> <div href="https://www.meipian.cn/10xl3txj" class="recommend-item clearfix"><a><div class="img-container"><img alt="结婚多年，老公，我不欠你了" src="http://static2.ivwen.com/user/30467429/c7decbacea6000015391111bfd70159c.jpg" lazy="loaded"></div> <h4 class="article-title line-clamp-2">结婚多年，老公，我不欠你了</h4> <p class="view-count"><i class="iconfont icon-yuedu"></i> <span class="count">139161</span></p></a></div><div href="https://www.meipian.cn/31qoyv" class="recommend-item clearfix"><a><div class="img-container"><img alt="1945~1960出生的人！古往没有过，今后不再有！" src="https://ss2.meipian.me/users/167365/4a029b171ce0488db6d9e10fea5dfff4.jpg-mobile" lazy="loaded"></div> <h4 class="article-title line-clamp-2">1945~1960出生的人！古往没有过，今后不再有！</h4> <p class="view-count"><i class="iconfont icon-yuedu"></i> <span class="count">17331565</span></p></a></div><div href="https://www.meipian.cn/v4i1pol" class="recommend-item clearfix"><a><div class="img-container"><img alt="不爱笑的女生如何拍出美美的旅行照" src="https://ss2.meipian.me/user/1700556/c7ba09e48bd00001f49fa8107f8a87b0.jpg-mobile" lazy="loaded"></div> <h4 class="article-title line-clamp-2">不爱笑的女生如何拍出美美的旅行照</h4> <p class="view-count"><i class="iconfont icon-yuedu"></i> <span class="count">552834</span></p></a></div> <div class="recommend-item clearfix"><a href="javascript:;"><div class="img-container"><img src="https://ss2.meipian.me/config/aef004c02b547a56b045ca2a4698d75f.jpg" alt="调理易胖体质，月瘦28斤，不反弹"></div> <h4 class="article-title line-clamp-2">调理易胖体质，月瘦28斤，不反弹</h4> <p class="view-count"><img src="https://ss2.meipian.me/theme/v2/ads/advert.png" alt="" style="height: 17px;"></p></a> <!----></div> <div href="https://www.meipian.cn/xqupop0" class="recommend-item clearfix"><a><div class="img-container"><img alt="她51岁，被岁月忘却，活出别样幸福" src="https://ss2.meipian.me/user/25908192/c7c4b6e556700001966213805b6015bf.jpeg-mobile" lazy="loaded"></div> <h4 class="article-title line-clamp-2">她51岁，被岁月忘却，活出别样幸福</h4> <p class="view-count"><i class="iconfont icon-yuedu"></i> <span class="count">498485</span></p></a></div><div href="https://www.meipian.cn/v25c0ug" class="recommend-item clearfix"><a><div class="img-container"><img alt="2018年【鸟趣】日历" src="https://ss2.meipian.me/users/3113881/61c68a063bf44c849753e10b21be697d.jpg-mobile" lazy="loaded"></div> <h4 class="article-title line-clamp-2">2018年【鸟趣】日历</h4> <p class="view-count"><i class="iconfont icon-yuedu"></i> <span class="count">377801</span></p></a></div><div href="https://www.meipian.cn/5kti4d2" class="recommend-item clearfix"><a><div class="img-container"><img alt="天边，那凄美的故事……" src="https://ss2.meipian.me/users/336921/da2043b0bdd3462e931517feb830b657.jpg-mobile" lazy="loaded"></div> <h4 class="article-title line-clamp-2">天边，那凄美的故事……</h4> <p class="view-count"><i class="iconfont icon-yuedu"></i> <span class="count">2469273</span></p></a></div><div href="https://www.meipian.cn/10ksyomy" class="recommend-item clearfix"><a><div class="img-container"><img alt="2017，珍惜生命中每一天的精彩" src="https://ss2.meipian.me/users/1042118/f4e689328c454aaa97bd9baeeb2ee176.jpg-mobile" lazy="loaded"></div> <h4 class="article-title line-clamp-2">2017，珍惜生命中每一天的精彩</h4> <p class="view-count"><i class="iconfont icon-yuedu"></i> <span class="count">202326</span></p></a></div></div></div></div> <div class="ads"><div class="footer-section"><img src="https://ss2.meipian.me/config/db59fea19d637aa428ff72fe6241cb46.jpg" class="ads-stand-alone"> <!----></div></div> <div class="introduce-meipian"><a><img src="https://ss2.meipian.me/config/1518517606552.jpg" alt="你好，我是小美"></a></div> <div></div> <div></div></div>
-      </div>
-      <div id="rcmd-ads">
-      </div>
-      <div id="commercial-ads">
+          阅读 <span class="read-count">14</span> <!----></div></div> <!----> <!---->
       </div>
     </div>
   </div>
 </div>
+</div>
 </template>
 <style>
-  @charset "UTF-8";
-  /*! normalize.css v5.0.0 | MIT License | github.com/necolas/normalize.css */
-  /**
-   * 1. Change the default font family in all browsers (opinionated).
-   * 2. Correct the line height in all browsers.
-   * 3. Prevent adjustments of font size after orientation changes in
-   *    IE on Windows Phone and in iOS.
-   */
-  /* Document
-     ========================================================================== */
-  html {
-    font-family: sans-serif;
-    /* 1 */
-    line-height: 1.15;
-    /* 2 */
-    -ms-text-size-adjust: 100%;
-    /* 3 */
-    -webkit-text-size-adjust: 100%;
-    /* 3 */ }
-
-  /* Sections
-     ========================================================================== */
-  /**
-   * Remove the margin in all browsers (opinionated).
-   */
-  body {
-    margin: 0; }
-
-  /**
-   * Add the correct display in IE 9-.
-   */
-  article,
-  aside,
-  footer,
-  header,
-  nav,
-  section {
-    display: block; }
-
-  /**
-   * Correct the font size and margin on `h1` elements within `section` and
-   * `article` contexts in Chrome, Firefox, and Safari.
-   */
-  h1 {
-    font-size: 2em;
-    margin: 0.67em 0; }
-
-  /* Grouping content
-     ========================================================================== */
-  /**
-   * Add the correct display in IE 9-.
-   * 1. Add the correct display in IE.
-   */
-  figcaption,
-  figure,
-  main {
-    /* 1 */
-    display: block; }
-
-  /**
-   * Add the correct margin in IE 8.
-   */
-  figure {
-    margin: 1em 40px; }
-
-  /**
-   * 1. Add the correct box sizing in Firefox.
-   * 2. Show the overflow in Edge and IE.
-   */
-  hr {
-    -webkit-box-sizing: content-box;
-    box-sizing: content-box;
-    /* 1 */
-    height: 0;
-    /* 1 */
-    overflow: visible;
-    /* 2 */ }
-
-  /**
-   * 1. Correct the inheritance and scaling of font size in all browsers.
-   * 2. Correct the odd `em` font sizing in all browsers.
-   */
-  pre {
-    font-family: monospace, monospace;
-    /* 1 */
-    font-size: 1em;
-    /* 2 */ }
-
-  /* Text-level semantics
-     ========================================================================== */
-  /**
-   * 1. Remove the gray background on active links in IE 10.
-   * 2. Remove gaps in links underline in iOS 8+ and Safari 8+.
-   */
-  a {
-    background-color: transparent;
-    /* 1 */
-    -webkit-text-decoration-skip: objects;
-    /* 2 */ }
-
-  /**
-   * Remove the outline on focused links when they are also active or hovered
-   * in all browsers (opinionated).
-   */
-  a:active,
-  a:hover {
-    outline-width: 0; }
-
-  /**
-   * 1. Remove the bottom border in Firefox 39-.
-   * 2. Add the correct text decoration in Chrome, Edge, IE, Opera, and Safari.
-   */
-  abbr[title] {
-    border-bottom: none;
-    /* 1 */
-    text-decoration: underline;
-    /* 2 */
-    -webkit-text-decoration: underline dotted;
-    text-decoration: underline dotted;
-    /* 2 */ }
-
-  /**
-   * Prevent the duplicate application of `bolder` by the next rule in Safari 6.
-   */
-  b,
-  strong {
-    font-weight: inherit; }
-
-  /**
-   * Add the correct font weight in Chrome, Edge, and Safari.
-   */
-  b,
-  strong {
-    font-weight: bolder; }
-
-  /**
-   * 1. Correct the inheritance and scaling of font size in all browsers.
-   * 2. Correct the odd `em` font sizing in all browsers.
-   */
-  code,
-  kbd,
-  samp {
-    font-family: monospace, monospace;
-    /* 1 */
-    font-size: 1em;
-    /* 2 */ }
-
-  /**
-   * Add the correct font style in Android 4.3-.
-   */
-  dfn {
-    font-style: italic; }
-
-  /**
-   * Add the correct background and color in IE 9-.
-   */
-  mark {
-    background-color: #ff0;
-    color: #000; }
-
-  /**
-   * Add the correct font size in all browsers.
-   */
-  small {
-    font-size: 80%; }
-
-  /**
-   * Prevent `sub` and `sup` elements from affecting the line height in
-   * all browsers.
-   */
-  sub,
-  sup {
-    font-size: 75%;
-    line-height: 0;
-    position: relative;
-    vertical-align: baseline; }
-
-  sub {
-    bottom: -0.25em; }
-
-  sup {
-    top: -0.5em; }
-
-  /* Embedded content
-     ========================================================================== */
-  /**
-   * Add the correct display in IE 9-.
-   */
-  audio,
-  video {
-    display: inline-block; }
-
-  /**
-   * Add the correct display in iOS 4-7.
-   */
-  audio:not([controls]) {
-    display: none;
-    height: 0; }
-
-  /**
-   * Remove the border on images inside links in IE 10-.
-   */
-  img {
-    border-style: none; }
-
-  /**
-   * Hide the overflow in IE.
-   */
-  svg:not(:root) {
-    overflow: hidden; }
-
-  /* Forms
-     ========================================================================== */
-  /**
-   * 1. Change the font styles in all browsers (opinionated).
-   * 2. Remove the margin in Firefox and Safari.
-   */
-  button,
-  input,
-  optgroup,
-  select,
-  textarea {
-    font-family: sans-serif;
-    /* 1 */
-    font-size: 100%;
-    /* 1 */
-    line-height: 1.15;
-    /* 1 */
-    margin: 0;
-    /* 2 */ }
-
-  /**
-   * Show the overflow in IE.
-   * 1. Show the overflow in Edge.
-   */
-  button,
-  input {
-    /* 1 */
-    overflow: visible; }
-
-  /**
-   * Remove the inheritance of text transform in Edge, Firefox, and IE.
-   * 1. Remove the inheritance of text transform in Firefox.
-   */
-  button,
-  select {
-    /* 1 */
-    text-transform: none; }
-
-  /**
-   * 1. Prevent a WebKit bug where (2) destroys native `audio` and `video`
-   *    controls in Android 4.
-   * 2. Correct the inability to style clickable types in iOS and Safari.
-   */
-  button,
-  html [type="button"],
-  [type="reset"],
-  [type="submit"] {
-    -webkit-appearance: button;
-    /* 2 */ }
-
-  /**
-   * Remove the inner border and padding in Firefox.
-   */
-  button::-moz-focus-inner,
-  [type="button"]::-moz-focus-inner,
-  [type="reset"]::-moz-focus-inner,
-  [type="submit"]::-moz-focus-inner {
-    border-style: none;
-    padding: 0; }
-
-  /**
-   * Restore the focus styles unset by the previous rule.
-   */
-  button:-moz-focusring,
-  [type="button"]:-moz-focusring,
-  [type="reset"]:-moz-focusring,
-  [type="submit"]:-moz-focusring {
-    outline: 1px dotted ButtonText; }
-
-  /**
-   * Change the border, margin, and padding in all browsers (opinionated).
-   */
-  fieldset {
-    border: 1px solid #c0c0c0;
-    margin: 0 2px;
-    padding: 0.35em 0.625em 0.75em; }
-
-  /**
-   * 1. Correct the text wrapping in Edge and IE.
-   * 2. Correct the color inheritance from `fieldset` elements in IE.
-   * 3. Remove the padding so developers are not caught out when they zero out
-   *    `fieldset` elements in all browsers.
-   */
-  legend {
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
-    /* 1 */
-    color: inherit;
-    /* 2 */
-    display: table;
-    /* 1 */
-    max-width: 100%;
-    /* 1 */
-    padding: 0;
-    /* 3 */
-    white-space: normal;
-    /* 1 */ }
-
-  /**
-   * 1. Add the correct display in IE 9-.
-   * 2. Add the correct vertical alignment in Chrome, Firefox, and Opera.
-   */
-  progress {
-    display: inline-block;
-    /* 1 */
-    vertical-align: baseline;
-    /* 2 */ }
-
-  /**
-   * Remove the default vertical scrollbar in IE.
-   */
-  textarea {
-    overflow: auto; }
-
-  /**
-   * 1. Add the correct box sizing in IE 10-.
-   * 2. Remove the padding in IE 10-.
-   */
-  [type="checkbox"],
-  [type="radio"] {
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
-    /* 1 */
-    padding: 0;
-    /* 2 */ }
-
-  /**
-   * Correct the cursor style of increment and decrement buttons in Chrome.
-   */
-  [type="number"]::-webkit-inner-spin-button,
-  [type="number"]::-webkit-outer-spin-button {
-    height: auto; }
-
-  /**
-   * 1. Correct the odd appearance in Chrome and Safari.
-   * 2. Correct the outline style in Safari.
-   */
-  [type="search"] {
-    -webkit-appearance: textfield;
-    /* 1 */
-    outline-offset: -2px;
-    /* 2 */ }
-
-  /**
-   * Remove the inner padding and cancel buttons in Chrome and Safari on macOS.
-   */
-  [type="search"]::-webkit-search-cancel-button,
-  [type="search"]::-webkit-search-decoration {
-    -webkit-appearance: none; }
-
-  /**
-   * 1. Correct the inability to style clickable types in iOS and Safari.
-   * 2. Change font properties to `inherit` in Safari.
-   */
-  ::-webkit-file-upload-button {
-    -webkit-appearance: button;
-    /* 1 */
-    font: inherit;
-    /* 2 */ }
-
-  /* Interactive
-     ========================================================================== */
-  /*
-   * Add the correct display in IE 9-.
-   * 1. Add the correct display in Edge, IE, and Firefox.
-   */
-  details,
-  menu {
-    display: block; }
-
-  /*
-   * Add the correct display in all browsers.
-   */
-  summary {
-    display: list-item; }
-
-  /* Scripting
-     ========================================================================== */
-  /**
-   * Add the correct display in IE 9-.
-   */
-  canvas {
-    display: inline-block; }
-
-  /**
-   * Add the correct display in IE.
-   */
-  template {
-    display: none; }
-
-  /* Hidden
-     ========================================================================== */
-  /**
-   * Add the correct display in IE 10-.
-   */
-  [hidden] {
-    display: none; }
-
-  .mp-dialog {
-    width: 100%;
-    height: 100%;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 99; }
-  .mp-dialog.animated {
-    -webkit-animation-duration: .5s;
-    animation-duration: 0.5s; }
-  .mp-dialog .bg {
-    width: 100%;
-    height: 100%;
-    background: #000;
-    background: rgba(0, 0, 0, 0.5); }
-  .mp-dialog .inner {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    top: 0;
-    margin: auto;
-    z-index: 1; }
-  .mp-dialog .inner.comment {
-    width: 300px;
-    height: 158px;
-    padding: 15px;
-    background-color: #f7f7fa;
-    border-radius: 7px; }
   .mp-dialog .inner.comment > textarea {
     width: 100%;
     height: 90px;
@@ -792,8 +351,8 @@
   body.top-banner-show .top-fixed-download {
     display: block; }
 
-  .root.meipian {
-    background-image: url("../img/95/95_bg_moblie_1.jpg");
+  .root.moipian {
+    background-image: url("../img/t1005/95_bg_moblie_1.jpg");
     background-repeat: repeat;
     background-size: 100%; }
 
@@ -802,13 +361,13 @@
     font-family: PingFangSC-Regular; }
   .cover .header {
     position: relative;
-    background-image: url("../img/95/95_bg_mobile_a.jpg");
+    background-image: url("../img/t1005/95_bg_mobile_a.jpg");
     background-size: 100% 100%;
     padding-bottom: 93.33333%; }
   .cover .auther-header-box {
     padding: 0px 34px;
     min-height: 115px;
-    background-image: url("../img/95/95_bg_mobile_b.jpg");
+    background-image: url("../img/t1005/95_bg_mobile_b.jpg");
     background-repeat: no-repeat;
     background-size: 100%;
     background-position: top;
@@ -876,7 +435,7 @@
     -webkit-transform: translate(-50%, -50%);
     -ms-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
-    background: url("../img/95/95_leaf.png") no-repeat 100% 100%; }
+    background: url("../img/t1005/95_leaf.png") no-repeat 100% 100%; }
 
   .mp-content {
     color: #4A9C95; }
@@ -921,22 +480,13 @@
   .mp-content .section .img-outbox {
     padding: 15px 15px;
     position: relative; }
-  .mp-content .section .img-outbox .left, .mp-content .section .img-outbox .rotate0::after {
-    width: 68px;
-    height: 48px;
-    position: absolute;
-    bottom: -5px;
-    right: -5px;
-    background-image: url("../img/95/95_d1.png");
-    background-size: 100%;
-    background-repeat: no-repeat; }
   .mp-content .section .img-outbox .right, .mp-content .section .img-outbox .rotate-0::after {
     width: 60px;
     height: 48px;
     position: absolute;
     bottom: -5px;
     left: -5px;
-    background-image: url("../img/95/95_d2.png");
+    background-image: url("../img/t1005/95_d2.png");
     background-size: 100%;
     background-repeat: no-repeat; }
   .mp-content .section .img-outbox .rotate0 {
@@ -1767,8 +1317,8 @@
     color: #96BFBF; }
 
   @media screen and (min-width: 500px) {
-    .root.meipian {
-      background-image: url("../img/95/95_bg_pc_1.jpg");
+    .root.moipian {
+      background-image: url("../img/t1005/95_bg_pc_1.jpg");
       background-repeat: repeat;
       background-size: 100%; }
     .cover {
@@ -1776,13 +1326,13 @@
       font-family: PingFangSC-Regular; }
     .cover .header {
       position: relative;
-      background-image: url("../img/95/95_bg_pc_a.jpg");
+      background-image: url("../img/t1005/95_bg_pc_a.jpg");
       background-size: 100% 100%;
       padding-bottom: 46.66667%; }
     .cover .auther-header-box {
       padding: 0px 74px;
       min-height: 115px;
-      background-image: url("../img/95/95_bg_pc_b.jpg");
+      background-image: url("../img/t1005/95_bg_pc_b.jpg");
       background-repeat: no-repeat;
       background-size: 100%;
       background-position: top; }
@@ -1801,7 +1351,7 @@
       -webkit-transform: translate(-50%, -50%);
       -ms-transform: translate(-50%, -50%);
       transform: translate(-50%, -50%);
-      background: url("../img/95/95_leaf.png") no-repeat 100% 100%; }
+      background: url("../img/t1005/95_leaf.png") no-repeat 100% 100%; }
     .cover .well {
       padding: 32px 74px 20px; }
     .mp-content .well {
@@ -1869,3 +1419,238 @@
     color: #3B8FD3; }
 
 </style>
+<script>
+  import {Loadmore} from 'mint-ui';
+  import { POST,GET,AUTH,SHARE} from '../assets/fetch.js';
+  import utils from '../assets/utils.js';
+  import download_bar from './article/download_bar.vue';
+  import article_meta from './article/t1002/meta.vue';
+  import article_cover from './article/t1002/cover.vue';
+  import music from './article/music.vue';
+  import article_content from './article/content.vue';
+  import vote from './article/vote.vue';
+  import reward from './article/reward.vue';
+  import report from './article/report.vue';
+  import coupon from './article/coupon.vue';
+  import auther from './article/auther.vue';
+  import recommend from './article/recommend.vue';
+  import review from './article/review.vue';
+  import ad from './article/ad.vue';
+  import rewardDialog from './article/rewardDialog.vue';
+  import Toast from '../widget/toast.vue';
+  import payment from '../widget/payment.vue';
+  import buyGoods from '../widget/buyGoods.vue';
+  import card from './member/card.vue';
+  import getCoupon from './coupon/activate.vue';
+  import Dialog from '../widget/dialog.vue';
+  export default {
+    data() {
+      return {
+        logined:false,
+        msg:"",
+        watchTemplates: this.templates,
+        watchMusicData: this.musicData,
+        watchArticle: this.article,
+        downloadShow:true,
+        musicPlay:0,
+        noWeex:true,
+        isPublish:true,
+//      payWay:'账户余额',
+//      payPrice:'299',
+        sn:'',
+      }
+    },
+    components: {
+      'v-loadmore':Loadmore, // 为组件起别名，vue转换template标签时不会区分大小写，例如：loadMore这种标签转换完就会变成loadmore，容易出现一些匹配问题
+      Toast,
+      download_bar,
+      article_meta,
+      music,
+      article_content,
+      reward,
+      report,
+      coupon,
+      auther,
+      recommend,
+      review,
+      ad,
+      rewardDialog,
+      payment,
+      vote,
+      card,
+      buyGoods,
+      article_cover
+//      'weui-dialog':Dialog,
+    },
+    props: {
+      article: {
+        article: { default: function () {
+          return {hits:0,title:"样例",nickName:"author",createDate:null,member:{}}
+        }
+        },
+        musicData: { default: function () {
+          return {id: ""}
+        }
+        },
+        templates: { default: function () {
+          return []
+        }
+        },
+        htmlStr :{default:""},
+      },
+      created() {
+        var _this = this;
+        AUTH("",function (authed) {
+          _this.logined  = authed;
+        })
+        if(utils.isweex()==true){
+          this.downloadShow = false;
+          this.noWeex = false;
+        }
+        let id = utils.getUrlParameter("id");
+        this.go(id);
+      },
+      methods: {
+        loadTop:function() { //组件提供的下拉触发方法
+          this.$refs.loadmore.onTopLoaded();// 固定方法，查询完要调用一次，用于重新定位
+        },
+        loadBottom:function() {
+          this.$refs.loadmore.onBottomLoaded();// 固定方法，查询完要调用一次，用于重新定位
+        },
+        onPayNotify:function (data) {
+          if ("success"==data.type) {
+          } else {
+            this.$refs.toast.show(data.content);
+          }
+        },
+        fetchData:function (id) {
+          this.go(id);
+          this.$refs.review.open(id);
+          this.$refs.cardImg.open(id);
+          document.documentElement.scrollTop = 0;
+          document.body.scrollTop = 0;
+        },
+        go:function (id) {
+          var _this = this;
+          GET('website/article/view.jhtml?id='+id).then(
+            function (response) {
+              if (response.type=="success") {
+                _this.watchArticle = response.data;
+                _this.isPublish = response.data.isPublish;
+//              _this.$refs.coupon.open(response.data.member.id);
+                //设置分享标题
+                utils.setConfig({
+                  title:_this.watchArticle.title,
+                  desc:_this.watchArticle.htmlTag,
+                  link:_this.watchArticle.url,
+                  thumbnail:_this.watchArticle.thumbnail
+                });
+                SHARE(location.href);
+                if (!utils.isNull(response.data.music)) {
+                  _this.watchMusicData = JSON.parse(response.data.music);
+                }
+                if (!utils.isNull(response.data.templates)) {
+                  if (response.data.mediaType==0) {
+                    _this.htmlStr = response.data.templates;
+                  } else {
+//                  图片预览
+                    var previewList = [];
+                    response.data.templates.forEach(function (item) {
+                      if(item.mediaType == 'product'){
+                        GET('website/article/goods.jhtml?id=' + item.id).then(
+                          function (data) {
+                            if(data.type == 'success'){
+//                           对数组对象进行操作需要 这样子才能重新渲染界面
+                              _this.$set(item, 'name', data.data.name);
+                              _this.$set(item, 'price', data.data.price);
+                            }else{
+                              _this.$refs.toast.show("服务器繁忙");
+                            }
+                          },function (err) {
+                            _this.$refs.toast.show("网络不稳定");
+                          }
+                        )
+                      }
+//                    图片预览
+                      if(item.mediaType == 'product' || item.mediaType == 'image' && !utils.isNull(item.original)){
+                        previewList.push({
+                          src: utils.filterThumbnail(item.original),
+                          w: 900,
+                          h: 1000
+                        })
+                      }
+                    })
+                    _this.$set(response.data.templates, 'previewList', previewList);
+                    _this.watchTemplates = response.data.templates;
+                  }
+                }
+
+              } else {
+                _this.$refs.toast.show("网络不稳定");
+//                 _this.$refs.toast.show('website/article/view.jhtml?id='+id);
+              }
+            }, function () {
+              _this.$refs.toast.show("网络不稳定");
+//                _this.$refs.toast.show('ssssswebsite/article/view.jhtml?id='+id);
+
+            });
+        },
+        showRewardDialog:function () {
+          this.$refs.rwd.show();
+        },
+        rewardNumber:function (m) {
+          var _this = this;
+          _this.$refs.toast.loading();
+          POST("website/member/reward/submit.jhtml?amount="+m+"&articleId="+this.watchArticle.id).then(
+            function (data) {
+              if (data.type=="success") {
+                _this.$refs.toast.hide();
+                _this.$refs.toast.show(data);
+                _this.$refs.pay.show(data.data);
+              } else {
+                _this.$refs.toast.hide();
+                _this.$refs.toast.show(data.content);
+              }
+            },
+            function (err) {
+              _this.$refs.toast.hide();
+              _this.$refs.toast.show("网络不稳定");
+            }
+          )
+        },
+        closeDownload:function () {//关闭顶部下载组件。并控制页面上移
+          this.downloadShow = false;
+        },
+        onscroll(e){
+          if(this.musicPlay == 0){//控制判断音乐。来判断从未触发音乐时滚动触发音乐，而在触发过音乐后滚动时不触发音乐事件。
+            this.musicPlay = 1;
+            this.$refs.musicTemplete.openPlayer();
+          }
+        },
+        judgeMusic:function () {//控制判断音乐。来判断从未触发音乐时滚动触发音乐，而在触发过音乐后滚动时不触发音乐事件。
+          this.musicPlay = 1;
+        },
+        buyNow:function (id) {
+          if(utils.isweex()==true){
+            this.$refs.toast.show('请分享到微信进行购买');
+            return;
+          }
+
+          let _this = this;
+          AUTH(location.href,function (authed) {
+            if (authed) {
+              _this.$refs.buy.show(id,_this.watchArticle.id);
+            }
+          })
+
+        },
+        onscroll(e){
+          if(this.musicPlay == 0){//控制判断音乐。来判断从未触发音乐时滚动触发音乐，而在触发过音乐后滚动时不触发音乐事件。
+            this.musicPlay = 1;
+            this.$refs.musicTemplete.openPlayer();
+          }
+        },
+      }
+    }
+  }
+  </script>
