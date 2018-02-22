@@ -83,7 +83,7 @@ let utilsFunc = {
         h = Math.round(h);
         w = Math.round(w);
         if (url.substring(0,11) == "http://cdnx") {
-            return url+"?x-oss-process=image/resize,w_"+w+",h_"+h+"/quality,q_90";
+            return url+"?x-oss-process=image/resize,m_fill,w_"+w+",h_"+h+"/quality,q_90";
         } else
         if (url.substring(0,10) == "http://cdn") {
             return url+"@"+w+"w_"+h+"h_1e_1c_100Q";
