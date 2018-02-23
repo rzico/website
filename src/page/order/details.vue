@@ -98,7 +98,7 @@
         </div>
         <div class="infoLines">
           <div>
-            <span class="subTitle ">配送方式: 普通快递</span>
+            <span class="subTitle ">配送方式: {{item.shippingMethod | watchShippingMethod}}</span>
           </div>
           <div class="mt10">
             <span class="subTitle ">配送状态: {{item.shippingStatus | watchShippingStatus}}</span>
@@ -376,6 +376,28 @@
             break;
           default:
             return '在线支付';
+            break;
+        }
+      },
+      watchShippingMethod:function (value) {
+        switch (value){
+          case "shipping":
+            return '普通快递 ';
+            break;
+          case 'pickup':
+            return '线下提货';
+            break;
+          case 'warehouse':
+            return '统仓统配';
+            break;
+          case 'ecard':
+            return '存入卡包';
+            break;
+          case 'virtual':
+            return '虚拟货品';
+            break;
+          default:
+            return '普通快递';
             break;
         }
       },

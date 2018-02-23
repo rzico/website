@@ -134,7 +134,7 @@
 <script>
   import {Loadmore} from 'mint-ui';
   import utils from '../../assets/utils';
-  import { POST,GET,AUTH} from '../../assets/fetch.js';
+  import { POST,GET ,AUTH} from '../../assets/fetch.js';
   import Toast from '../../widget/toast.vue';
   import Dialog from '../../widget/dialog.vue';
   import Tabbar from '../../widget/tabbar-whole.vue';
@@ -202,7 +202,7 @@
       this.goodsHeight = document.documentElement.clientWidth * 0.25;
       this.goods20Width = document.documentElement.clientWidth * 0.20;
       AUTH(location.href,function (authed) {
-        _this.open();
+        _this.open()
         }
       )
     },

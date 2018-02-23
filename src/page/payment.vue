@@ -331,7 +331,7 @@
       },
       weixin:function(sn) {
         var _this = this;
-//        weixinOcPayPlugin
+//        weixinOcPayPlugin    weixinPayPlugin
         POST("payment/submit.jhtml?sn="+sn+"&paymentPluginId=weixinOcPayPlugin").then(
           function (res) {
             if (res.type=="success") {
