@@ -17,9 +17,9 @@
           </div>
           <!--判断类型是否小视频-->
           <div class=" positionRelative" v-if="template.mediaType == 'video'" >
-            <video :src="template.original" controls="controls" :poster="template.thumbnail"  width="100%" height="250"></video>
+            <video :src="template.original" controls="controls" :poster="template.thumbnail" style="background-color: black" width="100%" height="250"></video>
             <!--视频背景颜色。-->
-            <div class="positionAbsolute videoBg"></div>
+            <div class="positionAbsolute videoBgc"></div>
           </div>
         </div>
         <div v-if="template.mediaType == 'product'" class="goodsLineBox" >
@@ -210,7 +210,7 @@
     line-height: 60px;
     position: absolute;left: 50%;top: 50%;margin-top: -30px;margin-left: -30px;
   }
-   .videoBg{
+   .videoBgc{
     top: 0;left: 0;right: 0;background-color: black;height: 250px;z-index: -1;
   }
 
