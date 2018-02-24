@@ -60,8 +60,8 @@
   }
   .Content .leftContent .logo{
     height: 50px;
-    width: 80px;
-    border-radius: 3px;
+    width: 50px;
+    border-radius: 100%;
     background-color: #888888;
   }
   .Content .leftContent .information{
