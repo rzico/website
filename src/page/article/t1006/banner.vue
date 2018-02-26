@@ -1,19 +1,21 @@
 <template>
-  <div class="header" v-if="templates.mediaType == 'product'" >
+  <div class="header">
+    <div v-for="(template,index) in watchTemplates" v-if="template.mediaType == 'product'">
     <mt-swipe ref="swipe" class="swipe" :auto="4000"  >
       <mt-swipe-item  >
-          <img class="swipeImg" :src="templates.original "/>
+          <img class="swipeImg" :src="template.original "/>
       </mt-swipe-item>
     </mt-swipe>
     <div class="buyArea">
-      <span class="money">¥{{templates.price | watchPrice}}</span>
-      <div class="buy" @click="buyNow(templates.id)">
+      <span class="money">¥{{template.price | watchPrice}}</span>
+      <div class="buy" @click="buyNow(template.id)">
         <span class="buyText">立即购买</span>
       </div>
     </div>
     <div class="goodsTitle">
       <div class="trademark"><span class="trademarkText">芸店</span></div>
-      <span class="titleText">{{templates.name}}</span>
+      <span class="titleText">{{template.name}}</span>
+    </div>
     </div>
     <preview ref="vuePreview"></preview>
   </div>
@@ -31,10 +33,7 @@
     height: 490px;
     width: 100%;
     position: relative;
-    overflow: hidden;
-    letter-spacing: 0;
-    line-height: 1;
-    margin-top: 0;
+    top:0
   }
   .buyArea{
     padding-left: 10px;
@@ -112,7 +111,8 @@
   export default {
     data() {
       return {
-
+        htmlStr:'',
+        watchTemplates:[]
       }
     },
     components: {
@@ -121,26 +121,79 @@
       preview
     },
     props: {
-      templates: { default: function () {
-        return []
-      }
-      },
+      id:{default:0}
     },
     filters:{
       watchPrice:function (value) {
         return utils.currencyfmt(value);
       },
     },
+    computed:{
+      templatesList: function () {
+        return this.templates;
+      }
+    },
     created() {
-
+      this.go()
     },
     mounted() {
 
     },
     methods: {
+      go:function () {
+        var _this = this;
+        GET('website/article/view.jhtml?id='+this.id).then(
+          function (response) {
+            if (response.type=="success") {
+              if (!utils.isNull(response.data.templates)) {
+                if (response.data.mediaType==0) {
+                  _this.htmlStr = response.data.templates;
+                } else {
+//                  图片预览
+                  var previewList = [];
+                  response.data.templates.forEach(function (item) {
+                      if (item.mediaType == 'product') {
+                        GET('website/article/goods.jhtml?id=' + item.id).then(
+                          function (data) {
+                            if (data.type == 'success') {
+//                           对数组对象进行操作需要 这样子才能重新渲染界面
+                                _this.$set(item, 'name', data.data.name);
+                                _this.$set(item, 'price', data.data.price);
+                            } else {
+                              _this.$refs.toast.show("服务器繁忙");
+                            }
+                          }, function (err) {
+                            _this.$refs.toast.show("网络不稳定");
+                          }
+                        )
+                      }
+//                  图片预览
+                      if (item.mediaType == 'product' || item.mediaType == 'image' && !utils.isNull(item.original)) {
+                        previewList.push({
+                          src: utils.filterThumbnail(item.original),
+                          w: 900,
+                          h: 1000
+                        })
+                      }
+                  })
+                  _this.$set(response.data.templates, 'previewList', previewList);
+                  _this.watchTemplates = response.data.templates;
+                }
+              }
+
+            } else {
+              _this.$refs.toast.show("网络不稳定");
+//                 _this.$refs.toast.show('website/article/view.jhtml?id='+id);
+            }
+          }, function () {
+            _this.$refs.toast.show("网络不稳定");
+//                _this.$refs.toast.show('ssssswebsite/article/view.jhtml?id='+id);
+
+          });
+      },
       buyNow:function (id) {
         this.$emit('buyNow',id);
-      }
+      },
     }
   }
   </script>
