@@ -19,7 +19,7 @@ Vue.config.productionTip = false
 import VueLazyLoad from 'vue-lazyload'
 Vue.use(VueLazyLoad, {
   error: '../static/error.png',
-  loading: '../static/loading.gif',
+  loading: '../static/loading1.gif',
   attempt: 4,
   preLoad: 1.3,
   //图片过滤器
