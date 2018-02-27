@@ -16,9 +16,9 @@
       <div class="trademark"><span class="trademarkText">芸店</span></div>
       <span class="titleText">{{template.name}}</span>
     </div>
-      <div class="sales">
-      <span class="salesText">2301人访问  月销10件</span>
-      </div>
+    </div>
+    <div class="sales">
+      <span class="salesText">{{article.hits}}人访问    {{availableStock | warehouse}}</span>
     </div>
     <preview ref="vuePreview"></preview>
   </div>
@@ -127,7 +127,8 @@
     data() {
       return {
         htmlStr:'',
-        watchTemplates:[]
+        watchTemplates:[],
+        availableStock:0
       }
     },
     components: {
@@ -136,11 +137,25 @@
       preview
     },
     props: {
-      id:{default:0}
+      id:{default:0},
+      article: {
+        default: function () {
+          return {hits: 0, title: "样例", nickName: "author", createDate: null}
+        }
+      },
     },
     filters:{
       watchPrice:function (value) {
         return utils.currencyfmt(value);
+      },
+      warehouse:function (value) {
+        if(value == 0){
+         return '无货'
+        }if(value < 10){
+         return '货源紧缺'
+        }if(value > 10){
+          return '货源充足'
+        }
       },
     },
     computed:{
@@ -174,6 +189,7 @@
 //                           对数组对象进行操作需要 这样子才能重新渲染界面
                                 _this.$set(item, 'name', data.data.name);
                                 _this.$set(item, 'price', data.data.price);
+                              _this.availableStock = data.data.availableStock
                             } else {
                               _this.$refs.toast.show("服务器繁忙");
                             }

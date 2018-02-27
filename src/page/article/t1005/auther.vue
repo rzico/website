@@ -23,6 +23,7 @@
     margin-left: 23px;
     margin-right: 23px;
     padding-top: 8px;
+     background-color: #f5f6f9;
   }
 
    .card {
