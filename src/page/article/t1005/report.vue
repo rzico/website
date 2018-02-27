@@ -9,7 +9,8 @@
 </template>
 <style scoped>
    .report {
-    margin-top: 25px;
+     padding: 10px;
+     margin-top: 25px;
      margin-bottom: 25px;
      margin-left: 23px;
      margin-right: 23px;

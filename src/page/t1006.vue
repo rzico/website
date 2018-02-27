@@ -7,6 +7,8 @@
         <div class="">
           <download_bar :isShow="downloadShow" :authorId="watchArticle.member.id" @closeDownload="closeDownload"></download_bar>
           <banner @buyNow="buyNow" :id="bannerId"></banner>
+          <auther ref="auther" :article="watchArticle"></auther>
+          <review ref="review" :article="watchArticle"></review>
           <article_meta :article="watchArticle"></article_meta>
           <music :musicData="watchMusicData" @judgeMusic="judgeMusic" ref="musicTemplete" :downloadShow="downloadShow"></music>
           <article_content @buyNow="buyNow"  :templates="watchTemplates" :htmlStr="htmlStr"></article_content>
@@ -14,8 +16,6 @@
           <!--<reward  :article="watchArticle" @showDialog="showRewardDialog"></reward>-->
           <report  :article="watchArticle.hits"></report>
           <coupon ref="coupon"></coupon>
-          <auther ref="auther" :article="watchArticle"></auther>
-          <review ref="review" :article="watchArticle"></review>
           <recommend ref="recommend" v-if="isPublish" :article="watchArticle" @go="fetchData"></recommend>
           <ad v-if="noWeex" :article="watchArticle"></ad>
           <rewardDialog  ref="rwd"  @rewardNumber="rewardNumber"></rewardDialog>

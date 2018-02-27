@@ -44,7 +44,7 @@
   import vote from './article/vote.vue';
   import reward from './article/reward.vue';
   import report from './article/report.vue';
-  import coupon from './article/coupon.vue';
+  import coupon from './article/t1002/coupon.vue';
   import auther from './article/auther.vue';
   import recommend from './article/recommend.vue';
   import review from './article/review.vue';
@@ -149,7 +149,7 @@
             if (response.type=="success") {
               _this.watchArticle = response.data;
               _this.isPublish = response.data.isPublish;
-//              _this.$refs.coupon.open(response.data.member.id);
+              _this.$refs.coupon.open(response.data.member.id);
               //设置分享标题
               utils.setConfig({
                 title:_this.watchArticle.title,

@@ -11,7 +11,7 @@
           <div class="img-outbox">
           <div class="img-box rotate-0" v-if="hasImage(template)">
             <img
-              v-bind:src="template.original | watchImg"
+              v-lazy="template.original "
               class="  images " style="-webkit-transform: rotate(-3deg);-ms-transform: rotate(-3deg); transform: rotate(-3deg);" @click="imgPreview(template.original,templatesList.previewList)" ref="imgRef"/>
           </div>
           </div>
@@ -247,12 +247,12 @@
     },
     filters:{
 //        用原图去阿里云获取缩略图
-      watchImg:function(value) {
-        if (utils.isNull(value)) {
-          return "";
-        }
-        return utils.thumbnail_cover(value,utils.screenWidth());
-      },
+//      watchImg:function(value) {
+//        if (utils.isNull(value)) {
+//          return "";
+//        }
+//        return utils.thumbnail_cover(value,utils.screenWidth());
+//      },
       watchGoodsImg:function (value) {
         return utils.thumbnail(value,utils.screenWidth() * 0.2 - 10,utils.screenWidth() * 0.2);
       },

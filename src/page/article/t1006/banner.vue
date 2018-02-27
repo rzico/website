@@ -16,6 +16,9 @@
       <div class="trademark"><span class="trademarkText">芸店</span></div>
       <span class="titleText">{{template.name}}</span>
     </div>
+      <div class="sales">
+      <span class="salesText">2301人访问  月销10件</span>
+      </div>
     </div>
     <preview ref="vuePreview"></preview>
   </div>
@@ -30,7 +33,6 @@
     width: 100%;
   }
   .header {
-    height: 490px;
     width: 100%;
     position: relative;
     top:0
@@ -101,6 +103,19 @@
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     word-break: break-all;
+  }
+  .sales{
+    height: 30px;
+    width: 100%;
+    padding-right: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+  }
+  .salesText{
+    font-size: 14px;
+    color: #888;
   }
   </style>
 <script>
