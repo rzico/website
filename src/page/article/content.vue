@@ -8,9 +8,9 @@
           <!--判断是否是商品-->
           <div class="text-box" v-html="template.content" :class="[templateId == 1003 ? 't1003_content_padding_0' : '']"></div>
           <!--判断类型是图文还是小视频-->
-          <div class="img-box" v-if="hasImage(template)">
+          <div class="img-box" v-if="hasImage(template,index)">
             <img
-              v-bind:src="template.original | watchImg"
+              v-lazy="template.original "
               class="images shadow img-border preview-img"  @click="imgPreview(template.original,templatesList.previewList)" ref="imgRef"/>
           </div>
           <!--判断类型是否小视频-->
@@ -84,12 +84,12 @@
     },
     filters:{
 //        用原图去阿里云获取缩略图
-      watchImg:function(value) {
-        if (utils.isNull(value)) {
-          return "";
-        }
-        return utils.thumbnail_cover(value,utils.screenWidth());
-      },
+//      watchImg:function(value) {
+//        if (utils.isNull(value)) {
+//          return "";
+//        }
+//        return utils.thumbnail_cover(value,utils.screenWidth());
+//      },
       watchGoodsImg:function (value) {
         return utils.thumbnail(value,utils.screenWidth() * 0.2 - 10,utils.screenWidth() * 0.2);
       },
@@ -99,12 +99,14 @@
     },
     created() {
       this.goodsHeight = document.documentElement.clientWidth * 0.2;
+      let _this = this;
     },
     methods: {
 //      判断是否有图片
-      hasImage(template){
+      hasImage(template,index){
         if(!utils.isNull(template.original) && (template.mediaType == 'image' || template.mediaType == 'product')){
           return true;
+
         }else{
           return false;
         }
