@@ -10,16 +10,16 @@
         </div>
         <div class="auther-header-box">
           <div class="article-meta">
-            <h1 class="title">啊啊啊啊啊</h1>
-            <p class="nickname" data-author-id="34351379" data-author-url="https://www.meipian.cn/c/34351379">
+            <h1 class="title">{{watchArticle.title}}</h1>
+            <p class="nickname">
                         <span>
-                            <span class="nigname">凉快</span>
-                            <span class="focus__root"><div class="focus"><a class="clearfix">关注</a></div></span>
+                            <span class="nigname">{{watchArticle.author}}</span>
+                            <span class="focus__root"><div class="focus" @click="jump(watchArticle.member.url,watchArticle.member.id)"><a class="clearfix">关注</a></div></span>
                         </span>
             </p>
             <p class="time-read">
-              <span>2018.02.22</span>
-              <span>阅读 <span class="read-count">14</span></span>
+              <span>{{watchArticle.createDate | timeDatefmt}}</span>
+              <span>阅读 <span class="read-count">{{watchArticle.hits}}</span></span>
             </p>
             <span class="sign__root"><div class="sign"></div></span>
           </div>
@@ -29,26 +29,12 @@
         </div>
       </div>
       <div class="content_foot">
-        <div class="mp-content">
-          <div class="well content-container">
-            <div class="section">
-              <div class="img-outbox">
-                <div class="img-box rotate-0" style="-webkit-transform: rotate(-3deg);-ms-transform: rotate(-3deg); transform: rotate(-3deg);">
-                  <img show-img="https://ss2.meipian.me/users/34351379/8dac0e6b0f6348e685c6e08a9e3e9583.jpg?meipian-raw/bucket/ivwen/key/dXNlcnMvMzQzNTEzNzkvOGRhYzBlNmIwZjYzNDhlNjg1YzZlMDhhOWUzZTk1ODMuanBn/sign/0614a9c947e0633254a5a5b37b1d9df1.jpg" src="https://ss2.meipian.me/users/34351379/8dac0e6b0f6348e685c6e08a9e3e9583.jpg-mobile">
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="vote__root"></div>
-        </div>
-        <div class="footer__root"><!----> <div class="report" red-packet-type=""><div class="well">
-          阅读 <span class="read-count">14</span> <!----></div></div> <!----> <!---->
-      </div>
         <article_content @buyNow="buyNow"  :templates="watchTemplates" :htmlStr="htmlStr" templateId=1002></article_content>
+        <report  :article="watchArticle.hits"></report>
         <coupon ref="coupon"></coupon>
         <auther ref="auther" :article="watchArticle" ></auther>
-        <review ref="review" :article="watchArticle" templateId=1002 ></review>
-        <recommend ref="recommend" v-if="isPublish" article="watchArticle"  templateId=1002 @go="fetchData" ></recommend>
+        <review ref="review" :article="watchArticle" ></review>
+        <recommend ref="recommend" v-if="isPublish" article="watchArticle"  @go="fetchData" ></recommend>
         <ad v-if="noWeex" :article="watchArticle" ></ad>
         <rewardDialog  ref="rwd"  @rewardNumber="rewardNumber"  templateId=1002></rewardDialog>
         <payment  ref="pay" @notify="onPayNotify"></payment>
@@ -312,39 +298,6 @@
     background: #000000; }
   .mp-content .section iframe {
     width: 100%; }
-  .mp-content .section .img-outbox {
-    padding: 15px 15px;
-    position: relative; }
-  .mp-content .section .img-outbox .right, .mp-content .section .img-outbox .rotate-0::after {
-    width: 60px;
-    height: 48px;
-    position: absolute;
-    bottom: -5px;
-    left: -5px;
-    background-image: url("../img/t1005/95_d2.png");
-    background-size: 100%;
-    background-repeat: no-repeat; }
-  .mp-content .section .img-outbox .rotate0 {
-    -webkit-transform: rotate(0deg);
-    -ms-transform: rotate(0deg);
-    transform: rotate(0deg);
-    -webkit-box-shadow: 0px 0px 8px #E2E3E0;
-    box-shadow: 0px 0px 8px #E2E3E0; }
-  .mp-content .section .img-outbox .rotate0::after {
-    content: "";
-    display: block; }
-  .mp-content .section .img-outbox .rotate-0 {
-    -webkit-transform: rotate(0deg);
-    -ms-transform: rotate(0deg);
-    transform: rotate(0deg);
-    -webkit-box-shadow: 0px 0px 8px #E2E3E0;
-    box-shadow: 0px 0px 8px #E2E3E0; }
-  .mp-content .section .img-outbox .rotate-0::after {
-    content: "";
-    display: block; }
-  .mp-content .section .img-outbox .img-box {
-    padding: 16px 16px 46px;
-    background: #fff; }
   .mp-content .section .img-outbox img {
     width: 100%;
     vertical-align: bottom; }
@@ -732,14 +685,14 @@
   import article_meta from './article/t1002/meta.vue';
   import article_cover from './article/t1002/cover.vue';
   import music from './article/music.vue';
-  import article_content from './article/content.vue';
+  import article_content from './article/t1005/content.vue';
   import vote from './article/vote.vue';
   import reward from './article/reward.vue';
-  import report from './article/report.vue';
+  import report from './article/t1005/report.vue';
   import coupon from './article/coupon.vue';
   import auther from './article/t1005/auther.vue';
-  import recommend from './article/recommend.vue';
-  import review from './article/review.vue';
+  import recommend from './article/t1005/recommend.vue';
+  import review from './article/t1005/review.vue';
   import ad from './article/t1005/ad.vue';
   import rewardDialog from './article/rewardDialog.vue';
   import Toast from '../widget/toast.vue';
@@ -787,6 +740,11 @@
       article_cover
 //      'weui-dialog':Dialog,
     },
+    filters: {
+      timeDatefmt(val) {
+        return utils.timeDatefmt(val);
+      }
+    },
     props: {
       article: { default: function () {
         return {hits:0,title:"样例",nickName:"author",createDate:null,member:{}}
@@ -815,6 +773,13 @@
         this.go(id);
       },
       methods: {
+        jump:function (url,id) {
+          if(utils.isweex()){
+            location.href = utils.setDummyUrl('topic',id);
+          }else{
+            this.$router.push(utils.router(url));
+          }
+        },
         loadTop:function() { //组件提供的下拉触发方法
           this.$refs.loadmore.onTopLoaded();// 固定方法，查询完要调用一次，用于重新定位
         },
