@@ -1,10 +1,12 @@
 <template>
   <div class="container">
+    <div class="backg">
     <div class="categoryBox" style="position: fixed;z-index: 1">
       <span class="cataText" v-for="(item,index) in catagoryList" @click="catagoryChange(index,item.id)" :class = "[whichCorpus == index ? 'corpusActive' : 'noActive']">{{item.name}}</span>
     </div>
+    </div>
     <div class="page slideIn" style="background-color: #eeeeee">
-      <div style="height: 40px"></div>
+      <div style="height: 45px"></div>
       <v-loadmore :top-method="loadTop" :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" ref="loadmore">
         <div class="twoContent" v-if="hasReward()">
         <div class="content" v-for="c in lists" @click="buyNow(c.id)">
@@ -37,8 +39,13 @@
   </div>
 </template>
 <style scoped>
+  .backg{
+    background-color: #eeeeee;
+    height: 45px;
+  }
   .categoryBox{
     width:100%;
+    margin-bottom: 5px;
     display: flex;
     flex-direction: row;
     height: 40px;
