@@ -46,21 +46,27 @@
     line-height: 40px;
   }
   .cataText{
-    /*display: flex;*/
-    /*flex: 1;*/
-    font-size: 15px;
+    box-sizing: border-box;
     display: inline-block;
-    width:19%;
-    /*justify-content: center;*/
-    text-align: center;
+    margin: 0 15px;
+    color: #333;
+    font-size: 15px;
+    line-height: 40px;
+    height: 40px;
+    list-style: none;
+    position: relative;
+    cursor: pointer;
+    outline: 0;
+    -webkit-tap-highlight-color: transparent;
   }
   .noActive{
     border-bottom: 0px;
   }
   .corpusActive{
-    color: #ff5545;
-    border: 0;
-    border-bottom: 2px solid #ff5545;
+    color: #EB4E40;
+    border-width:0 0 1px 0;
+    border-bottom-style: solid;
+    border-bottom-color:#EB4E40 ;
   }
   .twoContent{
     width: 100%;
