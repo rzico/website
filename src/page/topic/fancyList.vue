@@ -207,7 +207,7 @@
         </div>
         <!--文章封面-->
         <div style="position: relative">
-          <img  :src="item.thumbnail "  resize="cover" class="articleCover" />
+          <img  :src="item.thumbnail "  resize="cover" class="articleCoverTwo" />
         </div>
         <div  class="tempThreeContent" >
           <div class="flex-row bt10">
@@ -243,7 +243,7 @@
             <!--<span class="authorName">{{item.author}}</span>-->
           <!--</div>-->
         </div>
-        <div class="flex-row bt10 ml10">
+        <div class="flex-row  ml10">
           <!--<text class="articleTitle">{{item.title}}</text>-->
           <span class="articleTitle" >{{item.title}}</span>
         </div>
@@ -565,10 +565,18 @@
     margin-top: 10px;
     margin-bottom: 10px;
   }
+  .articleCoverTwo {
+    height: 187.5px;
+    /*width:690px;*/
+    width:100%;
+    /*border-radius: 5px;*/
+    /*margin-top: 10px;*/
+    margin-bottom: 10px;
+  }
   .articleBox {
     background-color: #ffffff;
     /*padding-left: 30px;*/
-    padding-top: 10px;
+    /*padding-top: 10px;*/
     /*padding-right: 30px;*/
     padding-bottom: 10px;
     margin-bottom: 5px;

@@ -72,7 +72,7 @@
     border-radius: 2px;
     background-color: #EB4E40;
     position: absolute;
-    top:10px;
+    top:9px;
     left:10px;
   }
   .trademarkText{
