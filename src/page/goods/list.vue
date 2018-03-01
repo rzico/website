@@ -1,10 +1,12 @@
 <template>
   <div class="container">
+    <div class="backg">
     <div class="categoryBox" style="position: fixed;z-index: 1">
       <span class="cataText" v-for="(item,index) in catagoryList" @click="catagoryChange(index,item.id)" :class = "[whichCorpus == index ? 'corpusActive' : 'noActive']">{{item.name}}</span>
     </div>
+    </div>
     <div class="page slideIn" style="background-color: #eeeeee">
-      <div style="height: 40px"></div>
+      <div style="height: 45px"></div>
       <v-loadmore :top-method="loadTop" :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" ref="loadmore">
         <div class="twoContent" v-if="hasReward()">
         <div class="content" v-for="c in lists" @click="buyNow(c.id)">
@@ -37,8 +39,13 @@
   </div>
 </template>
 <style scoped>
+  .backg{
+    background-color: #eeeeee;
+    height: 45px;
+  }
   .categoryBox{
     width:100%;
+    margin-bottom: 5px;
     display: flex;
     flex-direction: row;
     height: 40px;
@@ -46,21 +53,27 @@
     line-height: 40px;
   }
   .cataText{
-    /*display: flex;*/
-    /*flex: 1;*/
-    font-size: 15px;
+    box-sizing: border-box;
     display: inline-block;
-    width:19%;
-    /*justify-content: center;*/
-    text-align: center;
+    margin: 0 15px;
+    color: #333;
+    font-size: 15px;
+    line-height: 40px;
+    height: 40px;
+    list-style: none;
+    position: relative;
+    cursor: pointer;
+    outline: 0;
+    -webkit-tap-highlight-color: transparent;
   }
   .noActive{
     border-bottom: 0px;
   }
   .corpusActive{
-    color: #ff5545;
-    border: 0;
-    border-bottom: 2px solid #ff5545;
+    color: #EB4E40;
+    border-width:0 0 1px 0;
+    border-bottom-style: solid;
+    border-bottom-color:#EB4E40 ;
   }
   .twoContent{
     width: 100%;

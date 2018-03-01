@@ -28,7 +28,7 @@
           <div class="leaves"></div>
         </div>
       </div>
-      <div class="content_foot">
+
         <article_content @buyNow="buyNow"  :templates="watchTemplates" :htmlStr="htmlStr" templateId=1002></article_content>
         <report  :article="watchArticle.hits"></report>
         <coupon ref="coupon"></coupon>
@@ -39,7 +39,7 @@
         <rewardDialog  ref="rwd"  @rewardNumber="rewardNumber"  templateId=1002></rewardDialog>
         <payment  ref="pay" @notify="onPayNotify"></payment>
         <buyGoods  ref="buy" @notify="onPayNotify"></buyGoods>
-    </div>
+
   </div>
 </div>
 </div>
@@ -689,7 +689,7 @@
   import vote from './article/vote.vue';
   import reward from './article/reward.vue';
   import report from './article/t1005/report.vue';
-  import coupon from './article/coupon.vue';
+  import coupon from './article/t1005/coupon.vue';
   import auther from './article/t1005/auther.vue';
   import recommend from './article/t1005/recommend.vue';
   import review from './article/t1005/review.vue';
@@ -806,7 +806,7 @@
               if (response.type=="success") {
                 _this.watchArticle = response.data;
                 _this.isPublish = response.data.isPublish;
-//              _this.$refs.coupon.open(response.data.member.id);
+                _this.$refs.coupon.open(response.data.member.id);
                 //设置分享标题
                 utils.setConfig({
                   title:_this.watchArticle.title,

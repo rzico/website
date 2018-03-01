@@ -18,23 +18,25 @@
   </div>
 </template>
 <style scoped>
-  .article .auther {
+   .auther {
     min-height: 96px;
     margin-left: 23px;
     margin-right: 23px;
     padding-top: 8px;
+     background-color: #f5f6f9;
   }
 
-  .article .card {
+   .card {
     width: 100%;
     height:auto;
   }
 
-  .article .auther .autherwrap {
+   .auther .autherwrap {
     width: 100%;
+     background-color: white;
   }
 
-  .article .auther .autherwrap a {
+   .auther .autherwrap a {
     display: block;
     padding-left: 86px;
     padding-right: 28px;
@@ -44,13 +46,12 @@
     position: relative;
     box-shadow: none;
     border: none;
-  //background-color: #fff;
     border-radius: 0;
     overflow: hidden;
     text-shadow: none;
   }
 
-  .article .auther .autherwrap a .autherHead {
+   .auther .autherwrap a .autherHead {
     height: 86px;
     width: 86px;
     position: absolute;
@@ -58,17 +59,17 @@
     left: 0;
   }
 
-  .article .auther .autherwrap a .userMessage {
+   .auther .autherwrap a .userMessage {
     padding-top: 19px;
     float: left;
     width: 100%;
     line-height: 1.6;
   }
-  .article .auther .autherwrap a .qrcode {
+   .auther .autherwrap a .qrcode {
     width: 200px;height: 200px;margin-top: 19px;margin-bottom: 19px;
   }
 
-  .article .auther .autherwrap a .right {
+   .auther .autherwrap a .right {
     height: 100%;
     width: 42px;
     position: absolute;
@@ -81,7 +82,7 @@
     font-weight: bold;
   }
 
-  .article .auther .autherwrap a .autherHead img {
+   .auther .autherwrap a .autherHead img {
     display: block;
     position: absolute;
     top: 0;
@@ -94,13 +95,13 @@
     border-radius: 50%;
   }
 
-  .article .auther .autherwrap a .userMessage .wusername {
+   .auther .autherwrap a .userMessage .wusername {
     font-size: 16px;
     color: #4F4F4F;
     white-space: nowrap;
     text-overflow: ellipsis;
   }
-  .article .auther .autherwrap a .userMessage .wsign {
+   .auther .autherwrap a .userMessage .wsign {
     font-size: 14px;
     color: #B0B0B0;
     white-space: nowrap;

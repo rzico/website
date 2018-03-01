@@ -1,6 +1,6 @@
 <template>
   <div  :class="[templateId == 1003 ? 't1003_content_margin_LR_15' : '',templateId == 1002 ? 't1002_content_padding_10' : '']" >
-    <div class="content"  :class="[templateId == 1003 ? 't1003_content_padding_LR_16' : '']">
+    <div class="content"  :class="[templateId == 1003 ? 't1003_content_padding_LR_16' : '',templateId == 1006 ? 't1006_content_margin_top10' : '']">
       <div  v-for="(template,index) in templatesList">
         <div class="margin-section section section-on section-border text-up fill" v-if="isShow(index)">
           <!--template里没有title的字段-->

@@ -1,10 +1,12 @@
 <template>
+  <div class="bckg">
  <div class="nav"  :class="isFixed ? 'navFixed' : ''">
    <ul>
      <li :class="liState(0)" @click="load(0)"> 全部 </li>
      <li v-for="n in Navs"  :class="liState(n.id)" @click="load(n.id)"> {{n.name}} </li>
    </ul>
  </div>
+  </div>
 </template>
 <script>
   import utils from '../../assets/utils.js';

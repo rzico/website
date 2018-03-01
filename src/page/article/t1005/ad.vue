@@ -6,14 +6,14 @@
   </div>
 </template>
 <style scoped>
-  .article .footer {
+   .footer {
     background-color: #f5f6f9;
     padding-top: 8px;
     margin-left: 23px;
     margin-right: 23px;
     box-sizing: border-box;
   }
-  .article .footer .wrap {
+   .footer .wrap {
     background-color: #fff;
 
   }

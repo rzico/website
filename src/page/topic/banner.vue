@@ -17,7 +17,7 @@
         </div>
       </div>
       <div class="rightContent" @click="focus()">
-        <div class="top"><i class="iconfont icon-moban13zhengshu" style="color:white;font-size: 14px"></i><span style="color: white;font-size: 12px">{{focusOn}}</span></div>
+        <div class="top"><i class="iconfont icon-moban13zhengshu" style="color:white;font-size: 16px"></i>  <span style="color: white;font-size: 14px">{{focusOn}}</span></div>
         <div class="bottom"><span style="color:white;font-size: 12px">{{topic.hits}}人</span></div>
       </div>
     </div>
@@ -76,8 +76,8 @@
   }
   .Content .leftContent .information .autograph{
     color:#ffffff;
-    font-size: 14px;
-    margin-top: 10px;
+    font-size: 12px;
+    margin-top: 8px;
     width: 200px;
     overflow: hidden;
     white-space: nowrap;
@@ -90,10 +90,10 @@
     align-items: center;
   }
   .rightContent .top{
-    border-top-left-radius: 3px;
+    border-top-left-radius: 6px;
     width: 100%;
-    padding-top: 3px;
-    padding-bottom: 3px;
+    padding-top: 5px;
+    padding-bottom: 5px;
     padding-left: 5px;
     padding-right: 5px;
     background-color: rgba(255,0,0,0.8);
@@ -103,7 +103,7 @@
     justify-content: center;
   }
   .rightContent .bottom{
-    border-bottom-left-radius: 3px;
+    border-bottom-left-radius: 6px;
     width: 100%;
     padding-top: 3px;
     padding-bottom: 3px;

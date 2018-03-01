@@ -6,16 +6,16 @@
         <!--</div>-->
         <div class="">
           <download_bar :isShow="downloadShow" :authorId="watchArticle.member.id" @closeDownload="closeDownload"></download_bar>
-          <banner @buyNow="buyNow" :id="bannerId"></banner>
-          <article_meta :article="watchArticle"></article_meta>
+          <banner @buyNow="buyNow" :id="bannerId" :article="watchArticle"></banner>
+          <auther ref="auther" :article="watchArticle"></auther>
+          <review ref="review" :article="watchArticle"></review>
+          <metaTitle :article="watchArticle"></metaTitle>
           <music :musicData="watchMusicData" @judgeMusic="judgeMusic" ref="musicTemplete" :downloadShow="downloadShow"></music>
-          <article_content @buyNow="buyNow"  :templates="watchTemplates" :htmlStr="htmlStr"></article_content>
+          <article_content @buyNow="buyNow"  :templates="watchTemplates" :htmlStr="htmlStr" templateId=1006></article_content>
           <!--<vote  :article="watchArticle"></vote>-->
           <!--<reward  :article="watchArticle" @showDialog="showRewardDialog"></reward>-->
           <report  :article="watchArticle.hits"></report>
           <coupon ref="coupon"></coupon>
-          <auther ref="auther" :article="watchArticle"></auther>
-          <review ref="review" :article="watchArticle"></review>
           <recommend ref="recommend" v-if="isPublish" :article="watchArticle" @go="fetchData"></recommend>
           <ad v-if="noWeex" :article="watchArticle"></ad>
           <rewardDialog  ref="rwd"  @rewardNumber="rewardNumber"></rewardDialog>
@@ -45,7 +45,8 @@
   import { POST,GET,AUTH,SHARE} from '../assets/fetch.js';
   import utils from '../assets/utils.js';
   import download_bar from './article/t1005/download_bar.vue';
-  import article_meta from './article/t1006/meta.vue';
+  import metaTitle from './article/t1006/metaTitle.vue';
+  import article_meta from './article/meta.vue';
   import music from './article/music.vue';
   import article_content from './article/content.vue';
   import vote from './article/vote.vue';
@@ -55,7 +56,7 @@
   import auther from './article/auther.vue';
   import banner from './article/t1006/banner.vue';
   import recommend from './article/recommend.vue';
-  import review from './article/review.vue';
+  import review from './article/t1006/review.vue';
   import ad from './article/ad.vue';
   import rewardDialog from './article/rewardDialog.vue';
   import Toast from '../widget/toast.vue';
@@ -86,7 +87,7 @@
       'v-loadmore':Loadmore, // 为组件起别名，vue转换template标签时不会区分大小写，例如：loadMore这种标签转换完就会变成loadmore，容易出现一些匹配问题
       Toast,
       download_bar,
-      article_meta,
+      metaTitle,
       music,
       article_content,
       reward,
@@ -185,6 +186,7 @@
 //                           对数组对象进行操作需要 这样子才能重新渲染界面
                             _this.$set(item, 'name', data.data.name);
                             _this.$set(item, 'price', data.data.price);
+
                           }else{
                             _this.$refs.toast.show("服务器繁忙");
                           }

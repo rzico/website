@@ -31,6 +31,7 @@ const Index = resolve => require(['../page/index'], resolve)
 const Member = resolve => require(['../page/member'], resolve)
 const T1001 = resolve => require(['../page/t1001'], resolve)
 const C1001 = resolve => require(['../page/c1001'], resolve)
+const C1002 = resolve => require(['../page/c1002'], resolve)
 const Card = resolve => require(['../page/card'], resolve)
 const Payment = resolve => require(['../page/payment'], resolve)
 const OrderList = resolve => require(['../page/order/list'], resolve)
@@ -128,6 +129,12 @@ var router = new Router({
       name: 'c1001',
       meta: {requireAuth:true},
       component: C1001
+    },
+    {
+      path: '/c1002',
+      name: 'c1002',
+      meta: {requireAuth:true},
+      component: C1002
     },
     {
       path: '/payment',

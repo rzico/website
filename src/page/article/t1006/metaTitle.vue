@@ -1,9 +1,7 @@
 <template>
-  <div class="article_meta" >
-    <div class="meta clearfix">
-      <span>{{article.createDate | datetimefmt}}</span>
-      <span class="nickname"><a class="toappuser" @click="jump(article.member.url,article.member.id)">{{article.author}}</a></span>
-      <span>活跃({{article.hits}})</span>
+  <div class="metaTitle" >
+    <div class="titleDiv">
+      <span>商品详情</span>
     </div>
   </div>
 </template>
