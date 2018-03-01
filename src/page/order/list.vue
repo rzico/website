@@ -21,7 +21,7 @@
           <div class="flexRow goodsBody" style="justify-content: space-between" v-for="goods in item.orderItems" @click="goDetails(item.sn)">
             <img :src="goods.thumbnail" :style="'height:' + goodsHeight + 'px;' + 'width:' + (goodsHeight )+ 'px'"></img>
             <div class="goodsInfo" :style="'height:' + goodsHeight + 'px;'">
-              <p class="goodsName">{{goods.name}}</p>
+              <p class="goodsName " >{{goods.name}}</p>
               <p class="subTitle ">规格:{{goods.spec | watchSpec}}</p>
               <p class="goodsPrice ">
                 <span>¥ {{goods.price | watchPrice}}</span>
@@ -29,8 +29,8 @@
               </p>
             </div>
             <!--<div class="goodsPriceNum" :style="'height:' + goodsHeight + 'px;' + 'width:' + (goods20Width)+ 'px'">-->
-              <!--<p class="goodsPrice ">¥ {{goods.price | watchPrice}}</p>-->
-              <!--<p class="subTitle">x{{goods.quantity}}</p>-->
+            <!--<p class="goodsPrice ">¥ {{goods.price | watchPrice}}</p>-->
+            <!--<p class="subTitle">x{{goods.quantity}}</p>-->
             <!--</div>-->
           </div>
           <div class="flexRow goodsTotalPrice ">
@@ -198,11 +198,11 @@
       Tabbar
     },
     created() {
-        var _this =this;
-      this.goodsHeight = document.documentElement.clientWidth * 0.25;
+      var _this =this;
+      this.goodsHeight = document.documentElement.clientWidth * 0.21;
       this.goods20Width = document.documentElement.clientWidth * 0.20;
       AUTH(location.href,function (authed) {
-        _this.open()
+          _this.open()
         }
       )
     },
@@ -416,9 +416,9 @@
 //            _this.ordersList[_this.selectIndex].status = 'completed',
 //              _this.ordersList[_this.selectIndex].statusDescr = '已取消',
 
-              _this.pageStart = 0;
-              _this.open();
-              _this.$refs.toast.show('取消订单成功.');
+            _this.pageStart = 0;
+            _this.open();
+            _this.$refs.toast.show('取消订单成功.');
 
 //              获取未处理订单最新数量
 //            _this.tabRefresh();
