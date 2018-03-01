@@ -20,7 +20,7 @@
     </div>
   </div>
 </template>
-<style scoped>
+<style src="../../../less/article/t1006/review.less" scoped>
   .records{
     height: 35px;
     display: flex;

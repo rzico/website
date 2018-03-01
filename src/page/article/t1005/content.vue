@@ -156,14 +156,14 @@
     border-radius: 5px;
   }
   .goodsLineBox{
-    width:100%;
+    /*width:100%;*/
     padding: 0 15px;
   }
   .goodsLineInside{
     display: flex;
     padding: 10px;
     flex-direction: row;
-    width: 100%;
+    /*width: 100%;*/
     margin-bottom: 24px;
   }
 

@@ -88,12 +88,11 @@
     padding-left: 10px;
     padding-right: 10px;
     display: flex;
-    align-items: center;
-    justify-content: center;
     position: relative;
   }
   .titleText{
     font-size: 16px;
+    margin-top: 8px;
     text-indent: 3em;
     line-height: 20px;
     overflow: hidden;

@@ -13,76 +13,7 @@
     </div>
   </div>
 </template>
-<style scoped>
-   .review {
-     margin-right: 23px;
-     margin-left: 23px;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-    background-color: #f5f6f9;
-    padding-top: 8px;
-  }
-   .review .list {
-    background-color: #fff;
-    padding:0px 10px;
-  }
-
-   .review .list .item {
-    width: 100%;
-    box-sizing: border-box;
-    padding: 12px 0 15px;
-    position: relative;
-    border-bottom: 1px;
-    border-bottom-color: #eee;
-    border-bottom-style: solid;
-  }
-   .review .list .item:last-child {
-    border-bottom: 0px;
-  }
-
-   .review .list .item .logo {
-    float: left;
-    background-repeat: no-repeat;
-    -webkit-background-size: cover;
-    background-size: cover;
-    background-position: center;
-    overflow: hidden;
-    margin-right: 10px;
-    border-radius: 50%;
-  }
-
-   .review .list .item .content {
-    overflow: hidden;
-  }
-
-   .review .list .item .content .name {
-    margin-top: 11px;
-    font-size: 16px;
-    line-height: 16px;
-    color:darkblue;
-  }
-
-   .review .list .item .content p {
-    margin-top: 0;
-    font-size: 16px;
-    color: #4F4F4F;
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    line-height: 1.3;
-    word-wrap: break-word;
-  }
-
-   .review .list .item .content .time {
-    margin-top: 11px;
-    font-size: 12px;
-    line-height: 16px;
-    color: #D5D5D5;
-
-  }
-
-</style>
+<style src="../../../less/article/t1005/review.less" scoped></style>
 <script>
   import { POST, GET } from '../../../assets/fetch.js';
   import utils from '../../../assets/utils.js';

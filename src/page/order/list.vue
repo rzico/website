@@ -118,8 +118,7 @@
 
   </div>
 </template>
-<style scoped>
-  @import '../../less/order/list.less';
+<style src="../../less/order/list.less" scoped>
   .dialogP{
     text-align: center;width: 100%;font-size: 13px;color: #444;
   }

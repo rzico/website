@@ -244,6 +244,7 @@
                 _this.lists = res.data.data;
               } else {
                 res.data.data.forEach(function (item) {
+                  item.thumbnail = utils.thumbnail(item.thumbnail, 183.75, 183.75);
                   _this.lists.push(item);
                 });
               }

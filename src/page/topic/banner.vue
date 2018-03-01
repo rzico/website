@@ -59,8 +59,8 @@
     align-items: center;
   }
   .Content .leftContent .logo{
-    height: 50px;
-    width: 50px;
+    height: 40px;
+    width: 40px;
     border-radius: 100%;
     background-color: #888888;
   }
@@ -77,8 +77,8 @@
   .Content .leftContent .information .autograph{
     color:#ffffff;
     font-size: 12px;
-    margin-top: 8px;
     width: 200px;
+    margin-top: 5px;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -92,10 +92,10 @@
   .rightContent .top{
     border-top-left-radius: 6px;
     width: 100%;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    padding-left: 5px;
-    padding-right: 5px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    padding-left: 4px;
+    padding-right: 4px;
     background-color: rgba(255,0,0,0.8);
     display: flex;
     flex-direction: row;
@@ -107,8 +107,8 @@
     width: 100%;
     padding-top: 3px;
     padding-bottom: 3px;
-    padding-left: 5px;
-    padding-right: 5px;
+    padding-left: 4px;
+    padding-right: 4px;
     background-color: rgba(0,0,0,0.7);
     display: flex;
     justify-content: center;

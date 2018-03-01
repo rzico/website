@@ -7,15 +7,7 @@
     </span>
   </div>
 </template>
-<style scoped>
-   .report {
-     padding: 10px;
-     margin-top: 25px;
-     margin-bottom: 25px;
-     margin-left: 23px;
-     margin-right: 23px;
-  }
-</style>
+<style src="../../../less/article/t1005/report.less" scoped></style>
 <script>
   export default {
     props: {

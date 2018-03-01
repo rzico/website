@@ -5,7 +5,7 @@
     </div>
   </div>
 </template>
-
+<style src="../../../less/article/t1006/metaTitle.less" scoped></style>
 <script>
   import utils from '../../../assets/utils.js';
   export default {

@@ -10,7 +10,7 @@
           <music :musicData="watchMusicData" @judgeMusic="judgeMusic" ref="musicTemplete" :downloadShow="downloadShow"></music>
           <article_content @buyNow="buyNow"  :templates="watchTemplates" :htmlStr="htmlStr"></article_content>
           <!--<vote  :article="watchArticle"></vote>-->
-          <!--<reward  :article="watchArticle" @showDialog="showRewardDialog"></reward>-->
+          <reward ref="reward" :article="watchArticle" @showDialog="showRewardDialog"></reward>
           <report  :article="watchArticle.hits"></report>
           <coupon ref="coupon"></coupon>
           <auther ref="auther" :article="watchArticle"></auther>
@@ -221,16 +221,63 @@
         POST("website/member/reward/submit.jhtml?amount="+m+"&articleId="+this.watchArticle.id).then(
           function (data) {
             if (data.type=="success") {
-              _this.$refs.toast.hide();
-              _this.$refs.toast.show(data);
-              _this.$refs.pay.show(data.data);
+              _this.weixin(data.data)
             } else {
-              _this.$refs.toast.hide();
-              _this.$refs.toast.show(data.content);
+
             }
           },
           function (err) {
             _this.$refs.toast.hide();
+            _this.$refs.toast.show("网络不稳定");
+          }
+        )
+      },
+      weixin:function(sn) {
+        var _this = this;
+//        weixinOcPayPlugin    weixinPayPlugin
+        POST("payment/submit.jhtml?sn="+sn+"&paymentPluginId=weixinOcPayPlugin").then(
+          function (res) {
+            console.log(res)
+            if (res.type=="success") {
+              let jsApiCall = function () {
+                WeixinJSBridge.invoke('getBrandWCPayRequest',{
+                  "appId" : res.data.appId,
+                  "timeStamp":res.data.timeStamp,
+                  "nonceStr" :res.data.nonceStr,
+                  "package" :res.data.package,
+                  "signType" :res.data.signType,
+                  "paySign" : res.data.paySign,
+                },function(result){
+                  if(result.err_msg == "get_brand_wcpay_request:ok" ) {
+
+                    setTimeout(function () {
+                      _this.$refs.reward.open()
+                    },2000)
+                  } else {
+                    _this.$refs.toast.show("支付取消");
+//                  _this.$refs.toast.show(result.memo);
+                  }
+                });
+              }
+              if (typeof WeixinJSBridge == "undefined") {
+                if (document.addEventListener) {
+                  document.addEventListener('WeixinJSBridgeReady', jsApiCall, false);
+                } else if (document.attachEvent) {
+                  document.attachEvent('WeixinJSBridgeReady', jsApiCall);
+                  document.attachEvent('onWeixinJSBridgeReady', jsApiCall);
+                }
+              } else {
+                jsApiCall();
+              }
+            }
+            else {
+
+//              _this.pageIcon = 'cancel';
+              _this.$refs.toast.show("网络不稳定");
+            }
+          },
+          function (err) {
+
             _this.$refs.toast.show("网络不稳定");
           }
         )
