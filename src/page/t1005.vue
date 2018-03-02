@@ -43,6 +43,7 @@
 
   </div>
 </div>
+  <Toast ref="toast"></Toast>
 </div>
 </template>
 <style scoped>

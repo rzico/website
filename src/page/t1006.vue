@@ -65,6 +65,7 @@
   import card from './member/card.vue';
   import getCoupon from './coupon/activate.vue';
   import Dialog from '../widget/dialog.vue';
+  import giveLike from './article/giveLike.vue';
   //  import Dialog from '../widget/dialog.vue';
   export default {
     data () { return {
@@ -102,7 +103,8 @@
       vote,
       card,
       buyGoods,
-      banner
+      banner,
+      giveLike
 //      'weui-dialog':Dialog,
     },
     props: {
