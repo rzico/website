@@ -51,8 +51,9 @@ const T1003 = resolve => require(['../page/t1003'], resolve)
 const T1004 = resolve => require(['../page/t1004'], resolve)
 const T1005 = resolve => require(['../page/t1005'], resolve)
 const T1006 = resolve => require(['../page/t1006'], resolve)
+const T1007 = resolve => require(['../page/t1007'], resolve)
 const goodsList = resolve => require(['../page/goods/list'], resolve)
-const banner = resolve => require(['../page/article/t1006/banner'], resolve)
+const giveLike = resolve => require(['../page/article/giveLike'], resolve)
 
 // import T1003 from '../page/t1003'
 // import T1004 from '../page/t1004'
@@ -123,6 +124,12 @@ var router = new Router({
       name: 't1006',
       meta: {requireAuth:true},
       component: T1006
+    },
+    {
+      path: '/t1007',
+      name: 't1007',
+      meta: {requireAuth:true},
+      component: T1007
     },
     {
       path: '/c1001',
@@ -221,10 +228,10 @@ var router = new Router({
       component: goodsList
     },
     {
-      path: '/banner',
-      name: 'banner',
+      path: '/giveLike',
+      name: 'giveLike',
       meta: {requireAuth:true},
-      component: banner
+      component: giveLike
     },
    ]
 })
