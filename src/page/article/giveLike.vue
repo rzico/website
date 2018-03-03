@@ -7,7 +7,7 @@
     <!--<div class="number">1人赞赏</div>-->
     <div class="wrap" style="position: relative;" v-if="recordsTotal!== 0">
       <div class="title" @click="luadControl()">
-        <span class="titleSpan">已有<span style="font-size: 16px;font-weight: bold;color:red">  {{recordsTotal}}  </span>人参与</span>
+        <span class="titleSpan">已有<span style="font-size: 16px;font-weight: bold;color:red">  {{count}}  </span>人参与</span>
         <span class="ico" :style="{fontFamily:'iconfont'}">&#xe601;</span>
       </div>
       <div class="content" v-for="c in laudList" v-if="listControl">
@@ -131,7 +131,8 @@
         pageSize:10,
         luadName:'点赞',
         listControl:true,
-        isLaud:false
+        isLaud:false,
+        count:0
       }
     },
     components: {
@@ -185,7 +186,7 @@
       golaud: function () {
         if(this.isLaud == false) {
           let _this = this;
-          POST('weex/member/laud/add.jhtml?articleId=' + this.id).then(
+          POST('website/member/laud/add.jhtml?articleId=' + this.id).then(
             function (data) {
               if (data.type == 'success') {
                 _this.open();
@@ -200,7 +201,7 @@
           )
         }else {
           let _this = this;
-          POST('weex/member/laud/delete.jhtml?articleId=' + this.id).then(
+          POST('website/member/laud/delete.jhtml?articleId=' + this.id).then(
             function (data) {
               if(data.type == 'success'){
                 _this.isLaud = false;
@@ -218,10 +219,11 @@
       //      获取是否点赞
       getLuad:function () {
         var _this = this;
-        GET('weex/article/preview.jhtml?id=' + this.id ).then(
+        GET('website/laud/view.jhtml?articleId=' + this.id ).then(
           function (data) {
             if (data.type == "success") {
-              _this.isLaud = data.data.hasLaud;
+              _this.isLaud = data.data.laud;
+              _this.count = data.data.count;
               if(_this.isLaud == true) {
                 _this.luadName = '已点赞'
               }else{
@@ -237,7 +239,7 @@
       },
       open:function () {
         var _this = this;
-        GET('weex/laud/list.jhtml?articleId=' + this.id +'&pageStart=' + this.pageStart + '&pageSize=' + this.pageSize).then(
+        GET('website/laud/list.jhtml?articleId=' + this.id +'&pageStart=' + this.pageStart + '&pageSize=' + this.pageSize).then(
           function (response) {
             if (response.type == "success") {
               if (_this.pageStart == 0) {

@@ -39,6 +39,9 @@
 </template>
 <style scoped>
   @import '../less/t1006.less';
+  .article{
+    margin-top: 0 !important;
+  }
 </style>
 <script>
   import {Loadmore} from 'mint-ui';

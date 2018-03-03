@@ -1,5 +1,5 @@
 <template>
-  <div class="reward" style="display: block;">
+  <div class="reward" style="display: block;" v-if="isReward">
     <div class="flex-c">
     <div class="hint">如果喜欢我的作品，请赞赏鼓励！</div>
     <div class="rewardButton" @click="showDialog()">赞赏</div>
@@ -70,6 +70,13 @@
         rewards: [],
         recordsTotal:0
       }
+    },
+    props: {
+      article: {
+        default: function () {
+          return {isReward: false}
+        }
+      },
     },
     mounted() {
       var _this = this;
