@@ -3,7 +3,7 @@
     <div v-for="(template,index) in watchTemplates" v-if="template.mediaType == 'product'">
     <mt-swipe ref="swipe" class="swipe" :auto="4000"  >
       <mt-swipe-item  >
-          <img class="swipeImg" :src="template.original "/>
+          <img class="swipeImg" :src="template.original | watchGoodsImg" />
       </mt-swipe-item>
     </mt-swipe>
     <div class="buyArea">
@@ -127,7 +127,7 @@
       return {
         htmlStr:'',
         watchTemplates:[],
-        availableStock:0
+        availableStock:0,
       }
     },
     components: {
@@ -156,6 +156,9 @@
           return '货源充足'
         }
       },
+      watchGoodsImg:function (value) {
+        return utils.thumbnail(value,750,750);
+      },
     },
     computed:{
       templatesList: function () {
@@ -163,7 +166,7 @@
       }
     },
     created() {
-      this.go()
+      this.go();
     },
     mounted() {
 

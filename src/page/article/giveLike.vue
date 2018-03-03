@@ -130,7 +130,8 @@
         pageStart:0,
         pageSize:10,
         luadName:'点赞',
-        listControl:true
+        listControl:true,
+        isLaud:false
       }
     },
     components: {
@@ -139,6 +140,7 @@
     mounted() {
       var _this = this;
       this.id = utils.getUrlParameter("id");
+      this.getLuad();
       setTimeout(function () {
         _this.open();
       },2000);
@@ -181,19 +183,57 @@
 //        }
 //      },
       golaud: function () {
-        let _this = this
-        POST('weex/member/laud/add.jhtml?articleId=' + this.id).then(
-          function (data) {
-            if(data.type == 'success'){
-              _this.open();
-              _this.luadName = '已点赞'
-            }else{
-              _this.$refs.toast.show(data.content);
+        if(this.isLaud == false) {
+          let _this = this;
+          POST('weex/member/laud/add.jhtml?articleId=' + this.id).then(
+            function (data) {
+              if (data.type == 'success') {
+                _this.open();
+                _this.isLaud = true;
+                _this.luadName = '已点赞'
+              } else {
+                _this.$refs.toast.show(data.content);
+              }
+            }, function (err) {
+              _this.$refs.toast.show(err.content);
             }
-          },function (err) {
-            _this.$refs.toast.show(err.content);
-          }
-        )
+          )
+        }else {
+          let _this = this;
+          POST('weex/member/laud/delete.jhtml?articleId=' + this.id).then(
+            function (data) {
+              if(data.type == 'success'){
+                _this.isLaud = false;
+                _this.open();
+                _this.luadName = '点赞'
+              }else{
+                event.toast(data.content);
+              }
+            },function (err) {
+              event.toast(err.content);
+            }
+          )
+        }
+      },
+      //      获取是否点赞
+      getLuad:function () {
+        var _this = this;
+        GET('weex/article/preview.jhtml?id=' + this.id ).then(
+          function (data) {
+            if (data.type == "success") {
+              _this.isLaud = data.data.hasLaud;
+              if(_this.isLaud == true) {
+                _this.luadName = '已点赞'
+              }else{
+                _this.luadName = '点赞'
+              }
+            } else {
+              _this.showToast("服务器繁忙");
+            }
+          }, function () {
+            _this.showToast("网络不稳定");
+          });
+
       },
       open:function () {
         var _this = this;

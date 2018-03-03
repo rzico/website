@@ -2,10 +2,10 @@
   <div @touchmove="onscroll" offset-accuracy="0">
     <div class="slideIn"  >
       <div class="article">
+        <download_bar :isShow="downloadShow" :authorId="watchArticle.member.id" @closeDownload="closeDownload" templateId=1002 ></download_bar>
         <!--<div class="bg">-->
         <!--</div>-->
         <div class="">
-          <download_bar :isShow="downloadShow" :authorId="watchArticle.member.id" @closeDownload="closeDownload"></download_bar>
           <banner @buyNow="buyNow" :id="bannerId" :article="watchArticle"></banner>
           <auther ref="auther" :article="watchArticle"></auther>
           <review ref="review" :article="watchArticle"></review>
@@ -44,7 +44,7 @@
   import {Loadmore} from 'mint-ui';
   import { POST,GET,AUTH,SHARE} from '../assets/fetch.js';
   import utils from '../assets/utils.js';
-  import download_bar from './article/t1005/download_bar.vue';
+  import download_bar from './article/download_bar.vue';
   import metaTitle from './article/t1006/metaTitle.vue';
   import article_meta from './article/meta.vue';
   import music from './article/music.vue';
@@ -230,7 +230,10 @@
         POST("website/member/reward/submit.jhtml?amount="+m+"&articleId="+this.watchArticle.id).then(
           function (data) {
             if (data.type=="success") {
-              _this.weixin(data.data)
+              _this.$router.push({
+                name: "payment",
+                query: {psn: data.data, amount:m,type:'weixin'}
+              });
             } else {
 
             }

@@ -2,6 +2,7 @@
 <div class="main-box">
   <div class="main-box">
     <div class=" article root mopian">
+      <download_bar :isShow="downloadShow" :authorId="watchArticle.member.id" @closeDownload="closeDownload" templateId=1002 ></download_bar>
       <div id="basePicture" class="basePicture" style="opacity: 1;"></div>
       <div id="baseSlurPicture" class="baseSlurPicture" style="opacity: 0;"></div>
       <div class="cover">
@@ -29,7 +30,6 @@
         </div>
       </div>
       <div class="">
-        <download_bar :isShow="downloadShow" :authorId="watchArticle.member.id" @closeDownload="closeDownload"></download_bar>
         <music :musicData="watchMusicData" @judgeMusic="judgeMusic" ref="musicTemplete" :downloadShow="downloadShow"></music>
         <article_content @buyNow="buyNow"  :templates="watchTemplates" :htmlStr="htmlStr" templateId=1006></article_content>
         <!--<vote  :article="watchArticle"></vote>-->
@@ -594,7 +594,7 @@
   import {Loadmore} from 'mint-ui';
   import { POST,GET,AUTH,SHARE} from '../assets/fetch.js';
   import utils from '../assets/utils.js';
-  import download_bar from './article/t1005/download_bar.vue';
+  import download_bar from './article/download_bar.vue';
   import article_meta from './article/meta.vue';
   import music from './article/music.vue';
   import article_content from './article/content.vue';
