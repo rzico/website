@@ -184,6 +184,10 @@
 //        }
 //      },
       golaud: function () {
+        if(utils.isweex()==true){
+          this.$refs.toast.show('请分享到微信进行报名');
+          return;
+        }
         if(this.isLaud == false) {
           let _this = this;
           POST('website/member/laud/add.jhtml?articleId=' + this.id).then(
