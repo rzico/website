@@ -9,7 +9,7 @@
         <div class="header">
           <div class="img-container">
             <div class="avatar">
-              <img :src="watchArticle.member.logo">
+              <img :src="watchArticle.member.logo | watchImg">
             </div>
           </div>
         </div>
@@ -674,7 +674,10 @@
     filters: {
       timeDatefmt(val) {
         return utils.timeDatefmt(val);
-      }
+      },
+      watchImg:function (value) {
+        return utils.thumbnail(value,75,75);
+      },
     },
     created() {
       var _this = this;
