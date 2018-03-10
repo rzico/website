@@ -77,6 +77,9 @@
   }
   .twoContent{
     width: 100%;
+    padding-left:2%;
+    padding-right: 2%;
+    box-sizing: border-box;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
@@ -230,6 +233,7 @@
       },
       loadTop:function() { //组件提供的下拉触发方法
         this.pageStart = 0;
+        this.allLoaded = false;
         this.load('loadTop');
       },
       loadBottom:function() {
