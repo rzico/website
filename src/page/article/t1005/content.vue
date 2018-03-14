@@ -95,7 +95,7 @@
     width: auto;
   }
    .content .section .text-box{
-    width: 100%;
+    /*width: 100%;*/
     padding: 0 15px;
   }
    .content .section:first-child {

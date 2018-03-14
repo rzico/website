@@ -57,19 +57,19 @@
               <!--<text class="articleContent">{{item.htmlTag}}</text>-->
               <!--</div>-->
               <div class="flex-row bt10 "  v-if="item.htmlTag != '' && item.htmlTag != null && item.htmlTag != undefined">
-                <span class="articleContent white" >{{item.htmlTag}}</span>
+                <span class="articleContentTwo white" >{{item.htmlTag}}</span>
               </div>
               <div class="space-between">
                 <div class="relevantInfo" v-if="item.articleSign != '样例'">
-                  <span class="relevantImage white" :style="{fontFamily:'iconfont'}">&#xe6df;</span>
-                  <span class="relevantText white">{{item.hits}}</span>
-                  <span class="relevantImage  white" style="padding-bottom: 2px" :style="{fontFamily:'iconfont'}">&#xe60c;</span>
-                  <span class="relevantText white">{{item.laud}}</span>
-                  <span class="relevantImage  white" :style="{fontFamily:'iconfont'}">&#xe65c;</span>
-                  <span class="relevantText white">{{item.review}}</span>
+                  <span class="relevantImageTwo white" :style="{fontFamily:'iconfont'}">&#xe6df;</span>
+                  <span class="relevantTextTwo white">{{item.hits}}</span>
+                  <span class="relevantImageTwo  white" style="padding-bottom: 2px" :style="{fontFamily:'iconfont'}">&#xe60c;</span>
+                  <span class="relevantTextTwo white">{{item.laud}}</span>
+                  <span class="relevantImageTwo  white" :style="{fontFamily:'iconfont'}">&#xe65c;</span>
+                  <span class="relevantTextTwo white">{{item.review}}</span>
                 </div>
                 <div>
-                  <span class="relevantText white">{{item.createDate | dateweektimefmt}}</span>
+                  <span class="relevantTextTwo white">{{item.createDate | dateweektimefmt}}</span>
                 </div>
               </div>
             </div>
@@ -295,20 +295,20 @@
               <!--<text class="articleContent">{{item.htmlTag}}</text>-->
               <!--</div>-->
               <div class="flex-row bt10 "  v-if="item.htmlTag != '' && item.htmlTag != null && item.htmlTag != undefined">
-                <span class="articleContent white" >{{item.htmlTag}}</span>
+                <span class="articleContentTwo white" >{{item.htmlTag}}</span>
               </div>
 
               <div class="space-between">
                 <div class="relevantInfo" v-if="item.articleSign != '样例'">
-                  <span class="relevantImage white" :style="{fontFamily:'iconfont'}">&#xe6df;</span>
-                  <span class="relevantText white">{{item.hits}}</span>
-                  <span class="relevantImage  white" style="padding-bottom: 2px" :style="{fontFamily:'iconfont'}">&#xe60c;</span>
-                  <span class="relevantText white">{{item.laud}}</span>
-                  <span class="relevantImage  white" :style="{fontFamily:'iconfont'}">&#xe65c;</span>
-                  <span class="relevantText white">{{item.review}}</span>
+                  <span class="relevantImageTwo white" :style="{fontFamily:'iconfont'}">&#xe6df;</span>
+                  <span class="relevantTextTwo white">{{item.hits}}</span>
+                  <span class="relevantImageTwo  white" style="padding-bottom: 2px" :style="{fontFamily:'iconfont'}">&#xe60c;</span>
+                  <span class="relevantTextTwo white">{{item.laud}}</span>
+                  <span class="relevantImageTwo  white" :style="{fontFamily:'iconfont'}">&#xe65c;</span>
+                  <span class="relevantTextTwo white">{{item.review}}</span>
                 </div>
                 <div>
-                  <span class="relevantText white">{{item.createDate | dateweektimefmt}}</span>
+                  <span class="relevantTextTwo white">{{item.createDate | dateweektimefmt}}</span>
                 </div>
               </div>
             </div>
@@ -347,7 +347,7 @@
     </div>
   </div>
 </template>
-<style>
+<style scoped>
   /*公用样式*/
   /**横向部局居中对齐**/
   .flex-row {
@@ -392,7 +392,7 @@
     height: 250px;
   }
   .tempEightCover{
-
+    height: 187.5px;
     width: 100%;
   }
 
@@ -448,6 +448,7 @@
   }
   .tempTwoCover{
     width:100%;
+    height: 250px;
   }
 
   .tempOneImg{
@@ -517,6 +518,17 @@
     font-size: 16px;
     color: #888;
   }
+  .articleContentTwo{
+    overflow: hidden;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    word-break: break-all;
+    width: 355px;
+    font-size: 16px;
+  }
   .activeClass{
     visibility: visible;
   }
@@ -532,8 +544,19 @@
     margin-left: 2.5px;
     align-items: center;
   }
+  .relevantImageTwo{
+    display: flex;
+    flex-direction: row;
+    font-size: 16px;
+    margin-right: 2.5px;
+    margin-left: 2.5px;
+    align-items: center;
+  }
   .relevantText {
     color: #888;
+    font-size: 13px;
+  }
+  .relevantTextTwo {
     font-size: 13px;
   }
   .relevantInfo {
@@ -719,7 +742,7 @@
                     break;
                 }
               }
-              if(_this.pageStart != 0){
+              if(_this.pageStart !== 0){
                 _this.articleList.push(item);
               }
             })

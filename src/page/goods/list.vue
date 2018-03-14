@@ -1,9 +1,9 @@
 <template>
   <div class="container">
-    <div class="backg">
     <div class="categoryBox" style="position: fixed;z-index: 1">
-      <span class="cataText" v-for="(item,index) in catagoryList" @click="catagoryChange(index,item.id)" :class = "[whichCorpus == index ? 'corpusActive' : 'noActive']">{{item.name}}</span>
-    </div>
+      <div v-for="(item,index) in catagoryList">
+      <span class="cataText"  @click="catagoryChange(index,item.id)" :class = "[whichCorpus == index ? 'corpusActive' : 'noActive']">{{item.name}}</span>
+      </div>
     </div>
     <div class="page slideIn" style="background-color: #eeeeee">
       <div style="height: 45px"></div>
@@ -39,20 +39,18 @@
   </div>
 </template>
 <style scoped>
-  .backg{
-    background-color: #eeeeee;
-    height: 45px;
-  }
   .categoryBox{
     width:100%;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
     display: flex;
     flex-direction: row;
     height: 40px;
     background-color: #fff;
     line-height: 40px;
+    overflow-x: scroll;
   }
   .cataText{
+    text-align: center;
     box-sizing: border-box;
     display: inline-block;
     margin: 0 15px;
@@ -60,11 +58,14 @@
     font-size: 15px;
     line-height: 40px;
     height: 40px;
-    list-style: none;
-    position: relative;
-    cursor: pointer;
-    outline: 0;
-    -webkit-tap-highlight-color: transparent;
+    width: 60px;
+    overflow: hidden;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    word-break: break-all;
   }
   .noActive{
     border-bottom: 0px;
