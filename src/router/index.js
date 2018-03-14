@@ -32,6 +32,7 @@ const Member = resolve => require(['../page/member'], resolve)
 const T1001 = resolve => require(['../page/t1001'], resolve)
 const C1001 = resolve => require(['../page/c1001'], resolve)
 const C1002 = resolve => require(['../page/c1002'], resolve)
+const C1003 = resolve => require(['../page/c1003'], resolve)
 const Card = resolve => require(['../page/card'], resolve)
 const Payment = resolve => require(['../page/payment'], resolve)
 const OrderList = resolve => require(['../page/order/list'], resolve)
@@ -53,7 +54,14 @@ const T1005 = resolve => require(['../page/t1005'], resolve)
 const T1006 = resolve => require(['../page/t1006'], resolve)
 const T1007 = resolve => require(['../page/t1007'], resolve)
 const goodsList = resolve => require(['../page/goods/list'], resolve)
+const C1003goodsList = resolve => require(['../page/c1003/goodsList'], resolve)
 const giveLike = resolve => require(['../page/article/giveLike'], resolve)
+const navbarGoods = resolve => require(['../widget/navbarGoods'], resolve)
+const messageBar = resolve => require(['../widget/messageBar'], resolve)
+const advertising = resolve => require(['../widget/advertising'], resolve)
+const coupon = resolve => require(['../widget/coupon'], resolve)
+const list = resolve => require(['../page/c1003/list'], resolve)
+
 
 // import T1003 from '../page/t1003'
 // import T1004 from '../page/t1004'
@@ -144,6 +152,12 @@ var router = new Router({
       component: C1002
     },
     {
+      path: '/c1003',
+      name: 'c1003',
+      meta: {requireAuth:true},
+      component: C1003
+    },
+    {
       path: '/payment',
       name: 'payment',
       meta: {requireAuth:true},
@@ -228,10 +242,46 @@ var router = new Router({
       component: goodsList
     },
     {
+      path: '/C1003goodsList',
+      name: 'C1003goodsList',
+      meta: {requireAuth:true},
+      component: C1003goodsList
+    },
+    {
       path: '/giveLike',
       name: 'giveLike',
       meta: {requireAuth:true},
       component: giveLike
+    },
+    {
+      path: '/navbarGoods',
+      name: 'navbarGoods',
+      meta: {requireAuth:true},
+      component: navbarGoods
+    },
+    {
+      path: '/messageBar',
+      name: 'messageBar',
+      meta: {requireAuth:true},
+      component: messageBar
+    },
+    {
+      path: '/advertising',
+      name: 'advertising',
+      meta: {requireAuth:true},
+      component: advertising
+    },
+    {
+      path: '/coupon',
+      name: 'coupon',
+      meta: {requireAuth:true},
+      component: coupon
+    },
+    {
+      path: '/list',
+      name: 'list',
+      meta: {requireAuth:true},
+      component: list
     },
    ]
 })
