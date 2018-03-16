@@ -12,15 +12,15 @@
 </template>
 <style scoped>
   .swipe{
-    height: 194px;
+    height: 160px;
     width: 100%;
   }
   .swipeImg{
-    height: 194px;
+    height: 160px;
     width: 100%;
   }
   .header {
-    height: 194px;
+    height: 160px;
     width: 100%;
     position: relative;
     overflow: hidden;

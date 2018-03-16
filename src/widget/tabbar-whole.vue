@@ -11,12 +11,6 @@
         </span>
       <!--</a>-->
       </div>
-      <div  class="weui-tabbar__item"  :class="[id == 3 ? 'weui-bar__item_on':'']" @click="goshop()">
-        <span style="display: inline-block;position: relative;">
-          <span class="weui-tabbar__icon fftIcon" :style="{fontFamily:'iconfont'}">&#xe603;</span>
-          <p class="weui-tabbar__label">商品</p>
-        </span>
-      </div>
       <div  class="weui-tabbar__item"  :class="[id == 1 ? 'weui-bar__item_on':'']" @click="goorderList()">
         <span style="display: inline-block;position: relative;">
           <span class="weui-tabbar__icon fftIcon" :style="{fontFamily:'iconfont'}">&#xe600;</span>

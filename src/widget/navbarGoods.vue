@@ -1,12 +1,16 @@
 <template>
   <div class="bgc" v-if="hasReward()">
     <div class="content" v-for="item in catagoryList" @click="jumpList(item.id)">
-      <img class="image"  :src="item.thumbnail"/>
+      <div class="">
+      <img class="image"  :src="item.thumbnail | wacthImage"/>
       <span class="name">{{item.name}}</span>
+      </div>
     </div>
     <div class="content" @click="jump()">
-      <img class="image" :src="img"/>
+      <div>
+      <img class="image" :src="img | wacthImage"/>
       <span class="name">全部</span>
+      </div>
     </div>
   </div>
 </template>
@@ -17,24 +21,26 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    padding-bottom: 15px;
+    padding-bottom: 10px;
     margin-bottom: 10px;
   }
   .content{
+    border: none;
     width: 25%;
-    padding-top:15px;
-    padding-left:15px;
-    padding-right:15px;
+    /*padding-top:10px;*/
+    /*padding-left:15px;*/
+    /*padding-right:15px;*/
     box-sizing: border-box;
     display:flex;
-    flex-direction: column;
+    align-items: center;
+    justify-content: center;
   }
   .image{
-    width: 100%;
-    height: 63.75px;
+    width: 48px;
+    height: 48px;
   }
   .name{
-    margin-top: 5px;
+    margin-top: -5px;
     text-align: center;
     width: 100%;
     color: #888888;
@@ -55,7 +61,7 @@
     data() {
       return {
         catagoryList:[],
-        img:'http://rzico.oss-cn-shenzhen.aliyuncs.com/weex/resources/images/all.png',
+        img:'http://rzico.oss-cn-shenzhen.aliyuncs.com/weex/resources/images/allBg.png',
         screenheight:0
       }
     },
@@ -63,7 +69,9 @@
 
     },
     filters:{
-
+      wacthImage(val){
+        return utils.thumbnail(val, 48, 48);
+      },
     } ,
     props:{
       id:{default:0}
@@ -80,20 +88,26 @@
             if (data.type == "success") {
               if(data.data.length <3 ) {
                 data.data.forEach(function (item) {
-                  item.thumbnail = utils.thumbnail(item.thumbnail, 100, 100);
+                  if(utils.isNull( item.thumbnail)){
+                    item.thumbnail = 'http://rzico.oss-cn-shenzhen.aliyuncs.com/weex/resources/images/shopBg.jpeg';
+                  }
                     _this.catagoryList.push(item)
                 })
               }if(data.data.length >3 && data.data.length <7) {
                 data.data.forEach(function (item, index) {
                   if (index < 3) {
-                    item.thumbnail = utils.thumbnail(item.thumbnail, 100, 100);
+                    if(utils.isNull( item.thumbnail)){
+                      item.thumbnail = 'http://rzico.oss-cn-shenzhen.aliyuncs.com/weex/resources/images/shopBg.jpeg';
+                    }
                     _this.catagoryList.push(item)
                   }
                 })
               } if(data.data.length >6) {
                 data.data.forEach(function (item, index) {
                   if (index < 7) {
-                    item.thumbnail = utils.thumbnail(item.thumbnail, 100, 100);
+                    if(utils.isNull( item.thumbnail)){
+                      item.thumbnail = 'http://rzico.oss-cn-shenzhen.aliyuncs.com/weex/resources/images/shopBg.jpeg';
+                    }
                     _this.catagoryList.push(item)
                   }
                 })

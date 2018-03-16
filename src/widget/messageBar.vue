@@ -5,9 +5,9 @@
     </div>
     <div class="right">
       <i class="iconfont icon-remind" style="font-size: 20px;color:red "></i>
-        <marquee direction="up" truespeed="truespeed" height="15px" width="80%" behavior="scroll" scrolldelay="500">
+      <marquee direction="up" scrollamount="1" behavior="scroll" height="25px" width="80%">
       <span class="messageText" v-for="m in messageList">{{m.title}}</span>
-        </marquee>
+      </marquee>
     </div>
   </div>
 </template>
@@ -16,7 +16,7 @@
   .bgc{
     background-color: white;
     width: 100%;
-    height: 30px;
+    height: 40px;
     padding-top: 5px;
     padding-bottom: 5px;
     border-width: 0 0 2px 0;
