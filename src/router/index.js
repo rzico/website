@@ -55,6 +55,7 @@ const T1006 = resolve => require(['../page/t1006'], resolve)
 const T1007 = resolve => require(['../page/t1007'], resolve)
 const goodsList = resolve => require(['../page/goods/list'], resolve)
 const C1003goodsList = resolve => require(['../page/c1003/goodsList'], resolve)
+const C1003orderList = resolve => require(['../page/c1003/orderList'], resolve)
 const giveLike = resolve => require(['../page/article/giveLike'], resolve)
 const navbarGoods = resolve => require(['../widget/navbarGoods'], resolve)
 const messageBar = resolve => require(['../widget/messageBar'], resolve)
@@ -246,6 +247,12 @@ var router = new Router({
       name: 'C1003goodsList',
       meta: {requireAuth:true},
       component: C1003goodsList
+    },
+    {
+      path: '/C1003orderList',
+      name: 'C1003orderList',
+      meta: {requireAuth:true},
+      component: C1003orderList
     },
     {
       path: '/giveLike',
