@@ -4,7 +4,7 @@
       <v-loadmore :top-method="loadTop" :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" :auto-fill="false" ref="loadmore">
         <banner :topic="topic" ref="banner" :id ="id" :isFixed = "isfixed"></banner>
         <navbar ref="nav" :isFixed = "isfixed" :navs="catalogs" :idx="idx" @navChange="navChange"></navbar>
-        <fancyList ref="fancyList" :id="id" :idx="idx"></fancyList>
+        <rulesList ref="fancyList" :id="id" :idx="idx"></rulesList>
       </v-loadmore>
     </div>
     <div class="topic">
@@ -23,7 +23,7 @@
   import utils from '../assets/utils.js';
   import banner from './topic/banner.vue';
   import navbar from './topic/nav.vue';
-  import fancyList from './topic/fancyList.vue';
+  import rulesList from './topic/rulesList.vue';
   import Tabbar from '../widget/tabbar-whole.vue';
   import Toast from '../widget/toast.vue';
   export default {
@@ -41,8 +41,9 @@
       'v-loadmore':Loadmore, // 为组件起别名，vue转换template标签时不会区分大小写，例如：loadMore这种标签转换完就会变成loadmore，容易出现一些匹配问题
       banner,
       navbar,
-      fancyList,
-      Tabbar
+      rulesList,
+      Tabbar,
+      Toast
     },
     created() {
       var _this = this;
@@ -69,7 +70,7 @@
               _this.id = _this.topic.id;
               _this.catalogs = response.data.catalogs;
               _this.$refs.banner.load();
-              _this.$refs.fancyList.getAllArticle();
+//              _this.$refs.fancyList.getAllArticle();
               //设置分享标题
               utils.setConfig({
                 title:_this.topic.name+"的"+utils.getConfig().siteName+"专栏",
@@ -102,7 +103,7 @@
       },
       navChange:function (id) {
         this.idx = id;
-        this.loadTop(id);
+        this.$refs.fancyList.loadTop(id);
       }
     }
   }

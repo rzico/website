@@ -1,13 +1,13 @@
 <template>
   <div>
     <div class="weui-tabbar">
-      <div  class="weui-tabbar__item"  :class="[id == 0 ? 'weui-bar__item_on':'']" @click="goC1001()">
+      <div  class="weui-tabbar__item"  :class="[id == 0 ? 'weui-bar__item_on':'']" @click="goC1003()">
         <!--<a href="javascript:;" class="weui-tabbar__item " :class="[id == 0 ? 'weui-bar__item_on':'']">-->
         <span style="display: inline-block;position: relative;">
           <!--<img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1515992382238&di=395605bef33b7058b1a22a4c039f93a4&imgtype=0&src=http%3A%2F%2Fimg.zcool.cn%2Fjob%2Fgroups%2Fb445558d077800000141f02f67a5.jpg" alt="" class="weui-tabbar__icon">-->
           <span class="weui-tabbar__icon fftIcon" :style="{fontFamily:'iconfont'}">&#xe628;</span>
           <!--<span class="weui-badge" style="position: absolute;top: -2px;right: -13px;">8</span>-->
-          <p class="weui-tabbar__label">专栏</p>
+          <p class="weui-tabbar__label">首页</p>
         </span>
         <!--</a>-->
       </div>
@@ -149,7 +149,7 @@
       },
       goorderList:function () {
         var vars  =  utils.router(location.href);
-        vars.name ="orderList";
+        vars.name ="C1003orderList";
         this.$router.push(vars);
       },
       open(){

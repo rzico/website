@@ -42,7 +42,8 @@
           banner,
           navbar,
           list,
-          Tabbar
+          Tabbar,
+          Toast
         },
       created() {
           var _this = this;

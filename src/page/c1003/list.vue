@@ -40,7 +40,7 @@
       </div>
     </div>
     </div>
-    <div class="title" v-if="toptList.length != ''">
+    <div class="titleTwo" v-if="toptList.length != ''">
       <img class="titleImg" style="margin-right: 10px" src="http://rzico.oss-cn-shenzhen.aliyuncs.com/weex/resources/images/hua.png"/>
       <span class="titlespan">猜<span style="color: #999;font-size: 18px">·</span>你<span style="color: #999;font-size: 18px">·</span>喜<span style="color: #999;font-size: 18px">·</span>欢</span>
       <img class="titleImg" style="margin-left: 10px" src="http://rzico.oss-cn-shenzhen.aliyuncs.com/weex/resources/images/hua.png"/>
@@ -129,6 +129,18 @@
     margin-bottom: 10px;
   }
   .title{
+    background-color: white;
+    height: 35px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    border-width: 0 0 1px 0;
+    border-style: solid;
+    border-color: #eee;
+  }
+  .titleTwo{
+    margin-top: 5px;
     background-color: white;
     height: 35px;
     display: flex;
@@ -287,7 +299,7 @@
     /*padding-top: 10px;*/
     /*padding-right: 30px;*/
     padding-bottom: 10px;
-    margin-bottom: 1px;
+    margin-bottom: 2px;
   }
   .articleTitle {
     font-size: 19px;

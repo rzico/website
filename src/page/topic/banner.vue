@@ -8,6 +8,9 @@
         </mt-swipe-item>
     </mt-swipe>
     <div class="mask bg" :style="'background-image: url('+topic.logo+')'" v-else></div>
+    <div class="focus" @click="focus()">
+      <img style="width: 30px;height: 30px" src="http://rzico.oss-cn-shenzhen.aliyuncs.com/weex/resources/images/focus.png">
+    </div>
     <div class="Content">
       <div class="leftContent">
         <img class="logo" :src="topic.logo">
@@ -16,11 +19,12 @@
           <span class="autograph">{{topic.autograph}}</span>
         </div>
       </div>
-      <div class="rightContent" @click="focus()">
-        <div class="top"><i class="iconfont icon-moban13zhengshu" style="color:white;font-size: 16px"></i>  <span style="color: white;font-size: 14px">{{focusOn}}</span></div>
-        <div class="bottom"><span style="color:white;font-size: 12px">{{topic.hits}}人</span></div>
-      </div>
+      <!--<div class="rightContent" @click="focus()">-->
+        <!--<div class="top"><i class="iconfont icon-moban13zhengshu" style="color:white;font-size: 16px"></i>  <span style="color: white;font-size: 14px">{{focusOn}}</span></div>-->
+        <!--<div class="bottom"><span style="color:white;font-size: 12px">{{topic.hits}}人</span></div>-->
+      <!--</div>-->
     </div>
+    <Toast ref="toast"></Toast>
   </div>
 </template>
 <style scoped>
@@ -40,6 +44,15 @@
     letter-spacing: 0;
     line-height: 1;
     margin-top: 0;
+  }
+  .focus{
+    height: 30px;
+    width: 30px;
+    position: absolute;
+    top:20px;
+    right: 20px;
+    z-index: 11;
+    transform: translate3d(0,0,0);
   }
   .Content{
     display: flex;
@@ -122,6 +135,7 @@
   import { Swipe, SwipeItem } from 'mint-ui';
   import { POST, GET,AUTH} from '../../assets/fetch.js';
   import utils from '../../assets/utils.js';
+  import Toast from '../../widget/toast.vue';
   export default {
     data() {
       return {
@@ -133,7 +147,8 @@
     },
     components: {
       'mt-swipe':Swipe,
-      'mt-swipe-item':SwipeItem
+      'mt-swipe-item':SwipeItem,
+      Toast
     },
     props:{
       topic: {
@@ -174,29 +189,32 @@
           });
       },
       focus:function () {
+
         if(this.followed == false) {
           let _this = this;
           POST('website/member/follow/add.jhtml?authorId=' + _this.id).then(
             function (mes) {
               if (mes.type == 'success') {
-                _this.focusOn = '已关注'
+                _this.$refs.toast.show("已关注");
                 _this.open()
               } else {
+                _this.$refs.toast.show(mes.content);
               }
-            }, function () {
-
+            }, function (err) {
+              _this.$refs.toast.show(err.content);
             });
         }else{
           let _this =this
           POST('website/member/follow/delete.jhtml?authorId=' + _this.id).then(
             function (e) {
               if (e.type == 'success') {
-                _this.focusOn = '关注'
+                _this.$refs.toast.show("已取关");
                 _this.open()
               } else {
+                _this.$refs.toast.show(e.content);
               }
-            }, function () {
-
+            }, function (err) {
+              _this.$refs.toast.show(err.content);
             });
         }
       },

@@ -1,9 +1,9 @@
 <template>
-  <div class="bckg">
+  <div class="bckg" v-if="navs.length!=''">
  <div class="nav"  :class="isFixed ? 'navFixed' : ''">
    <ul>
      <li :class="liState(0)" @click="load(0)"> 全部 </li>
-     <li v-for="n in Navs"  :class="liState(n.id)" @click="load(n.id)"> {{n.name}} </li>
+     <li v-for="n in navs"  :class="liState(n.id)" @click="load(n.id)"> {{n.name}} </li>
    </ul>
  </div>
   </div>
@@ -14,7 +14,7 @@
     props:{
       isFixed:{default:false},
       idx:{default:0},
-      Navs:{default:[]}
+      navs:{default:[]}
     },
     created() {
 

@@ -150,7 +150,7 @@
     text-align: center;
     box-sizing: border-box;
     display: inline-block;
-    margin: 0 15px;
+    margin: 0 10px;
     color: #333;
     font-size: 15px;
     line-height: 30px;
@@ -231,7 +231,7 @@
   .verticalMoney{
     font-size: 18px;
     color:#EB4E40;
-    height: 20px;
+    height: 25px;
   }
   .verticalNumber{
     font-size: 14px;
