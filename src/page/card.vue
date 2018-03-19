@@ -102,6 +102,7 @@
     data() {
       return {
          id:"",
+         xuid:"",
          code:"",
          cardId:"",
          cardExt:{},
@@ -135,6 +136,7 @@
       //会号规则 88100006165001042 实体卡  86100006165 商家码
         this.code = utils.getUrlParameter("code");
         this.id = utils.getUrlParameter("id");
+        this.xuid = utils.getUrlParameter("xuid");
         this.load();
     },
     methods:{
@@ -240,7 +242,7 @@
           _this.$refs.toast.show("会员姓名不能为空");
           return;
         }
-        POST("website/member/card/activate.jhtml?cardId="+_this.card.id+"&mobile="+_this.mob+"&name="+encodeURIComponent(_this.name)).then(
+        POST("website/member/card/activate.jhtml?cardId="+_this.card.id+"&mobile="+_this.mob+"&name="+encodeURIComponent(_this.name)+"&xuid="+_this.xuid).then(
           function (res) {
             if (res.type=='success') {
               _this.close();
