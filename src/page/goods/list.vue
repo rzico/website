@@ -30,11 +30,11 @@
       <div style="height: 80px"></div>
       <v-loadmore :top-method="loadTop" :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" ref="loadmore">
         <div class="twoContent" v-if="hasReward()">
-        <div class="content" v-for="c in lists" @click="buyNow(c.id)">
+        <div class="content" v-for="c in lists" >
           <div class="logo">
           <img class="img" :src="c.thumbnail"/>
           </div>
-          <div class="information">
+          <div class="information" @click="buyNow(c.id)">
             <div style="height: 40px">
             <span class="goodsName">{{c.name}}</span>
             </div>

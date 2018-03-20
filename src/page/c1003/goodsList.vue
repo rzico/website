@@ -31,11 +31,11 @@
       <v-loadmore :top-method="loadTop" :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" ref="loadmore">
         <!--左右布局-->
         <div class="twoContent" v-if="hasReward() && isStyle">
-          <div class="content" v-for="c in lists" @click="buyNow(c.id)">
+          <div class="content" v-for="c in lists" >
             <div class="logo">
               <img class="img" :src="c.thumbnail"/>
             </div>
-            <div class="information">
+            <div class="information" @click="buyNow(c.id)">
               <div style="height: 40px">
                 <span class="goodsName">{{c.name}}</span>
               </div>
@@ -50,11 +50,11 @@
           </div>
         </div>
         <!--纵向布局-->
-        <div class="vertical" v-for="c in lists" @click="buyNow(c.id)" v-if="hasReward() && !isStyle">
+        <div class="vertical" v-for="c in lists" v-if="hasReward() && !isStyle">
           <div class="verticallogoDiv">
             <img class="verticallogo" :src="c.thumbnail"/>
           </div>
-          <div class="verticalContent">
+          <div class="verticalContent" @click="buyNow(c.id)" >
             <div style="height: 80px;display: flex;flex-direction: column;justify-content: space-between">
             <span  class="verticaGoodsName" style="font-size: 16px">{{c.name}}</span>
             <div class="verticalMoneyNumber">
