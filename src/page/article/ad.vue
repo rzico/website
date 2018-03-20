@@ -10,7 +10,7 @@
     export default {
       data() {
         return {
-          src:"./static/ad.jpg"
+          src:"./static/mp_ad.jpg"
         }
       },
       props:{

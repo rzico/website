@@ -15,7 +15,7 @@
           <auther ref="auther" :article="watchArticle" templateId=1003></auther>
           <review ref="review" :article="watchArticle" templateId=1003></review>
           <recommend ref="recommend" v-if="isPublish" article="watchArticle" @go="fetchData" templateId=1003></recommend>
-          <ad v-if="noWeex" :article="watchArticle" templateId=1003></ad>
+          <!--<ad v-if="noWeex" :article="watchArticle" templateId=1003></ad>-->
           <rewardDialog  ref="rwd"  @rewardNumber="rewardNumber" templateId=1003></rewardDialog>
           <payment  ref="pay" @notify="onPayNotify"></payment>
           <buyGoods  ref="buy" @notify="onPayNotify"></buyGoods>
@@ -297,10 +297,10 @@
         this.musicPlay = 1;
       },
       buyNow:function (id) {
-        if(utils.isweex()==true){
-          this.$refs.toast.show('请分享到微信进行购买');
-          return;
-        }
+//        if(utils.isweex()==true){
+//          this.$refs.toast.show('请分享到微信进行购买');
+//          return;
+//        }
         let _this = this;
         AUTH(location.href,function (authed) {
           if (authed) {

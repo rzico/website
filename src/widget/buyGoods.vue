@@ -58,7 +58,6 @@
           <p class="fontSize18 fontSize14" >点击选择收货地址</p>
           <p class="rightArrow top18" ></p>
         </div>
-
         <div class="flexRow preferentialBox" v-if="couponName != ''">
           <span class="preferential">{{couponName}}</span>
         </div>
@@ -344,7 +343,7 @@
 //        payPrice:'299',
         clicked:false,
         previewList:[],
-        payMemo:''
+        payMemo:'',
       }
     },
     filters:{
@@ -390,7 +389,6 @@
           this.$refs.toast.show('请选择地址');
           return ;
         }
-
         POST("website/member/order/create.jhtml?id=" + this.productId + '&quantity=' + this.buyNum + '&receiverId=' + this.receiverList[0].id+'&xuid='+utils.getUrlParameter("xuid")).then(
           function (data) {
             if (data.type=="success") {
@@ -770,7 +768,7 @@
 //              }
 
 //              调用计算接口
-              _this.calcPrice();
+                _this.calcPrice();
 
 //              判断该商品是否有规格2
               _this.hasSpec2(data.data.products);

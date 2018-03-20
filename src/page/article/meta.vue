@@ -8,7 +8,6 @@
     </div>
   </div>
 </template>
-
 <script>
   import utils from '../../assets/utils.js';
   export default {
@@ -22,6 +21,10 @@
         }
       },
       props: {
+//        article: { default: function () {
+//          return ''
+//        }
+//        },
         article: {
           default: function () {
             return {hits: 0, title: "样例", nickName: "author", createDate: null}
@@ -29,9 +32,13 @@
         },
       },
       created(){
-        console.log(this.template);
+//        console.log(this.template);
       },
        methods:{
+         hasArticle:function () {
+//           alert(JSON.stringify(this.article));
+           return true;
+         },
          jump:function (url,id) {
            if(utils.isweex()){
              location.href = utils.setDummyUrl('topic',id);

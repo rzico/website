@@ -1,33 +1,12 @@
 <template>
   <div class="container">
-    <div  style="position: fixed;z-index: 1;width: 100%">
-      <!--搜索栏-->
-      <div class="search">
-        <div class="searchbox">
-          <i class="iconfont icon-sousuo-copy" style="font-size: 16px;color:#ccc;margin-left: 10px "></i>
-          <input class="search_input" type="text" return-key-type="done" v-model="keyword" @input="oninput"   ref="searchBar" placeholder="输入商品名"/>
-          <i class="iconfont icon-arrow-dropright" style="font-size: 16px;color:#ccc " @click="clearBuf()"></i>
-        </div>
-        <div class="searchCancel" @click="noSearch()">
-          <span class="searchCancelText" >{{searchOrCancel}}</span>
-        </div>
-      </div>
-      <!--商品分类-->
-      <div class="categoryDiv">
-        <div class="categoryBox">
-          <div v-for="(item,index) in catagoryList">
-            <span class="cataText"  @click="catagoryChange(index,item.id)" :class = "[whichCorpus == index ? 'corpusActive' : 'noActive']">{{item.name}}</span>
-          </div>
-        </div>
-        <!--样式切换按钮-->
-        <div class="iconDiv">
-          <i class="iconfont icon-mulu" style="font-size: 18px; " @click="isContorl()" v-if="isStyle"></i>
-          <i class="iconfont icon-unie63a" style="font-size: 18px; " @click="isContorl()" v-if="!isStyle"></i>
-        </div>
-      </div>
+    <div class="backg">
+    <div class="categoryBox" style="position: fixed;z-index: 1">
+      <span class="cataText" v-for="(item,index) in catagoryList" @click="catagoryChange(index,item.id)" :class = "[whichCorpus == index ? 'corpusActive' : 'noActive']">{{item.name}}</span>
+    </div>
     </div>
     <div class="page slideIn" style="background-color: #eeeeee">
-      <div style="height: 80px"></div>
+      <div style="height: 45px"></div>
       <v-loadmore :top-method="loadTop" :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" ref="loadmore">
         <div class="twoContent" v-if="hasReward()">
         <div class="content" v-for="c in lists" @click="buyNow(c.id)">
@@ -60,90 +39,32 @@
   </div>
 </template>
 <style scoped>
-  /*<!--搜索栏-->*/
-  .search {
-    background-color: white;
-    width: 100%;
-    height: 50px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-  }
-  .searchbox{
-    width: 80%;
-    height: 30px;
+  .backg{
     background-color: #eeeeee;
-    margin-left: 15px;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    border-top-left-radius: 22px;
-    border-top-right-radius: 22px;
-    border-bottom-right-radius: 22px;
-    border-bottom-left-radius: 22px;
-  }
-  .search_input{
-    font-size: 14px;
-    padding-left: 5px;
-    height: 20px;
-    width: 80%;
-    background-color: #eeeeee;
-    border-width: 0;
-  }
-  .searchCancel{
-    width: 20%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-  }
-  .searchCancelText{
-    font-size: 16px;
-  }
-  .categoryDiv{
-    width: 100%;
-    height: 30px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+    height: 45px;
   }
   .categoryBox{
-    width:87%;
-    margin-bottom: 10px;
+    width:100%;
+    margin-bottom: 5px;
     display: flex;
     flex-direction: row;
-    height: 30px;
+    height: 40px;
     background-color: #fff;
-    line-height: 30px;
-    overflow-x: scroll;
-  }
-  .iconDiv{
-    width: 13%;
-    margin-bottom: 10px;
-    height: 30px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: white;
+    line-height: 40px;
   }
   .cataText{
-    text-align: center;
     box-sizing: border-box;
     display: inline-block;
     margin: 0 15px;
     color: #333;
     font-size: 15px;
-    line-height: 30px;
-    height: 30px;
-    width: 60px;
-    overflow: hidden;
-    -o-text-overflow: ellipsis;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 1;
-    -webkit-box-orient: vertical;
-    word-break: break-all;
+    line-height: 40px;
+    height: 40px;
+    list-style: none;
+    position: relative;
+    cursor: pointer;
+    outline: 0;
+    -webkit-tap-highlight-color: transparent;
   }
   .noActive{
     border-bottom: 0px;
@@ -154,77 +75,8 @@
     border-bottom-style: solid;
     border-bottom-color:#EB4E40 ;
   }
-  /*纵向布局*/
-  .vertical{
-    height: 100px;
-    width: 100%;
-    background-color: white;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-  }
-  .verticallogoDiv{
-    height: 80px;
-    width: 27%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    box-sizing: border-box;
-  }
-  .verticallogo{
-    background-color: #eeeeee;
-    height: 80px;
-    width: 80px;
-  }
-  .verticalContent{
-    height: 100px;
-    width: 73%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    border-width: 0 0 0.5px 0;
-    border-color: #cccccc;
-    border-style: solid;
-  }
-  .verticalBottom{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    height: 16px;
-  }
-  .verticaGoodsName{
-    font-size: 16px;
-    width: 200px;
-    overflow: hidden;
-    -o-text-overflow: ellipsis;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 1;
-    -webkit-box-orient: vertical;
-    word-break: break-all;
-  }
-  .verticalMoneyNumber{
-    display: flex;
-    flex-direction: column;
-  }
-  .verticalMoney{
-    font-size: 18px;
-    color:#EB4E40;
-    height: 20px;
-  }
-  .verticalNumber{
-    font-size: 14px;
-    color: #cccccc;
-    height: 18px;
-  }
-  /*横线布局*/
   .twoContent{
     width: 100%;
-    padding-left:2%;
-    padding-right: 2%;
-    box-sizing: border-box;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
@@ -311,11 +163,6 @@
           name:'全部',
           id:0
         },],
-        keyword:'',
-        searchOrCancel:'搜索',
-        noDataHint:'暂无商品',
-        isStyle:true
-
       }
     },
     components: {
@@ -337,65 +184,11 @@
     } ,
     created() {
       this.id = utils.getUrlParameter("id");
-      this.productCategoryId = utils.getUrlParameter("productCategoryId");
       //            获取分类列表
       this.getCatagory();
       this.load()
     },
     methods:{
-//      控制样式按钮
-      isContorl:function () {
-        this.isStyle = !this.isStyle
-      },
-      oninput:function (e) {
-        this.searchOrCancel = '搜索';
-        this.lists = [];
-        this.noDataHint = "输入查找商品";
-        this.pageStart = 0;
-        this.productCategoryId = '';
-        this.whichCorpus = 0;
-        this.searchGoods();
-      },
-      search: function (e) {
-        var _this = this;
-        this.pageStart = 0;
-        this.productCategoryId = '';
-        this.whichCorpus = 0;
-        this.searchGoods();
-      },
-//            点击右上角搜索按钮
-      noSearch:function () {
-        this.inputBlur();
-        this.search();
-      },
-      //          查找商品
-      searchGoods:function () {
-        let _this = this;
-        GET('weex/member/product/list.jhtml?keyword='+ encodeURI(_this.keyword)  + '&productCategoryId=' + this.productCategoryId + '&pageStart=' + this.pageStart + '&pageSize=' + this.pageSize).then(function (data) {
-          if(data.type == 'success'){
-            if (_this.pageStart == 0) {
-              _this.lists = data.data.data;
-            }else{
-              data.data.data.forEach(function (item) {
-                _this.lists.push(item);
-              })
-            }
-            _this.noDataHint = '商品不存在';
-            _this.pageStart = data.data.start + data.data.data.length;
-          }else{
-            _this.$refs.toast.show(data.content);
-          }
-        },function (err) {
-          _this.$refs.toast.show(err.content);
-        })
-      },
-//          清空关键字
-      clearBuf:function () {
-        this.keyword = '';
-      },
-      inputBlur(){
-        this.$refs['searchBar'].blur();
-      },
       //分类切换
       catagoryChange:function(index,id){
         var _this = this;
@@ -412,32 +205,31 @@
         var _this = this;
         GET('website/shop/product_category/list.jhtml?authorId='+_this.id).then(
           function (data) {
-            if (data.type == "success") {
-              if(data.data == ''){
-              }else{
-                _this.catagoryList = '';
-                _this.catagoryList =[{
-                  name:'全部',
-                  id:''
-                }];
+          if (data.type == "success") {
+            if(data.data == ''){
+            }else{
+              _this.catagoryList = '';
+              _this.catagoryList =[{
+                name:'全部',
+                id:''
+              }];
 //                                将文集名循环插入数组中
-                for(let i = 0; i<data.data.length;i++){
-                  _this.catagoryList.splice(1 + i,0,data.data[i]);
-                }
+              for(let i = 0; i<data.data.length;i++){
+                _this.catagoryList.splice(1 + i,0,data.data[i]);
               }
-            }else {
-              _this.$refs.toast.show(data.content);
             }
-          },function (err) {
-            _this.$refs.toast.show(err.content);
-          })
+          }else {
+            event.toast(data.content);
+          }
+        },function (err) {
+          event.toast(err.content);
+        })
       },
       hasReward:function () {
         return this.lists.length>0;
       },
       loadTop:function() { //组件提供的下拉触发方法
         this.pageStart = 0;
-        this.allLoaded = false;
         this.load('loadTop');
       },
       loadBottom:function() {
@@ -456,9 +248,9 @@
                   _this.lists.push(item);
                 });
               }
-              if(res.data.data.length<_this.pageSize){
+             if(res.data.data.length<_this.pageSize){
                 _this.allLoaded = true
-              }
+             }
               _this.pageStart = res.data.start+res.data.data.length;
             }
             if (type=='loadBottom')

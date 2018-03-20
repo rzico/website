@@ -22,6 +22,7 @@
 // import T1003 from '../page/t1003'
 // import T1004 from '../page/t1004'
 
+//引出 如何跳过基础包 vue优化
 import Vue from 'vue'
 import VueResource from 'vue-resource'
 import Router from 'vue-router'

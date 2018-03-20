@@ -48,9 +48,14 @@
         },
         articleclick:function (id,url) {
           if(utils.isweex()){
-             location.href = utils.setDummyUrl('article',id);
+            location.href = utils.setDummyUrl('article',id);
           }else{
-             location.href = url;
+//            location.href = url;
+            this.$router.push(utils.router(url));
+//            window.location.reload();
+//            window.scrollTo(0,0);
+
+
             // this.$emit("go",id);
             //this.$router.push(utils.router(url));
           }

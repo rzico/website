@@ -16,7 +16,7 @@
           <auther ref="auther" :article="watchArticle"></auther>
           <review ref="review" :article="watchArticle"></review>
           <recommend ref="recommend" v-if="isPublish" :article="watchArticle" @go="fetchData"></recommend>
-          <ad v-if="noWeex" :article="watchArticle"></ad>
+          <!--<ad v-if="noWeex" :article="watchArticle"></ad>-->
           <rewardDialog  ref="rwd"  @rewardNumber="rewardNumber"></rewardDialog>
           <payment  ref="pay" @notify="onPayNotify"></payment>
           <buyGoods  ref="buy" @notify="onPayNotify"></buyGoods>
@@ -105,6 +105,10 @@
         return {hits:0,title:"样例",nickName:"author",createDate:null,member:{}}
       }
       },
+//      article: { default: function () {
+//        return ''
+//      }
+//      },
       musicData: { default: function () {
         return {id: ""}
       }
@@ -199,6 +203,7 @@
                   })
                   _this.$set(response.data.templates, 'previewList', previewList);
                   _this.watchTemplates = response.data.templates;
+//                  alert(JSON.stringify(_this.watchTemplates))
                 }
               }
 
