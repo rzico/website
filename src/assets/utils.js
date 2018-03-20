@@ -3,7 +3,7 @@ const config = {
   siteName:'芸店',
   appUrl:'http://a.app.qq.com/o/simple.jsp?pkgname=com.rzico.assistant',
   title:"芸店",
-  link:"http://weixin.rzico.com",
+  link:"http://weixinnp.rzico.com",
   thumbnail:'./static/logo.png',
   desc:'超强图文小视频分享社区,中国版Facebook.',
   baseURL:"http://weixin.rzico.com/",
@@ -78,7 +78,7 @@ let utilsFunc = {
     },
     thumbnail(url,w,h) {
         if(this.isNull(url)){
-           return ;
+           return "";
         }
         h = Math.round(h);
         w = Math.round(w);
@@ -264,7 +264,7 @@ let utilsFunc = {
 
   // /*
     // 返回处理后的值 2017-01-01 00:00:00
-    datetimehms(value) {
+  datetimehms(value) {
       if(value == '' || value == null || value == undefined){
         return value;
       }
