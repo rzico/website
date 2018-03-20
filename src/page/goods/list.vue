@@ -22,7 +22,7 @@
         <!--样式切换按钮-->
         <div class="iconDiv">
           <i class="iconfont icon-mulu" style="font-size: 18px; " @click="isContorl()" v-if="isStyle"></i>
-          <i class="iconfont icon-unie63a" style="font-size: 18px; " @click="isContorl()" v-if="!isStyle"></i>
+          <i class="iconfont icon-Classifiedmanagement" style="font-size: 18px; " @click="isContorl()" v-if="!isStyle"></i>
         </div>
       </div>
     </div>
