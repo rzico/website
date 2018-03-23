@@ -50,14 +50,7 @@
           if(utils.isweex()){
             location.href = utils.setDummyUrl('article',id);
           }else{
-//            location.href = url;
             this.$router.push(utils.router(url));
-//            window.location.reload();
-//            window.scrollTo(0,0);
-
-
-            // this.$emit("go",id);
-            //this.$router.push(utils.router(url));
           }
         },
         thumbnail:function (url,w,h) {

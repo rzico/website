@@ -297,10 +297,10 @@
         this.musicPlay = 1;
       },
       buyNow:function (id) {
-//        if(utils.isweex()==true){
-//          this.$refs.toast.show('请分享到微信进行购买');
-//          return;
-//        }
+        if(utils.isweex()==true){
+          this.$refs.toast.show('请分享到微信进行购买');
+          return;
+        }
         let _this = this;
         AUTH(location.href,function (authed) {
           if (authed) {

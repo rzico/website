@@ -4,7 +4,7 @@
 </style>
 
 <template>
-  <router-view/>
+  <router-view :key="key"/>
 </template>
 
 <script>
@@ -34,7 +34,11 @@ export default {
     });
     SHARE(location.href);
   },
-  mounted() {
+  computed: {
+//    https://www.cnblogs.com/first-time/p/7067674.html Vue-- 监听路由变化，数据无法更新？  同个模版t1001时 切换文章id无法刷新页面。
+    key() {
+      return this.$route.name !== undefined? this.$route.name +new Date(): this.$route +new Date()
+    }
   }
 }
 </script>
