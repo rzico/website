@@ -2,7 +2,7 @@
 <template>
   <div class="container">
     <div class="page slideIn bg" >
-      <div class="top marbottom15" v-for="c in coupons"  v-if="hasCoupon()">
+      <div class="top marbottom15" v-for="c in coupons"  v-if="hasCoupon()" @click="jump(c.couponId,c.id)">
       <div class="flex-r" style="height: 60px;border-width: 0 0 1px 0;border-color: #cccccc;border-style: dashed;padding-right: 10px">
         <span class="f30 color flex2" style="">{{c.amount}}</span>
         <div class="flex5 flex-c" >
@@ -125,7 +125,8 @@
   export default {
     data() {
       return {
-        coupons:[]
+        coupons:[],
+        type:'member'
       }
     },
     components: {
@@ -150,6 +151,9 @@
 
           }
         )
+      },
+      jump:function (couponId,id) {
+        this.$router.push({name:"activate",query:{id:couponId,type:this.type,codeId:id}});
       },
     }
   }

@@ -29,10 +29,9 @@
     <div class="page slideIn" style="background-color: #eeeeee">
       <div style="height: 80px"></div>
       <v-loadmore :top-method="loadTop" :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" ref="loadmore">
-        <!--左右布局-->
         <div class="twoContent" v-if="hasReward() && isStyle">
           <div class="content" v-for="c in lists" >
-            <div class="logo">
+            <div class="logo"  @click="articleOrImg(c.id,c.thumbnail)">
               <img class="img" :src="c.thumbnail"/>
             </div>
             <div class="information" @click="buyNow(c.id)">
@@ -51,25 +50,25 @@
         </div>
         <!--纵向布局-->
         <div class="vertical" v-for="c in lists" v-if="hasReward() && !isStyle">
-          <div class="verticallogoDiv">
+          <div class="verticallogoDiv" @click="articleOrImg(c.id,c.thumbnail)">
             <img class="verticallogo" :src="c.thumbnail"/>
           </div>
           <div class="verticalContent" @click="buyNow(c.id)" >
             <div style="height: 80px;display: flex;flex-direction: column;justify-content: space-between">
-            <span  class="verticaGoodsName" style="font-size: 16px">{{c.name}}</span>
-            <div class="verticalMoneyNumber">
-              <span class="verticalMoney">¥{{c.price}}</span>
-              <div class="verticalBottom">
-              <span class="verticalNumber">{{c.availableStock | watchType}}</span>
-                <i class="iconfont icon-konggouwuche" style="font-size: 20px;color:#EB4E40;position: absolute;right: 10px"></i>
+              <span  class="verticaGoodsName" style="font-size: 16px">{{c.name}}</span>
+              <div class="verticalMoneyNumber">
+                <span class="verticalMoney">¥{{c.price}}</span>
+                <div class="verticalBottom">
+                  <span class="verticalNumber">{{c.availableStock | watchType}}</span>
+                  <i class="iconfont icon-konggouwuche" style="font-size: 20px;color:#EB4E40;position: absolute;right: 10px"></i>
+                </div>
               </div>
-            </div>
             </div>
           </div>
         </div>
         <div class="noData" v-if="!hasReward()">
           <i class="iconfont icon-zanwushuju"></i>
-          <span>{{noDataHint}}</span>
+          <span>暂无商品</span>
         </div>
       </v-loadmore>
 
@@ -385,7 +384,7 @@
 //            点击右上角搜索按钮
       noSearch:function () {
         this.inputBlur();
-          this.search();
+        this.search();
       },
       //          查找商品
       searchGoods:function () {
@@ -402,7 +401,7 @@
             _this.noDataHint = '商品不存在';
             _this.pageStart = data.data.start + data.data.data.length;
           }else{
-             _this.$refs.toast.show(data.content);
+            _this.$refs.toast.show(data.content);
           }
         },function (err) {
           _this.$refs.toast.show(err.content);
@@ -500,6 +499,21 @@
       buyNow:function (id) {
         let _this = this;
         _this.$refs.buy.show(id);
+      },
+      //      点击图片判断跳转t1006或打开预览图
+      articleOrImg:function (id,original) {
+        var _this = this;
+        GET('website/product/article.jhtml?id='+id).then(
+          function (data) {
+            if (data.type == "success") {
+              _this.articleId = data.data;
+              _this.$router.push({name:"t1006",query:{id:_this.articleId}});
+            }else {
+              _this.$refs.toast.show(data.content);
+            }
+          },function (err) {
+            _this.$refs.toast.show(err.content);
+          })
       },
     }
   }
