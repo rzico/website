@@ -16,19 +16,23 @@
         <div class="send" @click="sendMes()">转赠</div>
       </div>
       <span class="martop30 f14" style="color: #888">有效期{{beginDate | timeDatefmt}}至{{endDate | timeDatefmt}}</span>
+      <!--二维码-->
+      <div class="qrcodeDiv" v-if="ismask">
+        <img class="qrcode" resize="cover" :src="qrcode"/>
+      </div>
       <!--左右两边的半圆-->
       <div class="rightmindiv"></div>
       <div class="leftmindiv"></div>
     </div>
-    <!--遮罩层-->
-    <div class="maskLayer" v-if="ismask">
-      <!--关闭按钮-->
-      <div class="shutDown" @click="shutDown()"><i class="iconfont icon-arrow-dropright fzc20"></i></div>
-      <!--二维码-->
-      <div class="qrcodeDiv">
-        <img class="qrcode" resize="cover" :src="qrcode"/>
-      </div>
-    </div>
+    <!--&lt;!&ndash;遮罩层&ndash;&gt;-->
+    <!--<div class="maskLayer" v-if="ismask">-->
+      <!--&lt;!&ndash;关闭按钮&ndash;&gt;-->
+      <!--<div class="shutDown" @click="shutDown()"><i class="iconfont icon-arrow-dropright fzc20"></i></div>-->
+      <!--&lt;!&ndash;二维码&ndash;&gt;-->
+      <!--<div class="qrcodeDiv">-->
+        <!--<img class="qrcode" resize="cover" :src="qrcode"/>-->
+      <!--</div>-->
+    <!--</div>-->
     <div class="instwo">
       <div class="flex-be martop15 marbot15" @click="control">
       <span class="f16">使用说明</span>
@@ -51,9 +55,9 @@
 <style scoped>
   /*二维码*/
   .qrcodeDiv{
-    position: absolute;
-    height: 250px;
-    width: 250px;
+    /*position: absolute;*/
+    /*height: 250px;*/
+    /*width: 250px;*/
     background-color: white;
     display:flex;
     align-items: center;
@@ -108,7 +112,7 @@
     margin-right: 10px;
     margin-left: 10px;
     margin-top: 80px;
-    height: 250px;
+    padding-bottom: 20px;
     align-items: center;
     border-bottom:1px dashed;
     border-color: #cccccc;
@@ -173,6 +177,7 @@
   }
   .martop30{
     margin-top: 30px;
+    margin-bottom: 30px;
   }
   .martop10{
     margin-top: 10px;
