@@ -5,7 +5,7 @@
         <span>{{article.createDate | datetimefmt}}</span>
       </p>
       <div class="img-container">
-        <div class="avatar">
+        <div class="avatar" @click="jump(article.member.url,article.member.id)">
           <img :src="article.member.logo" alt="">
         </div>
       </div>
@@ -34,5 +34,14 @@
     },
     created(){
     },
+    methods:{
+      jump:function (url,id) {
+        if(utils.isweex()){
+          location.href = utils.setDummyUrl('topic',id);
+        }else{
+          this.$router.push(utils.router(url));
+        }
+      }
+    }
   }
 </script>
