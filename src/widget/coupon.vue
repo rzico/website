@@ -6,7 +6,7 @@
       <span class="titlespan">优<span style="color: #999;font-size: 18px">·</span>惠<span style="color: #999;font-size: 18px">·</span>券</span>
       <img class="titleImg" style="margin-bottom: 2px" src="http://rzico.oss-cn-shenzhen.aliyuncs.com/weex/resources/images/coupontitle2.jpg"/>
     </div>
-    <div class="content" :style="addBorder(index)" v-for="(num,index) in lists">
+    <div class="content" :style="addBorder(index)" v-for="(num,index) in lists"  v-if="num.type != 'exchange'">
       <div style="display: flex;flex-direction: row;align-items: center;">
       <div class="couponImage" style="background:url('http://rzico.oss-cn-shenzhen.aliyuncs.com/weex/resources/images/coupon1.png') no-repeat;background-size:100% 100%;">{{num.type |strainer}}</div>
       <div class="couponinfo">

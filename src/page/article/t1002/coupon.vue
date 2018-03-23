@@ -1,7 +1,7 @@
 <template>
   <!--文章优惠券列表-->
   <div class="background" v-if="lists.length > 0">
-    <div class="top" v-for="num in lists">
+    <div class="top" v-for="num in lists" v-if="num.type != 'exchange' ">
       <div class="flex-r" style="height: 60px;border-width: 0 0 1px 0;border-color: #cccccc;border-style: dashed;padding-right: 10px">
         <span class="f30 color flex2">{{num.amount}}</span>
         <span class="f16 flex3_5">{{num.name}}</span>
