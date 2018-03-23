@@ -348,7 +348,7 @@
                     utils.setConfig({
                       title:_this.name,
                       desc:_this.introduction,
-                      link:'http://dev.rzico.com/#/activate?id='+_this.couponId+'&xuid='+_this.xuid+'&couponCodeId='+_this.codeId,
+                      link:utils.getConfig().baseURL+'#/activate?id='+_this.couponId+'&xuid='+_this.xuid+'&couponCodeId='+_this.codeId,
                       thumbnail:_this.logo,
                     });
                     SHARE(location.href);
