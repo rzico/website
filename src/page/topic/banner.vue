@@ -9,14 +9,21 @@
     </mt-swipe>
     <div class="mask bg" :style="'background-image: url('+topic.logo+')'" v-else></div>
     <div class="focus" @click="focus()">
-      <img style="width: 30px;height: 30px" src="http://rzico.oss-cn-shenzhen.aliyuncs.com/weex/resources/images/focus.png">
+      <!--<img style="width: 30px;height: 30px" src="http://rzico.oss-cn-shenzhen.aliyuncs.com/weex/resources/images/focus.png">-->
+      <i class="iconfont icon-guanzhu" :class="[focusOn == '已关注' ? 'colorRed' : '']" ></i>
+      <span class="hitsSpan">粉丝{{topic.hits}}</span>
     </div>
     <div class="Content">
       <div class="leftContent">
+        <div style="border-radius:5px;border:1px #888 solid;height: 40px;width: 40px">
         <img class="logo" :src="topic.logo">
+        </div>
         <div class="information">
           <span class="name">{{topic.name}}</span>
+          <div class="labelAutograph">
+            <div class="trademark"><span class="trademarkText">芸店</span></div>
           <span class="autograph">{{topic.autograph}}</span>
+          </div>
         </div>
       </div>
       <!--<div class="rightContent" @click="focus()">-->
@@ -45,14 +52,61 @@
     line-height: 1;
     margin-top: 0;
   }
+  .iconfont{
+    font-size: 30px;
+    color: #cccccc;
+  }
+  .colorRed{
+    color: red;
+  }
+  .labelAutograph{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 5px;
+  }
+  .hitsSpan{
+    text-align: center;
+    font-size: 12px;
+    color: white;
+    width: 100px;
+    overflow: hidden;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    word-break: break-all;
+  }
+  .trademark{
+    height: 16px;
+    /*width: 50px;*/
+    padding: 0 2.5px;
+    margin-right: 5px;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 2px;
+    background-color: #EB4E40;
+    /*position: absolute;*/
+    /*top:9px;*/
+    /*left:10px;*/
+  }
+  .trademarkText{
+    font-size: 12px;
+    color: white;
+  }
   .focus{
-    height: 30px;
-    width: 30px;
+    height: 50px;
+    width: 100px;
     position: absolute;
     top:20px;
-    right: 20px;
+    right: 0;
     z-index: 11;
     transform: translate3d(0,0,0);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
   .Content{
     display: flex;
@@ -74,7 +128,7 @@
   .Content .leftContent .logo{
     height: 40px;
     width: 40px;
-    border-radius: 100%;
+    border-radius: 5px;
     background-color: #888888;
   }
   .Content .leftContent .information{
@@ -91,7 +145,6 @@
     color:#ffffff;
     font-size: 12px;
     width: 200px;
-    margin-top: 5px;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
