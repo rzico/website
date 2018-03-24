@@ -57,12 +57,8 @@ const goodsList = resolve => require(['../page/goods/list'], resolve)
 const C1003goodsList = resolve => require(['../page/c1003/goodsList'], resolve)
 const C1003orderList = resolve => require(['../page/c1003/orderList'], resolve)
 const giveLike = resolve => require(['../page/article/giveLike'], resolve)
-const navbarGoods = resolve => require(['../widget/navbarGoods'], resolve)
-const messageBar = resolve => require(['../widget/messageBar'], resolve)
-const advertising = resolve => require(['../widget/advertising'], resolve)
 const coupon = resolve => require(['../widget/coupon'], resolve)
 const list = resolve => require(['../page/c1003/list'], resolve)
-
 
 // import T1003 from '../page/t1003'
 // import T1004 from '../page/t1004'
@@ -259,24 +255,6 @@ var router = new Router({
       name: 'giveLike',
       meta: {requireAuth:true},
       component: giveLike
-    },
-    {
-      path: '/navbarGoods',
-      name: 'navbarGoods',
-      meta: {requireAuth:true},
-      component: navbarGoods
-    },
-    {
-      path: '/messageBar',
-      name: 'messageBar',
-      meta: {requireAuth:true},
-      component: messageBar
-    },
-    {
-      path: '/advertising',
-      name: 'advertising',
-      meta: {requireAuth:true},
-      component: advertising
     },
     {
       path: '/coupon',

@@ -384,10 +384,10 @@
 
           });
       },
-      //      获取普通文章
+      //      获取置顶文章
       get:function () {
         var _this = this;
-        GET('website/article/list.jhtml?authorId='+_this.id+"&isTop=false&articleCatalogId="+_this.idx+"&pageStart="+_this.pageStart+"&pageSize="+_this.pageSize).then(
+        GET('website/article/list.jhtml?tagId='+_this.topId+'&authorId='+_this.id+"&articleCatalogId="+_this.idx+"&pageStart="+_this.pageStart+"&pageSize="+_this.pageSize).then(
           function (mes) {
             if(mes.type == 'success'){
               mes.data.data.forEach(function (item) {
