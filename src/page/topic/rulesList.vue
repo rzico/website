@@ -448,7 +448,7 @@
           id=0
         }
         var _this = this;
-        GET('website/article/list.jhtml?tagId='+_this.selectId+'&authorId='+_this.id+'&articleCatalogId='+id+"&pageStart=2&pageSize=3").then(
+        GET('website/article/list.jhtml?tagId='+_this.selectId+'&authorId='+_this.id+'&articleCatalogId='+id+"&pageStart=0&pageSize=3").then(
           function (mes) {
             if(mes.type == 'success'){
               _this.selectList = mes.data.data
@@ -480,7 +480,7 @@
           id=0
         }
         var _this = this;
-        GET('website/article/list.jhtml?tagId='+_this.topId+'&authorId='+_this.id+"&articleCatalogId="+id+"&pageStart="+_this.pageStart+"&pageSize="+_this.pageSize).then(
+        GET('website/article/list.jhtml?authorId='+_this.id+"&isTop=false&articleCatalogId="+id+"&pageStart="+_this.pageStart+"&pageSize="+_this.pageSize).then(
           function (mes) {
             if(mes.type == 'success'){
               mes.data.data.forEach(function (item) {

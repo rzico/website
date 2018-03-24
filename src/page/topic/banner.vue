@@ -193,7 +193,7 @@
     data() {
       return {
         listImg:[],
-        isTop:true,
+        isTop:6,
         focusOn:'',
         followed:false
       }
@@ -286,7 +286,7 @@
         if (utils.isNull(id)) {
             id = this.topic.id;
         }
-        GET('website/article/list.jhtml?isTop='+_this.isTop+'&authorId='+_this.id+"&pageStart=0&pageSize=5").then(
+        GET('website/article/list.jhtml?tagId='+_this.isTop+'&authorId='+_this.id+"&pageStart=0&pageSize=5").then(
           function (mes) {
             if(mes.type == 'success'){
               _this.listImg = [];

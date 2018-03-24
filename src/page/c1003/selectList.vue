@@ -175,7 +175,7 @@
       //      获取精选文章
       load:function () {
         var _this = this;
-        GET('website/article/list.jhtml?tagId='+_this.selectId+'&authorId='+_this.id+"&pageStart=2&pageSize=3").then(
+        GET('website/article/list.jhtml?tagId='+_this.selectId+'&authorId='+_this.id+"&pageStart=0&pageSize=3").then(
           function (mes) {
             if(mes.type == 'success'){
               _this.selectList = mes.data.data
