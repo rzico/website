@@ -108,7 +108,6 @@
     data () {
       return {
         lists:[],
-        id:'741'
       }
     },
     components: {
@@ -126,7 +125,7 @@
       },
     },
     props: {
-      article: { default: function () {}}
+      id:{default:0}
     },
     created() {
       this.open()

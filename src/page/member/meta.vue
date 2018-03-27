@@ -1,6 +1,6 @@
 <template>
   <div class="head">
-    <div class="backg bg" :style="'background-image: url('+member.logo+')'"></div>
+    <div class="backg bg" style="background-image: url(http://rzico.oss-cn-shenzhen.aliyuncs.com/weex/resources/images/background.png)"></div>
     <div class="logo">
       <div class="logoimg bg" :style="'background-image: url('+member.logo+')'">
       </div>
@@ -74,13 +74,11 @@
    .head .backg {
     z-index: 0;
     position: absolute;
-    width: 120%;
-    height: 120%;
-    background-size: cover;
-    -webkit-filter: blur(25px);
-    -ms-filter: blur(25px);
-    filter: blur(25px);
-    filter: progid:DXImageTransform.Microsoft.Blur(PixelRadius=25,MakeShadow=false);
+    width: 100%;
+    height: 160px;
+    background-size: 100% 100%;
+     background-color: #EB4E40;
+     opacity: 0.5;
   }
 
    .head .logo .profile {

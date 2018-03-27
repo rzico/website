@@ -7,7 +7,7 @@
         <messageBar></messageBar>
         <advertising></advertising>
         <selectList :id="id"></selectList>
-        <coupon></coupon>
+        <coupon :id ="id"></coupon>
         <list ref="fancyList" :id="id" :idx="idx"></list>
       </v-loadmore>
     </div>
