@@ -60,7 +60,7 @@
     },
     props: {
       article: { default: function () {
-        return {hits:0,title:"样例",nickName:"author",createDate:null,member:{}}
+        return {hits:0,title:"样例",nickName:"author",createDate:null,member:{autograph:""}}
         }
       },
       musicData: { default: function () {

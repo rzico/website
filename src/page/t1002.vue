@@ -17,7 +17,7 @@
           <auther ref="auther" :article="watchArticle"  templateId=1002></auther>
           <review ref="review" :article="watchArticle" templateId=1002 ></review>
           <recommend ref="recommend" v-if="isPublish" article="watchArticle"  templateId=1002 @go="fetchData" ></recommend>
-          <!--<ad v-if="noWeex" :article="watchArticle" templateId=1002 ></ad>-->
+          <ad v-if="noWeex" :article="watchArticle" templateId=1002 ></ad>
           <rewardDialog  ref="rwd"  @rewardNumber="rewardNumber"  templateId=1002></rewardDialog>
           <payment  ref="pay" @notify="onPayNotify"></payment>
           <buyGoods  ref="buy" @notify="onPayNotify"></buyGoods>
@@ -98,7 +98,7 @@
     },
     props: {
       article: { default: function () {
-        return {hits:0,title:"样例",nickName:"author",createDate:null,member:{}}
+        return {hits:0,title:"样例",nickName:"author",createDate:null,member:{autograph:""}}
       }
       },
       musicData: { default: function () {

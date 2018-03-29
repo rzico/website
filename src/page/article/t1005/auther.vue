@@ -1,5 +1,5 @@
 <template>
-  <div class="auther"  @click="jump(article.member.url,article.member.id)">
+  <div class="auther"  v-if="article.member.autograph !=''" @click="jump(article.member.url,article.member.id)">
     <div class="autherwrap" style="min-height: 96px;">
       <a class="toappuser">
         <div class="autherHead">
