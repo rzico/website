@@ -67,7 +67,7 @@
     data() {
       return {
         catagoryList:[],
-        img:'http://rzico.oss-cn-shenzhen.aliyuncs.com/weex/resources/images/allBg.png',
+        img:'http://rzico.oss-cn-shenzhen.aliyuncs.com/weex/resources/images/allBg.jpeg',
         screenheight:0
       }
     },
