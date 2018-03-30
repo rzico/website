@@ -16,7 +16,7 @@
   }
   .content{
     background-color: white;
-    padding: 10px;
+    padding: 5px;
     box-sizing: border-box;
     display: flex;
     align-items: center;

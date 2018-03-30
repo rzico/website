@@ -8,7 +8,7 @@
     </div>
     <div class="content" @click="jump()">
       <div>
-      <img class="image" :src="img | wacthImage"/>
+      <img class="imageTwo" :src="img | wacthImage"/>
       <span class="name">全部</span>
       </div>
     </div>
@@ -38,6 +38,14 @@
     justify-content: center;
   }
   .image{
+    width: 40px;
+    height: 40px;
+    border-top-left-radius: 40%;
+    border-top-right-radius: 40%;
+    border-bottom-left-radius: 40%;
+    border-bottom-right-radius: 40%;
+  }
+  .imageTwo{
     width: 48px;
     height: 48px;
     border-top-left-radius: 40%;
