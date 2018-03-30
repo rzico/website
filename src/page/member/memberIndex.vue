@@ -30,14 +30,19 @@
         </div>
       </div>
       <div class="whiteBG" v-if="status == 'activate'">
+        <span class="qrcodeMes"  v-if="qrcodeImg">使用或付款时出示此码</span>
         <img class="qrcodeImg" :src="qrcode" v-if="qrcodeImg"/>
+        <div class="qrcodeButtonDiv" v-if="qrcodeImg">
+        <div class="qrcodeButton" @click="goBill()">消费账单</div>
+        <div class="qrcodeButton" @click="gopointBill()">积分账单</div>
+        </div>
       </div>
       <div class="navbar">
         <div class="table1" @click="hasCoupon()" :class="[isbg1 == 1 ? 'bacgeee' : '']">卡包</div>
         <div class="table2" @click="haspromote()" :class="[isbg2 == 1 ? 'bacgeee' : '']">推广</div>
       </div>
       <coupon v-if="isCoupon"></coupon>
-      <promote v-if="isPromote"></promote>
+      <promote v-if="isPromote" :id="id"></promote>
     </div>
     <Tabbar id=2></Tabbar>
   </div>
@@ -221,9 +226,34 @@
     border-radius: 3px;
   }
   .qrcodeImg{
-    height: 150px;
+    height: 200px;
+    width: 200px;
+    margin-top: 10px;
+  }
+  .qrcodeMes{
+    font-size: 16px;
+    margin-top: 70px;
+    color: #888;
+  }
+  .qrcodeButtonDiv{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
     width: 150px;
-    margin-top: 40px;
+    margin-top: 10px;
+    margin-bottom: 30px;
+  }
+  .qrcodeButton{
+    font-size: 14px;
+    color: white;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #EB4E40;
+    border-radius: 10px;
+    padding: 0 5px;
   }
   .navbar{
     height: 40px;
@@ -330,6 +360,18 @@
       })
     },
     methods:{
+//      消费账单
+      goBill:function() {
+        this.$router.push({name:"bill",query:{id:this.cardInfo.id}});
+      },
+//      积分账单
+      gopointBill:function() {
+        this.$router.push({name:"pointBill",query:{id:this.cardInfo.id}});
+      },
+      loadTop:function() { //组件提供的下拉触发方法
+        this.pageStart = 0;
+        this.open('loadTop');
+      },
       vipClass:function (v) {
         if (v == 'vip3') {
           return "vip3";
@@ -355,18 +397,6 @@
         this.isbg2 = 1;
         this.isCoupon = false;
         this.isPromote = true;
-      },
-      godownload:function () {
-        this.$router.push({name:"index",query:{}});
-      },
-      jumpAddress:function() {
-        this.$router.push({name:"addressList",query:{}});
-      },
-      jumpReward:function() {
-        this.$router.push({name:"rebate",query:{}});
-      },
-      jumpCoupon:function() {
-        this.$router.push({name:"memberCoupon",query:{}});
       },
       load:function() {
         var _this = this;

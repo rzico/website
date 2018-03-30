@@ -20,13 +20,15 @@
     width: 100%;
     display: flex;
     flex-direction: row;
+    align-items: center;
+    justify-content: center;
     flex-wrap: wrap;
-    padding-bottom: 10px;
+    padding:10px 0;
     margin-bottom: 10px;
   }
   .content{
     border: none;
-    width: 25%;
+    width: 20%;
     /*padding-top:10px;*/
     /*padding-left:15px;*/
     /*padding-right:15px;*/
@@ -38,6 +40,10 @@
   .image{
     width: 48px;
     height: 48px;
+    border-top-left-radius: 40%;
+    border-top-right-radius: 40%;
+    border-bottom-left-radius: 40%;
+    border-bottom-right-radius: 40%;
   }
   .name{
     margin-top: -5px;
@@ -86,25 +92,25 @@
         GET('website/shop/product_category/list.jhtml?authorId='+_this.id).then(
           function (data) {
             if (data.type == "success") {
-              if(data.data.length <3 ) {
+              if(data.data.length <4 || data.data.length == 4) {
                 data.data.forEach(function (item) {
                   if(utils.isNull( item.thumbnail)){
                     item.thumbnail = 'http://rzico.oss-cn-shenzhen.aliyuncs.com/weex/resources/images/shopBg.jpeg';
                   }
                     _this.catagoryList.push(item)
                 })
-              }if(data.data.length >3 && data.data.length <7) {
+              }if(data.data.length >4 && data.data.length <9) {
                 data.data.forEach(function (item, index) {
-                  if (index < 3) {
+                  if (index < 4) {
                     if(utils.isNull( item.thumbnail)){
                       item.thumbnail = 'http://rzico.oss-cn-shenzhen.aliyuncs.com/weex/resources/images/shopBg.jpeg';
                     }
                     _this.catagoryList.push(item)
                   }
                 })
-              } if(data.data.length >6) {
+              } if(data.data.length >8) {
                 data.data.forEach(function (item, index) {
-                  if (index < 7) {
+                  if (index < 8) {
                     if(utils.isNull( item.thumbnail)){
                       item.thumbnail = 'http://rzico.oss-cn-shenzhen.aliyuncs.com/weex/resources/images/shopBg.jpeg';
                     }

@@ -40,6 +40,7 @@ const OrderDetails = resolve => require(['../page/order/details'], resolve)
 const OrderLogistics = resolve => require(['../page/order/logistics'], resolve)
 const activate = resolve => require(['../page/coupon/activate'], resolve)
 const bill = resolve => require(['../page/member/bill'], resolve)
+const pointBill = resolve => require(['../page/member/pointBill'], resolve)
 const rebate = resolve => require(['../page/member/rebate'], resolve)
 const addAddress = resolve => require(['../page/address/addAddress'], resolve)
 const addressList = resolve => require(['../page/address/addressList'], resolve)
@@ -56,6 +57,7 @@ const T1007 = resolve => require(['../page/t1007'], resolve)
 const goodsList = resolve => require(['../page/goods/list'], resolve)
 const C1003goodsList = resolve => require(['../page/c1003/goodsList'], resolve)
 const C1003orderList = resolve => require(['../page/c1003/orderList'], resolve)
+const C1003memberIndex = resolve => require(['../page/c1003/memberIndex'], resolve)
 const giveLike = resolve => require(['../page/article/giveLike'], resolve)
 const coupon = resolve => require(['../widget/coupon'], resolve)
 const list = resolve => require(['../page/c1003/list'], resolve)
@@ -191,6 +193,12 @@ var router = new Router({
       component: bill
     },
     {
+      path: '/pointBill',
+      name: 'pointBill',
+      meta: {requireAuth:true},
+      component: pointBill
+    },
+    {
       path: '/rebate',
       name: 'rebate',
       meta: {requireAuth:true},
@@ -219,6 +227,12 @@ var router = new Router({
       name: 'memberIndex',
       meta: {requireAuth:true},
       component: memberIndex
+    },
+    {
+      path: '/C1003memberIndex',
+      name: 'C1003memberIndex',
+      meta: {requireAuth:true},
+      component: C1003memberIndex
     },
     {
       path: '/memberCoupon',

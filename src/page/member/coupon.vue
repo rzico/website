@@ -1,8 +1,12 @@
 <!--我的页内列表-->
 <template>
-  <div class="bgc" v-if="lists.length != ''">
+  <div class="bgc">
+    <div class="couponTitle">
+      <i class="iconfont icon-quan"></i>
+      <span class="couponTitleSpan">优惠券</span>
+    </div>
     <v-loadmore :top-method="loadTop"  :bottom-all-loaded="allLoaded" :auto-fill="false" ref="loadmore">
-    <div class="content" :style="addBorder(index)" v-for="(num,index) in lists"  v-if="num.type != 'exchange'">
+    <div class="content" :style="addBorder(index)" v-for="(num,index) in lists"  v-if="isCoupon && num.type != 'exchange'">
       <div style="display: flex;flex-direction: row;align-items: center;">
         <div class="couponImage" style="background:url('http://rzico.oss-cn-shenzhen.aliyuncs.com/weex/resources/images/coupon1.png') no-repeat;background-size:100% 100%;">{{num.type |strainer}}</div>
         <div class="couponinfo">
@@ -12,14 +16,26 @@
       </div>
       <div class="button" @click="jump(num.couponId,num.id)">使用</div>
     </div>
+      <div class="noData" v-if="!isCoupon">
+        <i class="iconfont icon-zanwushuju"></i>
+        <span>很抱歉，您暂无卡券</span>
+      </div>
     </v-loadmore>
-  </div>
-  <div class="noData" v-if="!hasCoupon()">
-    <i class="iconfont icon-zanwushuju"></i>
-    <span>很抱歉，您暂无卡券</span>
   </div>
 </template>
 <style scoped>
+  .couponTitle{
+    width: 100%;
+    height: 30px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: white;
+  }
+  .couponTitleSpan{
+    font-size: 16px;
+    margin-left: 10px;
+  }
   .bgc{
     background-color: white;
     width: 100%;
@@ -94,7 +110,8 @@
       return {
         allLoaded: false, //是否可以上拉属性，false可以上拉，true为禁止上拉，就是不让往上划加载数据了
         lists:[],
-        type:'member'
+        type:'member',
+        isCoupon:false
       }
     },
     components: {
@@ -116,9 +133,6 @@
       this.open();
     },
     methods:{
-      hasCoupon:function () {
-        return this.lists.length>0;
-      },
       //            是否添加底部边框
       addBorder: function (index) {
         let listLength = this.lists.length;
@@ -141,6 +155,11 @@
           function (res) {
             if (res.type=='success') {
               _this.lists = res.data
+            if(res.data.length > 0){
+                _this.isCoupon = true
+            }else{
+              _this.isCoupon = false
+            }
             }
           },
           function (err) {

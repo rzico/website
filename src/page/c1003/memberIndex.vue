@@ -30,8 +30,9 @@
         </div>
       </div>
       <div class="whiteBG" v-if="status == 'activate'">
-        <span class="qrcodeMes"  v-if="qrcodeImg">使用或付款时出示此码</span>
+        <span class="qrcodeMes"  v-if="qrcodeImg">扫一扫添加会员</span>
         <img class="qrcodeImg" :src="qrcode" v-if="qrcodeImg"/>
+        <span class="qrcodeMesTwo"  v-if="qrcodeImg">付款时出示此码</span>
         <div class="qrcodeButtonDiv" v-if="qrcodeImg">
           <div class="qrcodeButton" @click="goBill()">消费账单</div>
           <div class="qrcodeButton" @click="gopointBill()">积分账单</div>
@@ -235,13 +236,18 @@
     margin-top: 70px;
     color: #888;
   }
+  .qrcodeMesTwo{
+    font-size: 16px;
+    margin-top: 10px;
+    color: #888;
+  }
   .qrcodeButtonDiv{
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
     width: 150px;
-    margin-top: 10px;
+    margin-top: 20px;
     margin-bottom: 30px;
   }
   .qrcodeButton{
@@ -293,7 +299,7 @@
   import metaInfo from '../member/meta.vue';
   import coupon from '../member/coupon.vue';
   import promote from '../member/promote.vue';
-  import Tabbar from '../c1003/tabbar.vue';
+  import Tabbar from '../../page/c1003/tabbar.vue';
   export default {
     data() {
       return {

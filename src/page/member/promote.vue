@@ -1,8 +1,22 @@
 <!--我的页内推广列表-->
 <template>
-  <div class="bgc" v-if="hasCoupon()">
+  <div class="bgc">
+    <div class="promoteTitle">
+      <div class="titleOne">
+        <span class="titleSpan">我的人脉</span>
+        <span class="titleNumber">{{contacts}}</span>
+      </div>
+      <div class="titleOne">
+        <span class="titleSpan">待维护人脉</span>
+        <span class="titleNumber">{{invalid}}</span>
+      </div>
+      <div class="titleTwo">
+        <span class="titleSpan">累计收益</span>
+        <span class="titleNumber">{{rebate}}元</span>
+      </div>
+    </div>
     <v-loadmore :top-method="loadTop" :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" :auto-fill="false" ref="loadmore">
-      <div class="content" v-for="c in lists">
+      <div class="content" v-for="c in lists" v-if="isPormote">
         <div class="title">
           <span class="shopName"><img class="logo" :src="c.logo"/>{{c.name}}</span>
           <span class="type">{{c.statusDescr}}</span>
@@ -27,14 +41,61 @@
           <span class="earnings">收益:<span style="font-size: 14px;color: red"> {{c.rebate}}元</span></span>
         </div>
       </div>
+      <div class="noData" v-if="!isPormote">
+        <i class="iconfont icon-zanwushuju"></i>
+        <span>很抱歉，您暂无推广</span>
+      </div>
     </v-loadmore>
-  </div>
-  <div class="noData" v-if="!hasCoupon()">
-    <i class="iconfont icon-zanwushuju"></i>
-    <span>很抱歉，您暂无推广</span>
   </div>
 </template>
 <style scoped>
+  .titleSpan{
+    font-size: 16px;
+    text-align: center;
+  }
+  .titleNumber{
+    font-size: 16px;
+    text-align: center;
+    width: 90%;
+    overflow: hidden;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    word-break: break-all;
+  }
+  .promoteTitle{
+    height:60px;
+    padding: 10px 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: white;
+    border-width: 0 0 1px 0;
+    border-color: #eeeeee;
+    border-style: solid;
+    margin-bottom: 5px;
+  }
+  .titleOne{
+    height: 50px;
+    display: flex;
+    flex: 1;
+    border-width: 0 1px 0 0;
+    border-color: #eeeeee;
+    border-style: solid;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .titleTwo{
+    height: 50px;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
   .bgc{
     width: 100%;
     display: flex;
@@ -164,7 +225,11 @@
         allLoaded: false, //是否可以上拉属性，false可以上拉，true为禁止上拉，就是不让往上划加载数据了
         lists:[],
         pageStart:0,
-        pageSize:10
+        pageSize:10,
+        isPormote:false,
+        rebate:0,
+        contacts:0,
+        invalid:0,
       }
     },
     components: {
@@ -174,20 +239,40 @@
     filters: {
 
     },
+    props:{
+      id:{default:0}
+    },
     created() {
       this.open();
+      this.load()
     },
     methods:{
-      hasCoupon:function () {
-        return this.lists.length>0;
-      },
+      load:function() {
+        var _this = this;
+        GET('website/member/rebate/view.jhtml?authorId='+this.id).then(
+          function (mes) {
+            if(mes.type == 'success'){
+              _this.rebate = mes.data.rebate;
+              _this.contacts = mes.data.contacts;
+              _this.invalid = mes.data.invalid;
+            }else {
 
+            }
+          }, function () {
+
+          });
+      },
       open:function (id) {
         let _this =this;
         GET("website/member/order/promoter.jhtml?pageStart="+_this.pageStart+"&pageSize="+_this.pageSize).then(
           function (res) {
             if (res.data.start==0) {
               _this.lists = res.data.data;
+              if(res.data.data.length > 0){
+                _this.isPormote = true
+              }else {
+                _this.isPormote =false
+              }
             } else {
               res.data.data.forEach(function (item) {
                 _this.lists.push(item);

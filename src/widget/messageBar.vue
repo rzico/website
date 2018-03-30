@@ -5,7 +5,7 @@
     </div>
     <div class="right">
       <i class="iconfont icon-remind" style="font-size: 20px;color:red "></i>
-      <marquee direction="up" scrollamount="1" behavior="scroll" height="25px" width="80%">
+      <marquee direction="up" scrolldelay="200" scrollamount="1" behavior="scroll" height="25px" width="80%">
       <span class="messageText" v-for="m in messageList">{{m.title}}</span>
       </marquee>
     </div>
