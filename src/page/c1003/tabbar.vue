@@ -139,7 +139,7 @@
     methods:{
       gomemberIndex:function () {
         var vars  =  utils.router(location.href);
-        vars.name ="memberIndex";
+        vars.name ="C1003memberIndex";
         this.$router.push(vars);
       },
       goC1003:function () {
