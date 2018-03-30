@@ -12,7 +12,7 @@
       </div>
       <div class="titleTwo">
         <span class="titleSpan">累计收益</span>
-        <span class="titleNumber">{{rebate}}元</span>
+        <span class="titleNumber" style="color: red">¥{{rebate}}</span>
       </div>
     </div>
     <v-loadmore :top-method="loadTop" :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" :auto-fill="false" ref="loadmore">
@@ -50,8 +50,9 @@
 </template>
 <style scoped>
   .titleSpan{
-    font-size: 16px;
+    font-size: 14px;
     text-align: center;
+    color: #888888;
   }
   .titleNumber{
     font-size: 16px;
@@ -66,7 +67,7 @@
     word-break: break-all;
   }
   .promoteTitle{
-    height:60px;
+    height:55px;
     padding: 10px 0;
     display: flex;
     flex-direction: row;
@@ -252,7 +253,11 @@
         GET('website/member/rebate/view.jhtml?authorId='+this.id).then(
           function (mes) {
             if(mes.type == 'success'){
-              _this.rebate = mes.data.rebate;
+              if(utils.isNull(_this.rebate)){
+                _this.rebate = 0;
+              }else {
+                _this.rebate = mes.data.rebate;
+              }
               _this.contacts = mes.data.contacts;
               _this.invalid = mes.data.invalid;
             }else {

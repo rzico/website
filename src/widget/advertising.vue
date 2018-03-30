@@ -1,5 +1,5 @@
 <template>
-  <div class="bgc">
+  <div class="bgc" v-if="selectList.length >=2">
     <div class="content">
     <div class="imgDiv" v-for="item in selectList">
       <a :href="item.url">
@@ -74,7 +74,13 @@
         GET('website/article/list.jhtml?tagId='+_this.selectId+'&authorId='+_this.id+"&pageStart=0&pageSize=2").then(
           function (mes) {
             if(mes.type == 'success'){
-              _this.selectList = mes.data.data
+              if(mes.data.data.length!=0 && mes.data.data.length >=2) {
+                mes.data.data.forEach(function (item, index) {
+                  if (index < 2) {
+                    _this.selectList.push(item);
+                  }
+                });
+              }
             }else{
             }
           }, function () {

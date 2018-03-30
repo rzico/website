@@ -38,9 +38,9 @@
     justify-content: center;
   }
   .image{
-    width: 42px;
-    height: 42px;
-    margin-bottom: 8px;
+    width: 48px;
+    height: 48px;
+    margin-bottom: 7px;
     border-top-left-radius: 40%;
     border-top-right-radius: 40%;
     border-bottom-left-radius: 40%;

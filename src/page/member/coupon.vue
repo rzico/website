@@ -31,6 +31,9 @@
     flex-direction: row;
     align-items: center;
     background-color: white;
+    border-width: 0 0 1px 0;
+    border-style: solid;
+    border-color: #eeeeee;
   }
   .couponTitleSpan{
     font-size: 16px;

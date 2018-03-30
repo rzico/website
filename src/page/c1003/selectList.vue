@@ -1,5 +1,5 @@
 <template>
-  <div class="bgc" v-if="selectList.length != ''">
+  <div class="bgc" v-if="selectList.length==1 ||selectList.length>=3">
     <div v-for="item in selectList" @click="jump(item.url)">
       <!--    精选排版  文章信息全在封面上-->
       <div class="bt5 ">
@@ -178,7 +178,17 @@
         GET('website/article/list.jhtml?tagId='+_this.selectId+'&authorId='+_this.id+"&pageStart=0&pageSize=3").then(
           function (mes) {
             if(mes.type == 'success'){
-              _this.selectList = mes.data.data
+              if(mes.data.data.length!=0 && mes.data.data.length==1) {
+                mes.data.data.forEach(function (item, index) {
+                  _this.selectList.push(item);
+                });
+              }else {
+                mes.data.data.forEach(function (item, index) {
+                  if(index>1) {
+                    _this.selectList.push(item);
+                  }
+                });
+              }
             }else{
             }
           }, function () {
