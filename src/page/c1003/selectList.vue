@@ -128,7 +128,7 @@
     align-items: center;
   }
   .articleTitle {
-    font-size: 19px;
+    font-size: 16px;
     width: 355px;
     overflow: hidden;
     -o-text-overflow: ellipsis;

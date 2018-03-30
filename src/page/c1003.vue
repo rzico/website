@@ -5,7 +5,7 @@
         <banner :topic="topic" ref="banner" :id ="id" :isFixed = "isfixed"></banner>
         <navbarGoods  :id="id"></navbarGoods>
         <messageBar></messageBar>
-        <advertising></advertising>
+        <advertising :id="id"></advertising>
         <selectList :id="id"></selectList>
         <coupon :id ="id"></coupon>
         <list ref="fancyList" :id="id" :idx="idx"></list>

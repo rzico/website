@@ -55,6 +55,10 @@
         <!--</div>-->
       </div>
       <div class="space-between" >
+        <!--文章封面-->
+        <div style="position: relative">
+          <img  :src="item.thumbnail | tagImage "  resize="cover" class="tempOneImg"/>
+        </div>
         <div class="tempOneContent" >
           <div class="flex-row">
             <span class="articleTitle tempOneWidth">{{item.title}}</span>
@@ -74,10 +78,6 @@
             <span class="relevantImage " :style="{fontFamily:'iconfont'}">&#xe65c;</span>
             <span class="relevantText">{{item.review}}</span>
           </div>
-        </div>
-        <!--文章封面-->
-        <div style="position: relative">
-          <img  :src="item.thumbnail | tagImage "  resize="cover" class="tempOneImg"/>
         </div>
       </div>
     </div>
@@ -226,7 +226,7 @@
     width: 245px;
   }
   .tempOneContent{
-    width: 255px;
+    width: 245px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -250,7 +250,7 @@
     -webkit-box-orient: vertical;
     word-break: break-all;
     width: 355px;
-    font-size: 16px;
+    font-size: 14px;
     color: #888;
   }
   .activeClass{
@@ -302,7 +302,7 @@
     margin-bottom: 2px;
   }
   .articleTitle {
-    font-size: 19px;
+    font-size: 16px;
     width: 355px;
     overflow: hidden;
     -o-text-overflow: ellipsis;

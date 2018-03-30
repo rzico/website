@@ -16,14 +16,17 @@
   }
   .content{
     background-color: white;
-    padding: 5px;
+    padding: 5px 0 5px 5px;
     box-sizing: border-box;
     display: flex;
     align-items: center;
     justify-content: space-between;
   }
   .imgDiv{
-    width: 49%;
+    display: flex;
+    flex: 1;
+    margin-right: 5px;
+    box-sizing: border-box;
     height: 100px;
     background-color: #fff;
   }

@@ -7,7 +7,7 @@
       </div>
     </div>
     <div class="content" @click="jump()">
-      <div>
+      <div style="display: flex;flex-direction: column;align-items: center;">
       <img class="imageTwo" :src="img | wacthImage"/>
       <span class="name">全部</span>
       </div>
@@ -38,9 +38,9 @@
     justify-content: center;
   }
   .image{
-    width: 40px;
-    height: 40px;
-    margin-bottom: 10px;
+    width: 42px;
+    height: 42px;
+    margin-bottom: 8px;
     border-top-left-radius: 40%;
     border-top-right-radius: 40%;
     border-bottom-left-radius: 40%;
@@ -49,6 +49,7 @@
   .imageTwo{
     width: 48px;
     height: 48px;
+    margin-bottom: 7px;
     border-top-left-radius: 40%;
     border-top-right-radius: 40%;
     border-bottom-left-radius: 40%;
@@ -104,7 +105,7 @@
               if(data.data.length <4 || data.data.length == 4) {
                 data.data.forEach(function (item) {
                   if(utils.isNull( item.thumbnail)){
-                    item.thumbnail = 'http://rzico.oss-cn-shenzhen.aliyuncs.com/weex/resources/images/shopBg.jpeg';
+                    item.thumbnail = 'http://rzico.oss-cn-shenzhen.aliyuncs.com/weex/resources/images/allBg.jpeg';
                   }
                     _this.catagoryList.push(item)
                 })
@@ -112,7 +113,7 @@
                 data.data.forEach(function (item, index) {
                   if (index < 4) {
                     if(utils.isNull( item.thumbnail)){
-                      item.thumbnail = 'http://rzico.oss-cn-shenzhen.aliyuncs.com/weex/resources/images/shopBg.jpeg';
+                      item.thumbnail = 'http://rzico.oss-cn-shenzhen.aliyuncs.com/weex/resources/images/allBg.jpeg';
                     }
                     _this.catagoryList.push(item)
                   }
@@ -121,7 +122,7 @@
                 data.data.forEach(function (item, index) {
                   if (index < 8) {
                     if(utils.isNull( item.thumbnail)){
-                      item.thumbnail = 'http://rzico.oss-cn-shenzhen.aliyuncs.com/weex/resources/images/shopBg.jpeg';
+                      item.thumbnail = 'http://rzico.oss-cn-shenzhen.aliyuncs.com/weex/resources/images/allBg.jpeg';
                     }
                     _this.catagoryList.push(item)
                   }
