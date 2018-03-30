@@ -1,7 +1,7 @@
 <template>
   <div class="bgc" v-if="hasReward()">
     <div class="content" v-for="item in catagoryList" @click="jumpList(item.id)">
-      <div class="">
+      <div style="display: flex;flex-direction: column;align-items: center;padding-top: 5px">
       <img class="image"  :src="item.thumbnail | wacthImage"/>
       <span class="name">{{item.name}}</span>
       </div>
@@ -40,6 +40,7 @@
   .image{
     width: 40px;
     height: 40px;
+    margin-bottom: 10px;
     border-top-left-radius: 40%;
     border-top-right-radius: 40%;
     border-bottom-left-radius: 40%;

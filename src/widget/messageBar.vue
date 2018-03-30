@@ -16,7 +16,7 @@
   .bgc{
     background-color: white;
     width: 100%;
-    height: 40px;
+    height: 30px;
     padding-top: 5px;
     padding-bottom: 5px;
     border-width: 0 0 2px 0;
