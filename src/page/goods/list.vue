@@ -32,7 +32,7 @@
         <div class="twoContent" v-if="hasReward() && isStyle">
         <div class="content" v-for="c in lists" >
           <div class="logo"  @click="articleOrImg(c.id,c.thumbnail)">
-          <img class="img" :src="c.thumbnail"/>
+          <img class="img" :src="c.thumbnail | topImage"/>
           </div>
           <div class="information" @click="buyNow(c.id)">
             <div style="height: 40px">
@@ -51,7 +51,7 @@
         <!--纵向布局-->
         <div class="vertical" v-for="c in lists" v-if="hasReward() && !isStyle">
           <div class="verticallogoDiv" @click="articleOrImg(c.id,c.thumbnail)">
-            <img class="verticallogo" :src="c.thumbnail"/>
+            <img class="verticallogo" :src="c.thumbnail | tagImage"/>
           </div>
           <div class="verticalContent" @click="buyNow(c.id)" >
             <div style="height: 80px;display: flex;flex-direction: column;justify-content: space-between">
@@ -183,21 +183,21 @@
   }
   .verticallogoDiv{
     height: 80px;
-    width: 27%;
+    width: 34%;
     display: flex;
     align-items: center;
     justify-content: center;
-
+    padding: 0 10px;
     box-sizing: border-box;
   }
   .verticallogo{
     background-color: #eeeeee;
     height: 80px;
-    width: 80px;
+    width: 100%;
   }
   .verticalContent{
     height: 100px;
-    width: 73%;
+    width: 66%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -214,7 +214,7 @@
   }
   .verticaGoodsName{
     font-size: 16px;
-    width: 200px;
+    width: 100%;
     overflow: hidden;
     -o-text-overflow: ellipsis;
     text-overflow: ellipsis;
@@ -222,6 +222,8 @@
     -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
     word-break: break-all;
+    padding-right: 5px;
+    box-sizing: border-box;
   }
   .verticalMoneyNumber{
     display: flex;
@@ -351,6 +353,12 @@
         }else if(value >5){
           return '有货'
         }
+      },
+      tagImage(val){
+        return utils.thumbnail(val, 253, 190);
+      },
+      topImage(val){
+        return utils.thumbnail(val, 200, 200);
       }
     } ,
     created() {
@@ -470,7 +478,6 @@
                 _this.lists = res.data.data;
               } else {
                 res.data.data.forEach(function (item) {
-                  item.thumbnail = utils.thumbnail(item.thumbnail, 183.75, 183.75);
                   _this.lists.push(item);
                 });
               }

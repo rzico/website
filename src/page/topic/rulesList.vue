@@ -13,20 +13,12 @@
         <div class="positionRelative">
           <img  :src="item.thumbnail | selectImage"  resize="cover" class="tempEightCover" />
           <div class="tempTwoMask"></div>
-          <!--<div class="tempTwoAuthor" @click="goAuthor(item.authorId)">-->
-          <!--<img :src="item.logo " resize="cover" class="authorImg"/>-->
-          <!--<span class="authorName white">{{item.author}}</span>-->
-          <!--</div>-->
           <div class="tempTwoContent">
             <!--只会显示出一个div,所以需要用个大div包住,-->
             <div style="width: 100%">
               <div class="flex-row bt10">
-                <!--<text class="articleTitle">{{item.title}}</text>-->
                 <span class="articleTitle" style="color: #fff">{{item.title}}</span>
               </div>
-              <!--<div class="flex-row mt20" v-if="item.htmlTag != '' && item.htmlTag != null && item.htmlTag != undefined">-->
-              <!--<text class="articleContent">{{item.htmlTag}}</text>-->
-              <!--</div>-->
               <div class="space-between">
                 <div class="relevantInfo" v-if="item.articleSign != '样例'">
                   <span class="relevantImageTwo white" :style="{fontFamily:'iconfont'}">&#xe6df;</span>
@@ -54,12 +46,8 @@
       <!--    推荐排版  采取新版 标题置顶化-->
       <div  class="articleBox">
         <div class="flex-row  ml10" style="padding-top: 10px">
-          <!--<text class="articleTitle">{{item.title}}</text>-->
           <span class="articleTitle" >{{item.title}}</span>
         </div>
-        <!--<div class="flex-row mt20" v-if="item.htmlTag != '' && item.htmlTag != null && item.htmlTag != undefined">-->
-        <!--<text class="articleContent">{{item.htmlTag}}</text>-->
-        <!--</div>-->
         <div class="flex-row ml10 " v-if="item.htmlTag != '' && item.htmlTag != null && item.htmlTag != undefined">
           <span class="articleContent ">{{item.htmlTag}}</span>
         </div>
@@ -92,27 +80,14 @@
     <div v-for="item in toptList" @click="jump(item.url)">
       <!--    置顶排版 采取左右布局。封面较小-->
       <div  class="tempPdBox" v-if="item.htmlTag != '' && item.htmlTag != null && item.htmlTag != undefined">
-        <div class="flex-row">
-          <!--<div class="bt10 flex-row" @click="goAuthor(item.authorId)">-->
-          <!--<img :src="item.logo " resize="cover" class="authorImg"/>-->
-          <!--<span class="authorName">{{item.author}}</span>-->
-          <!--</div>-->
-        </div>
-        <div class="space-between" >
           <!--文章封面-->
-          <div style="position: relative">
+          <div style="width: 39%;padding-right: 10px; box-sizing: border-box;height: 95px;">
             <img  :src="item.thumbnail | tagImage "  resize="cover" class="tempOneImg"/>
           </div>
           <div class="tempOneContent" >
-            <div class="flex-row">
+            <div style="display: flex;flex-direction: column">
               <span class="articleTitle tempOneWidth">{{item.title}}</span>
-              <!--<text class="articleTitle tempOneWidth" >用折纸做出的北欧范花瓶-1</text>-->
-            </div>
-            <!--<div class="flex-row mt20" v-if="item.htmlTag != '' && item.htmlTag != null && item.htmlTag != undefined">-->
-            <!--<text class="articleContent">{{item.htmlTag}}</text>-->
-            <!--</div>-->
-            <div class="flex-row" v-if="item.htmlTag != '' && item.htmlTag != null && item.htmlTag != undefined">
-              <span class="articleContent tempOneWidth" >{{item.htmlTag}}</span>
+              <span class="articleContent tempOneWidth" v-if="item.htmlTag != '' && item.htmlTag != null && item.htmlTag != undefined">{{item.htmlTag}}</span>
             </div>
             <div class="relevantInfo" v-if="item.articleSign != '样例'">
               <span class="relevantImage" :style="{fontFamily:'iconfont'}">&#xe6df;</span>
@@ -123,15 +98,10 @@
               <span class="relevantText">{{item.review}}</span>
             </div>
           </div>
-        </div>
       </div>
       <!--    如果无描述  采取封面新版化-->
       <div  class="articleBoxTwo" v-if="item.htmlTag == '' || item.htmlTag == null || item.htmlTag == undefined">
         <div class="flex-row">
-          <!--<div  class="flex-row ml10" @click="goAuthor(item.authorId)">-->
-          <!--<img :src="item.logo " resize="cover" class="authorImg"/>-->
-          <!--<span class="authorName">{{item.author}}</span>-->
-          <!--</div>-->
         </div>
         <!--文章封面-->
         <div style="position: relative">
@@ -139,12 +109,8 @@
         </div>
         <div  class="tempThreeContent" >
           <div class="flex-row bt10">
-            <!--<text class="articleTitle">{{item.title}}</text>-->
             <span class="articleTitle" >{{item.title}}</span>
           </div>
-          <!--<div class="flex-row mt20" v-if="item.htmlTag != '' && item.htmlTag != null && item.htmlTag != undefined">-->
-          <!--<text class="articleContent">{{item.htmlTag}}</text>-->
-          <!--</div>-->
           <div class="space-between">
             <div>
               <span class="relevantText" >{{item.createDate | dateweektimefmt}}</span>
@@ -252,17 +218,17 @@
   }
 
   .tempOneImg{
-    width: 100px;height: 100px;
+    width: 100%;height: 95px;
   }
   .tempOneWidth{
     width: 245px;
   }
   .tempOneContent{
-    width: 245px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    height: 100px;
+    width: 61%;
+    height: 95px;
   }
 
   .tempPdBox{
@@ -271,6 +237,10 @@
     box-sizing: border-box;
     margin-bottom:1px;
     background-color:#fff;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
   }
 
   .articleContent{
@@ -281,7 +251,7 @@
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     word-break: break-all;
-    width: 355px;
+    width: 100%;
     font-size: 14px;
     color: #888;
   }
@@ -346,7 +316,7 @@
   }
   .articleTitle {
     font-size: 16px;
-    width: 355px;
+    width: 100%;
     overflow: hidden;
     -o-text-overflow: ellipsis;
     text-overflow: ellipsis;
@@ -387,7 +357,7 @@
         return utils.thumbnail(val, 750, 375);
       },
       tagImage(val){
-        return utils.thumbnail(val, 200, 200);
+        return utils.thumbnail(val, 253, 190);
       },
       topImage(val){
         return utils.thumbnail(val, 750, 375);
