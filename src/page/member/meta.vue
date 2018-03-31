@@ -78,7 +78,7 @@
     height: 160px;
     background-size: 100% 100%;
      background-color: #EB4E40;
-     opacity: 0.5;
+     opacity: 0.3;
   }
 
    .head .logo .profile {
