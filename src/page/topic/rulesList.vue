@@ -81,7 +81,7 @@
       <!--    置顶排版 采取左右布局。封面较小-->
       <div  class="tempPdBox" v-if="item.htmlTag != '' && item.htmlTag != null && item.htmlTag != undefined">
           <!--文章封面-->
-          <div style="width: 39%;padding-right: 10px; box-sizing: border-box;height: 95px;">
+          <div style="width: 39%;padding-right: 5px; box-sizing: border-box;height: 95px;">
             <img  :src="item.thumbnail | tagImage "  resize="cover" class="tempOneImg"/>
           </div>
           <div class="tempOneContent" >
@@ -233,7 +233,7 @@
 
   .tempPdBox{
     width: 100%;
-    padding:10px;
+    padding:5px;
     box-sizing: border-box;
     margin-bottom:1px;
     background-color:#fff;
