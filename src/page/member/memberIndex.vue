@@ -32,17 +32,18 @@
       <div class="whiteBG" v-if="status == 'activate'">
         <span class="qrcodeMes"  v-if="qrcodeImg">使用或付款时出示此码</span>
         <img class="qrcodeImg" :src="qrcode" v-if="qrcodeImg"/>
+        <span class="qrcodeMesTwo"  v-if="qrcodeImg">付款时出示此码</span>
         <div class="qrcodeButtonDiv" v-if="qrcodeImg">
         <div class="qrcodeButton" @click="goBill()">消费账单</div>
         <div class="qrcodeButton" @click="gopointBill()">积分账单</div>
         </div>
       </div>
       <div class="navbar">
-        <div class="table1" @click="hasCoupon()" :class="[isbg1 == 1 ? 'bacgeee' : '']">卡包</div>
-        <div class="table2" @click="haspromote()" :class="[isbg2 == 1 ? 'bacgeee' : '']">推广</div>
+        <div class="table1" @click="haspromote()" :class="[isbg1 == 1 ? 'bacgeee' : '']">推广</div>
+        <div class="table2"  @click="hasCoupon()" :class="[isbg2 == 1 ? 'bacgeee' : '']">卡包</div>
       </div>
       <coupon v-if="isCoupon"></coupon>
-      <promote v-if="isPromote" :id="id"></promote>
+      <promote v-if="isPromote" :id="id" :type="type"></promote>
     </div>
     <Tabbar id=2></Tabbar>
   </div>
@@ -228,11 +229,14 @@
   .qrcodeImg{
     height: 200px;
     width: 200px;
-    margin-top: 10px;
   }
   .qrcodeMes{
     font-size: 16px;
-    margin-top: 70px;
+    margin-top: 60px;
+    color: #888;
+  }
+  .qrcodeMesTwo{
+    font-size: 16px;
     color: #888;
   }
   .qrcodeButtonDiv{
@@ -240,8 +244,8 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
+    margin-top: 20px;
     width: 150px;
-    margin-top: 10px;
     margin-bottom: 30px;
   }
   .qrcodeButton{
@@ -304,8 +308,8 @@
         cardInfo:[],
         qrcode:'',
         qrcodeImg:false,
-        isCoupon:true,
-        isPromote:false,
+        isCoupon:false,
+        isPromote:true,
 //        优惠券数量
         coupon:'',
 //        奖励金额度
@@ -316,7 +320,8 @@
         rebateControl:false,
         isbg1:1,
         isbg2:0,
-        status:''
+        status:'',
+        type:'c1001'
 
       }
     },
@@ -387,14 +392,14 @@
       },
 //      控制卡包推广切换
       hasCoupon:function () {
-        this.isbg1 = 1;
-        this.isbg2 = 0;
+        this.isbg1 = 0;
+        this.isbg2 = 1;
         this.isPromote = false;
         this.isCoupon = true;
       },
       haspromote:function () {
-        this.isbg1 = 0;
-        this.isbg2 = 1;
+        this.isbg2 = 0;
+        this.isbg1 = 1;
         this.isCoupon = false;
         this.isPromote = true;
       },

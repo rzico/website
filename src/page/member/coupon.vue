@@ -1,12 +1,15 @@
 <!--我的页内列表-->
 <template>
   <div class="bgc">
-    <div class="couponTitle">
+    <div style="width: 100%;padding: 0 15px;box-sizing: border-box;background-color: white">
+    <div class="couponTitle"  v-if="isCoupon && lists.type != 'exchange'">
       <i class="iconfont icon-quan"></i>
       <span class="couponTitleSpan">优惠券</span>
     </div>
+    </div>
     <v-loadmore :top-method="loadTop"  :bottom-all-loaded="allLoaded" :auto-fill="false" ref="loadmore">
-    <div class="content" :style="addBorder(index)" v-for="(num,index) in lists"  v-if="isCoupon && num.type != 'exchange'">
+      <div style="width: 100%;padding: 0 15px;box-sizing: border-box;background-color: white" v-if="isCoupon && lists.type != 'exchange'">
+    <div class="content" :style="addBorder(index)" v-for="(num,index) in lists"  >
       <div style="display: flex;flex-direction: row;align-items: center;">
         <div class="couponImage" style="background:url('http://rzico.oss-cn-shenzhen.aliyuncs.com/weex/resources/images/coupon1.png') no-repeat;background-size:100% 100%;">{{num.type |strainer}}</div>
         <div class="couponinfo">
@@ -16,14 +19,41 @@
       </div>
       <div class="button" @click="jump(num.couponId,num.id)">使用</div>
     </div>
-      <div class="noData" v-if="!isCoupon">
-        <i class="iconfont icon-zanwushuju"></i>
-        <span>很抱歉，您暂无卡券</span>
       </div>
     </v-loadmore>
+    <div class="noData" v-if="!isCoupon">
+      <img class="noDataImg" src="http://rzico.oss-cn-shenzhen.aliyuncs.com/weex/resources/images/noData.png"/>
+      <span style="font-size: 16px;color: #EB4E40">很抱歉，您暂无卡券</span>
+      <div class="noDataButton" @click="go()">查看更多精彩</div>
+    </div>
   </div>
 </template>
 <style scoped>
+  .noData{
+    height: 100%;
+    text-align: center;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 300px;
+    padding-top: 80px;
+    position: relative;
+  }
+  .noDataImg{
+    height: 80px;
+    width: 80px;
+  }
+  .noDataButton{
+    margin:60px 50px;
+    box-sizing: border-box;
+    height: 40px;
+    background-color: #EB4E40;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    font-size: 16px;
+  }
   .couponTitle{
     width: 100%;
     height: 30px;
@@ -40,12 +70,9 @@
     margin-left: 10px;
   }
   .bgc{
-    background-color: white;
     width: 100%;
     display: flex;
     flex-direction: column;
-    padding:0 15px;
-    box-sizing: border-box;
     margin-bottom: 10px;
   }
   .content{
@@ -132,10 +159,24 @@
         }
       },
     },
+    props:{
+      type:{default:''}
+    },
     created() {
       this.open();
     },
     methods:{
+      go:function () {
+        if(this.type == 'c1003') {
+          var vars = utils.router(location.href);
+          vars.name = "c1003";
+          this.$router.push(vars);
+        }else {
+          var c = utils.router(location.href);
+          c.name = "c1001";
+          this.$router.push(c);
+        }
+      },
       //            是否添加底部边框
       addBorder: function (index) {
         let listLength = this.lists.length;

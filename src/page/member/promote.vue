@@ -42,13 +42,39 @@
         </div>
       </div>
       <div class="noData" v-if="!isPormote">
-        <i class="iconfont icon-zanwushuju"></i>
-        <span>很抱歉，您暂无推广</span>
+        <img class="noDataImg" src="http://rzico.oss-cn-shenzhen.aliyuncs.com/weex/resources/images/noData.png"/>
+        <span style="font-size: 16px;color: #EB4E40">很抱歉，您暂无推广</span>
+        <div class="noDataButton" @click="go()">查看更多精彩</div>
       </div>
     </v-loadmore>
   </div>
 </template>
 <style scoped>
+  .noData{
+    height: 100%;
+    text-align: center;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 300px;
+    padding-top: 80px;
+    position: relative;
+  }
+  .noDataImg{
+    height: 80px;
+    width: 80px;
+  }
+  .noDataButton{
+    margin:60px 50px;
+    box-sizing: border-box;
+    height: 40px;
+    background-color: #EB4E40;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    font-size: 16px;
+  }
   .titleSpan{
     font-size: 14px;
     text-align: center;
@@ -241,13 +267,25 @@
 
     },
     props:{
-      id:{default:0}
+      id:{default:0},
+      type:{default:''}
     },
     created() {
       this.open();
       this.load()
     },
     methods:{
+      go:function () {
+        if(this.type == 'c1003') {
+          var vars = utils.router(location.href);
+          vars.name = "c1003";
+          this.$router.push(vars);
+        }else {
+          var c = utils.router(location.href);
+          c.name = "c1001";
+          this.$router.push(c);
+        }
+      },
       load:function() {
         var _this = this;
         GET('website/member/rebate/view.jhtml?authorId='+this.id).then(

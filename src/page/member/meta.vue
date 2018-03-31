@@ -1,6 +1,6 @@
 <template>
   <div class="head">
-    <div class="backg bg" style="background-image: url(http://rzico.oss-cn-shenzhen.aliyuncs.com/weex/resources/images/background.png)"></div>
+    <div class="backg bg" style="background-image: url(http://rzico.oss-cn-shenzhen.aliyuncs.com/weex/resources/images/background.jpg)"></div>
     <div class="logo">
       <div class="logoimg bg" :style="'background-image: url('+member.logo+')'">
       </div>
@@ -37,6 +37,7 @@
     letter-spacing: 0;
     line-height: 1;
     margin-top: 0;
+     background-color: #EB4E40;
   }
    .head .logo {
     background-color: rgba(0,0,0,.2);
@@ -77,7 +78,6 @@
     width: 100%;
     height: 160px;
     background-size: 100% 100%;
-     background-color: #EB4E40;
      opacity: 0.3;
   }
 

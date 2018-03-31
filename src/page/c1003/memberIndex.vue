@@ -39,11 +39,11 @@
         </div>
       </div>
       <div class="navbar">
-        <div class="table1" @click="hasCoupon()" :class="[isbg1 == 1 ? 'bacgeee' : '']">卡包</div>
-        <div class="table2" @click="haspromote()" :class="[isbg2 == 1 ? 'bacgeee' : '']">推广</div>
+        <div class="table1" @click="haspromote()" :class="[isbg1 == 1 ? 'bacgeee' : '']">推广</div>
+        <div class="table2"  @click="hasCoupon()" :class="[isbg2 == 1 ? 'bacgeee' : '']">卡包</div>
       </div>
-      <coupon v-if="isCoupon"></coupon>
-      <promote v-if="isPromote" :id="id"></promote>
+      <coupon v-if="isCoupon" :type="type"></coupon>
+      <promote v-if="isPromote" :id="id" :type="type"></promote>
     </div>
     <Tabbar id=2></Tabbar>
   </div>
@@ -229,16 +229,14 @@
   .qrcodeImg{
     height: 200px;
     width: 200px;
-    margin-top: 10px;
   }
   .qrcodeMes{
     font-size: 16px;
-    margin-top: 70px;
+    margin-top: 60px;
     color: #888;
   }
   .qrcodeMesTwo{
     font-size: 16px;
-    margin-top: 10px;
     color: #888;
   }
   .qrcodeButtonDiv{
@@ -310,8 +308,8 @@
         cardInfo:[],
         qrcode:'',
         qrcodeImg:false,
-        isCoupon:true,
-        isPromote:false,
+        isCoupon:false,
+        isPromote:true,
 //        优惠券数量
         coupon:'',
 //        奖励金额度
@@ -322,7 +320,8 @@
         rebateControl:false,
         isbg1:1,
         isbg2:0,
-        status:''
+        status:'',
+        type:'c1003'
 
       }
     },
@@ -391,16 +390,16 @@
       isqrcode:function () {
         this.qrcodeImg = !this.qrcodeImg
       },
-//      控制卡包推广切换
+  //      控制卡包推广切换
       hasCoupon:function () {
-        this.isbg1 = 1;
-        this.isbg2 = 0;
+        this.isbg1 = 0;
+        this.isbg2 = 1;
         this.isPromote = false;
         this.isCoupon = true;
       },
       haspromote:function () {
-        this.isbg1 = 0;
-        this.isbg2 = 1;
+        this.isbg2 = 0;
+        this.isbg1 = 1;
         this.isCoupon = false;
         this.isPromote = true;
       },
