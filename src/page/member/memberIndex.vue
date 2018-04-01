@@ -260,7 +260,7 @@
     padding: 0 5px;
   }
   .navbar{
-    height: 40px;
+    height: 35px;
     width: 100%;
     background-color: white;
     margin-bottom: 5px;
@@ -269,7 +269,7 @@
     align-items: center;
   }
   .table1{
-    height: 40px;
+    height: 35px;
     width: 50%;
     font-size: 16px;
     display: flex;
@@ -281,7 +281,7 @@
     background-color: #eeeeee !important;
   }
   .table2{
-    height: 40px;
+    height: 35px;
     width: 50%;
     font-size: 16px;
     display: flex;

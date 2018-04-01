@@ -30,8 +30,12 @@
                   <span class="relevantImage  white" :style="{fontFamily:'iconfont'}">&#xe65c;</span>
                   <span class="relevantText white">{{item.review}}</span>
                 </div>
-                <div>
+                <div v-if="isNull(item.price)">
                   <span class="relevantText white">{{item.createDate | dateweektimefmt}}</span>
+                </div>
+                <div v-if="!isNull(item.price)" style="display: flex; flex-direction: row;align-items: center">
+                  <span class="" style="color: red;font-size: 16px">¥{{item.price}}</span>
+                  <span class="relevantText" style="color: white;font-size: 12px;text-decoration:line-through;margin-left: 10px">原价:{{item.marketPrice}}</span>
                 </div>
               </div>
             </div>
@@ -172,6 +176,12 @@
 
     },
     methods:{
+//      判断是否有价格
+      isNull:function (p) {
+        if(utils.isNull(p)){
+          return true
+        }
+      },
       //      获取精选文章
       load:function () {
         var _this = this;

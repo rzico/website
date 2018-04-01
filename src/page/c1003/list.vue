@@ -25,8 +25,12 @@
       </div>
       <div  class="tempThreeContent ml10" >
         <div class="space-between">
-          <div>
-            <span class="relevantText" >{{item.createDate | dateweektimefmt}}</span>
+          <div v-if="isNull(item.price)">
+            <span class="relevantText">{{item.createDate | dateweektimefmt}}</span>
+          </div>
+          <div v-if="!isNull(item.price)" style="display: flex; flex-direction: row;align-items: center">
+            <span class="" style="color: red;font-size: 16px">¥{{item.price}}</span>
+            <span class="relevantText" style="color: #888;font-size: 12px;text-decoration:line-through;margin-left: 10px">原价:{{item.marketPrice}}</span>
           </div>
           <div class="relevantInfo" v-if="item.articleSign != '样例'">
             <span class="relevantImage " :style="{fontFamily:'iconfont'}">&#xe6df;</span>
@@ -57,6 +61,7 @@
             <span class="articleTitle tempOneWidth">{{item.title}}</span>
             <span class="articleContent tempOneWidth" v-if="item.htmlTag != '' && item.htmlTag != null && item.htmlTag != undefined">{{item.htmlTag}}</span>
           </div>
+          <div style="display: flex;flex-direction: row;align-items: center;justify-content: space-between">
           <div class="relevantInfo" v-if="item.articleSign != '样例'">
             <span class="relevantImage" :style="{fontFamily:'iconfont'}">&#xe6df;</span>
             <span class="relevantText">{{item.hits}}</span>
@@ -64,6 +69,11 @@
             <span class="relevantText">{{item.laud}}</span>
             <span class="relevantImage " :style="{fontFamily:'iconfont'}">&#xe65c;</span>
             <span class="relevantText">{{item.review}}</span>
+          </div>
+            <div v-if="!isNullTwo(item.price)" style="display: flex; flex-direction: row;align-items: center">
+              <span class="" style="color: red;font-size: 16px">¥{{item.price}}</span>
+              <span class="relevantText" style="color: #888;font-size: 12px;text-decoration:line-through;margin-left: 10px">原价:{{item.marketPrice}}</span>
+            </div>
           </div>
         </div>
     </div>
@@ -80,8 +90,12 @@
             <span class="articleTitle" >{{item.title}}</span>
           </div>
           <div class="space-between">
-            <div>
-              <span class="relevantText" >{{item.createDate | dateweektimefmt}}</span>
+            <div v-if="isNullThree(item.price)">
+              <span class="relevantText">{{item.createDate | dateweektimefmt}}</span>
+            </div>
+            <div v-if="!isNullThree(item.price)" style="display: flex; flex-direction: row;align-items: center">
+              <span class="" style="color: red;font-size: 16px">¥{{item.price}}</span>
+              <span class="relevantText" style="color: #888;font-size: 12px;text-decoration:line-through;margin-left: 10px">原价:{{item.marketPrice}}</span>
             </div>
             <div class="relevantInfo" v-if="item.articleSign != '样例'">
               <span class="relevantImage " :style="{fontFamily:'iconfont'}">&#xe6df;</span>
@@ -344,6 +358,24 @@
 
     },
     methods:{
+      //      判断是否有价格
+      isNull:function (p) {
+        if(utils.isNull(p)){
+          return true
+        }
+      },
+      //      判断是否有价格
+      isNullTwo:function (p) {
+        if(utils.isNull(p)){
+          return true
+        }
+      },
+      //      判断是否有价格
+      isNullThree:function (p) {
+        if(utils.isNull(p)){
+          return true
+        }
+      },
       loadTop:function(idx) { //组件提供的下拉触发方法
         this.pageStart = 0;
         //下拉加载

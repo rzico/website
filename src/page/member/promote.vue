@@ -93,7 +93,6 @@
     word-break: break-all;
   }
   .promoteTitle{
-    height:55px;
     padding: 10px 0;
     display: flex;
     flex-direction: row;
@@ -105,7 +104,7 @@
     margin-bottom: 5px;
   }
   .titleOne{
-    height: 50px;
+    height: 40px;
     display: flex;
     flex: 1;
     border-width: 0 1px 0 0;
@@ -116,7 +115,7 @@
     justify-content: center;
   }
   .titleTwo{
-    height: 50px;
+    height: 40px;
     display: flex;
     flex: 1;
     flex-direction: column;
