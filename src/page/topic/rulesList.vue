@@ -33,7 +33,7 @@
                 </div>
                 <div v-if="!isNull(item.price)" style="display: flex; flex-direction: row;align-items: center">
                   <span class="" style="color: red;font-size: 16px">¥{{item.price}}</span>
-                  <span class="relevantText" style="color: white;font-size: 12px;text-decoration:line-through;margin-left: 10px">原价:{{item.marketPrice}}</span>
+                  <span class="relevantText" style="color: white;font-size: 12px;text-decoration:line-through;margin-left: 10px" v-if="item.price !=item.marketPrice">原价:{{item.marketPrice}}</span>
                 </div>
               </div>
             </div>
@@ -66,7 +66,7 @@
             </div>
             <div v-if="!isNullTwo(item.price)" style="display: flex; flex-direction: row;align-items: center">
               <span class="" style="color: red;font-size: 16px">¥{{item.price}}</span>
-              <span class="relevantText" style="color: #888;font-size: 12px;text-decoration:line-through;margin-left: 10px">原价:{{item.marketPrice}}</span>
+              <span class="relevantText" style="color: #888;font-size: 12px;text-decoration:line-through;margin-left: 10px" v-if="item.price !=item.marketPrice">原价:{{item.marketPrice}}</span>
             </div>
             <div class="relevantInfo" v-if="item.articleSign != '样例'">
               <span class="relevantImage " :style="{fontFamily:'iconfont'}">&#xe6df;</span>
@@ -108,7 +108,7 @@
               </div>
               <div v-if="!isNullThree(item.price)" style="display: flex; flex-direction: row;align-items: center">
                 <span class="" style="color: red;font-size: 16px">¥{{item.price}}</span>
-                <span class="relevantText" style="color: #888;font-size: 12px;text-decoration:line-through;margin-left: 10px">原价:{{item.marketPrice}}</span>
+                <span class="relevantText" style="color: #888;font-size: 12px;text-decoration:line-through;margin-left: 10px" v-if="item.price !=item.marketPrice">原价:{{item.marketPrice}}</span>
               </div>
             </div>
           </div>
@@ -131,7 +131,7 @@
             </div>
             <div v-if="!isNullFour(item.price)" style="display: flex; flex-direction: row;align-items: center">
               <span class="" style="color: red;font-size: 16px">¥{{item.price}}</span>
-              <span class="relevantText" style="color: #888;font-size: 12px;text-decoration:line-through;margin-left: 10px">原价:{{item.marketPrice}}</span>
+              <span class="relevantText" style="color: #888;font-size: 12px;text-decoration:line-through;margin-left: 10px" v-if="item.price !=item.marketPrice">原价:{{item.marketPrice}}</span>
             </div>
             <div class="relevantInfo" v-if="item.articleSign != '样例'">
               <span class="relevantImage " :style="{fontFamily:'iconfont'}">&#xe6df;</span>

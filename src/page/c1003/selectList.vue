@@ -35,7 +35,7 @@
                 </div>
                 <div v-if="!isNull(item.price)" style="display: flex; flex-direction: row;align-items: center">
                   <span class="" style="color: red;font-size: 16px">¥{{item.price}}</span>
-                  <span class="relevantText" style="color: white;font-size: 12px;text-decoration:line-through;margin-left: 10px">原价:{{item.marketPrice}}</span>
+                  <span class="relevantText" style="color: white;font-size: 12px;text-decoration:line-through;margin-left: 10px" v-if="item.price !=item.marketPrice">原价:{{item.marketPrice}}</span>
                 </div>
               </div>
             </div>
