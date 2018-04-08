@@ -18,27 +18,26 @@
 
       </div>
       </v-loadmore>
-      <weui-dialog ref="dialog" type="confirm" title="请输入会员资料" confirmButton="激活" cancelButton="取消"
-              @weui-dialog-confirm="activate()"
-              @weui-dialog-cancel="close()">
-        <div class="weui_cell">
-          <input class="weui_input" type="tel" :placeholder="'请输入手机号'" v-model="mob">
-        </div>
-        <div class="weui_cell">
-          <input class="weui_input" type="text" :placeholder="'请输入会员姓名'" v-model="name">
-        </div>
-      </weui-dialog>
-      <Toast ref="toast"></Toast>
-      <!--<div class="footer" @click="openWeixinCard()" v-if="isCardExt">-->
-        <!--<span>&#45;&#45;微信卡包&#45;&#45;</span>-->
-      <!--</div>-->
-      <weui-dialog ref="error" type="alert" title="出错了"
-                   confirm-button="关闭"
-                   @weui-dialog-confirm="closeWindow()">
-        {{errMsg}}
-      </weui-dialog>
     </div>
-
+    <weui-dialog ref="dialog" type="confirm" title="请输入会员资料" confirmButton="激活" cancelButton="取消"
+                 @weui-dialog-confirm="activate()"
+                 @weui-dialog-cancel="close()">
+      <div class="weui_cell">
+        <input class="weui_input" type="tel" :placeholder="'请输入手机号'" v-model="mob">
+      </div>
+      <div class="weui_cell">
+        <input class="weui_input" type="text" :placeholder="'请输入会员姓名'" v-model="name">
+      </div>
+    </weui-dialog>
+    <Toast ref="toast"></Toast>
+    <!--<div class="footer" @click="openWeixinCard()" v-if="isCardExt">-->
+    <!--<span>&#45;&#45;微信卡包&#45;&#45;</span>-->
+    <!--</div>-->
+    <weui-dialog ref="error" type="alert" title="出错了"
+                 confirm-button="关闭"
+                 @weui-dialog-confirm="closeWindow()">
+      {{errMsg}}
+    </weui-dialog>
   </div>
 </template>
 <style scoped>
