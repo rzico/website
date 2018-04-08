@@ -1,6 +1,6 @@
 <template>
   <div class="bgc" v-if="hasReward()">
-    <div class="content" v-for="item in catagoryList" @click="jumpList(item.id)">
+    <div class="content" v-for="item in catagoryList" @click="jumpList(item.id,item.name)">
       <div style="display: flex;flex-direction: column;align-items: center;padding-top: 5px">
       <img class="image"  :src="item.thumbnail | wacthImage"/>
       <span class="name">{{item.name}}</span>
@@ -78,7 +78,8 @@
       return {
         catagoryList:[],
         img:'http://rzico.oss-cn-shenzhen.aliyuncs.com/weex/resources/images/allBg.jpeg',
-        screenheight:0
+        screenheight:0,
+        name:'全部'
       }
     },
     components: {
@@ -136,10 +137,10 @@
           })
       },
       jump:function() {
-        this.$router.push({name:"C1003goodsList",query:{id:this.id}});
+        this.$router.push({name:"C1003goodsList",query:{id:this.id,name:this.name}});
       },
-      jumpList:function(id) {
-        this.$router.push({name:"C1003goodsList",query:{productCategoryId:id,id:this.id}});
+      jumpList:function(id,name) {
+        this.$router.push({name:"C1003goodsList",query:{productCategoryId:id,id:this.id,name:name}});
       },
       hasReward:function () {
         return this.catagoryList.length>0;

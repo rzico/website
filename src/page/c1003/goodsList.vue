@@ -16,7 +16,7 @@
       <div class="categoryDiv">
     <div class="categoryBox">
       <div v-for="(item,index) in catagoryList">
-        <span class="cataText"  @click="catagoryChange(index,item.id)" :class = "[whichCorpus == index ? 'corpusActive' : 'noActive']">{{item.name}}</span>
+        <span class="cataText"  @click="catagoryChange(item.name,item.id)" :class = "[whichCorpus == item.name ? 'corpusActive' : 'noActive']">{{item.name}}</span>
       </div>
     </div>
         <!--样式切换按钮-->
@@ -324,7 +324,7 @@
 //        库存变量
         inventoryType:'',
         availableStock:'',
-        whichCorpus:0,
+        whichCorpus:'全部',
 //        分类id
         productCategoryId:'',
         catagoryList:[{
@@ -363,6 +363,7 @@
     } ,
     created() {
       this.id = utils.getUrlParameter("id");
+      this.whichCorpus = utils.getUrlParameter("name");
       this.productCategoryId = utils.getUrlParameter("productCategoryId");
       //            获取分类列表
       this.getCatagory();
@@ -379,14 +380,14 @@
         this.noDataHint = "输入查找商品";
         this.pageStart = 0;
         this.productCategoryId = '';
-        this.whichCorpus = 0;
+        this.whichCorpus = '全部';
         this.searchGoods();
       },
       search: function (e) {
         var _this = this;
         this.pageStart = 0;
         this.productCategoryId = '';
-        this.whichCorpus = 0;
+        this.whichCorpus = '全部';
         this.searchGoods();
       },
 //            点击右上角搜索按钮
@@ -423,12 +424,12 @@
         this.$refs['searchBar'].blur();
       },
       //分类切换
-      catagoryChange:function(index,id){
+      catagoryChange:function(name,id){
         var _this = this;
-        if(_this.whichCorpus == index){
+        if(_this.whichCorpus == name){
           return;
         }
-        _this.whichCorpus = index;
+        _this.whichCorpus = name;
         _this.productCategoryId = id;
         _this.pageStart = 0;
         _this.load();
