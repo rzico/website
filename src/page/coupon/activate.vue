@@ -294,12 +294,8 @@
         }else {
           _this.contorl = true
         };
+        _this.open();
       })
-    },
-    mounted(){
-      if (this.logined == true) {
-        this.open();
-      }
     },
     methods:{
 //      点击赠送
