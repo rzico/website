@@ -89,7 +89,6 @@
   </div>
 </template>
 <style scoped>
-
   .addSub{
     font-size: 14px;
     line-height: 35px;
@@ -98,9 +97,7 @@
     font-weight: 700;
     width:38px;
     text-align: center;
-
   }
-
   .noAddress{
     text-align: center;
   }
@@ -125,8 +122,6 @@
     width: 50px;
     font-size: 16px;line-height: 35px;display: inline-block;
     text-align: center;
-
-
     border:1px solid #eee;
     /*outline:none;*/
     -webkit-appearance: none;

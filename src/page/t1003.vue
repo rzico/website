@@ -101,7 +101,7 @@
       }
       },
       musicData: { default: function () {
-        return {id: ""}
+        return {id: "-1"}
       }
       },
       templates: { default: function () {

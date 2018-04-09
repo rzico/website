@@ -5,10 +5,10 @@
         <div class="autherHead">
           <img v-bind:src="article.member.logo | watchImg"/>
         </div>
-        <div class="userMessage">
+        <div class="userMessage" >
           <p class="wusername" style="overflow: hidden" >
             {{article.member.nickName}}</p>
-          <p class="wsign">
+          <p class="wsign"  v-if="article.member.autograph != '' " >
             {{article.member.autograph==null?"留下签名有助于提升知名度":article.member.autograph}}  </p>
         </div>
         <img v-if="article.member.qrcode != null" :src='article.member.qrcode'  alt="" class="qrcode">

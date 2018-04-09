@@ -23,7 +23,7 @@
     },
     props: {
       musicData: { default: function () {
-        return {id:""}
+        return {id:"-1"}
         }
       },
       templateId:{default:1001},

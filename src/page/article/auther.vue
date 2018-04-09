@@ -8,7 +8,7 @@
         <div class="userMessage">
           <p class="wusername" style="overflow: hidden"  :class="[templateId == 1002 ? 't1002_text_color_white' : '']">
             {{article.member.nickName}}</p>
-          <p class="wsign" :class="[templateId == 1002 ? 't1002_hits_color_primary' : '']" >
+          <p class="wsign" :class="[templateId == 1002 ? 't1002_hits_color_primary' : '']" v-if="article.member.autograph != '' " >
             {{article.member.autograph==null?"留下签名有助于提升知名度":article.member.autograph}}  </p>
         </div>
         <img v-if="article.member.qrcode != null" :src='article.member.qrcode'  alt="" class="qrcode">
