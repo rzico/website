@@ -791,6 +791,10 @@
       rewardNumber:function (m) {
         var _this = this;
         _this.$refs.toast.loading();
+        if(utils.isweex()==true){
+          _this.$refs.toast.show('请分享到微信进行赞赏');
+          return;
+        }
         POST("website/member/reward/submit.jhtml?amount="+m+"&articleId="+this.watchArticle.id).then(
           function (data) {
             if (data.type=="success") {

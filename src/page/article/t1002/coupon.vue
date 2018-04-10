@@ -158,6 +158,10 @@
         )
       },
       jump:function(numid) {
+        if(utils.isweex()==true){
+          this.$refs.toast.show('请分享到微信朋友圈进行领取');
+          return;
+        }
         this.$router.push({name:"activate",query:{id:numid}});
       }
     }
