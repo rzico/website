@@ -82,6 +82,7 @@
   }
   .baozhu{
     width: 90%;
+    height: 187.5px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -123,8 +124,9 @@
     width: 40px;
     background-color: white;
     border-radius: 100%;
-    position: fixed;
-    top:198px;
+    position: absolute;
+    top:168px;
+    left: 44%;
     display: flex;
     align-items: center;
     justify-content: center;

@@ -3,20 +3,18 @@
     <div class="page slideIn backgc" @scroll="onscroll" offset-accuracy="0">
       <v-loadmore :top-method="loadTop" :bottom-method="loadBottom" :bottom-all-loaded="false" :auto-fill="false" ref="loadmore">
         <div class="insOne">
-          <div class="bgflex">
             <div class="logo">
               <img class="stroeLogo" :src="card.logo | logoImg">
             </div>
-          </div>
-          <span class="f14 martop30">{{card.name}}</span>
+          <span class="f14">{{card.name}}</span>
           <span class="f18 martop15">NO.{{card.code | codefmt}}</span>
           <span class="martop10 f30" style="color: #EB4E40">{{card.balance}}</span>
         </div>
         <div class="insthree">
           <div class="codeDiv" ></div>
           <div class="zezhu" @click="goC1001()">
-            <i class="iconfont icon-dianpu" style="font-size: 30px;position: absolute;top: -15px;color: white" ></i>
-            <span class=" f14" style="color: white;position: absolute;bottom: 0">进入芸店</span>
+            <i class="iconfont icon-dianpu" style="font-size: 30px;color: white;line-height: 30px"></i>
+            <span class=" f14" style="color: white;line-height: 16px">进入芸店</span>
           </div>
           <div class="couponDiv">
             <div class="instwo">
@@ -48,7 +46,7 @@
     width: 40px;
     background-color: #cccccc;
     border-radius: 20px;
-    position: absolute;
+    position: relative;
     top: -20px;
   }
   .stroeLogo{
@@ -103,22 +101,23 @@
     width: 60px;
     background-color: #EB4E40;
     border-radius: 30px;
-    position: absolute;
+    position: relative;
     top: -15px;
   }
   .zezhu{
     width: 200px;
     height: 45px;
-    margin-bottom: 55px;
     display: flex;
-    display: -webkit-flex;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
     background-color: #EB4E40;
-    position: absolute;
-    top:0
+    position: relative;
+    top:-60px
   }
   .couponDiv{
-    margin-top: 45px;
+    position: relative;
+    top:-30px;
   }
   .f14{
     font-size: 14px;
