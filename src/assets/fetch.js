@@ -47,7 +47,9 @@ export function AUTH(redirectURL,func) {
             location.href = "https://openauth.alipay.com/oauth2/publicAppAuthorize.htm?app_id=" + utils.getConfig().alAppid + "&redirect_uri=" + encodeURIComponent(utils.getConfig().baseURL+"website/login/alipay.jhtml?redirectURL="+state+"&xuid="+utils.getUrlParameter("xuid")) + "&scope="+scope+"&state=state";
           } else {
           }
+          func(false);
         }
+      } else {
         func(false);
       }
     },
