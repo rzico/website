@@ -405,9 +405,6 @@
         }
       },
       pick:function () {
-        if(this.logined == false){
-          return
-        }
         if(!utils.isNull(this.urlXuid) && this.urlXuid != this.xuid){
         let _this =this;
           POST('website/member/coupon/activate.jhtml?couponCodeId='+_this.couponCodeId+'&xuid='+this.urlXuid).then(
