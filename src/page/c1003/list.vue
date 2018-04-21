@@ -118,7 +118,7 @@
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
-    margin-bottom: 10px;
+    margin-top: 5px;
   }
   .title{
     background-color: white;

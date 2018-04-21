@@ -27,7 +27,7 @@
     padding-top: 50px;
   }
   .green{
-    color:#09BB07 !important;
+    color:#EB4E40 !important;
   }
   .weui_icon_msg:before{
     font-size: 45px !important;

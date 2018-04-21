@@ -13,6 +13,7 @@
   .bgc{
     background-color: #eeeeee;
     width: 100%;
+    margin-top: 5px;
   }
   .content{
     background-color: white;
