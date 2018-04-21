@@ -70,7 +70,7 @@
             <span class="relevantImage " :style="{fontFamily:'iconfont'}">&#xe65c;</span>
             <span class="relevantText">{{item.review}}</span>
           </div>
-            <div v-if="!isNullTwo(item.price)" style="display: flex; flex-direction: row;align-items: center">
+            <div v-if="!isNullTwo(item.price)" style="display: flex; flex-direction: row;align-items: center;padding-right:5px;">
               <span class="" style="color: red;font-size: 16px">¥{{item.price}}</span>
               <span class="relevantText" style="color: #888;font-size: 12px;text-decoration:line-through;margin-left: 10px" v-if="item.price !=item.marketPrice">原价:{{item.marketPrice}}</span>
             </div>

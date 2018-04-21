@@ -166,6 +166,7 @@
     border-width: 0 0 1px 0;
     border-style: solid;
     border-color: #eee;
+    margin-top:5px;
   }
   .titleImg{
     height: 20px;
