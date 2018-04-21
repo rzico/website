@@ -248,6 +248,7 @@
     width: 100%;
     font-size: 14px;
     color: #888;
+    padding-right: 10px;
   }
   .activeClass{
     visibility: visible;
