@@ -56,7 +56,7 @@
         return utils.dateweektimefmt(value);
       },
       selectImage(val){
-        return utils.thumbnail(val, 375, 375);
+        return utils.thumbnail(val, 350, 175);
       },
     },
     props: {
