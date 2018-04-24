@@ -23,8 +23,7 @@
     align-items: center;
     justify-content: center;
     flex-wrap: wrap;
-    padding:10px 0;
-    margin-bottom: 10px;
+    padding:10px 0px;
   }
   .content{
     border: none;

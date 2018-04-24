@@ -40,7 +40,7 @@
     /*line-height: 1.5;*/
   }
   .weui-tabbar__item.weui-bar__item_on .weui-tabbar__icon, .weui-tabbar__item.weui-bar__item_on .weui-tabbar__icon > i, .weui-tabbar__item.weui-bar__item_on .weui-tabbar__label {
-    color: #09BB07;
+    color: #EB4E40;
   }
   .weui-tabbar{
     display: -webkit-box;

@@ -13,6 +13,7 @@
   .bgc{
     background-color: #eeeeee;
     width: 100%;
+    margin-top: 5px;
   }
   .content{
     background-color: white;
@@ -55,7 +56,7 @@
         return utils.dateweektimefmt(value);
       },
       selectImage(val){
-        return utils.thumbnail(val, 375, 375);
+        return utils.thumbnail(val, 350, 175);
       },
     },
     props: {

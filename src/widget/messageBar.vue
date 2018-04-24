@@ -19,7 +19,7 @@
     height: 30px;
     padding-top: 5px;
     padding-bottom: 5px;
-    border-width: 0 0 2px 0;
+    border-width: 0 0 0 0;
     border-color: #eeeeee;
     border-style: solid;
     display: flex;

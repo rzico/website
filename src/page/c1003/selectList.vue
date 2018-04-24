@@ -52,7 +52,7 @@
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
-    margin-bottom: 5px;
+    margin-top: 5px;
   }
   /*公用样式*/
   /**横向部局居中对齐**/

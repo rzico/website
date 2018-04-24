@@ -62,7 +62,7 @@
   .complete{
     /*padding: 7px 60px;*/
     padding: 7px 0px;
-    border: 1px solid #09BB07;
+    border: 1px solid #EB4E40;
     font-size: 13px;
     line-height: 13px;
     color: #0bb20c;
