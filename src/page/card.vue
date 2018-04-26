@@ -135,7 +135,7 @@
       AUTH(location.href,function (authed) {
         _this.logined  = authed;
         //会号规则 88100006165001042 实体卡  86100006165 商家码
-        this.load();
+        _this.load();
       })
     },
     methods:{
