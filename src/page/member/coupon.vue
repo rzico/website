@@ -211,7 +211,7 @@
         )
       },
       jump:function (couponId,id) {
-        this.$router.push({name:"activate",query:{id:couponId,type:this.type,codeId:id}});
+        this.$router.push({name:"couponView",query:{id:couponId,codeId:id}});
       },
       loadTop:function() { //组件提供的下拉触发方法
         this.open();

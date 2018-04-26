@@ -39,6 +39,7 @@ const OrderList = resolve => require(['../page/order/list'], resolve)
 const OrderDetails = resolve => require(['../page/order/details'], resolve)
 const OrderLogistics = resolve => require(['../page/order/logistics'], resolve)
 const activate = resolve => require(['../page/coupon/activate'], resolve)
+const couponView = resolve => require(['../page/coupon/view'], resolve)
 const bill = resolve => require(['../page/member/bill'], resolve)
 const pointBill = resolve => require(['../page/member/pointBill'], resolve)
 const rebate = resolve => require(['../page/member/rebate'], resolve)
@@ -185,6 +186,12 @@ var router = new Router({
       name: 'activate',
       meta: {requireAuth:true},
       component: activate
+    },
+    {
+      path: '/couponView',
+      name: 'couponView',
+      meta: {requireAuth:true},
+      component: couponView
     },
     {
       path: '/bill',

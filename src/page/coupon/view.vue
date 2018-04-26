@@ -8,38 +8,32 @@
       </div>
       <span class="f16 martop40">由{{shopName}}提供</span>
       <span class="f30 martop10">{{name}}</span>
-      <div class="getClick martop15" @click="pick" v-if="!isType">
-        <span class="f18" style="color: white">点击领取</span>
+      <div class="getClickTwo martop15">
+        <div class="use" @click="use()">使用</div>
+        <div class="send" @click="sendMes()">转赠</div>
       </div>
-      <div class="getClickTwo martop15" @click="pickTwo" v-if="isType">
-        <span class="f18" style="color: white">已被领取</span>
-      </div>
-      <!--<div class="getClickTwo martop15" v-if="contorl">-->
-        <!--<div class="use" @click="use()">使用</div>-->
-        <!--<div class="send" @click="sendMes()">转赠</div>-->
-      <!--</div>-->
       <span class="martop30 f14" style="color: #888">有效期{{beginDate | timeDatefmt}}至{{endDate | timeDatefmt}}</span>
       <!--二维码-->
-      <!--<div class="qrcodeDiv" v-if="ismask">-->
-        <!--<img class="qrcode" resize="cover" :src="qrcode"/>-->
-      <!--</div>-->
+      <div class="qrcodeDiv" v-if="ismask">
+        <img class="qrcode" resize="cover" :src="qrcode"/>
+      </div>
       <!--左右两边的半圆-->
       <div class="rightmindiv"></div>
       <div class="leftmindiv"></div>
     </div>
     <!--&lt;!&ndash;遮罩层&ndash;&gt;-->
     <!--<div class="maskLayer" v-if="ismask">-->
-      <!--&lt;!&ndash;关闭按钮&ndash;&gt;-->
-      <!--<div class="shutDown" @click="shutDown()"><i class="iconfont icon-arrow-dropright fzc20"></i></div>-->
-      <!--&lt;!&ndash;二维码&ndash;&gt;-->
-      <!--<div class="qrcodeDiv">-->
-        <!--<img class="qrcode" resize="cover" :src="qrcode"/>-->
-      <!--</div>-->
+    <!--&lt;!&ndash;关闭按钮&ndash;&gt;-->
+    <!--<div class="shutDown" @click="shutDown()"><i class="iconfont icon-arrow-dropright fzc20"></i></div>-->
+    <!--&lt;!&ndash;二维码&ndash;&gt;-->
+    <!--<div class="qrcodeDiv">-->
+    <!--<img class="qrcode" resize="cover" :src="qrcode"/>-->
+    <!--</div>-->
     <!--</div>-->
     <div class="instwo">
       <div class="flex-be martop15 marbot15" @click="control">
-      <span class="f16">使用说明</span>
-      <i class="iconfont icon-xiajiantou fz16"></i>
+        <span class="f16">使用说明</span>
+        <i class="iconfont icon-xiajiantou fz16"></i>
       </div>
       <div class="marbot15" v-if="isPopup">
         <li class="f14 fontColor888">此优惠券仅限本店使用</li>
@@ -85,31 +79,31 @@
     align-items: center;
     justify-content: center;
   }
-   .bgc{
-     background-color:#EB4E40;
-     width: 100%;
-     position: absolute;
-     top:0;
-     bottom:0;
+  .bgc{
+    background-color:#EB4E40;
+    width: 100%;
+    position: absolute;
+    top:0;
+    bottom:0;
   }
-   .bg{
-     display: flex;
-     display: -webkit-flex;
-     justify-content: center;
-   }
-   .headlogo{
+  .bg{
+    display: flex;
+    display: -webkit-flex;
+    justify-content: center;
+  }
+  .headlogo{
     height: 60px;
     width: 60px;
     background-color: #cccccc;
     border-radius: 30px;
     position: absolute;
-     top: -30px;
+    top: -30px;
   }
-   .shopLogo{
-     height: 60px;
-     width: 60px;
-     border-radius: 30px;
-   }
+  .shopLogo{
+    height: 60px;
+    width: 60px;
+    border-radius: 30px;
+  }
   .insone{
     background-color: white;
     margin-right: 10px;
@@ -150,31 +144,31 @@
     bottom: -5px;
     right: -5px;
   }
-   .leftmindiv{
-     background-color:#EB4E40;
-     height: 10px;
-     width: 10px;
-     border-radius: 5px;
-     position: absolute;
-     bottom: -5px;
-     left: -5px;
-   }
-   .f14{
+  .leftmindiv{
+    background-color:#EB4E40;
+    height: 10px;
+    width: 10px;
+    border-radius: 5px;
+    position: absolute;
+    bottom: -5px;
+    left: -5px;
+  }
+  .f14{
     font-size: 14px;
   }
-   .f16{
+  .f16{
     font-size: 16px;
   }
-   .fzc20{
-     font-size: 20px;
-     color: white;
-   }
-   .f30{
-     font-size: 30px;
-   }
-   .f18{
-     font-size: 18px;
-   }
+  .fzc20{
+    font-size: 20px;
+    color: white;
+  }
+  .f30{
+    font-size: 30px;
+  }
+  .f18{
+    font-size: 18px;
+  }
   .martop40{
     margin-top: 40px;
   }
@@ -206,38 +200,37 @@
     flex-direction: row;
   }
   .getClickTwo{
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     width: 150px;
     height: 40px;
-    background-color:#ccc;
     border-radius: 5px;
     display: flex;
     display: -webkit-flex;
     flex-direction: row;
   }
-   .use{
-     height: 40px;
-     width:70px;
-     display: flex;
-     align-items: center;
-     justify-content: center;
-     background-color:#EB4E40;
-     border-radius: 5px;
-     font-size: 20px;
-     color:white;
-   }
-   .send{
-     height: 40px;
-     width:70px;
-     display: flex;
-     align-items: center;
-     justify-content: center;
-     background-color:#EB4E40;
-     border-radius: 5px;
-     font-size: 20px;
-     color:white;
-   }
+  .use{
+    height: 40px;
+    width:70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color:#EB4E40;
+    border-radius: 5px;
+    font-size: 20px;
+    color:white;
+  }
+  .send{
+    height: 40px;
+    width:70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color:#EB4E40;
+    border-radius: 5px;
+    font-size: 20px;
+    color:white;
+  }
   .flex-be{
     display: flex;
     display: -webkit-flex;
@@ -272,9 +265,7 @@
         urlXuid:'',
         logined:false,
 //        商家id
-        ownerId:'',
-//        优惠券是否领取
-        isType:false
+        ownerId:''
       }
     },
     components: {
@@ -293,47 +284,45 @@
         _this.couponId = utils.getUrlParameter('id');
         _this.codeId = utils.getUrlParameter('codeId');
         _this.couponCodeId = utils.getUrlParameter('couponCodeId');
-        _this.urlXuid = utils.getUrlParameter('xuid');
         _this.open();
       })
     },
     methods:{
 //      点击赠送
-//      sendMes:function () {
-//        this.$refs.toast.show('请点击右上角进行分享');
-//
-//      },
+      sendMes:function () {
+        this.$refs.toast.show('请点击右上角进行分享');
+
+      },
 //      点击使用
-//      use:function () {
-//        let  _this = this
-//        GET("website/member/couponCode/view.jhtml?id="+this.couponId).then(
-//          function (res) {
-//          if (res.type=='success') {
-//            _this.qrcode = "http://pan.baidu.com/share/qrcode?w=200&h=200&url="+encodeURI(res.data.payCode);
-//            if(!utils.isNull(_this.qrcode)){
-//              _this.ismask = true
-//            }
-//          } else {
-//            _this.$refs.toast.show(res.content);
-//          }
-//        },function (err) {
-//            _this.$refs.toast.show(err.content);
-//        })
-//      },
+      use:function () {
+        let  _this = this
+        GET("website/member/couponCode/view.jhtml?id="+this.couponId).then(
+          function (res) {
+            if (res.type=='success') {
+              _this.qrcode = "http://pan.baidu.com/share/qrcode?w=200&h=200&url="+encodeURI(res.data.payCode);
+              if(!utils.isNull(_this.qrcode)){
+                _this.ismask = true
+              }
+            } else {
+              _this.$refs.toast.show(res.content);
+            }
+          },function (err) {
+            _this.$refs.toast.show(err.content);
+          })
+      },
 //      关闭二维码
       shutDown:function () {
         this.ismask = false
       },
 //      控制使用说明是否渲染
       control:function () {
-          this.isPopup = !this.isPopup;
+        this.isPopup = !this.isPopup;
       },
       open:function () {
         let _this =this;
         GET("website/coupon/view.jhtml?id="+_this.couponId).then(
           function (res) {
             if (res.type=='success') {
-              _this.isType = res.data.activate;
               _this.logo = res.data.coupon.logo;
               _this.name = res.data.coupon.name;
               _this.beginDate = res.data.coupon.beginDate;
@@ -341,24 +330,24 @@
               _this.shopName =res.data.coupon.shopName;
               _this.introduction = res.data.coupon.introduction;
               _this.ownerId = res.data.coupon.ownerId
-//              GET("website/member/view.jhtml").then(
-//                function (res) {
-//                  if (res.type=='success') {
-//                    _this.xuid = res.data.id
-//                    //设置分享标题
-//                    utils.setConfig({
-//                      title:_this.name,
-//                      desc:_this.introduction,
-//                      link:utils.getConfig().baseURL+'#/activate?id='+_this.couponId+'&xuid='+_this.xuid+'&couponCodeId='+_this.codeId,
-//                      thumbnail:_this.logo,
-//                    });
-//                    SHARE(location.href);
-//                  }
-//                },
-//                function (err) {
-//                  _this.$refs.toast.show(err.content);
-//                }
-//              )
+              GET("website/member/view.jhtml").then(
+                function (res) {
+                  if (res.type=='success') {
+                    _this.xuid = res.data.id
+                    //设置分享标题
+                    utils.setConfig({
+                      title:_this.name,
+                      desc:_this.introduction,
+                      link:utils.getConfig().baseURL+'#/activate?id='+_this.couponId+'&xuid='+_this.xuid+'&couponCodeId='+_this.codeId,
+                      thumbnail:_this.logo,
+                    });
+                    SHARE(location.href);
+                  }
+                },
+                function (err) {
+                  _this.$refs.toast.show(err.content);
+                }
+              )
 
             }
           },
@@ -404,76 +393,67 @@
           )
         }
       },
-      pickTwo:function () {
-        this.$refs.toast.show('已被领取，不能再领了')
-      },
-      pick:function () {
-        if(this.logined == false){
-          return
-        }
-        if(!utils.isNull(this.couponCodeId)){
-        let _this =this;
-          POST('website/member/coupon/activate.jhtml?couponCodeId='+_this.couponCodeId+'&xuid='+this.urlXuid+'&id='+this.couponId).then(
-            function (data) {
-              if (data.type=="success") {
-                GET("website/member/card/weixin.jhtml?authorId="+_this.ownerId).then(
-                  function (res) {
-                    if (res.type=='success') {
-                      wx.closeWindow();
-//                     if(res.data.status == 'unclaimed'){
-////                       _this.openWeixinCard(res.data.cardId,res.data.cardExt.timestamp,res.data.cardExt.nonce_str,res.data.cardExt.signature)
-//                     }else{
-//                       wx.closeWindow();
-//                     }
-                    } else {
-                      _this.$refs.toast.show(res.content);
-                    }
-                  },function (err) {
-                    _this.$refs.toast.show(err.content);
-                  });
-              } else {
-                _this.Mes = data.content;
-                _this.$refs.prompting.show();
-              }
-            },
-            function (err) {
-              _this.Mes = err.content;
-              _this.$refs.prompting.show();
-            }
-          )
-        }else {
-          let _this =this;
-          POST('website/member/coupon/activate.jhtml?id='+_this.couponId).then(
-            function (data) {
-              if (data.type=="success") {
-                GET("website/member/card/weixin.jhtml?authorId="+_this.ownerId).then(
-                  function (res) {
-                    if (res.type=='success') {
-
-//                        _this.openWeixinCard(res.data.cardId,res.data.cardExt.timestamp,res.data.cardExt.nonce_str,res.data.cardExt.signature)
-//                      }else{
-                        wx.closeWindow();
-
-                    } else {
-                      _this.$refs.toast.show(res.content);
-                    }
-                  },function (err) {
-                    _this.$refs.toast.show(err.content);
-                  });
-              } else {
-                _this.Mes = data.content;
-                _this.$refs.prompting.show();
-              }
-            },
-            function (err) {
-              _this.Mes = err.content;
-              _this.$refs.prompting.show();
-            }
-          )
-        }
-      },
+//      pick:function () {
+//        if(this.logined == false){
+//          return
+//        }
+//        if(!utils.isNull(this.urlXuid) && this.urlXuid != this.xuid){
+//          let _this =this;
+//          POST('website/member/coupon/activate.jhtml?couponCodeId='+_this.couponCodeId+'&xuid='+this.urlXuid).then(
+//            function (data) {
+//              if (data.type=="success") {
+//                GET("website/member/card/weixin.jhtml?authorId="+_this.ownerId).then(
+//                  function (res) {
+//                    if (res.type=='success') {
+//                      wx.closeWindow();
+////                     if(res.data.status == 'unclaimed'){
+//////                       _this.openWeixinCard(res.data.cardId,res.data.cardExt.timestamp,res.data.cardExt.nonce_str,res.data.cardExt.signature)
+////                     }else{
+////                       wx.closeWindow();
+////                     }
+//                    } else {
+//                      _this.$refs.toast.show(res.content);
+//                    }
+//                  },function (err) {
+//                    _this.$refs.toast.show(err.content);
+//                  });
+//              } else {
+//                _this.Mes = data.content;
+//                _this.$refs.prompting.show();
+//              }
+//            },
+//            function (err) {
+//              _this.Mes = err.content;
+//              _this.$refs.prompting.show();
+//            }
+//          )
+//        }else {
+//          let _this =this;
+//          POST('website/member/coupon/activate.jhtml?id='+_this.couponId).then(
+//            function (data) {
+//              if (data.type=="success") {
+//                GET("website/member/card/weixin.jhtml?authorId="+_this.ownerId).then(
+//                  function (res) {
+//                    if (res.type=='success') {
+//                        wx.closeWindow();
+//                    } else {
+//                      _this.$refs.toast.show(res.content);
+//                    }
+//                  },function (err) {
+//                    _this.$refs.toast.show(err.content);
+//                  });
+//              } else {
+//                _this.Mes = data.content;
+//                _this.$refs.prompting.show();
+//              }
+//            },
+//            function (err) {
+//              _this.Mes = err.content;
+//              _this.$refs.prompting.show();
+//            }
+//          )
+//      },
       closeWindow:function () {
-//        this.$router.go(-1)
         this.$router.push({name:"memberIndex",query:{}});
       },
     }
