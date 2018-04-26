@@ -340,7 +340,6 @@
               _this.shopName =res.data.coupon.shopName;
               _this.introduction = res.data.coupon.introduction;
               _this.ownerId = res.data.coupon.ownerId
-              alert(_this.ownerId)
               GET("website/member/view.jhtml").then(
                 function (res) {
                   if (res.type=='success') {
