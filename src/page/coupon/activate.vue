@@ -415,11 +415,12 @@
                 GET("website/member/card/weixin.jhtml?authorId="+_this.ownerId).then(
                   function (res) {
                     if (res.type=='success') {
-                     if(res.data.status == 'unclaimed'){
-                       _this.openWeixinCard(res.data.cardId,res.data.cardExt.timestamp,res.data.cardExt.nonce_str,res.data.cardExt.signature)
-                     }else{
-                       wx.closeWindow();
-                     }
+                      wx.closeWindow();
+//                     if(res.data.status == 'unclaimed'){
+////                       _this.openWeixinCard(res.data.cardId,res.data.cardExt.timestamp,res.data.cardExt.nonce_str,res.data.cardExt.signature)
+//                     }else{
+//                       wx.closeWindow();
+//                     }
                     } else {
                       _this.$refs.toast.show(res.content);
                     }

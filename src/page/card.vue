@@ -129,14 +129,14 @@
     } ,
     created() {
       var _this = this;
+      this.code = utils.getUrlParameter("code");
+      this.id = utils.getUrlParameter("id");
+      this.xuid = utils.getUrlParameter("xuid");
       AUTH(location.href,function (authed) {
         _this.logined  = authed;
-      })
-      //会号规则 88100006165001042 实体卡  86100006165 商家码
-        this.code = utils.getUrlParameter("code");
-        this.id = utils.getUrlParameter("id");
-        this.xuid = utils.getUrlParameter("xuid");
+        //会号规则 88100006165001042 实体卡  86100006165 商家码
         this.load();
+      })
     },
     methods:{
       loadTop:function() { //组件提供的下拉触发方法
