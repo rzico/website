@@ -54,6 +54,7 @@ const T1004 = resolve => require(['../page/t1004'], resolve)
 const T1005 = resolve => require(['../page/t1005'], resolve)
 const T1006 = resolve => require(['../page/t1006'], resolve)
 const T1007 = resolve => require(['../page/t1007'], resolve)
+const T1008 = resolve => require(['../page/t1008'], resolve)
 const goodsList = resolve => require(['../page/goods/list'], resolve)
 const C1003goodsList = resolve => require(['../page/c1003/goodsList'], resolve)
 const C1003orderList = resolve => require(['../page/c1003/orderList'], resolve)
@@ -140,6 +141,12 @@ var router = new Router({
       name: 't1007',
       meta: {requireAuth:true},
       component: T1007
+    },
+    {
+      path: '/t1008',
+      name: 't1008',
+      meta: {requireAuth:true},
+      component: T1008
     },
     {
       path: '/c1001',

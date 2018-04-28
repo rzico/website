@@ -1,18 +1,13 @@
 <template>
   <div @touchmove="onscroll" offset-accuracy="0">
     <div class="slideIn"  >
-      <download_bar :isShow="downloadShow" :authorId="watchArticle.member.id" @closeDownload="closeDownload"></download_bar>
-      <div class="article" :class="[downloadShow ? '':'noMt']">
-        <!--<div class="bg">-->
-        <!--</div>-->
-        <div class="main">
-          <article_meta :article="watchArticle"></article_meta>
-          <music :musicData="watchMusicData" @judgeMusic="judgeMusic" ref="musicTemplete" :downloadShow="downloadShow"></music>
+      <div class="root t1008"  data-mask-id="199a3fb6">
+        <div class="mopian_bg"></div>
+        <download_bar :isShow="downloadShow" templateId=1002 :authorId="watchArticle.member.id" @closeDownload="closeDownload"></download_bar>
+        <music :musicData="watchMusicData" @judgeMusic="judgeMusic" ref="musicTemplete" :downloadShow="downloadShow"></music>
+        <article_meta :article="watchArticle"></article_meta>
           <article_content @buyNow="buyNow"  :templates="watchTemplates" :htmlStr="htmlStr"></article_content>
-          <!--<vote  :article="watchArticle"></vote>-->
-          <reward ref="reward" :article="watchArticle" @showDialog="showRewardDialog"></reward>
           <report  :article="watchArticle.hits"></report>
-          <coupon ref="coupon"></coupon>
           <auther ref="auther" :article="watchArticle"></auther>
           <review ref="review" :article="watchArticle"></review>
           <recommend ref="recommend" v-if="isPublish" :article="watchArticle" @go="fetchData"></recommend>
@@ -20,40 +15,29 @@
           <rewardDialog  ref="rwd"  @rewardNumber="rewardNumber"></rewardDialog>
           <payment  ref="pay" @notify="onPayNotify"></payment>
           <buyGoods  ref="buy" @notify="onPayNotify"></buyGoods>
-        </div>
       </div>
     </div>
-    <!--<weui-dialog ref="dialog" type="confirm" title="免密支付" confirmButton="确认支付" cancelButton="取消"-->
-    <!--@weui-dialog-confirm="activate()"-->
-    <!--@weui-dialog-cancel="closeConfirm()" style="z-index: 300000000111">-->
-    <!--<div >-->
-    <!--<p style="text-align: center;width: 100%;font-size: 13px;color: #444">{{payWay}}</p>-->
-    <!--</div>-->
-    <!--<div >-->
-    <!--<p style="text-align: center;width: 100%;font-size: 25px;color: #000">¥{{payPrice}}</p>-->
-    <!--</div>-->
-    <!--</weui-dialog>-->
     <Toast ref="toast"></Toast>
   </div>
 </template>
 <style scoped>
-  @import '../less/t1001.less';
+  @import '../less/t1008.less';
 </style>
 <script>
   import {Loadmore} from 'mint-ui';
   import { POST,GET,AUTH,SHARE} from '../assets/fetch.js';
   import utils from '../assets/utils.js';
   import download_bar from './article/download_bar.vue';
-  import article_meta from './article/meta.vue';
-  import music from './article/music.vue';
-  import article_content from './article/content.vue';
+  import article_meta from './article/t1008/meta.vue';
+  import music from './article/t1008/music.vue';
+  import article_content from './article/t1008/content.vue';
   import vote from './article/vote.vue';
   import reward from './article/reward.vue';
-  import report from './article/report.vue';
+  import report from './article/t1008/report.vue';
   import coupon from './article/coupon.vue';
-  import auther from './article/auther.vue';
-  import recommend from './article/recommend.vue';
-  import review from './article/review.vue';
+  import auther from './article/t1008/auther.vue';
+  import recommend from './article/t1008/recommend.vue';
+  import review from './article/t1008/review.vue';
   import ad from './article/ad.vue';
   import rewardDialog from './article/rewardDialog.vue';
   import Toast from '../widget/toast.vue';
@@ -70,7 +54,7 @@
       watchTemplates: this.templates,
       watchMusicData: this.musicData,
       watchArticle: this.article,
-      downloadShow:true,
+      downloadShow:false,
       musicPlay:0,
       noWeex:true,
       isPublish:true,
@@ -121,7 +105,7 @@
     },
     created() {
       var _this = this;
-      AUTH("",function (authed)  {
+      AUTH("",function (authed) {
         _this.logined  = authed;
       })
       if(utils.isweex()==true){
@@ -158,7 +142,7 @@
             if (response.type=="success") {
               _this.watchArticle = response.data;
               _this.isPublish = response.data.isPublish;
-              _this.$refs.coupon.open(response.data.member.id);
+//              _this.$refs.coupon.open(response.data.member.id);
               //设置分享标题
               utils.setConfig({
                 title:_this.watchArticle.title,
@@ -308,17 +292,16 @@
       },
       buyNow:function (id) {
         if(utils.isweex()==true){
-//          location.href =  'mopian://buyGood?id=' + id;
           this.$refs.toast.show('请分享到微信进行购买');
           return;
         }
 
         let _this = this;
         AUTH(location.href,function (authed) {
-            if (authed) {
-              _this.$refs.buy.show(id,_this.watchArticle.id);
-            }
-          })
+          if (authed) {
+            _this.$refs.buy.show(id,_this.watchArticle.id);
+          }
+        })
       },
 //      payConfirm:function (payInfo) {
 //        alert(payInfo);
