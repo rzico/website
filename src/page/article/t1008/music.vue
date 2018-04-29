@@ -1,4 +1,5 @@
 <template>
+  <!--v-if="hasMusic()"-->
   <div class="music-icon" :class="[isPlay ? 'music-icon-animation' : '']">
     <!--<audio id="audio" class="audio" autoplay preload="auto" loop="loop" :src="'http://cdn.rzico.com/weex/resources/music/'+musicData.id+'.mp3'"-->
     <!--style="display: none;"></audio>-->
@@ -17,14 +18,13 @@
     z-index: 1;
     right: 19px;
     /*rgba(206, 208, 175, 0.8)*/
-   background-color: rgba(206, 208, 175, 0.8);
+    background-color: rgba(206, 208, 175, 0.8);
     border-radius: 50%;
   }
  .t1008 .music-icon-animation{
     -webkit-animation: musicIcon 2s infinite linear;
     animation: musicIcon 2s infinite linear;
   }
-
  .t1008 .top19 {
     top: 19px !important;
   }
@@ -35,7 +35,6 @@
     font-size: 32px;
     line-height: 100%;
   }
-
   /*定义动画*/
   @-webkit-keyframes musicIcon { /*兼容性写法。spin是关键帧的动画名称*/
     from { /*动画起始状态*/

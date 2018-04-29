@@ -13,7 +13,7 @@
             class="images shadow img-border preview-img"  @click="imgPreview(template.original,templatesList.previewList)" ref="imgRef"/>
         </div>
         <!--判断类型是否小视频-->
-        <div class="img-box positionRelative" v-if="template.mediaType == 'video'" >
+        <div class="img-box positionRelative" v-if="template.mediaType == 'video'">
           <video :src="template.original"  controls="controls" style="background-color: black"  playsinline webkit-playsinline="true" :poster="template.thumbnail"  width="100%" height="250"></video>
           <!--视频背景颜色。-->
           <!--<div class="positionAbsolute videoBg"></div>-->

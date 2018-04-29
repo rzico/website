@@ -18,6 +18,7 @@
     color: #fff;
   }
   .t1008 .time-read{
+    margin-top: 12px;
     color:#ced0ab;
   }
   .t1008 .cover{

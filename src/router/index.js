@@ -55,6 +55,14 @@ const T1005 = resolve => require(['../page/t1005'], resolve)
 const T1006 = resolve => require(['../page/t1006'], resolve)
 const T1007 = resolve => require(['../page/t1007'], resolve)
 const T1008 = resolve => require(['../page/t1008'], resolve)
+const T1009 = resolve => require(['../page/t1009'], resolve)
+const T1010 = resolve => require(['../page/t1010'], resolve)
+const T1011 = resolve => require(['../page/t1011'], resolve)
+const T1012 = resolve => require(['../page/t1012'], resolve)
+const T1013 = resolve => require(['../page/t1013'], resolve)
+const T1014 = resolve => require(['../page/t1014'], resolve)
+const T1015 = resolve => require(['../page/t1015'], resolve)
+const T1016 = resolve => require(['../page/t1016'], resolve)
 const goodsList = resolve => require(['../page/goods/list'], resolve)
 const C1003goodsList = resolve => require(['../page/c1003/goodsList'], resolve)
 const C1003orderList = resolve => require(['../page/c1003/orderList'], resolve)
@@ -147,6 +155,54 @@ var router = new Router({
       name: 't1008',
       meta: {requireAuth:true},
       component: T1008
+    },
+    {
+      path: '/t1009',
+      name: 't1009',
+      meta: {requireAuth:true},
+      component: T1009
+    },
+    {
+      path: '/t1010',
+      name: 't1010',
+      meta: {requireAuth:true},
+      component: T1010
+    },
+    {
+      path: '/t1011',
+      name: 't1011',
+      meta: {requireAuth:true},
+      component: T1011
+    },
+    {
+      path: '/t1012',
+      name: 't1012',
+      meta: {requireAuth:true},
+      component: T1012
+    },
+    {
+      path: '/t1013',
+      name: 't1013',
+      meta: {requireAuth:true},
+      component: T1013
+    },
+    {
+      path: '/t1014',
+      name: 't1014',
+      meta: {requireAuth:true},
+      component: T1014
+    },
+    {
+      path: '/t1015',
+      name: 't1015',
+      meta: {requireAuth:true},
+      component: T1015
+    },
+    {
+      path: '/t1016',
+      name: 't1016',
+      meta: {requireAuth:true},
+      component: T1016
     },
     {
       path: '/c1001',

@@ -37,7 +37,8 @@
   }
   .t1008 .recommend .title i {
     background-color: #DADBB8;
-    width: 3px;
+    width: 4px;
+    border-radius:4px;
     height: 100%;
   }
 

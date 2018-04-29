@@ -1,27 +1,27 @@
 <template>
   <div @touchmove="onscroll" offset-accuracy="0">
     <div class="slideIn"  >
-      <div class="root t1008"  data-mask-id="199a3fb6">
+      <div class="root t1008 t1012"  data-mask-id="199a3fb6">
         <div class="mopian_bg"></div>
         <download_bar :isShow="downloadShow" templateId=1002 :authorId="watchArticle.member.id" @closeDownload="closeDownload"></download_bar>
         <music :musicData="watchMusicData" @judgeMusic="judgeMusic" ref="musicTemplete" :downloadShow="downloadShow"></music>
         <article_meta :article="watchArticle"></article_meta>
-          <article_content @buyNow="buyNow"  :templates="watchTemplates" :htmlStr="htmlStr"></article_content>
-          <report  :article="watchArticle.hits"></report>
-          <auther ref="auther" :article="watchArticle"></auther>
-          <review ref="review" :article="watchArticle"></review>
-          <recommend ref="recommend" v-if="isPublish" :article="watchArticle" @go="fetchData"></recommend>
-          <ad v-if="noWeex" :article="watchArticle"></ad>
-          <rewardDialog  ref="rwd"  @rewardNumber="rewardNumber"></rewardDialog>
-          <payment  ref="pay" @notify="onPayNotify"></payment>
-          <buyGoods  ref="buy" @notify="onPayNotify"></buyGoods>
+        <article_content @buyNow="buyNow"  :templates="watchTemplates" :htmlStr="htmlStr"></article_content>
+        <report  :article="watchArticle.hits"></report>
+        <auther ref="auther" :article="watchArticle"></auther>
+        <review ref="review" :article="watchArticle"></review>
+        <recommend ref="recommend" v-if="isPublish" :article="watchArticle" @go="fetchData"></recommend>
+        <ad v-if="noWeex" :article="watchArticle"></ad>
+        <rewardDialog  ref="rwd"  @rewardNumber="rewardNumber"></rewardDialog>
+        <payment  ref="pay" @notify="onPayNotify"></payment>
+        <buyGoods  ref="buy" @notify="onPayNotify"></buyGoods>
       </div>
     </div>
     <Toast ref="toast"></Toast>
   </div>
 </template>
 <style scoped>
-  @import '../less/t1008.less';
+  @import '../less/t1012.less';
 </style>
 <script>
   import {Loadmore} from 'mint-ui';
