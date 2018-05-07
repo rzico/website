@@ -1,5 +1,5 @@
 <template>
-  <div class="article_meta">
+  <div class="article_meta" >
     <h1 class="meta_title">{{article.title}}</h1>
     <div class="meta clearfix">
       <span>{{article.createDate | datetimefmt}}</span>
@@ -14,7 +14,6 @@
   export default {
       data() {
             return {
-                template:"1002",
             }
         },
       filters: {
@@ -23,15 +22,19 @@
         }
       },
       props: {
-        article: { default: function () {
-           return {hits:0,title:"样例",nickName:"author",createDate:null}
-        }
-        }
+        article: {
+          default: function () {
+            return {hits: 0, title: "样例", nickName: "author", createDate: null}
+          }
+        },
+      },
+      created(){
+        console.log(this.template);
       },
        methods:{
          jump:function (url,id) {
            if(utils.isweex()){
-             location.href = 'yundian://topic?id=' + id;
+             location.href = utils.setDummyUrl('topic',id);
            }else{
              this.$router.push(utils.router(url));
            }

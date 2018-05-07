@@ -16,7 +16,7 @@
         <div class="video-warp">
           <div id="articleNum">{{count}}</div>
           <p>篇文章使用{{conf.siteName}}创作</p>
-          <button class="only-mobile baseBgColor" @click="download()">立即制作</button>
+          <button class="only-mobile baseBgColor" @click="download()">注册下载</button>
         </div>
       </div>
     </div>
@@ -36,7 +36,7 @@
     data() {
       return {
         conf:{},
-        count:18304,
+        count:128304,
         welcome:"./static/welcome.jpg"
       }
     },
@@ -58,7 +58,6 @@
         this.$refs.loadmore.onBottomLoaded();// 固定方法，查询完要调用一次，用于重新定位
       },
       download:function () {
-          alert(utils.datetimefmt(new Date().getTime()));
         AUTH(utils.getConfig().appUrl,function (authed) {
             if (authed) {
                location.href = utils.getConfig().appUrl;

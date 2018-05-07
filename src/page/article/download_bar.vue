@@ -1,5 +1,5 @@
 <template>
-    <div id="download_bar" class="download_bar" v-if="isShow">
+    <div id="download_bar" class="download_bar" v-if="isShow" :class="[templateId == 1002 ? 't1002_downLoad_bottom0' : '']">
         <div class="title">
           <img class="logo" :src="config.logo" :alt="config.siteName">
             <p>
@@ -23,7 +23,9 @@
        }
      },
     props: {
-      isShow: {default:true}
+      isShow: {default:true},
+      authorId:{default:""},
+      templateId:{default : 1001}
     },
      created() {
        this.config = utils.getConfig();
@@ -32,6 +34,9 @@
        download:function () {
          var vars  =  utils.router(location.href);
          vars.name ="index";
+         if (utils.isNull(vars.query.xuid)) {
+             vars.query.xuid = this.authorId;
+         }
          this.$router.push(vars);
        },
        close:function () {

@@ -18,22 +18,26 @@
 
       </div>
       </v-loadmore>
-      <Dialog ref="dialog" type="confirm" title="请输入会员资料" confirmButton="激活" cancelButton="取消"
-              @weui-dialog-confirm="activate()"
-              @weui-dialog-cancel="close()">
-        <div class="weui_cell">
-          <cellInput type="tel" :placeholder="'请输入手机号'" :value.sync="mobile"></cellInput>
-        </div>
-        <div class="weui_cell">
-          <cellInput type="text" :placeholder="'请输入会员姓名'" :value.sync="name"></cellInput>
-        </div>
-      </Dialog>
-      <Toast ref="toast"></Toast>
-      <div class="footer" @click="openWeixinCard()">
-        <span>--微信卡包--</span>
-      </div>
     </div>
-
+    <weui-dialog ref="dialog" type="confirm" title="请输入会员资料" confirmButton="激活" cancelButton="取消"
+                 @weui-dialog-confirm="activate()"
+                 @weui-dialog-cancel="close()">
+      <div class="weui_cell">
+        <input class="weui_input" type="tel" :placeholder="'请输入手机号'" v-model="mob">
+      </div>
+      <div class="weui_cell">
+        <input class="weui_input" type="text" :placeholder="'请输入会员姓名'" v-model="name">
+      </div>
+    </weui-dialog>
+    <Toast ref="toast"></Toast>
+    <!--<div class="footer" @click="openWeixinCard()" v-if="isCardExt">-->
+    <!--<span>&#45;&#45;微信卡包&#45;&#45;</span>-->
+    <!--</div>-->
+    <weui-dialog ref="error" type="alert" title="出错了"
+                 confirm-button="关闭"
+                 @weui-dialog-confirm="closeWindow()">
+      {{errMsg}}
+    </weui-dialog>
   </div>
 </template>
 <style scoped>
@@ -97,19 +101,21 @@
     data() {
       return {
          id:"",
+         xuid:"",
          code:"",
          cardId:"",
          cardExt:{},
-         mobile:"",
+         mob:"",
          name:"",
+         errMsg:"",
          payCode:"163231 84933",
-         card:{id:0,status:'none',name:"(样例)张三的店",logo:"./static/logo.png",background:"./static/card.png",color:"c8",balance:2847,code:"8800016323184933"}
+         card:{id:0,status:'none',name:"样例",logo:"./static/logo.png",background:"./static/card.png",color:"c8",balance:0,code:"8800000000000000"}
       }
     },
     components: {
       'v-loadmore':Loadmore,
       Toast,
-      Dialog,
+      'weui-dialog':Dialog,
       "cellInput":CellInput
     },
     filters:{
@@ -123,13 +129,14 @@
     } ,
     created() {
       var _this = this;
+      this.code = utils.getUrlParameter("code");
+      this.id = utils.getUrlParameter("id");
+      this.xuid = utils.getUrlParameter("xuid");
       AUTH(location.href,function (authed) {
         _this.logined  = authed;
+        //会号规则 88100006165001042 实体卡  86100006165 商家码
+        _this.load();
       })
-      //会号规则 88100006165001042 实体卡  86100006165 商家码
-        this.code = utils.getUrlParameter("code");
-        this.id = utils.getUrlParameter("id");
-        this.load();
     },
     methods:{
       loadTop:function() { //组件提供的下拉触发方法
@@ -139,12 +146,12 @@
       loadBottom:function() {
         this.$refs.loadmore.onBottomLoaded();// 固定方法，查询完要调用一次，用于重新定位
       },
-      load:function () {
+      load:function (flag) {
           var _this = this;
           GET("website/member/card/view.jhtml?id="+_this.id+"&code="+_this.code).then(
               function (res) {
                 if (res.type=='success') {
-                  _this.mobile = res.data.mobile;
+                  _this.mob = res.data.mobile;
                   _this.name = res.data.name;
                   _this.payCode = 'http://pan.baidu.com/share/qrcode?w=200&h=200&url='+res.data.payCode;
                   _this.card = res.data.card;
@@ -153,14 +160,24 @@
                   if (utils.isNull(_this.card.background)) {
                     _this.card.background = "./static/card.png"
                   }
+                  if (_this.card.status!='none') {
+                      if (utils.isNull(flag)) {
+                        _this.openWeixinCard();
+                      }
+                  }
                 } else {
-                  _this.$refs.toast.show(res.content);
+                  _this.errMsg = res.content;
+                  _this.$refs.error.show();
                 }
               },function (err) {
-                _this.$refs.toast.show(err.content);
+                _this.errMsg = err.content;
+                _this.$refs.error.show();
             }
           )
       },
+//      isCardExt:function () {
+//         return !utils.isNull(_this.cardExt);
+//      },
       showQrcode:function () {
          return this.card.status!='none';
       },
@@ -169,6 +186,9 @@
       },
       close:function () {
         this.$refs.dialog.close();
+      },
+      closeWindow:function () {
+         wx.closeWindow();
       },
       btn:function () {
          if (this.card.status=='none') {
@@ -213,16 +233,19 @@
       },
       activate:function () {
         var _this = this;
-        POST("website/member/card/activate.jhtml?cardId="+_this.card.id+"&mobile="+_this.mobile+"&name="+encodeURIComponent(_this.name)).then(
+        if (utils.isNull(_this.mob)) {
+          _this.$refs.toast.show("会员手机号不能为空");
+          return;
+        }
+        if (utils.isNull(_this.name)) {
+          _this.$refs.toast.show("会员姓名不能为空");
+          return;
+        }
+        POST("website/member/card/activate.jhtml?cardId="+_this.card.id+"&mobile="+_this.mob+"&name="+encodeURIComponent(_this.name)+"&xuid="+_this.xuid).then(
           function (res) {
             if (res.type=='success') {
               _this.close();
-              _this.card = res.data.card;
-              _this.mobile = res.data.mobile;
-              _this.payCode = res.data.payCode;
-              _this.name = res.data.name;
-              _this.cardId = res.data.cardId;
-              _this.cardExt = res.data.cardExt;
+              _this.load("refresh");
               _this.openWeixinCard();
             } else {
               _this.close();

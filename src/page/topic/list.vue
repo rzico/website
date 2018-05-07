@@ -2,8 +2,7 @@
   <div class="list">
     <div class="item" v-for="article in pageList">
         <a class="article-a" data-id="w1ie0av" target="_blank" href="javascript:;" style="cursor:pointer;" @click="jump(article.url)">
-
-          <div :style="'background-image:url('+article.thumbnail+');'" class="img bg"></div>
+          <div :style="'background-image:url('+thumbnail(article.thumbnail,114,80)+');'" class="img bg imgBg"></div>
         </a>
         <div class="info" @click="jump(article.url)">
           <a class="article-a" data-id="w1ie0av" target="_blank" href="javascript:;" style="cursor:pointer;">
@@ -40,10 +39,11 @@
       }
     },
     props:{
-      idx:{default:0}
+      idx:{default:0},
+      id:{default:0}
     },
     mounted() {
-      this.loadTop(0);
+
     },
     methods:{
       loadTop:function(idx) { //组件提供的下拉触发方法
@@ -52,16 +52,18 @@
         //下拉加载
         this.load(idx);
       },
+      thumbnail:function (url,w,h) {
+        return  utils.thumbnail(url,w,h);
+      },
       loadBottom:function() {
         console.log("loadBottom");
         // 上拉加载
         this.load(this.idx);// 上拉触发的分页查询
       },
-      load:function (idx) {
+      load:function () {
         var _this = this;
-        let id = utils.getUrlParameter("id");
-        _this.idx = idx;
-        GET('website/article/list.jhtml?id='+id+"&articleCatalogId="+idx+"&pageStart="+_this.pageStart+"&pageSize="+_this.pageSize).then(
+
+        GET('website/article/list.jhtml?authorId='+_this.id+"&isTop=false&articleCatalogId="+_this.idx+"&pageStart="+_this.pageStart+"&pageSize="+_this.pageSize).then(
           function (response) {
             if (response.type=="success") {
               if (_this.pageStart==0) {

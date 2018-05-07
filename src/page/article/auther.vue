@@ -1,14 +1,14 @@
 <template>
-  <div class="auther" @click="jump(article.member.url,article.member.id)">
-    <div class="autherwrap" style="min-height: 96px;">
+  <div class="auther"  :class="[articleTempId == 1003 ? 't1003_Bg_bottom' : '',articleTempId == 1002 ? 't1002_Bg_bottom' : '']" @click="jump(article.member.url,article.member.id)">
+    <div class="autherwrap" style="min-height: 96px;" :class="[articleTempId == 1003 ? 't1003_Bg_up' : '',articleTempId == 1002 ? 't1002_Bg_up' : '']">
       <a class="toappuser">
         <div class="autherHead">
           <img v-bind:src="article.member.logo | watchImg"/>
         </div>
         <div class="userMessage">
-          <p class="wusername" style="overflow: hidden">
-            {{article.member.nickName}}                </p>
-          <p class="wsign">
+          <p class="wusername" style="overflow: hidden"  :class="[templateId == 1002 ? 't1002_text_color_white' : '']">
+            {{article.member.nickName}}</p>
+          <p class="wsign" :class="[templateId == 1002 ? 't1002_hits_color_primary' : '']">
             {{article.member.autograph==null?"留下签名有助于提升知名度":article.member.autograph}}  </p>
         </div>
         <img v-if="article.member.qrcode != null" :src='article.member.qrcode'  alt="" class="qrcode">
@@ -26,13 +26,15 @@
       return{
         twoSecond:1,
         hadLoad:0,
+        articleTempId:this.templateId,
       }
     },
     props: {
       article: { default: function () {
         return {member:{logo:"",autograph:"",nickName:""}}
-      }
-      }
+        }
+      },
+      templateId:{default:1001}
     },
     filters:{
 //        用原图去阿里云获取缩略图
@@ -43,9 +45,9 @@
     methods:{
       jump:function (url,id) {
         if(utils.isweex()){
-            location.href = 'yundian://topic?id=' + id;
+          location.href = utils.setDummyUrl('topic',id);
         }else{
-            _this.$router.push(utils.router(url));
+          this.$router.push(utils.router(url));
         }
       },
 //      jump:function (url,id) {

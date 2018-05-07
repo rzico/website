@@ -1,0 +1,183 @@
+/*<!--  1.20晚上添加-->*/
+.t1004 .blackBg{
+  background-color: #000;
+}
+.t1004 .scaleAnimation {
+  -webkit-animation: doSscale 4s linear forwards 0s 1;
+  animation: doSscale 4s linear forwards 0s 1;
+}
+
+
+@-webkit-keyframes doSscale {
+  0% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    /*opacity: 1;*/
+  }
+  100% {
+    -webkit-transform: scale(1.2);
+    transform: scale(1.2);
+    /*opacity: 0; */
+  }
+}
+
+@-webkit-keyframes doSscale {
+  0% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    /*opacity: 1;*/
+  }
+  100% {
+    -webkit-transform: scale(1.2);
+    transform: scale(1.2);
+    /*opacity: 0; */
+  }
+}
+.t1004 .setOpacity{
+  opacity: 1 !important;
+}
+.t1004 .setOpac-Zindex{
+  opacity: 1 !important;
+  z-index: 9999;
+}
+/*    1.20晚上添加    */
+
+
+.t1004 .ani-container {
+  height: 100%;
+  position: relative; }
+.t1004 .ani-container .title {
+  font-size: 20px;
+  line-height: 25px;
+  color: #fff;
+  text-align: center;
+  margin: 0 35px;
+  word-wrap: break-word;
+  word-break: break-all; }
+.t1004 .ani-container .author {
+  font-size: 15px;
+  line-height: 20px;
+  color: #fff;
+  text-align: center;
+  opacity: 0;
+  margin: 39px 35px 0;
+  word-wrap: break-word;
+  word-break: break-all; }
+.t1004 .ani-container .tail-avatar {
+  width: 75px;
+  height: 75px;
+  margin: 0 auto;
+  border-radius: 50%;
+  background-size: 100%;
+  opacity: 0; }
+.t1004 .ani-container .tail-author {
+  font-size: 15px;
+  line-height: 20px;
+  color: #fff;
+  text-align: center;
+  opacity: 0;
+  margin: 24px 47px 0;
+  word-wrap: break-word;
+  word-break: break-all; }
+.t1004 .ani-container .flex-outer {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 100%;
+  display: -ms-flexbox;
+  display: flex;
+  display: -webkit-box;
+  display: -webkit-flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column; }
+.t1004 .ani-container .img-outer {
+  overflow: hidden; }
+.t1004 .ani-container .img-outer.rect .img-box {
+  padding-bottom: 66.666%; }
+.t1004 .ani-container .img-outer.square .img-box {
+  padding-bottom: 100%; }
+.t1004 .ani-container .img-outer.full, .ani-container .img-outer.full .img-box {
+  height: 100%; }
+.t1004 .ani-container .img-box {
+  padding-bottom: 66.666%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 50% 50%;
+  opacity: 0; }
+.t1004 .ani-container p.img-caption {
+  position: absolute;
+  width: 100%;
+  //bottom: 90px;
+  bottom: 190px;
+  text-align: center;
+  color: #fff;
+  font-size: 17px;
+  line-height: 22px;
+  word-break: break-all;
+  text-shadow: 2px 0 2px #000;
+  padding: 0 19px;
+  opacity: 0; }
+.t1004 .ani-container .replay-btn {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 12px;
+  margin: 24px auto 0;
+  padding: 7px 11px;
+  opacity: 0;
+  text-align: center; }
+.t1004 .ani-container .replay-btn .iconfont {
+  display: block;
+  text-align: center;
+  margin-bottom: 6px;
+  font-size: 44px; }
+
+.t1004 .t1004_bg1{
+  background-image: url("../../../img/t1004/1004_bg1.jpg");
+}
+.t1004 .t1004_bg2{
+  background-image: url("../../../img/t1004/1004_bg2.jpg");
+}
+.t1004 .t1004_bg4{
+  background-image: url("../../../img/t1004/1004_bg4.jpg");
+}
+
+.t1004 .img-outer {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 100%;
+  display: -ms-flexbox;
+  display: flex;
+  display: -webkit-box;
+  display: -webkit-flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  //background: url("https://ss2.meipian.me/test/theme/v2/img/8083/bg1.jpg");
+  background-size: cover;
+  background-position: 50% 50%;
+  opacity: 0;
+  padding: 0 39px; }
+.t1004 .img-outer .img-box {
+  opacity: 1;
+  -webkit-box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7), 0 0 0 10px #fff inset;
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7), 0 0 0 10px #fff inset; }
+.t1004 .img-outer.full {
+  height: auto !important; }
+.t1004 .img-outer.full .img-box {
+  height: auto !important;
+  padding-bottom: 150%; }

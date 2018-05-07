@@ -2,15 +2,21 @@
   overflow: hidden;
 }
 .article .content .section {
-  margin: 24px 0;
   width: auto;
   //padding: 0 15px;
 }
- .article .content .section .text-box{
-   width: 100%;
-   padding: 0 15px;
-   //text-indent: 2em;
- }
+//图片无缝隙
+.margin-section{
+  margin:0;
+}
+.article .content .nosection{
+  width: auto;
+}
+.article .content .section .text-box{
+  width: 100%;
+  padding: 4px 15px;
+  //text-indent: 2em;
+}
 .article .content .section:first-child {
   margin-top: 0 !important;
 }
@@ -29,8 +35,109 @@
 
 .article .content .section .images {
   display: block;
-}
-.article .content .section img {
+  //图片无缝隙
   margin-top: 4px;
   width: 100%;
+}
+.article .content .section img {
+  //margin-top: 4px;
+  //width: 100%;
+}
+
+//商品
+
+.sub_title{
+  font-size: 15px;
+  line-height: 16px;
+  color: #999;
+}
+.linesCtrl{
+  overflow : hidden;
+}
+.bottomInfo{
+  padding-right: 40px;
+}
+.infoBox{
+  padding-left: 10px;
+  width:80%;
+}
+.goodsPrice{
+  color: coral;
+  font-size: 20px;
+  //text-align: right;
+  //padding-right: 5px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.doBuy{
+  font-size: 12px;
+  line-height: 19px;
+  border: 1px solid red;
+  color: red;
+  padding:1px 2px;
+  border-radius: 5px;
+}
+.goodsLineBox{
+  width:100%;
+  padding: 0 15px;
+}
+.goodsLineInside{
+  display: flex;
+  padding: 10px;
+  flex-direction: row;
+  width: 100%;
+  margin-bottom: 24px;
+  margin-top: 24px;
+}
+
+.boderStyle{
+  border:1px solid #eee;
+}
+.goodsImg{
+  //border-radius: 5px;
+  //height: 160px;
+  //width: 160px;
+  width:20%;
+}
+.flex1{
+  display: flex;
+  flex:1;
+}
+.flex2{
+  display: flex;
+  flex:2;
+}
+.title {
+  font-size: 17px;
+  color: #000;
+  line-height: 24px;
+}
+
+.sub_title {
+  font-size: 15px;
+  color: #999;
+}
+.fz28{
+  font-size: 13px;
+}
+.flex-end{
+  display: flex;
+  align-items: flex-end;
+}
+.positionAbsolute{
+  position: absolute;
+}
+.positionRelative{
+  position: relative;
+}
+.videoPlayIcon{
+  font-size: 60px;
+  color: white;
+  line-height: 60px;
+  position: absolute;left: 50%;top: 50%;margin-top: -30px;margin-left: -30px;
+}
+.article .videoBg{
+  top: 0;left: 0;right: 0;background-color: black;height: 250px;z-index: -1;
 }
