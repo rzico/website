@@ -131,6 +131,9 @@
       let id = utils.getUrlParameter("id");
       this.go(id);
     },
+//    beforeDestory(){
+//      this.$refs.musicTemplete.stopMuisc();
+//    },
     methods: {
       loadTop:function() { //组件提供的下拉触发方法
         this.$refs.loadmore.onTopLoaded();// 固定方法，查询完要调用一次，用于重新定位
@@ -147,7 +150,7 @@
       fetchData:function (id) {
         this.go(id);
         this.$refs.review.open(id);
-        this.$refs.cardImg.open(id);
+//        this.$refs.cardImg.open(id);
         document.documentElement.scrollTop = 0;
         document.body.scrollTop = 0;
       },

@@ -1,3 +1,4 @@
+<template>
 <div class="cover">
   <div class="cloud-wrapper">
     <div class="cloud1">
@@ -15,28 +16,71 @@
     <div class="header">
       <div class="img-container">
         <div class="avatar">
-          <img src="https://ss2.meipian.me/users/12119279/17fed1c168af4363ab485aef9b5c74b8.jpg" alt="">
+          <img :src="article.member.logo" alt="">
         </div>
       </div>
     </div>
     <div class="article-meta">
       <div class="well">
-        <p class="nickname" data-author-id="12119279" data-author-url="https://www.meipian.cn/c/12119279">
-                        <span>
-                            <span class="nigname">柯志杰了他他</span>
+        <p class="nickname" >
+                        <span  @click="jump(article.member.url,article.member.id)">
+                            <span class="nigname">{{article.author}}</span>
                             <span class="focus__root"><div class="focus"><a class="clearfix">关注</a></div></span>
                         </span>
         </p>
       </div>
     </div>
     <div class="article-info">
-      <h1 class="title">最美微笑</h1>
+      <h1 class="title">{{article.title}}</h1>
       <hr class="line">
       <p class="time-read">
-        <span>2018.04.24</span>
-        <span>阅读 <span class="read-count">40</span></span>
+        <span>{{article.createDate | datetimefmt}}</span>
+        <span>阅读 <span class="read-count">{{article.hits}}</span></span>
       </p>
       <div class="sign__root"><div class="sign"></div></div>
     </div>
   </div>
 </div>
+</template>
+<script>
+  import utils from '../../../assets/utils.js';
+  export default {
+    data() {
+      return {
+      }
+    },
+    filters: {
+      datetimefmt(val) {
+        return utils.datetimeslash(val,1);
+      }
+    },
+    props: {
+//        article: { default: function () {
+//          return ''
+//        }
+//        },
+      article: {
+        default: function () {
+//           配合v-if控制渲染 title应该全设置为   点击设置标题  ，但是涉及太多模版，暂使用样例
+          return {hits: 0, title: "样例", nickName: "author", createDate: null}
+        }
+      },
+    },
+    created(){
+//        console.log(this.template);
+    },
+    methods:{
+      hasArticle:function () {
+//           alert(JSON.stringify(this.article));
+        return true;
+      },
+      jump:function (url,id) {
+        if(utils.isweex()){
+          location.href = utils.setDummyUrl('topic',id);
+        }else{
+          this.$router.push(utils.router(url));
+        }
+      }
+    }
+  }
+</script>

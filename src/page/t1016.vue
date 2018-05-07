@@ -1,31 +1,22 @@
 <template>
-  <div class="main-box">
-    <div class="main-box">
-      <div class="root meipian" data-mask-id="199a3fb6">
-        <article_cover></article_cover>
-        <div class="music-icon__root"><div play="" class="music-icon"><audio id="audio" controls="controls" loop="loop" src="https://ss2.meipian.me/music/LingErDingDang.m4a" style="display: none;"></audio> <i class="iconfont icon-music"></i></div></div>
-        <div class="content_foot">
-          <div class="mp-content">
-            <div class="well content-container"><div class="section"><div class="img-box offline-preview xiushi1"><img show-img="https://ss2.meipian.me/users/12119279/6b1ea1a5ae104903ba3121082984e623.jpg?meipian-raw/bucket/ivwen/key/dXNlcnMvMTIxMTkyNzkvNmIxZWExYTVhZTEwNDkwM2JhMzEyMTA4Mjk4NGU2MjMuanBn/sign/4589a42e8ba9dea7c989652d39e86fc0.jpg" src="https://ss2.meipian.me/users/12119279/6b1ea1a5ae104903ba3121082984e623.jpg-mobile"></div> <div class="text"><h3>哪里来的图</h3></div></div> <div class="section"><div class="img-box offline-preview xiushi2"><img show-img="https://ss2.meipian.me/users/12119279/17aedff258bc4078bd7876e5345e4e74.jpg?meipian-raw/bucket/ivwen/key/dXNlcnMvMTIxMTkyNzkvMTdhZWRmZjI1OGJjNDA3OGJkNzg3NmU1MzQ1ZTRlNzQuanBn/sign/ca560812f36dd1b2e89045a470329f06.jpg" src="https://ss2.meipian.me/users/12119279/17aedff258bc4078bd7876e5345e4e74.jpg-mobile"></div></div> <div class="section"><div class="img-box offline-preview xiushi1"><img show-img="https://ss2.meipian.me/users/12119279/fe7764816f48446a8e796796eae88e4a.jpg?meipian-raw/bucket/ivwen/key/dXNlcnMvMTIxMTkyNzkvZmU3NzY0ODE2ZjQ4NDQ2YThlNzk2Nzk2ZWFlODhlNGEuanBn/sign/f7289aec2d72f950510b313f23ff7082.jpg" src="https://ss2.meipian.me/users/12119279/fe7764816f48446a8e796796eae88e4a.jpg-mobile"></div> <div class="text"><h3>手机上的图</h3></div></div> <div class="section"><div class="img-box offline-preview xiushi2"><img show-img="https://ss2.meipian.me/users/12119279/13301d38b6234551a27f69619a4c08c8.jpg?meipian-raw/bucket/ivwen/key/dXNlcnMvMTIxMTkyNzkvMTMzMDFkMzhiNjIzNDU1MWEyN2Y2OTYxOWE0YzA4YzguanBn/sign/aca646d3230eae55aba4ea97c7426533.jpg" src="https://ss2.meipian.me/users/12119279/13301d38b6234551a27f69619a4c08c8.jpg-mobile"></div> <div class="text"><h3>www菩提log秃鹫</h3></div></div> <div class="section"><div class="img-box offline-preview xiushi1"><img show-img="https://ss2.meipian.me/users/12119279/0f68dda15daa4267bd735c5a3be31ec3.jpg?meipian-raw/bucket/ivwen/key/dXNlcnMvMTIxMTkyNzkvMGY2OGRkYTE1ZGFhNDI2N2JkNzM1YzVhM2JlMzFlYzMuanBn/sign/e1cd50b3b8d53cec6a9ba6686f8513e1.jpg" src="https://ss2.meipian.me/users/12119279/0f68dda15daa4267bd735c5a3be31ec3.jpg-mobile"></div></div> <div class="section"><div class="img-box offline-preview xiushi2"><img show-img="https://ss2.meipian.me/users/12119279/fa41b5dc11524ab396fa9299e0f68ea6.jpg?meipian-raw/bucket/ivwen/key/dXNlcnMvMTIxMTkyNzkvZmE0MWI1ZGMxMTUyNGFiMzk2ZmE5Mjk5ZTBmNjhlYTYuanBn/sign/9b9a462b04aabe159428751a1204b823.jpg" src="https://ss2.meipian.me/users/12119279/fa41b5dc11524ab396fa9299e0f68ea6.jpg-mobile"></div></div> <div class="section"><div class="img-box offline-preview xiushi1"><img show-img="https://ss2.meipian.me/users/12119279/25bf0b3744a645f883b59f5e83b56c9b.jpg?meipian-raw/bucket/ivwen/key/dXNlcnMvMTIxMTkyNzkvMjViZjBiMzc0NGE2NDVmODgzYjU5ZjVlODNiNTZjOWIuanBn/sign/6ccf145ad57897a92396591020955a46.jpg" src="https://ss2.meipian.me/users/12119279/25bf0b3744a645f883b59f5e83b56c9b.jpg-mobile"></div> <div class="text"><h3>swing随机VPN住</h3></div></div></div>
-            <div class="readmore" style="display: none;">
-              <a href="javascript:;">
-                <div>展开阅读全文</div>
-                <i class="iconfont icon-arrow"></i>
-              </a>
-            </div>
-
-          </div>
-          <div class="footer__root"><!----> <div class="report" red-packet-type=""><div class="well">
-            阅读 <span class="read-count">40</span> <!----> <a class="btn-report">举报</a></div></div> <!----> <!----> <div id="comment"><div class="comment" red-packet-type=""><div class="footer-section"><div class="well"><h3 class="title">热门评论<span>(2)</span></h3> <div><div><div class="comment-item" indec="0"><!----> <div class="comment-box"><div class="avatar-box"><img src="http://static2.ivwen.com/users/12119279/17fed1c168af4363ab485aef9b5c74b8.jpg" alt="" class="avatar"> <!----></div> <a class="btn-admire"><i class="iconfont icon-zan"></i> <span class="admire-count">0</span></a> <h4 class="nickname line-clamp-1"><span>柯志杰了他他</span></h4> <div><p class=" comment-detail line-clamp-6">呵呵</p> <p class="all-content" style="display: none;">全文</p></div> <!----> <span class="comment-time">04-24</span></div> <!----></div><div indec="1" class="comment-item"><!----> <div class="comment-box"><div class="avatar-box"><img src="http://static2.ivwen.com/users/12119279/17fed1c168af4363ab485aef9b5c74b8.jpg" alt="" class="avatar"> <!----></div> <a class="btn-admire"><i class="iconfont icon-zan"></i> <span class="admire-count">0</span></a> <h4 class="nickname line-clamp-1"><span>柯志杰了他他</span></h4> <div><p class=" comment-detail line-clamp-6">哈哈哈</p> <p class="all-content" style="display: none;">全文</p></div> <!----> <span class="comment-time">04-24</span></div> <div class="more"><div><!----> <!----> <a class="btn btn-block btn-comment">打开美篇查看全部评论</a></div></div></div></div></div></div></div></div></div> <div class="qrcode-banner"><div class="footer-section"><img src="https://ss2.meipian.me/config/1518853571370.jpg" alt=""></div></div> <div class="recommend"><div class="footer-section"><div class="well"><h3 class="title">推荐文章</h3> <div href="https://mp.weixin.qq.com/s/NtPXy8CiW5k19YvmhYHMTA" class="recommend-item clearfix"><a><div class="img-container"><img alt="妈妈和女友落水先救谁？这道世纪难题终于有答案了......" src="http://static2.ivwen.com/config/1524891006296.jpg" lazy="loaded"></div> <h4 class="article-title line-clamp-2">妈妈和女友落水先救谁？这道世纪难题终于有答案了......</h4> <p class="view-count"><i class="iconfont icon-yuedu"></i> <span class="count">211387</span></p></a></div><div href="https://hy.yixueqm.com/zhiming/index.php/Home-Bzjp-index?channel=qudao19" class="recommend-item clearfix"><a><div class="img-container"><img alt="你的农历生日是哪天？注定你是个什么样的人！太准了！" src="http://static2.ivwen.com/config/1524733074481.jpg" lazy="loaded"></div> <h4 class="article-title line-clamp-2">你的农历生日是哪天？注定你是个什么样的人！太准了！</h4> <p class="view-count"><i class="iconfont icon-yuedu"></i> <span class="count">415081</span></p></a></div><div href="https://mp.weixin.qq.com/s/fvt4Qud7wKOTAoI4fxsO_w" class="recommend-item clearfix"><a><div class="img-container"><img alt="男子中500万瞒着老婆，离婚第二天就兑奖，结果傻眼了……" src="http://static2.ivwen.com/config/1524801682324.jpg" lazy="loaded"></div> <h4 class="article-title line-clamp-2">男子中500万瞒着老婆，离婚第二天就兑奖，结果傻眼了……</h4> <p class="view-count"><i class="iconfont icon-yuedu"></i> <span class="count">108819</span></p></a></div> <div class="recommend-item clearfix"><a href="javascript:;"><div class="img-container"><img src="https://ss2.meipian.me/config/160ee8dcb6a16cb85d669c9478fa0d01.jpg" alt="女人为什么要丰胸？看完99%都顿悟了!"></div> <h4 class="article-title line-clamp-2">女人为什么要丰胸？看完99%都顿悟了!</h4> <p class="view-count"><img src="https://ss2.meipian.me/theme/v2/ads/advert.png" alt="" style="height: 17px;"></p></a> <!----></div> <div href="https://www.meipian.cn/19cxog82" class="recommend-item clearfix"><a><div class="img-container"><img alt="五一小长假的四种度过方式" src="http://static2.ivwen.com/user/10004/c7f648713b600001c79c151b1c907d60.jpg" lazy="loaded"></div> <h4 class="article-title line-clamp-2">五一小长假的四种度过方式</h4> <p class="view-count"><i class="iconfont icon-yuedu"></i> <span class="count">5617</span></p></a></div><div href="https://www.meipian.cn/140u70pn" class="recommend-item clearfix"><a><div class="img-container"><img alt="梅花三弄，美醉了！" src="https://ss2.meipian.me/users/15906749/33df7071db134951855b3cc555998e59.jpg-mobile" lazy="loaded"></div> <h4 class="article-title line-clamp-2">梅花三弄，美醉了！</h4> <p class="view-count"><i class="iconfont icon-yuedu"></i> <span class="count">171007</span></p></a></div><div href="https://www.meipian.cn/19931633" class="recommend-item clearfix"><a><div class="img-container"><img alt="身体下地狱，灵魂上天堂" src="https://ss2.meipian.me/users/1793451/3fa96241a4de4faaab6c8e01460e48b0.jpg-mobile" lazy="loaded"></div> <h4 class="article-title line-clamp-2">身体下地狱，灵魂上天堂</h4> <p class="view-count"><i class="iconfont icon-yuedu"></i> <span class="count">16942</span></p></a></div><div href="https://www.meipian.cn/130nljw2" class="recommend-item clearfix"><a><div class="img-container"><img alt="江山如画，大美中华" src="https://ss2.meipian.me/users/615709/54fce6e3c5874cebbf5ee6c672d19eef.jpg-mobile" lazy="loaded"></div> <h4 class="article-title line-clamp-2">江山如画，大美中华</h4> <p class="view-count"><i class="iconfont icon-yuedu"></i> <span class="count">189144</span></p></a></div></div></div></div> <div class="introduce-meipian"><a><img src="https://ss2.meipian.me/config/1518517606552.jpg" alt="你好，我是小美"></a></div> <div></div> <div></div></div>
-        </div>
-        <div id="rcmd-ads">
-        </div>
-        <div id="commercial-ads">
-        </div>
+  <div @touchmove="onscroll" offset-accuracy="0">
+  <div class="slideIn">
+      <div class="root seasons t1016">
+        <article_cover :article="watchArticle"></article_cover>
+        <download_bar :isShow="downloadShow" templateId=1002 :authorId="watchArticle.member.id" @closeDownload="closeDownload"></download_bar>
+        <music :musicData="watchMusicData" @judgeMusic="judgeMusic" ref="musicTemplete" templateId=1002 :downloadShow="false"></music>
+        <article_content @buyNow="buyNow"  :templates="watchTemplates" :htmlStr="htmlStr" ></article_content>
+        <report  :article="watchArticle.hits"></report>
+        <auther ref="auther" :article="watchArticle"></auther>
+        <review ref="review" :article="watchArticle"></review>
+        <recommend ref="recommend" v-if="isPublish" :article="watchArticle" @go="fetchData"></recommend>
+        <ad v-if="noWeex" :article="watchArticle"></ad>
+        <rewardDialog  ref="rwd"  @rewardNumber="rewardNumber"></rewardDialog>
+        <payment  ref="pay" @notify="onPayNotify"></payment>
+        <buyGoods  ref="buy" @notify="onPayNotify"></buyGoods>
       </div>
-    </div>
   </div>
-
+  </div>
 </template>
 <style>
   @import "../less/t1016.less";
@@ -39,14 +30,14 @@
   import article_meta from './article/t1002/meta.vue';
   import article_cover from './article/t1016/cover.vue';
   import music from './article/music.vue';
-  import article_content from './article/content.vue';
+  import article_content from './article/t1016/content.vue';
   import vote from './article/vote.vue';
   import reward from './article/reward.vue';
-  import report from './article/report.vue';
-  import coupon from './article/t1002/coupon.vue';
-  import auther from './article/auther.vue';
-  import recommend from './article/recommend.vue';
-  import review from './article/review.vue';
+  import report from './article/seasonsPublic/report.vue';
+  import coupon from './article/coupon.vue';
+  import auther from './article/seasonsPublic/auther.vue';
+  import recommend from './article/seasonsPublic/recommend.vue';
+  import review from './article/seasonsPublic/review.vue';
   import ad from './article/ad.vue';
   import rewardDialog from './article/rewardDialog.vue';
   import Toast from '../widget/toast.vue';
@@ -137,7 +128,6 @@
       fetchData:function (id) {
         this.go(id);
         this.$refs.review.open(id);
-        this.$refs.cardImg.open(id);
         document.documentElement.scrollTop = 0;
         document.body.scrollTop = 0;
       },
@@ -148,7 +138,7 @@
             if (response.type=="success") {
               _this.watchArticle = response.data;
               _this.isPublish = response.data.isPublish;
-              _this.$refs.coupon.open(response.data.member.id);
+//              _this.$refs.coupon.open(response.data.member.id);
               //设置分享标题
               utils.setConfig({
                 title:_this.watchArticle.title,

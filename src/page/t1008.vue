@@ -1,7 +1,7 @@
 <template>
   <div @touchmove="onscroll" offset-accuracy="0">
     <div class="slideIn"  >
-      <div class="root t1008"  data-mask-id="199a3fb6">
+      <div class="root t1008 "  >
         <div class="mopian_bg"></div>
         <download_bar :isShow="downloadShow" templateId=1002 :authorId="watchArticle.member.id" @closeDownload="closeDownload"></download_bar>
         <music :musicData="watchMusicData" @judgeMusic="judgeMusic" ref="musicTemplete" :downloadShow="downloadShow"></music>
@@ -131,7 +131,7 @@
       fetchData:function (id) {
         this.go(id);
         this.$refs.review.open(id);
-        this.$refs.cardImg.open(id);
+//        this.$refs.cardImg.open(id);
         document.documentElement.scrollTop = 0;
         document.body.scrollTop = 0;
       },

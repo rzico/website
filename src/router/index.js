@@ -63,6 +63,13 @@ const T1013 = resolve => require(['../page/t1013'], resolve)
 const T1014 = resolve => require(['../page/t1014'], resolve)
 const T1015 = resolve => require(['../page/t1015'], resolve)
 const T1016 = resolve => require(['../page/t1016'], resolve)
+const T1017 = resolve => require(['../page/t1017'], resolve)
+const T1018 = resolve => require(['../page/t1018'], resolve)
+const T1019 = resolve => require(['../page/t1019'], resolve)
+const T1020 = resolve => require(['../page/t1020'], resolve)
+const T1021 = resolve => require(['../page/t1021'], resolve)
+const T1022 = resolve => require(['../page/t1022'], resolve)
+const T1023 = resolve => require(['../page/t1023'], resolve)
 const goodsList = resolve => require(['../page/goods/list'], resolve)
 const C1003goodsList = resolve => require(['../page/c1003/goodsList'], resolve)
 const C1003orderList = resolve => require(['../page/c1003/orderList'], resolve)
@@ -203,6 +210,48 @@ var router = new Router({
       name: 't1016',
       meta: {requireAuth:true},
       component: T1016
+    },
+    {
+      path: '/t1017',
+      name: 't1017',
+      meta: {requireAuth:true},
+      component: T1017
+    },
+    {
+      path: '/t1018',
+      name: 't1018',
+      meta: {requireAuth:true},
+      component: T1018
+    },
+    {
+      path: '/t1019',
+      name: 't1019',
+      meta: {requireAuth:true},
+      component: T1019
+    },
+    {
+      path: '/t1020',
+      name: 't1020',
+      meta: {requireAuth:true},
+      component: T1020
+    },
+    {
+      path: '/t1021',
+      name: 't1021',
+      meta: {requireAuth:true},
+      component: T1021
+    },
+    {
+      path: '/t1022',
+      name: 't1022',
+      meta: {requireAuth:true},
+      component: T1022
+    },
+    {
+      path: '/t1023',
+      name: 't1023',
+      meta: {requireAuth:true},
+      component: T1023
     },
     {
       path: '/c1001',

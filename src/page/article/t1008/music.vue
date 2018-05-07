@@ -1,6 +1,6 @@
 <template>
   <!--v-if="hasMusic()"-->
-  <div class="music-icon" :class="[isPlay ? 'music-icon-animation' : '']">
+  <div class="music-icon" :class="[isPlay ? 'music-icon-animation' : '']" v-if="hasMusic()">
     <!--<audio id="audio" class="audio" autoplay preload="auto" loop="loop" :src="'http://cdn.rzico.com/weex/resources/music/'+musicData.id+'.mp3'"-->
     <!--style="display: none;"></audio>-->
     <audio id="audio"class="audio"  preload="auto" loop="loop" :src="'http://cdn.rzico.com/weex/resources/music/'+musicData.id+'.mp3'"

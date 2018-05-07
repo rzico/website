@@ -49,6 +49,8 @@ export function AUTH(redirectURL,func) {
           }
           func(false);
         }
+      }else{
+        func(false);
       }
     },
     function (err) {
