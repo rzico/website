@@ -20,12 +20,11 @@
             <div :class="[vipClass(cardInfo.vip)]" >{{cardInfo.vip | watchVip}}</div>
           </div>
             <span class="money">{{cardInfo.balance}} ¥</span>
-            <span style="font-size: 14px;color: white">积分</span>
             <div class="cardNo">
-              <span class="" style="font-size: 16px;color: white">{{cardInfo.point}}</span>
+              <span style="font-size: 14px;color: white">积分:{{cardInfo.point}}</span>
               <span class="" style="font-size: 16px;color: white">NO.{{cardInfo.code | watchCode}}</span>
             </div>
-            <span class="" style="font-size: 12px;color: #888;margin-top:10px">支付-营销-场景化</span>
+            <!--<span class="" style="font-size: 12px;color: #888;margin-top:10px">支付-营销-场景化</span>-->
           </div>
         </div>
       </div>
@@ -39,8 +38,8 @@
         </div>
       </div>
       <div class="navbar">
-        <div class="table1" @click="haspromote()" :class="[isbg1 == 1 ? 'bacgeee' : '']">推广</div>
-        <div class="table2"  @click="hasCoupon()" :class="[isbg2 == 1 ? 'bacgeee' : '']">卡包</div>
+        <div class="table1" @click="haspromote()" :class="[isbg1 == 1 ? 'tableActive' : '']">推广</div>
+        <div class="table2"  @click="hasCoupon()" :class="[isbg2 == 1 ? 'tableActive' : '']">卡包</div>
       </div>
       <coupon v-if="isCoupon"></coupon>
       <promote v-if="isPromote" :id="id" :type="type"></promote>
@@ -65,8 +64,8 @@
 
   }
   .redBG{
-    background-color: #EB4E40;
-    width: 100%;
+    background-image:url('../../../static/member_Bg.png');
+    background-size: 100% 100%;
     height:187.5px;
     display: flex;
     flex-direction: column;
@@ -74,7 +73,7 @@
   }
   .whiteBG{
     background-color: white;
-    min-height:50px;
+    min-height:16px;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -95,7 +94,7 @@
     /*margin-right: 20px;*/
     /*margin-left:20px;*/
     /*box-sizing: border-box;*/
-    background-image: url("http://rzico.oss-cn-shenzhen.aliyuncs.com/weex/resources/images/background.png");
+    /*background-image: url("http://rzico.oss-cn-shenzhen.aliyuncs.com/weex/resources/images/background.png");*/
     background-size: 100% 100%;
     /*background-color: black;*/
     opacity: 0.4;
@@ -125,11 +124,12 @@
     background-color: white;
     border-radius: 100%;
     position: absolute;
-    top:168px;
+    top:136px;
     left: 44%;
     display: flex;
     align-items: center;
     justify-content: center;
+    z-index: 99999999999;
   }
   .codeTwo{
     height: 40px;
@@ -269,6 +269,7 @@
     display: flex;
     flex-direction: row;
     align-items: center;
+    position: relative;
   }
   .table1{
     height: 35px;
@@ -279,8 +280,16 @@
     justify-content: center;
     text-align: center;
   }
-  .bacgeee{
-    background-color: #eeeeee !important;
+  .tableActive{
+    height: 35px;
+    width: 50%;
+    font-size: 16px;
+    color: #EB4E40;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border-bottom: 1px solid #EB4E40;
   }
   .table2{
     height: 35px;
@@ -299,7 +308,7 @@
   import metaInfo from './meta.vue';
   import coupon from './coupon.vue';
   import promote from './promote.vue';
-  import Tabbar from '../../widget/tabbar-whole.vue';
+  import Tabbar from '../../widget/tabbar-bottom.vue';
   export default {
     data() {
       return {

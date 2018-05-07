@@ -1,13 +1,13 @@
 <template>
   <div class="header">
-    <div class="mask bg" :style="'background-image: url('+topic.logo+')'"></div>
+    <div class="mask bg" :style="'background-image: url('+topic.thumbnail+')'"></div>
     <div class="field">
       <div class="avatar bg" :style="'background-image: url('+topic.logo+')'">
       </div>
       <span class="profile">
         <div class="nickname oneline">{{topic.name}}</div>
         <div class="signature oneline">{{topic.autograph}}</div>
-        <div class="num oneline">文章 {{topic.article}}&nbsp;&nbsp;宝贝 {{topic.product}}&nbsp;&nbsp;{{topic.hits==0?'':'被访问'+topic.hits}}</div>
+        <!--<div class="num oneline">文章 {{topic.article}}&nbsp;&nbsp;宝贝 {{topic.product}}&nbsp;&nbsp;{{topic.hits==0?'':'被访问'+topic.hits}}</div>-->
       </span>
       <div class="about">
         <span class="mark">

@@ -136,7 +136,7 @@
   import { POST,GET ,AUTH} from '../../assets/fetch.js';
   import Toast from '../../widget/toast.vue';
   import Dialog from '../../widget/dialog.vue';
-  import Tabbar from '../../widget/tabbar-whole.vue';
+  import Tabbar from '../../widget/tabbar-bottom.vue';
   export default {
     data:function(){
       return{
