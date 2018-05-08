@@ -32,7 +32,7 @@
       </div>
       <div class="twoBox" @click="goorderList()">
         <span class="weui-tabbar__icon fftIcon" :style="{fontFamily:'iconfont'}" :class="[id == 1 ? 'fftIconActive':'']">&#xe603;</span>
-        <span class="weui-badge" style="position: absolute;top: -2px;right: 6px;" v-if="hasUntreated()">{{untreatedOrder | watchOrderNum}}</span>
+        <span class="weui-badge" style="position: absolute;top: -5px;right: 4px;" v-if="hasUntreated()">{{untreatedOrder | watchOrderNum}}</span>
       </div>
       <div class="threeBox" @click="gomemberIndex()">
         <span class="weui-tabbar__icon fftIcon" :style="{fontFamily:'iconfont'}" :class="[id == 2 ? 'fftIconActive':'']">&#xe643;</span>

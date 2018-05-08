@@ -1,6 +1,6 @@
 <template>
   <div class="head">
-    <div class="backg bg" style="background-image: url(http://rzico.oss-cn-shenzhen.aliyuncs.com/weex/resources/images/background.jpg)"></div>
+    <div class="backg"></div>
     <div class="logo">
       <div class="logoimg bg" :style="'background-image: url('+member.logo+')'">
       </div>
@@ -30,17 +30,17 @@
 </template>
 <style scoped>
    .head {
-    height: 160px;
+    height: 187.5px;
     width: 100%;
     position: relative;
     overflow: hidden;
     letter-spacing: 0;
     line-height: 1;
     margin-top: 0;
-     background-color: #EB4E40;
+     /*background-color: #EB4E40;*/
   }
    .head .logo {
-    background-color: rgba(0,0,0,.2);
+    /*background-color: rgba(0,0,0,.2);*/
     position: absolute;
     left: 0;
     top: 0;
@@ -63,7 +63,7 @@
   }
 
    .head .logo .logoimg {
-    margin-top: 12px;
+    margin-top: 35px;
     margin-bottom: 15px;
     width: 54px;
     height: 54px;
@@ -76,9 +76,9 @@
     z-index: 0;
     position: absolute;
     width: 100%;
-    height: 160px;
+    height: 187.5px;
+     background-image: url('../../../static/member_Bg.png');
     background-size: 100% 100%;
-     opacity: 0.3;
   }
 
    .head .logo .profile {

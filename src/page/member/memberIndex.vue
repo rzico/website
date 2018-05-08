@@ -38,8 +38,12 @@
         </div>
       </div>
       <div class="navbar">
-        <div class="table1" @click="haspromote()" :class="[isbg1 == 1 ? 'tableActive' : '']">推广</div>
-        <div class="table2"  @click="hasCoupon()" :class="[isbg2 == 1 ? 'tableActive' : '']">卡包</div>
+        <div class="table1" @click="haspromote()">
+          <span class="tbaleSpan" :class="[isbg1 == 1 ? 'tbaleSpanActive' : '']">推广</span>
+        </div>
+        <div class="table2"  @click="hasCoupon()" >
+          <span class="tbaleSpan" :class="[isbg2 == 1 ? 'tbaleSpanActive' : '']">卡包</span>
+        </div>
       </div>
       <coupon v-if="isCoupon"></coupon>
       <promote v-if="isPromote" :id="id" :type="type"></promote>
@@ -234,7 +238,7 @@
   }
   .qrcodeMes{
     font-size: 16px;
-    margin-top: 60px;
+    margin-top: 30px;
     color: #888;
   }
   .qrcodeMesTwo{
@@ -247,7 +251,7 @@
     align-items: center;
     justify-content: space-between;
     margin-top: 20px;
-    width: 150px;
+    width: 200px;
     margin-bottom: 30px;
   }
   .qrcodeButton{
@@ -259,7 +263,7 @@
     justify-content: center;
     background-color: #EB4E40;
     border-radius: 10px;
-    padding: 0 5px;
+    padding: 3px 10px;
   }
   .navbar{
     height: 35px;
@@ -300,6 +304,26 @@
     justify-content: center;
     text-align: center;
   }
+  .tbaleSpan{
+    height: 35px;
+    padding: 0 20px;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+  .tbaleSpanActive{
+    height: 35px;
+    padding: 0 20px;
+    font-size: 16px;
+    color: #EB4E40;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border-bottom: 1px solid #EB4E40;
+  }
 </style>
 <script>
   import {Loadmore} from 'mint-ui';
@@ -332,7 +356,8 @@
         isbg1:1,
         isbg2:0,
         status:'',
-        type:'c1001'
+        type:'c1001',
+        codeType:''
 
       }
     },
@@ -369,6 +394,11 @@
     created() {
       var _this = this;
       _this.id = utils.getUrlParameter("id");
+      _this.codeType = utils.getUrlParameter("type");
+      if(_this.codeType == 'payment'){
+        _this.qrcodeImg = true
+      }
+
       AUTH(location.href,function (authed) {
         _this.load();
         _this.open();
