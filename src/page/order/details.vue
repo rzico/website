@@ -337,7 +337,9 @@
       this.goodsHeight = document.documentElement.clientWidth * 0.25;
       this.goods20Width = document.documentElement.clientWidth * 0.20;
       this.orderSn = utils.getUrlParameter('sn');
-      this.open();
+      AUTH("",function (authed) {
+          _this.open();
+      })
     },
     components:{
       Toast,
