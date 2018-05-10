@@ -48,11 +48,9 @@
         },
         articleclick:function (id,url) {
           if(utils.isweex()){
-             location.href = utils.setDummyUrl('article',id);
+            location.href = utils.setDummyUrl('article',id);
           }else{
-             location.href = url;
-            // this.$emit("go",id);
-            //this.$router.push(utils.router(url));
+            this.$router.push(utils.router(url));
           }
         },
         thumbnail:function (url,w,h) {
