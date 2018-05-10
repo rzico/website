@@ -26,7 +26,7 @@
             <img class="goodsImg" :src="template.original | watchGoodsImg" :style="'height:' + goodsHeight + 'px;' + 'width:' + (goodsHeight -10)+ 'px'"/>
             <!--商品描述内容-->
             <div class="infoBox"  :style="'height:' + goodsHeight + 'px'">
-              <p class="linesCtrl"  style="-webkit-box-orient: vertical;overflow: hidden;-webkit-line-clamp: 2;line-height: 23px;display: -webkit-box;text-overflow: ellipsis;height: 66%;font-size: 16px">{{template.name}}</p>
+              <p class="linesCtrl"  style="-webkit-box-orient: vertical;overflow: hidden;-webkit-line-clamp: 2;line-height: 26px;display: -webkit-box;text-overflow: ellipsis;height: 66%;font-size: 16px">{{template.name}}</p>
               <div class="goodsPrice"  style="height: 34%">
                 <div>
                 <span>
