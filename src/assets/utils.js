@@ -1,17 +1,13 @@
 const config = {
-  logo:'./static/mopian.png',
-  siteName:'魔篇',
-  appUrl:'http://a.app.qq.com/o/simple.jsp?pkgname=com.yixiang.mopian&fromcase=40003',
-  title:"魔篇",
-  link:"http://mopian.1xx.me",
-  thumbnail:'./static/mopian.png',
+  logo:'./static/logo.png',
+  siteName:'芸店',
+  appUrl:'http://a.app.qq.com/o/simple.jsp?pkgname=com.rzico.assistant',
+  title:"芸店",
+  link:"http://weixin.rzico.com",
+  thumbnail:'./static/logo.png',
   desc:'超强图文小视频分享社区,中国版Facebook.',
-  // baseURL:"http://mopian.1xx.me/",
-  baseURL:"http://dev.1xx.me/",
-  // wxAppid:"wx88a1ec3b5c3bc9c3"
-
-  　　  　　//mp app id
-  wxAppid:"wx28aae2ea21682949"
+  baseURL:"http://weixin.rzico.com/",
+  wxAppid:"wx88a1ec3b5c3bc9c3"
 }
 //伪链接主体。  mopian  或 yundian
 const dummyHost = 'mopian';
