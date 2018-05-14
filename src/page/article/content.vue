@@ -15,9 +15,9 @@
           </div>
           <!--判断类型是否小视频-->
           <div class="img-box positionRelative" v-if="template.mediaType == 'video'" >
-            <video :src="template.original" controls="controls" :poster="template.thumbnail"  width="100%" height="250"></video>
+            <video :src="template.original"  controls="controls" style="background-color: black"  playsinline webkit-playsinline="true" :poster="template.thumbnail"  width="100%" height="250"></video>
             <!--视频背景颜色。-->
-            <div class="positionAbsolute videoBg"></div>
+            <!--<div class="positionAbsolute videoBg"></div>-->
           </div>
         </div>
         <div v-if="template.mediaType == 'product'" class="goodsLineBox" :class="[templateId == 1003 ? 't1003_content_padding_0' : '']">
@@ -100,6 +100,7 @@
     created() {
       this.goodsHeight = document.documentElement.clientWidth * 0.2;
       let _this = this;
+//      alert(JSON.stringify(this.templates));
     },
     methods: {
 //      判断是否有图片

@@ -658,7 +658,7 @@
     },
     props: {
       article: { default: function () {
-        return {hits:0,title:"样例",nickName:"author",createDate:null,member:{}}
+        return {hits:0,title:"样例",nickName:"author",createDate:null,member:{autograph:""}}
       }
       },
       musicData: { default: function () {
@@ -715,7 +715,7 @@
       fetchData:function (id) {
         this.go(id);
         this.$refs.review.open(id);
-        this.$refs.cardImg.open(id);
+//        this.$refs.cardImg.open(id);
         document.documentElement.scrollTop = 0;
         document.body.scrollTop = 0;
       },

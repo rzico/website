@@ -10,7 +10,7 @@ const config = {
   wxAppid:"wx88a1ec3b5c3bc9c3"
 }
 //伪链接主体。  mopian  或 yundian
-const dummyHost = 'yundian';
+const dummyHost = 'mopian';
 
 let utilsFunc = {
     //跳转的伪链接路径

@@ -1,0 +1,45 @@
+<template>
+  <div>
+    <div class="snow1" style="width: 20.2667px; position: fixed; right: 144.059px; animation-name: toright; top: -20px; animation-duration: 12.8982s; animation-iteration-count: infinite; animation-timing-function: linear; z-index: 11;animation-delay:10.5s;">
+      <img src="https://ss2.meipian.me/theme/v2/img/132/top-yezi1@2x.png" style="animation-name: rotateleaf; animation-duration: 6.7031s; animation-iteration-count: infinite; animation-timing-function: ease-in-out; animation-direction: alternate; width: 100%; height: 100%;animation-delay:2.5s;"></div>
+    <div class="snow1" style="width: 16.8064px; position: fixed; right: 58.8861px; animation-name: toleft; top: -20px; animation-duration: 14.4554s; animation-iteration-count: infinite; animation-timing-function: linear; z-index: 11;animation-delay:4s;">
+      <img src="https://ss2.meipian.me/theme/v2/img/132/top-yezi3@2x.png" style="animation-name: rotateleaf; animation-duration: 6.02423s; animation-iteration-count: infinite; animation-timing-function: ease-in-out; animation-direction: alternate; width: 100%; height: 100%;">
+    </div>
+    <div class="snow1" style="width: 21.8628px; position: fixed; right: 136.801px; animation-name: toleft; top: -20px; animation-duration: 13.2171s; animation-iteration-count: infinite; animation-timing-function: linear; z-index: 11;animation-delay:8s;">
+      <img src="https://ss2.meipian.me/theme/v2/img/132/top-yezi4@2x.png" style="animation-name: rotateleaf; animation-duration: 6.7895s; animation-iteration-count: infinite; animation-timing-function: ease-in-out; animation-direction: alternate; width: 100%; height: 100%;">
+    </div>
+    <div class="snow1" style="width: 22.8422px; position: fixed; right: 122.48px; animation-name: toright; top: -20px; animation-duration: 14.1787s; animation-iteration-count: infinite; animation-timing-function: linear; z-index: 11;animation-delay:1.5s;">
+      <img src="https://ss2.meipian.me/theme/v2/img/132/top-yezi1@2x.png" style="animation-name: rotateleaf; animation-duration: 6.95451s; animation-iteration-count: infinite; animation-timing-function: ease-in-out; animation-direction: alternate; width: 100%; height: 100%;">
+    </div>
+    <div class="snow1" style="width: 16.1435px; position: fixed; right: 59.2839px; animation-name: toright; top: -20px; animation-duration: 14.6159s; animation-iteration-count: infinite; animation-timing-function: linear; z-index: 11;animation-delay:11.5s;">
+      <img src="https://ss2.meipian.me/theme/v2/img/132/top-yezi4@2x.png" style="animation-name: clock; animation-duration: 5.19115s; animation-iteration-count: infinite; animation-timing-function: ease-in-out; animation-direction: alternate; width: 100%; height: 100%;">
+    </div>
+    <div class="snow1" style="width: 17.5731px; position: fixed; right: 79.2919px; animation-name: toright; top: -20px; animation-duration: 12.8748s; animation-iteration-count: infinite; animation-timing-function: linear; z-index: 11;animation-delay:3.5s;">
+      <img src="https://ss2.meipian.me/theme/v2/img/132/top-yezi1@2x.png" style="animation-name: clock; animation-duration: 4.48924s; animation-iteration-count: infinite; animation-timing-function: ease-in-out; animation-direction: alternate; width: 100%; height: 100%;">
+    </div>
+    <div class="snow1" style="width: 23.6568px; position: fixed; right: 88.9591px; animation-name: toright; top: -20px; animation-duration: 15.1449s; animation-iteration-count: infinite; animation-timing-function: linear; z-index: 11;animation-delay:5.5s;">
+      <img src="https://ss2.meipian.me/theme/v2/img/132/top-yezi5@2x.png" style="animation-name: rotateleaf; animation-duration: 4.42028s; animation-iteration-count: infinite; animation-timing-function: ease-in-out; animation-direction: alternate; width: 100%; height: 100%;">
+    </div>
+    <div class="snow1" style="width: 21.8379px; position: fixed; right: 38.4266px; animation-name: toright; top: -20px; animation-duration: 14.2789s; animation-iteration-count: infinite; animation-timing-function: linear; z-index: 11;animation-delay:8.5s;">
+      <img src="https://ss2.meipian.me/theme/v2/img/132/top-yezi5@2x.png" style="animation-name: clock; animation-duration: 4.00578s; animation-iteration-count: infinite; animation-timing-function: ease-in-out; animation-direction: alternate; width: 100%; height: 100%;">
+    </div>
+    <div class="snow1" style="width: 20.0439px; position: fixed; right: 42.8989px; animation-name: toleft; top: -20px; animation-duration: 12.1779s; animation-iteration-count: infinite; animation-timing-function: linear; z-index: 11;animation-delay:0.5s;">
+      <img src="https://ss2.meipian.me/theme/v2/img/132/top-yezi4@2x.png" style="animation-name: rotateleaf; animation-duration: 5.711s; animation-iteration-count: infinite; animation-timing-function: ease-in-out; animation-direction: alternate; width: 100%; height: 100%;">
+    </div>
+    <div class="snow1" style="width: 19.1435px; position: fixed; right: 6.30564px; animation-name: toleft; top: -20px; animation-duration: 15.2864s; animation-iteration-count: infinite; animation-timing-function: linear; z-index: 11;animation-delay:9s;">
+      <img src="https://ss2.meipian.me/theme/v2/img/132/top-yezi4@2x.png" style="animation-name: clock; animation-duration: 5.39103s; animation-iteration-count: infinite; animation-timing-function: ease-in-out; animation-direction: alternate; width: 100%; height: 100%;">
+    </div>
+    <div class="snow1" style="width: 19.2371px; position: fixed; right: 39.3031px; animation-name: toright; top: -20px; animation-duration: 14.3876s; animation-iteration-count: infinite; animation-timing-function: linear; z-index: 11;animation-delay:2.5s;">
+      <img src="https://ss2.meipian.me/theme/v2/img/132/top-yezi5@2x.png" style="animation-name: rotateleaf; animation-duration: 5.72149s; animation-iteration-count: infinite; animation-timing-function: ease-in-out; animation-direction: alternate; width: 100%; height: 100%;">
+    </div>
+    <div class="snow1" style="width: 15.8846px; position: fixed; right: 59.6615px; animation-name: toleft; top: -20px; animation-duration: 14.1501s; animation-iteration-count: infinite; animation-timing-function: linear; z-index: 11;animation-delay:6.5s;">
+      <img src="https://ss2.meipian.me/theme/v2/img/132/top-yezi4@2x.png" style="animation-name: rotateleaf; animation-duration: 5.10201s; animation-iteration-count: infinite; animation-timing-function: ease-in-out; animation-direction: alternate; width: 100%; height: 100%;">
+    </div>
+    <div class="snow1" style="width: 20.5037px; position: fixed; right: 83.2319px; animation-name: toleft; top: -20px; animation-duration: 12.0361s; animation-iteration-count: infinite; animation-timing-function: linear; z-index: 11;animation-delay:7s;">
+      <img src="https://ss2.meipian.me/theme/v2/img/132/top-yezi1@2x.png" style="animation-name: rotateleaf; animation-duration: 5.22567s; animation-iteration-count: infinite; animation-timing-function: ease-in-out; animation-direction: alternate; width: 100%; height: 100%;">
+    </div>
+    <div class="snow1" style="width: 22.4429px; position: fixed; right: 148.837px; animation-name: toleft; top: -20px; animation-duration: 14.5386s; animation-iteration-count: infinite; animation-timing-function: linear; z-index: 11;animation-delay:3s;">
+      <img src="https://ss2.meipian.me/theme/v2/img/132/top-yezi3@2x.png" style="animation-name: rotateleaf; animation-duration: 6.88048s; animation-iteration-count: infinite; animation-timing-function: ease-in-out; animation-direction: alternate; width: 100%; height: 100%;">
+    </div>
+  </div>
+</template>

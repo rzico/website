@@ -168,7 +168,6 @@
         this.$refs.chooseAddress.close();
       },
       open:function () {
-        console.log('1');
         var _this = this;
         GET('website/member/receiver/list.jhtml').then(
           function (res) {

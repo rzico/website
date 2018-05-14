@@ -102,11 +102,15 @@
     },
     props: {
       article: { default: function () {
-        return {hits:0,title:"样例",nickName:"author",createDate:null,member:{}}
+        return {hits:0,title:"样例",nickName:"author",createDate:null,member:{autograph:""}}
       }
       },
+//      article: { default: function () {
+//        return ''
+//      }
+//      },
       musicData: { default: function () {
-        return {id: ""}
+        return {id: "-1"}
       }
       },
       templates: { default: function () {
@@ -117,7 +121,7 @@
     },
     created() {
       var _this = this;
-      AUTH("",function (authed) {
+      AUTH("",function (authed)  {
         _this.logined  = authed;
       })
       if(utils.isweex()==true){
@@ -127,6 +131,9 @@
       let id = utils.getUrlParameter("id");
       this.go(id);
     },
+//    beforeDestory(){
+//      this.$refs.musicTemplete.stopMuisc();
+//    },
     methods: {
       loadTop:function() { //组件提供的下拉触发方法
         this.$refs.loadmore.onTopLoaded();// 固定方法，查询完要调用一次，用于重新定位
@@ -143,7 +150,7 @@
       fetchData:function (id) {
         this.go(id);
         this.$refs.review.open(id);
-        this.$refs.cardImg.open(id);
+//        this.$refs.cardImg.open(id);
         document.documentElement.scrollTop = 0;
         document.body.scrollTop = 0;
       },
@@ -199,6 +206,7 @@
                   })
                   _this.$set(response.data.templates, 'previewList', previewList);
                   _this.watchTemplates = response.data.templates;
+//                  alert(JSON.stringify(_this.watchTemplates))
                 }
               }
 
@@ -303,6 +311,7 @@
       },
       buyNow:function (id) {
         if(utils.isweex()==true){
+//          location.href =  'mopian://buyGood?id=' + id;
           this.$refs.toast.show('请分享到微信进行购买');
           return;
         }

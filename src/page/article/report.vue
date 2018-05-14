@@ -1,5 +1,6 @@
 <template>
-  <div class="meta report clearfix"><span>阅读 {{article}}</span>
+  <div class="meta report clearfix" v-if="article != 0">
+    <span>阅读 {{article}}</span>
     <span class="fr">
         <!--<a style="line-height: 28px;"-->
       <!--href="https://www.meipian.cn/resources/components/report.php?id=uxv7g5e"-->

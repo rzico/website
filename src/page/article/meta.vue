@@ -1,5 +1,5 @@
 <template>
-  <div class="article_meta" >
+  <div class="article_meta" v-if="article.title != '样例'">
     <h1 class="meta_title">{{article.title}}</h1>
     <div class="meta clearfix">
       <span>{{article.createDate | datetimefmt}}</span>
@@ -8,7 +8,6 @@
     </div>
   </div>
 </template>
-
 <script>
   import utils from '../../assets/utils.js';
   export default {
@@ -22,16 +21,25 @@
         }
       },
       props: {
+//        article: { default: function () {
+//          return ''
+//        }
+//        },
         article: {
           default: function () {
+//           配合v-if控制渲染 title应该全设置为   点击设置标题  ，但是涉及太多模版，暂使用样例
             return {hits: 0, title: "样例", nickName: "author", createDate: null}
           }
         },
       },
       created(){
-        console.log(this.template);
+//        console.log(this.template);
       },
        methods:{
+         hasArticle:function () {
+//           alert(JSON.stringify(this.article));
+           return true;
+         },
          jump:function (url,id) {
            if(utils.isweex()){
              location.href = utils.setDummyUrl('topic',id);

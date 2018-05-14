@@ -44,7 +44,6 @@
       <div class="noData" v-if="!isPormote">
         <img class="noDataImg" src="http://rzico.oss-cn-shenzhen.aliyuncs.com/weex/resources/images/noData.png"/>
         <span style="font-size: 16px;color: #EB4E40">很抱歉，您暂无推广</span>
-        <div class="noDataButton" @click="go()">查看更多精彩</div>
       </div>
     </v-loadmore>
   </div>
@@ -60,8 +59,9 @@
     position: relative;
   }
   .noDataImg{
-    height: 80px;
-    width: 80px;
+    height: 50px;
+    width: 50px;
+    margin-bottom: 10px;
   }
   .noDataButton{
     margin:60px 50px;
