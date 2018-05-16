@@ -82,6 +82,7 @@ const coupon = resolve => require(['../widget/coupon'], resolve)
 const list = resolve => require(['../page/c1003/list'], resolve)
 const AppletAgree = resolve => require(['../page/applet/agree'], resolve)
 const AgreeSuccess = resolve => require(['../page/applet/agreeSuccess'], resolve)
+const AgreeError = resolve => require(['../page/applet/agreeError'], resolve)
 
 // import T1003 from '../page/t1003'
 // import T1004 from '../page/t1004'
@@ -110,6 +111,12 @@ var router = new Router({
       name: 'agreeSuccess',
       meta: {requireAuth:false},
       component: AgreeSuccess
+    },
+    {
+      path: '/agreeError',
+      name: 'agreeError',
+      meta: {requireAuth:false},
+      component: AgreeError
     },
     {
       path: '/member',

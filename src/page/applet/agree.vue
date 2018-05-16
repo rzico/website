@@ -39,10 +39,12 @@
       return {
         conf:{},
         count:128304,
-        welcome:"../static/welcome.jpg"
+        welcome:"../static/welcome.jpg",
+        logined:false,
       }
     },
     created () {
+      var _this = this;
       this.conf = utils.getConfig();
       //设置分享标题
       utils.setConfig({
@@ -51,6 +53,9 @@
         link:location.href,
         logo:".static/logo.png"
       });
+      AUTH("",function (authed)  {
+        _this.logined  = authed;
+      })
     },
     components: {
       Toast,
@@ -64,28 +69,19 @@
       },
       download:function () {
         var _this = this;
-        AUTH(location.href,function (authed) {
-          if(authed){
-            GET('weex/member/option.jhtml').then(function (data) {
-              if(data.type == 'success'){
-                if(data.data.hasTopic){
-                  location.href =  'component/common/getAuthUrl.jhtml';
-                }else{
-                  _this.$refs.toast.show("请先前往魔篇app开通专栏");
-                }
-              }else{
-                _this.$refs.toast.show("系统繁忙");
-              }
-            },function (err) {
-              _this.$refs.toast.show("网络不稳定");
-            })
+        GET('weex/member/option.jhtml').then(function (data) {
+          if(data.type == 'success'){
+            if(data.data.hasTopic){
+              location.href =  'component/common/getAuthUrl.jhtml';
+            }else{
+              _this.$refs.toast.show("请先前往魔篇app开通专栏");
+            }
           }else{
             _this.$refs.toast.show("服务器繁忙");
           }
+        },function (err) {
+          _this.$refs.toast.show("网络不稳定");
         })
-
-
-
 //        AUTH(utils.getConfig().appUrl,function (authed) {
 //            if (authed) {
 //              location.href = utils.getConfig().appUrl;
