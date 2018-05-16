@@ -23,6 +23,7 @@
         </div>
       </v-loadmore>
     </div>
+    <Toast ref="toast"></Toast>
   </div>
 </template>
 <style scoped>
@@ -32,6 +33,7 @@
   import {Loadmore} from 'mint-ui';
   import { POST, GET,AUTH} from '../../assets/fetch.js';
   import utils from '../../assets/utils.js';
+  import Toast from '../../widget/toast.vue';
   export default {
     data() {
       return {
@@ -50,6 +52,9 @@
         logo:".static/logo.png"
       });
     },
+    components: {
+      Toast,
+    },
     methods:{
       loadTop:function() { //组件提供的下拉触发方法
         this.$refs.loadmore.onTopLoaded();// 固定方法，查询完要调用一次，用于重新定位
@@ -58,7 +63,28 @@
         this.$refs.loadmore.onBottomLoaded();// 固定方法，查询完要调用一次，用于重新定位
       },
       download:function () {
-        location.href =  'component/common/getAuthUrl.jhtml';
+        var _this = this;
+        AUTH(location.href,function (authed) {
+          if(authed){
+            GET('weex/member/option.jhtml').then(function (data) {
+              if(data.type == 'success'){
+                if(data.data.hasTopic){
+                  location.href =  'component/common/getAuthUrl.jhtml';
+                }else{
+                  _this.$refs.toast.show("请先前往魔篇app开通专栏");
+                }
+              }else{
+                _this.$refs.toast.show("系统繁忙");
+              }
+            },function (err) {
+              _this.$refs.toast.show("网络不稳定");
+            })
+          }else{
+            _this.$refs.toast.show("服务器繁忙");
+          }
+        })
+
+
 
 //        AUTH(utils.getConfig().appUrl,function (authed) {
 //            if (authed) {

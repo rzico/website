@@ -6,8 +6,8 @@ const config = {
   link:"http://mopian.1xx.me",
   thumbnail:'./static/mopian.png',
   desc:'超强图文小视频分享社区,中国版Facebook.',
-  // baseURL:"http://mopian.1xx.me/",
-  baseURL:"http://dev.1xx.me/",
+  baseURL:"http://mopian.1xx.me/",
+  // baseURL:"http://dev.1xx.me/",
   // wxAppid:"wx88a1ec3b5c3bc9c3"
 
   　　  　　//mp app id

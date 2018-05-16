@@ -29,7 +29,6 @@ import Router from 'vue-router'
 
 const Login = resolve => require(['../page/login'], resolve)
 const Index = resolve => require(['../page/index'], resolve)
-const AppletAgree = resolve => require(['../page/applet/agree'], resolve)
 const Member = resolve => require(['../page/member'], resolve)
 const T1001 = resolve => require(['../page/t1001'], resolve)
 const C1001 = resolve => require(['../page/c1001'], resolve)
@@ -71,6 +70,7 @@ const T1020 = resolve => require(['../page/t1020'], resolve)
 const T1021 = resolve => require(['../page/t1021'], resolve)
 const T1022 = resolve => require(['../page/t1022'], resolve)
 const T1023 = resolve => require(['../page/t1023'], resolve)
+const T1024 = resolve => require(['../page/t1024'], resolve)
 const goodsList = resolve => require(['../page/goods/list'], resolve)
 const C1003goodsList = resolve => require(['../page/c1003/goodsList'], resolve)
 const C1003orderList = resolve => require(['../page/c1003/orderList'], resolve)
@@ -80,7 +80,8 @@ const messageBar = resolve => require(['../widget/messageBar'], resolve)
 const advertising = resolve => require(['../widget/advertising'], resolve)
 const coupon = resolve => require(['../widget/coupon'], resolve)
 const list = resolve => require(['../page/c1003/list'], resolve)
-
+const AppletAgree = resolve => require(['../page/applet/agree'], resolve)
+const AgreeSuccess = resolve => require(['../page/applet/agreeSuccess'], resolve)
 
 // import T1003 from '../page/t1003'
 // import T1004 from '../page/t1004'
@@ -103,6 +104,12 @@ var router = new Router({
       name: 'appletAgree',
       meta: {requireAuth:false},
       component: AppletAgree
+    },
+    {
+      path: '/agreeSuccess',
+      name: 'agreeSuccess',
+      meta: {requireAuth:false},
+      component: AgreeSuccess
     },
     {
       path: '/member',
@@ -259,6 +266,12 @@ var router = new Router({
       name: 't1023',
       meta: {requireAuth:true},
       component: T1023
+    },
+    {
+      path: '/t1024',
+      name: 't1024',
+      meta: {requireAuth:true},
+      component: T1024
     },
     {
       path: '/c1001',

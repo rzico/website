@@ -15,7 +15,7 @@ export function AUTH(redirectURL,func) {
   if (!utils.isNull(redirectURL)) {
       scope = "user"
   }
-  GET("/website/login/isAuthenticated.jhtml?scope="+scope).then(
+  GET("website/login/isAuthenticated.jhtml?scope="+scope).then(
     function (data) {
       if (data.type == "success") {
         var logined = false;
@@ -24,8 +24,7 @@ export function AUTH(redirectURL,func) {
         }
         if (logined) {
             func(true);
-        }
-        else {
+        } else {
           if (utils.isweixin()) {
             if (utils.isNull(redirectURL)) {
               scope = "snsapi_base";
@@ -35,8 +34,7 @@ export function AUTH(redirectURL,func) {
             }
             let state = b64safe(redirectURL);
             location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + utils.getConfig().wxAppid + "&redirect_uri=" + encodeURIComponent(utils.getConfig().baseURL+"website/login/weixin.jhtml?redirectURL="+state+"&xuid="+utils.getUrlParameter("xuid")) + "&response_type=code&scope="+scope+"&state=state#wechat_redirect";
-          } else
-          if (utils.isalipay()) {
+          } else if (utils.isalipay()) {
             if (utils.isNull(redirectURL)) {
               scope = "auth_base";
               redirectURL = location.href;
@@ -46,8 +44,8 @@ export function AUTH(redirectURL,func) {
             let state = b64safe(redirectURL);
             location.href = "https://openauth.alipay.com/oauth2/publicAppAuthorize.htm?app_id=" + utils.getConfig().alAppid + "&redirect_uri=" + encodeURIComponent(utils.getConfig().baseURL+"website/login/alipay.jhtml?redirectURL="+state+"&xuid="+utils.getUrlParameter("xuid")) + "&scope="+scope+"&state=state";
           } else {
+            func(false);
           }
-          func(false);
         }
       }else{
         func(false);
