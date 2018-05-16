@@ -29,6 +29,7 @@ import Router from 'vue-router'
 
 const Login = resolve => require(['../page/login'], resolve)
 const Index = resolve => require(['../page/index'], resolve)
+const AppletAgree = resolve => require(['../page/applet/agree'], resolve)
 const Member = resolve => require(['../page/member'], resolve)
 const T1001 = resolve => require(['../page/t1001'], resolve)
 const C1001 = resolve => require(['../page/c1001'], resolve)
@@ -96,6 +97,12 @@ var router = new Router({
       name: 'index',
       meta: {requireAuth:false},
       component: Index
+    },
+    {
+      path: '/appletAgree',
+      name: 'appletAgree',
+      meta: {requireAuth:false},
+      component: AppletAgree
     },
     {
       path: '/member',
