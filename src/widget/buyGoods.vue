@@ -281,7 +281,7 @@
   .box {
     width: 100%;
     height: 70%;
-    position: absolute;
+    position: fixed;
     bottom: 0px;
     background-color: #fff;
   }
@@ -349,6 +349,9 @@
         return utils.thumbnail(value,90,90);
       },
     },
+    props: {
+      dragonId:{default:0}
+    },
     methods: {
       hasReceiver:function () {
         if(utils.isNull(this.receiverList)  || utils.isNull(this.receiverList[0].id)){
@@ -384,7 +387,7 @@
           this.$refs.toast.show('请选择地址');
           return ;
         }
-        POST("website/member/order/create.jhtml?id=" + this.productId + '&quantity=' + this.buyNum + '&receiverId=' + this.receiverList[0].id+'&xuid='+utils.getUrlParameter("xuid")).then(
+        POST("website/member/order/create.jhtml?id=" + this.productId + '&quantity=' + this.buyNum + '&receiverId=' + this.receiverList[0].id+'&xuid='+utils.getUrlParameter("xuid")+'&dragonId='+_this.dragonId).then(
           function (data) {
             if (data.type=="success") {
               _this.goPay(data.data.sn);
@@ -619,7 +622,7 @@
       calcPrice(){
         let _this = this;
 //          计算价格信息
-        POST('website/member/order/calculate.jhtml?id=' + this.productId + '&quantity=' + this.buyNum).then(
+        POST('website/member/order/calculate.jhtml?id=' + this.productId + '&quantity=' + this.buyNum+'&dragonId='+_this.dragonId).then(
           function (data) {
             if(data.type == 'success'){
               if(data.type == 'success'){

@@ -11,6 +11,7 @@
           <article_content @buyNow="buyNow"  :templates="watchTemplates" :htmlStr="htmlStr"></article_content>
           <!--<vote  :article="watchArticle"></vote>-->
           <reward ref="reward" :article="watchArticle" @showDialog="showRewardDialog"></reward>
+          <dragon ref="dragon" :article="watchArticle"></dragon>
           <report  :article="watchArticle.hits"></report>
           <coupon ref="coupon"></coupon>
           <auther ref="auther" :article="watchArticle"></auther>
@@ -19,9 +20,10 @@
           <ad v-if="noWeex" :article="watchArticle"></ad>
           <rewardDialog  ref="rwd"  @rewardNumber="rewardNumber"></rewardDialog>
           <payment  ref="pay" @notify="onPayNotify"></payment>
-          <buyGoods  ref="buy" @notify="onPayNotify"></buyGoods>
+          <buyGoods  ref="buy" @notify="onPayNotify" :dragonId="dragonId"></buyGoods>
         </div>
       </div>
+      <bottom_bar :article="watchArticle"  :templates="watchTemplates" @buyNow="buyNow"></bottom_bar>
     </div>
     <!--<weui-dialog ref="dialog" type="confirm" title="免密支付" confirmButton="确认支付" cancelButton="取消"-->
     <!--@weui-dialog-confirm="activate()"-->
@@ -43,12 +45,14 @@
   import {Loadmore} from 'mint-ui';
   import { POST,GET,AUTH,SHARE} from '../assets/fetch.js';
   import utils from '../assets/utils.js';
+  import bottom_bar from './article/bottom_bar.vue';
   import download_bar from './article/download_bar.vue';
   import article_meta from './article/meta.vue';
   import music from './article/music.vue';
   import article_content from './article/content.vue';
   import vote from './article/vote.vue';
   import reward from './article/reward.vue';
+  import dragon from './article/dragon.vue';
   import report from './article/report.vue';
   import coupon from './article/coupon.vue';
   import auther from './article/auther.vue';
@@ -77,6 +81,8 @@
 //      payWay:'账户余额',
 //      payPrice:'299',
       sn:'',
+      dragonId:0,
+      xuid:0
     }
     },
     components: {
@@ -87,6 +93,7 @@
       music,
       article_content,
       reward,
+      dragon,
       report,
       coupon,
       auther,
@@ -98,6 +105,7 @@
       vote,
       card,
       buyGoods,
+      bottom_bar
 //      'weui-dialog':Dialog,
     },
     props: {
@@ -129,6 +137,8 @@
         this.noWeex = false;
       }
       let id = utils.getUrlParameter("id");
+      this.dragonId = utils.getUrlParameter("dragonId");
+      this.xuid = utils.getUrlParameter("xuid");
       this.go(id);
     },
 //    beforeDestory(){
@@ -156,17 +166,19 @@
       },
       go:function (id) {
         var _this = this;
-        GET('website/article/view.jhtml?id='+id).then(
+        GET('website/article/view.jhtml?id='+id+'&dragonId='+_this.dragonId+'&xuid='+_this.xuid).then(
           function (response) {
             if (response.type=="success") {
               _this.watchArticle = response.data;
               _this.isPublish = response.data.isPublish;
               _this.$refs.coupon.open(response.data.member.id);
+              _this.dragonId = response.data.dragonId;
+
               //设置分享标题
               utils.setConfig({
                 title:_this.watchArticle.title,
                 desc:_this.watchArticle.htmlTag,
-                link:_this.watchArticle.url,
+                link:_this.watchArticle.url+'&dragonId='+_this.dragonId,
                 thumbnail:_this.watchArticle.thumbnail
               });
               SHARE(location.href);
