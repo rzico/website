@@ -2,7 +2,7 @@
   "name": "article",
   "version": "1.0.0",
   "description": "article",
-  "author": "zhangsr",
+  "author": "yxmp",
   "private": true,
   "scripts": {
     "dev": "node build/dev-server.js",

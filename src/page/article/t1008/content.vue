@@ -5,7 +5,7 @@
         <!--template里没有title的字段-->
         <div class="text"><h3>{{template.title}}</h3></div>
         <!--判断是否是商品-->
-        <div class="text-box" v-html="template.content" :class="[templateId == 1003 ? 't1003_content_padding_0' : '']" v-if="template.content !== '' && template.content != null && template.content != undefined && template.content != 'undefined'"></div>
+        <div class="text-box" v-html="template.content" :class="[templateId == 1003 ? 't1003_content_padding_0' : '']" v-if="template.content !== ''  && template.content != 'null' && template.content != null && template.content != undefined && template.content != 'undefined'"></div>
         <!--判断类型是图文还是小视频-->
         <div class="img-box" v-if="hasImage(template,index)">
           <img
