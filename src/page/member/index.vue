@@ -120,7 +120,6 @@
         couponControl:false,
 //        控制奖励金额度是否渲染
         rebateControl:false,
-
       }
     },
     components: {

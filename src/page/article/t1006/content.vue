@@ -19,6 +19,9 @@
             <!--视频背景颜色。-->
             <div class="positionAbsolute videoBg"></div>
           </div>
+          <div v-if="template.mediaType == 'audio'">
+            <audio :src="template.url" controls="controls" style="width: 100%;"></audio>
+          </div>
         </div>
       </div>
       <div v-if="isHtml()">{{htmlStr}}</div>

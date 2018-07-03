@@ -10,7 +10,8 @@
 @import './article/report.less';
 @import './article/review.less';
 @import './article/ad.less';
-@import './article/vote.less';
+@import 'article/vote_table.less';
+@import './allpublic.less';
 /**
  * 兼容ie9.
  */
@@ -750,4 +751,36 @@ body.top-banner-show .music-icon {
   padding: 0 25px;
   word-break: break-all;
   word-wrap: break-word;
+}
+
+
+
+.t1003 .table input::-webkit-input-placeholder {
+  /* WebKit browsers */
+  color: RGBA(0, 45, 64, 0.5) !important;
+}
+.t1003 .table input:-moz-placeholder{
+  /* Mozilla Firefox 4 to 18 */
+  color: RGBA(0, 45, 64, 0.5) !important;
+}
+.t1003 .table input::-moz-placeholder{
+  /* Mozilla Firefox 19+ */
+  color: RGBA(0, 45, 64, 0.5) !important;
+}
+.t1003 .table input:-ms-input-placeholder{
+  /* Internet Explorer 10+ */
+  color: RGBA(0, 45, 64, 0.5) !important;
+}
+.t1003  .table .well{
+  border-color: #f6e8c9 !important;
+}
+.t1003 .table .well .option-area ul.unvote li{
+  border-color: #f6e8c9 !important;
+}
+.t1003 .table .well .option-area ul.unvote li > i.radio{
+  border-color: #f6e8c9 !important;
+}
+.t1003 .table .well button.vote-btn{
+  background-color: #f6e8c9 !important;
+  border-color: #f6e8c9 !important;
 }

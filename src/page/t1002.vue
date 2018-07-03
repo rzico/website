@@ -9,7 +9,7 @@
           <div class="mp-content">
             <div class="mp-bg-blur"></div>
             <article_meta :article="watchArticle"></article_meta>
-            <article_content @buyNow="buyNow"  :templates="watchTemplates" :htmlStr="htmlStr" templateId=1002></article_content>
+            <article_content @buyNow="buyNow" :article="watchArticle" :hasTable="hasTable" :templates="watchTemplates" :htmlStr="htmlStr" templateId=1002></article_content>
           </div>
           <reward ref="reward" :article="watchArticle" @showDialog="showRewardDialog"></reward>
           <report  :article="watchArticle.hits"></report>
@@ -72,6 +72,7 @@
 //      payWay:'账户余额',
 //      payPrice:'299',
       sn:'',
+      hasTable:false,
       }
     },
     components: {
@@ -193,6 +194,10 @@
                       })
                     }
                   })
+
+                  if(!utils.isNull(response.data.forms)){
+                    _this.hasTable = true;
+                  }
                   _this.$set(response.data.templates, 'previewList', previewList);
                   _this.watchTemplates = response.data.templates;
                 }
@@ -252,7 +257,6 @@
                   "paySign" : res.data.paySign,
                 },function(result){
                   if(result.err_msg == "get_brand_wcpay_request:ok" ) {
-
                     setTimeout(function () {
                       _this.$refs.reward.open()
                     },2000)
@@ -300,18 +304,16 @@
       buyNow:function (id) {
         if(utils.isweex()==true){
 
-//          location.href =  'mopian://buyGood?id=' + id;
-          this.$refs.toast.show('请分享到微信进行购买!');
+          location.href =  'mopian://buyGood?id=' + id;
+//          this.$refs.toast.show('请分享到微信进行购买!');
           return;
         }
-
         let _this = this;
         AUTH(location.href,function (authed) {
           if (authed) {
             _this.$refs.buy.show(id,_this.watchArticle.id);
           }
         })
-
       },
       onscroll(e){
         if(this.musicPlay == 0){//控制判断音乐。来判断从未触发音乐时滚动触发音乐，而在触发过音乐后滚动时不触发音乐事件。

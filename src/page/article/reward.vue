@@ -68,7 +68,8 @@
     data() {
       return {
         rewards: [],
-        recordsTotal:0
+        recordsTotal:0,
+        isReward:false,
       }
     },
     props: {

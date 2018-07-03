@@ -1,7 +1,7 @@
 <template>
 <div class="main-box" @touchmove="onscroll" offset-accuracy="0">
   <div class="main-box">
-    <div class=" article root moipian">
+    <div class=" article root moipian t1005">
       <download_bar :isShow="downloadShow" :authorId="watchArticle.member.id" @closeDownload="closeDownload" ></download_bar>
       <!--<article_cover :article="watchArticle"></article_cover>-->
       <music :musicData="watchMusicData" @judgeMusic="judgeMusic" ref="musicTemplete" templateId=1002 :downloadShow="false"></music>
@@ -29,7 +29,7 @@
         </div>
       </div>
 
-        <article_content @buyNow="buyNow"  :templates="watchTemplates" :htmlStr="htmlStr" templateId=1002></article_content>
+        <article_content @buyNow="buyNow" :article="watchArticle" :hasTable="hasTable"  :templates="watchTemplates" :htmlStr="htmlStr" templateId=1002></article_content>
         <reward ref="reward" :article="watchArticle" @showDialog="showRewardDialog"></reward>
         <report  :article="watchArticle.hits"></report>
         <coupon ref="coupon"></coupon>
@@ -718,6 +718,7 @@
 //      payWay:'账户余额',
 //      payPrice:'299',
         sn:'',
+        hasTable:false,
       }
     },
     components: {
@@ -850,6 +851,9 @@
                           h: 1000
                         })
                       }
+                      if(!utils.isNull(response.data.forms)){
+                        _this.hasTable = true;
+                      }
                     })
                     _this.$set(response.data.templates, 'previewList', previewList);
                     _this.watchTemplates = response.data.templates;
@@ -957,7 +961,8 @@
         },
         buyNow:function (id) {
           if(utils.isweex()==true){
-            this.$refs.toast.show('请分享到微信进行购买');
+//            this.$refs.toast.show('请分享到微信进行购买');
+            location.href =  'mopian://buyGood?id=' + id;
             return;
           }
 

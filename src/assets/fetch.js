@@ -13,17 +13,17 @@ export function AUTH(redirectURL,func) {
   var _this = this;
   var scope = "base";
   if (!utils.isNull(redirectURL)) {
-      scope = "user"
+    scope = "user"
   }
   GET("website/login/isAuthenticated.jhtml?scope="+scope).then(
     function (data) {
       if (data.type == "success") {
         var logined = false;
         if (data.data.loginStatus) {
-            logined = true;
+          logined = true;
         }
         if (logined) {
-            func(true);
+          func(true);
         } else {
           if (utils.isweixin()) {
             if (utils.isNull(redirectURL)) {
@@ -138,46 +138,81 @@ export function SHARE(url) {
     )
   }
 }
+
 export function POST (path,body) {
   return new Promise((resolve, reject) => {
-      Vue.http.post(utils.getConfig().baseURL+path,body).then(
-          function (response) {
-            if (response.status == 200) {
-              resolve(response.data)
-            }
-            else {
-              reject({
-                type:"error",
-                content:"网络不稳定"
-              })
-            }
-          },() => {
-           reject({
+  Vue.http.post(utils.getConfig().baseURL+path,body).then(
+    function (response) {
+      if (response.status == 200) {
+        if(response.data.content && response.data.content == 'session.invaild'){
+          response.data.content = '登录超时'
+        }
+        resolve(response.data)
+      }
+      else {
+        reject({
+          type:"error",
+          content:"网络不稳定"
+        })
+      }
+    },() => {
+    reject({
              type:"error",
              content:"网络不稳定"
            })
   })
-    })
+})
 }
+
+//post传输对象时 用该方法。可参考 page/article/table.vue 文件里的写法
+export function POSTBODY (path,body) {
+  return new Promise((resolve, reject) => {
+    Vue.http({
+    method:'POST',
+    url:utils.getConfig().baseURL+path,
+    params:body,
+  }).then(
+    function (response) {
+      if (response.status == 200) {
+        if(response.data.content && response.data.content == 'session.invaild'){
+          response.data.content = '登录超时'
+        }
+        resolve(response.data)
+      }
+      else {
+        reject({
+          type:"error",
+          content:"网络不稳定"
+        })
+      }
+    },() => {
+    reject({
+             type:"error",
+             content:"网络不稳定"
+           })
+  })
+})
+}
+
 
 export function GET (path) {
   return new Promise((resolve, reject) => {
-      Vue.http.get(utils.getConfig().baseURL+path).then(
-      function (response) {
-        if (response.status == 200) {
-          resolve(response.data)
-        }
-        else {
-          reject({
-            type:"error",
-            content:"网络不稳定"
-          })
-        }
-      },() => {
-           reject({
+    Vue.http.get(utils.getConfig().baseURL+path).then(
+    function (response) {
+      if (response.status == 200) {
+        resolve(response.data)
+      }
+      else {
+        reject({
+          type:"error",
+          content:"网络不稳定"
+        })
+      }
+    },() => {
+    reject({
              type:"error",
              content:"网络不稳定"
            })
   })
-  })
+})
 }

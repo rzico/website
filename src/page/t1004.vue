@@ -212,7 +212,9 @@
       },
       buyNow:function (id) {
         if(utils.isweex()==true){
-          this.$refs.toast.show('请分享到微信进行购买');
+//          this.$refs.toast.show('请分享到微信进行购买');
+
+          location.href =  'mopian://buyGood?id=' + id;
           return;
         }
 

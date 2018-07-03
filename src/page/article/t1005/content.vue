@@ -9,17 +9,20 @@
           <div class="text-box" v-html="template.content" v-if="template.content !== ''  && template.content != 'null' && template.content != null && template.content != undefined && template.content != 'undefined'"></div>
           <!--判断类型是图文还是小视频-->
           <div class="img-outbox">
-          <div class="img-box rotate-0" v-if="hasImage(template)">
-            <img
-              v-lazy="template.original "
-              class="  images " style="-webkit-transform: rotate(-3deg);-ms-transform: rotate(-3deg); transform: rotate(-3deg);" @click="imgPreview(template.original,templatesList.previewList)" ref="imgRef"/>
-          </div>
+            <div class="img-box rotate-0" v-if="hasImage(template)">
+              <img
+                v-lazy="template.original "
+                class="  images " style="-webkit-transform: rotate(-3deg);-ms-transform: rotate(-3deg); transform: rotate(-3deg);" @click="imgPreview(template.original,templatesList.previewList)" ref="imgRef"/>
+            </div>
           </div>
           <!--判断类型是否小视频-->
           <div class=" positionRelative" v-if="template.mediaType == 'video'" >
             <video :src="template.original" controls="controls" :poster="template.thumbnail" style="background-color: black" width="100%" height="250"></video>
             <!--视频背景颜色。-->
             <div class="positionAbsolute videoBgc"></div>
+          </div>
+          <div v-if="template.mediaType == 'audio'">
+            <audio :src="template.url" controls="controls" style="width: 100%;"></audio>
           </div>
         </div>
         <div v-if="template.mediaType == 'product'" class="goodsLineBox" >
@@ -51,6 +54,9 @@
       <div>展开阅读全文</div>
       <i class="iconfont icon-xiajiantou icon-arrow"></i>
     </div>
+    <div v-else>
+      <tableList :article="article"  v-if="hasTable "></tableList>
+    </div>
     <preview ref="vuePreview"></preview>
   </div>
 </template>
@@ -80,55 +86,51 @@
   .content .section .img-outbox .rotate-0::after {
     content: "";
     display: block; }
-   .content {
+  .content {
     overflow: hidden;
-     margin-left: 23px;
-     margin-right: 23px;
+    margin-left: 23px;
+    margin-right: 23px;
   }
-   .content .section {
+  .content .section {
     width: auto;
   }
   .margin-section{
     margin: 24px 0;
   }
-   .content .nosection{
+  .content .nosection{
     width: auto;
   }
-   .content .section .text-box{
+  .content .section .text-box{
     /*width: 100%;*/
     padding: 0 15px;
   }
-   .content .section:first-child {
+  .content .section:first-child {
     margin-top: 0 !important;
   }
-   .content .section .text {
+  .content .section .text {
     font-size: 16px;
     line-height: 1.5;
     word-wrap: break-word;
     font-weight: normal;
     white-space: pre-wrap;
   }
-   .content .section h3 {
+  .content .section h3 {
     font-size: 16px;
   }
-   .img-box {
+  .img-box {
   }
-
-   .content .section .images {
+  .content .section .images {
     display: block;
     width: 100%;
   }
-   .content .section img {
-
+  .content .section img {
   }
-
   /*商品*/
-
-    .sub_title{
-      font-size: 15px;
-      line-height: 16px;
-      color: #999;
-    }
+  .sub_title{
+    font-size: 15px;
+    line-height: 16px;
+    color: #999;
+  }
   .linesCtrl{
     overflow : hidden;
   }
@@ -210,7 +212,7 @@
     line-height: 60px;
     position: absolute;left: 50%;top: 50%;margin-top: -30px;margin-left: -30px;
   }
-   .videoBgc{
+  .videoBgc{
     top: 0;left: 0;right: 0;background-color: black;height: 250px;z-index: -1;
   }
 
@@ -219,6 +221,7 @@
   import { POST, GET } from '../../../assets/fetch.js';
   import utils from '../../../assets/utils.js';
   import preview from '../../../widget/preview.vue';
+  import tableList from '../table.vue';
   export default {
     data() {
       return {
@@ -230,12 +233,23 @@
     props: {
       templates: { default: function () {
         return []
-      }
+        }
       },
+      hasTable:{
+        default:false,
+      },
+      article: {
+        default: function () {
+          return {hits: 0, title: "样例", nickName: "author", createDate: null}
+        }
+      },
+
       htmlStr: {
         default:""
       },
-      templateId:{default:1001}
+      templateId:{
+        default:1001
+      }
     },
     computed:{
       templatesList: function () {
@@ -243,7 +257,8 @@
       }
     },
     components: {
-      preview
+      preview,
+      tableList
     },
     filters:{
 //        用原图去阿里云获取缩略图

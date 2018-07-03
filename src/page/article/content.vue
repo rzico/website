@@ -10,15 +10,18 @@
           <!--判断类型是图文还是小视频-->
           <div class="img-box" v-if="hasImage(template,index)">
             <img
-              v-lazy="template.original "
+              v-lazy="template.original"
               class="images shadow img-border preview-img"  @click="imgPreview(template.original,templatesList.previewList)" ref="imgRef"/>
           </div>
           <!--判断类型是否小视频-->
-          <div class="img-box positionRelative" v-if="template.mediaType == 'video'" >
+          <div class="img-box positionRelative" v-if="template.mediaType == 'video'">
             <video :src="template.original"  controls="controls" style="background-color: black"  playsinline webkit-playsinline="true" :poster="template.thumbnail"  width="100%" height="250"></video>
             <!--视频背景颜色。-->
             <!--<div class="positionAbsolute videoBg"></div>-->
           </div>
+        </div>
+        <div v-if="template.mediaType == 'audio'">
+          <audio :src="template.url" controls="controls" style="width: 100%;"></audio>
         </div>
         <div v-if="template.mediaType == 'product'" class="goodsLineBox" :class="[templateId == 1003 ? 't1003_content_padding_0' : '']">
           <div class="goodsLineInside boderStyle" :class="[templateId == 1003 ? 't1003_goods_borderColor' : '',templateId == 1002 ? 't1002_goods_borderColor' : '']"  @click="buyNow(template.id)">
@@ -29,9 +32,9 @@
               <p class="linesCtrl"  style="-webkit-box-orient: vertical;overflow: hidden;-webkit-line-clamp: 2;line-height: 23px;display: -webkit-box;text-overflow: ellipsis;height: 66%;font-size: 16px">{{template.name}}</p>
               <div class="goodsPrice"  style="height: 34%">
                 <div>
-                <span>
-                ¥ {{template.price | watchPrice}}
-                </span>
+                  <span>
+                  ¥ {{template.price | watchPrice}}
+                  </span>
                   <!--<span class=" sub_title" style="font-size: 14px;text-decoration:line-through;">-->
                   <!--¥ 160.00-->
                   <!--</span>-->
@@ -41,6 +44,32 @@
             </div>
           </div>
         </div>
+        <!--表单-->
+        <!--<div class="table" style="">-->
+        <!--<div class="well voteContentWell">-->
+        <!--<div class="option-area">-->
+        <!--<h2 class="title">金手指在线报名-->
+        <!--</h2>-->
+        <!--&lt;!&ndash;<p class="time">截止时间：长期有效</p>&ndash;&gt;-->
+        <!--<ul class="unvote">-->
+        <!--<li class="">-->
+        <!--<i class="radio"></i>-->
+        <!--<input type="text" class="inputTitle" placeholder="姓名">-->
+        <!--&lt;!&ndash;<p class="title">你好</p>&lt;!&ndash;&ndash;&gt;&ndash;&gt;-->
+        <!--</li>-->
+        <!--<li class="">-->
+        <!--<i class="radio"></i>-->
+        <!--<input type="text" class="inputTitle" placeholder="电话">-->
+        <!--</li>-->
+        <!--<li class="">-->
+        <!--<i class="radio"></i>-->
+        <!--<input type="text" class="inputTitle" placeholder="年龄">-->
+        <!--</li>-->
+        <!--</ul>-->
+        <!--</div>-->
+        <!--<button class="vote-btn">立即报名</button>-->
+        <!--</div>-->
+        <!--</div>-->
       </div>
       <div v-if="isHtml()">{{htmlStr}}</div>
     </div>
@@ -49,6 +78,9 @@
       <div>展开阅读全文</div>
       <i class="iconfont icon-xiajiantou icon-arrow"></i>
     </div>
+    <div v-else>
+      <tableList :article="article"  v-if="hasTable "></tableList>
+    </div>
     <preview ref="vuePreview"></preview>
   </div>
 </template>
@@ -56,17 +88,27 @@
   import { POST, GET } from '../../assets/fetch.js';
   import utils from '../../assets/utils.js';
   import preview from '../../widget/preview.vue';
+  import tableList from './table.vue';
   export default {
     data() {
       return {
         more:false,
         goodsHeight:'',
-        testData:'',
       }
+    },
+    components: {
+      preview,
+      tableList,
     },
     props: {
       templates: { default: function () {
         return []
+      }
+      },
+      hasTable:{default:false,
+      },
+      article: { default: function () {
+        return {hits:0,title:"样例",nickName:"author",createDate:null}
       }
       },
       htmlStr: {
@@ -78,9 +120,6 @@
       templatesList: function () {
         return this.templates;
       }
-    },
-    components: {
-      preview
     },
     filters:{
 //        用原图去阿里云获取缩略图
@@ -101,6 +140,7 @@
       this.goodsHeight = document.documentElement.clientWidth * 0.2;
       let _this = this;
 //      alert(JSON.stringify(this.templates));
+
     },
     methods: {
 //      判断是否有图片

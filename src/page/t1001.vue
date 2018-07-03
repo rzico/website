@@ -1,18 +1,20 @@
 <template>
+  <!-- v-if="watchArticle.title != '点击设置标题'"-->
   <div @touchmove="onscroll" offset-accuracy="0">
-    <div class="slideIn"  >
+    <div class="slideIn" >
       <download_bar :isShow="downloadShow" :authorId="watchArticle.member.id" @closeDownload="closeDownload"></download_bar>
-      <div class="article" :class="[downloadShow ? '':'noMt']">
+      <div class="article root" :class="[downloadShow ? '':'noMt']">
         <!--<div class="bg">-->
         <!--</div>-->
         <div class="main">
           <article_meta :article="watchArticle"></article_meta>
           <music :musicData="watchMusicData" @judgeMusic="judgeMusic" ref="musicTemplete" :downloadShow="downloadShow"></music>
-          <article_content @buyNow="buyNow"  :templates="watchTemplates" :htmlStr="htmlStr"></article_content>
+          <article_content @buyNow="buyNow" :article="watchArticle" :hasTable="hasTable" :templates="watchTemplates" :htmlStr="htmlStr"></article_content>
           <!--<vote  :article="watchArticle"></vote>-->
+          <!--<tableList :article="watchArticle" v-if="hasTable"></tableList>-->
           <reward ref="reward" :article="watchArticle" @showDialog="showRewardDialog"></reward>
           <report  :article="watchArticle.hits"></report>
-          <coupon ref="coupon"></coupon>
+          <!--<coupon ref="coupon"></coupon>-->
           <auther ref="auther" :article="watchArticle"></auther>
           <review ref="review" :article="watchArticle"></review>
           <recommend ref="recommend" v-if="isPublish" :article="watchArticle" @go="fetchData"></recommend>
@@ -48,9 +50,10 @@
   import music from './article/music.vue';
   import article_content from './article/content.vue';
   import vote from './article/vote.vue';
+//  import tableList from './article/table.vue';
   import reward from './article/reward.vue';
   import report from './article/report.vue';
-  import coupon from './article/coupon.vue';
+//  import coupon from './article/coupon.vue';
   import auther from './article/auther.vue';
   import recommend from './article/recommend.vue';
   import review from './article/review.vue';
@@ -77,6 +80,7 @@
 //      payWay:'账户余额',
 //      payPrice:'299',
       sn:'',
+      hasTable:false,
     }
     },
     components: {
@@ -88,7 +92,7 @@
       article_content,
       reward,
       report,
-      coupon,
+//      coupon,
       auther,
       recommend,
       review,
@@ -98,11 +102,12 @@
       vote,
       card,
       buyGoods,
+//      tableList,
 //      'weui-dialog':Dialog,
     },
     props: {
       article: { default: function () {
-        return {hits:0,title:"样例",nickName:"author",createDate:null,member:{autograph:""}}
+        return {hits:0,title:"点击设置标题",nickName:"author",createDate:null,member:{autograph:""}}
       }
       },
 //      article: { default: function () {
@@ -159,9 +164,10 @@
         GET('website/article/view.jhtml?id='+id).then(
           function (response) {
             if (response.type=="success") {
+              response.data.title = decodeURIComponent(response.data.title);
               _this.watchArticle = response.data;
               _this.isPublish = response.data.isPublish;
-              _this.$refs.coupon.open(response.data.member.id);
+//              _this.$refs.coupon.open(response.data.member.id);
               //设置分享标题
               utils.setConfig({
                 title:_this.watchArticle.title,
@@ -204,19 +210,21 @@
                       })
                     }
                   })
+                  if(!utils.isNull(response.data.forms)){
+                    _this.hasTable = true;
+                  }
                   _this.$set(response.data.templates, 'previewList', previewList);
                   _this.watchTemplates = response.data.templates;
 //                  alert(JSON.stringify(_this.watchTemplates))
                 }
               }
-
             } else {
               _this.$refs.toast.show("网络不稳定");
 //                 _this.$refs.toast.show('website/article/view.jhtml?id='+id);
             }
           }, function () {
             _this.$refs.toast.show("网络不稳定");
-//                _this.$refs.toast.show('ssssswebsite/article/view.jhtml?id='+id);
+//                _this.$refs.toast.show('website/article/view.jhtml?id='+id);
 
           });
       },
@@ -263,8 +271,7 @@
                   "signType" :res.data.signType,
                   "paySign" : res.data.paySign,
                 },function(result){
-                  if(result.err_msg == "get_brand_wcpay_request:ok" ) {
-
+                  if(result.err_msg == "get_brand_wcpay_request:ok") {
                     setTimeout(function () {
                       _this.$refs.reward.open()
                     },2000)
@@ -286,13 +293,11 @@
               }
             }
             else {
-
 //              _this.pageIcon = 'cancel';
               _this.$refs.toast.show("网络不稳定");
             }
           },
           function (err) {
-
             _this.$refs.toast.show("网络不稳定");
           }
         )
@@ -311,11 +316,10 @@
       },
       buyNow:function (id) {
         if(utils.isweex()==true){
-//          location.href =  'mopian://buyGood?id=' + id;
-          this.$refs.toast.show('请分享到微信进行购买');
+          location.href =  'mopian://buyGood?id=' + id;
+//          this.$refs.toast.show('请分享到微信进行购买');
           return;
         }
-
         let _this = this;
         AUTH(location.href,function (authed) {
             if (authed) {

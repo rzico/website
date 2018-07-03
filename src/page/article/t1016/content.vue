@@ -24,6 +24,9 @@
           <!--视频背景颜色。-->
           <!--<div class="positionAbsolute videoBg"></div>-->
         </div>
+        <div v-if="template.mediaType == 'audio'">
+          <audio :src="template.url" controls="controls" style="width: 100%;"></audio>
+        </div>
       </div>
       <div v-if="template.mediaType == 'product'" class="goodsLineBox" :class="[templateId == 1003 ? 't1003_content_padding_0' : '']">
         <div class="goodsLineInside boderStyle" @click="buyNow(template.id)">
@@ -52,6 +55,9 @@
       <div>展开阅读全文</div>
       <i class="iconfont icon-xiajiantou icon-arrow"></i>
     </div>
+    <div v-else>
+      <tableList :article="article"  v-if="hasTable "></tableList>
+    </div>
     <preview ref="vuePreview"></preview>
   </div>
 </template>
@@ -59,6 +65,7 @@
   import { POST, GET } from '../../../assets/fetch.js';
   import utils from '../../../assets/utils.js';
   import preview from '../../../widget/preview.vue';
+  import tableList from '../table.vue';
   export default {
     data() {
       return {
@@ -75,7 +82,13 @@
       htmlStr: {
         default:""
       },
-      templateId:{default:1016}
+      templateId:{default:1016},
+      hasTable:{default:false,
+      },
+      article: { default: function () {
+        return {hits:0,title:"样例",nickName:"author",createDate:null}
+      }
+      },
     },
     computed:{
       templatesList: function () {
@@ -83,7 +96,7 @@
       }
     },
     components: {
-      preview
+      preview,tableList
     },
     filters:{
 //        用原图去阿里云获取缩略图

@@ -18,8 +18,8 @@ Vue.config.productionTip = false
 //懒加载 安装命令 cnpm install vue-lazyload -D
 import VueLazyLoad from 'vue-lazyload'
 Vue.use(VueLazyLoad, {
-  error: '../static/loaderror.png',
-  loading: '../static/loading1.gif',
+  error: '../static/loadingBg.png',
+  loading: '../static/loadingBg.png',
   attempt: 4,
   preLoad: 1.3,
   //图片过滤器

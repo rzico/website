@@ -53,7 +53,7 @@
         link:location.href,
         logo:".static/logo.png"
       });
-      AUTH("",function (authed)  {
+      AUTH(location.href,function (authed)  {
         _this.logined  = authed;
       })
     },

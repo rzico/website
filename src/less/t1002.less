@@ -1,7 +1,6 @@
 
 @import './article/t1002/cover.less';
 @import './article/t1002/meta.less';
-
 @import './article/content.less';
 @import './article/download_bar.less';
 @import './article/auther.less';
@@ -11,7 +10,8 @@
 @import './article/report.less';
 @import './article/review.less';
 @import './article/ad.less';
-
+@import './article/vote_table.less';
+@import './allpublic.less';
 
 .t1002_content_padding_10{
   padding: 0 10px;
@@ -130,4 +130,32 @@ body {
   vertical-align: bottom; }
 
 
-
+.t1002 .table input::-webkit-input-placeholder {
+  /* WebKit browsers */
+  color: RGBA(0, 45, 64, 0.5) !important;
+}
+.t1002 .table input:-moz-placeholder{
+  /* Mozilla Firefox 4 to 18 */
+  color: RGBA(0, 45, 64, 0.5) !important;
+}
+.t1002 .table input::-moz-placeholder{
+  /* Mozilla Firefox 19+ */
+  color: RGBA(0, 45, 64, 0.5) !important;
+}
+.t1002 .table input:-ms-input-placeholder{
+  /* Internet Explorer 10+ */
+  color: RGBA(0, 45, 64, 0.5) !important;
+}
+.t1002  .table .well{
+  border-color: #96C6D3 !important;
+}
+.t1002 .table .well .option-area ul.unvote li{
+  border-color: #96C6D3 !important;
+}
+.t1002 .table .well .option-area ul.unvote li > i.radio{
+  border-color: #96C6D3 !important;
+}
+.t1002 .table .well button.vote-btn{
+  background-color: #96C6D3 !important;
+  border-color: #96C6D3 !important;
+}

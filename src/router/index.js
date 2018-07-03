@@ -71,6 +71,19 @@ const T1021 = resolve => require(['../page/t1021'], resolve)
 const T1022 = resolve => require(['../page/t1022'], resolve)
 const T1023 = resolve => require(['../page/t1023'], resolve)
 const T1024 = resolve => require(['../page/t1024'], resolve)
+const T1025 = resolve => require(['../page/t1025'], resolve)
+const T1026 = resolve => require(['../page/t1026'], resolve)
+const T1027 = resolve => require(['../page/t1027'], resolve)
+const T1028 = resolve => require(['../page/t1028'], resolve)
+const T1029 = resolve => require(['../page/t1029'], resolve)
+const T1030 = resolve => require(['../page/t1030'], resolve)
+const T1031 = resolve => require(['../page/t1031'], resolve)
+const T1032 = resolve => require(['../page/t1032'], resolve)
+const T1033 = resolve => require(['../page/t1033'], resolve)
+const T1034 = resolve => require(['../page/t1034'], resolve)
+const T1035 = resolve => require(['../page/t1035'], resolve)
+const T1036 = resolve => require(['../page/t1036'], resolve)
+const T1037 = resolve => require(['../page/t1037'], resolve)
 const goodsList = resolve => require(['../page/goods/list'], resolve)
 const C1003goodsList = resolve => require(['../page/c1003/goodsList'], resolve)
 const C1003orderList = resolve => require(['../page/c1003/orderList'], resolve)
@@ -281,6 +294,84 @@ var router = new Router({
       component: T1024
     },
     {
+      path: '/t1025',
+      name: 't1025',
+      meta: {requireAuth:true},
+      component: T1025
+    },
+    {
+      path: '/t1026',
+      name: 't1026',
+      meta: {requireAuth:true},
+      component: T1026
+    },
+    {
+      path: '/t1027',
+      name: 't1027',
+      meta: {requireAuth:true},
+      component: T1027
+    },
+    {
+      path: '/t1028',
+      name: 't1028',
+      meta: {requireAuth:true},
+      component: T1028
+    },
+    {
+      path: '/t1029',
+      name: 't1029',
+      meta: {requireAuth:true},
+      component: T1029
+    },
+    {
+      path: '/t1030',
+      name: 't1030',
+      meta: {requireAuth:true},
+      component: T1030
+    },
+    {
+      path: '/t1031',
+      name: 't1031',
+      meta: {requireAuth:true},
+      component: T1031
+    },
+    {
+      path: '/t1032',
+      name: 't1032',
+      meta: {requireAuth:true},
+      component: T1032
+    },
+    {
+      path: '/t1033',
+      name: 't1033',
+      meta: {requireAuth:true},
+      component: T1033
+    },
+    {
+      path: '/t1034',
+      name: 't1034',
+      meta: {requireAuth:true},
+      component: T1034
+    },
+    {
+      path: '/t1035',
+      name: 't1035',
+      meta: {requireAuth:true},
+      component: T1035
+    },
+    {
+      path: '/t1036',
+      name: 't1036',
+      meta: {requireAuth:true},
+      component: T1036
+    },
+    {
+      path: '/t1037',
+      name: 't1037',
+      meta: {requireAuth:true},
+      component: T1037
+    },
+    {
       path: '/c1001',
       name: 'c1001',
       meta: {requireAuth:true},
@@ -434,30 +525,30 @@ var router = new Router({
 })
 
 
-router.beforeEach((to, from, next) => {
-  if(from.query != null && from.query.xuid != null){
-    to.query.xuid = from.query.xuid;
-  }
-  next();
-
-
-  // if(to.name == 'payment' ){
-  //   alert('进来了 to。name');
-  //
-  //   if (sessionStorage.getItem('once')) {
-  //     sessionStorage.removeItem('once')
-  //     next();
-  //   } else {
-  //     sessionStorage.setItem('once','close');
-  //     next({
-  //       name: "payment",
-  //       query: to.psn
-  //     })
-  //   }
-  //
-  //   return;
-  // }
-})
+// router.beforeEach((to, from, next) => {
+//   if(from.query != null && from.query.xuid != null){
+//     to.query.xuid = from.query.xuid;
+//   }
+//   next();
+//
+//
+//   // if(to.name == 'payment' ){
+//   //   alert('进来了 to。name');
+//   //
+//   //   if (sessionStorage.getItem('once')) {
+//   //     sessionStorage.removeItem('once')
+//   //     next();
+//   //   } else {
+//   //     sessionStorage.setItem('once','close');
+//   //     next({
+//   //       name: "payment",
+//   //       query: to.psn
+//   //     })
+//   //   }
+//   //
+//   //   return;
+//   // }
+// })
 
 
 

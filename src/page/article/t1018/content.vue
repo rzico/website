@@ -23,6 +23,9 @@
           <!--视频背景颜色。-->
           <!--<div class="positionAbsolute videoBg"></div>-->
         </div>
+        <div v-if="template.mediaType == 'audio'">
+          <audio :src="template.url" controls="controls" style="width: 100%;"></audio>
+        </div>
       </div>
       <div v-if="template.mediaType == 'product'" class="goodsLineBox" :class="[templateId == 1003 ? 't1003_content_padding_0' : '']">
         <div class="goodsLineInside boderStyle" @click="buyNow(template.id)">
@@ -45,11 +48,39 @@
           </div>
         </div>
       </div>
+      <!--投票-->
+      <!--<div class="vote" style="">-->
+      <!--<div class="well voteContentWell">-->
+      <!--<div class="option-area">-->
+      <!--<h2 class="title">谁好<em>(单选)</em>-->
+      <!--</h2>-->
+      <!--<p class="time">截止时间：长期有效</p>-->
+      <!--<ul class="unvote">-->
+      <!--<li class="">-->
+      <!--<i class="radio"></i>-->
+      <!--<p class="title">你好</p>&lt;!&ndash;&ndash;&gt;-->
+      <!--</li>-->
+      <!--<li class="">-->
+      <!--<i class="radio"></i>-->
+      <!--<p class="title">我好</p>&lt;!&ndash;&ndash;&gt;-->
+      <!--</li>-->
+      <!--<li class="">-->
+      <!--<i class="radio"></i>-->
+      <!--<p class="title">大家好</p>&lt;!&ndash;&ndash;&gt;-->
+      <!--</li>-->
+      <!--</ul>-->
+      <!--</div>-->
+      <!--<button class="vote-btn">请在魔篇或微信中投票</button>-->
+      <!--</div>-->
+      <!--</div>-->
     </div>
     <!--展开阅读全文.-->
     <div class="readmore" style="display: block;" @click="readMore()" v-if="hasMore()">
       <div>展开阅读全文</div>
       <i class="iconfont icon-xiajiantou icon-arrow"></i>
+    </div>
+    <div v-else>
+      <tableList :article="article"  v-if="hasTable "></tableList>
     </div>
     <preview ref="vuePreview"></preview>
   </div>
@@ -58,6 +89,7 @@
   import { POST, GET } from '../../../assets/fetch.js';
   import utils from '../../../assets/utils.js';
   import preview from '../../../widget/preview.vue';
+  import tableList from '../table.vue';
   export default {
     data() {
       return {
@@ -74,6 +106,12 @@
       htmlStr: {
         default:""
       },
+      hasTable:{default:false,
+      },
+      article: { default: function () {
+        return {hits:0,title:"样例",nickName:"author",createDate:null}
+      }
+      },
       templateId:{default:1016}
     },
     computed:{
@@ -82,7 +120,7 @@
       }
     },
     components: {
-      preview
+      preview,tableList
     },
     filters:{
 //        用原图去阿里云获取缩略图

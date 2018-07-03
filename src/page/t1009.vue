@@ -6,7 +6,7 @@
         <download_bar :isShow="downloadShow" templateId=1002 :authorId="watchArticle.member.id" @closeDownload="closeDownload"></download_bar>
         <music :musicData="watchMusicData" @judgeMusic="judgeMusic" ref="musicTemplete" :downloadShow="downloadShow"></music>
         <article_meta :article="watchArticle"></article_meta>
-        <article_content @buyNow="buyNow"  :templates="watchTemplates" :htmlStr="htmlStr"></article_content>
+        <article_content @buyNow="buyNow"  :article="watchArticle" :hasTable="hasTable"  :templates="watchTemplates" :htmlStr="htmlStr"></article_content>
         <report  :article="watchArticle.hits"></report>
         <auther ref="auther" :article="watchArticle"></auther>
         <review ref="review" :article="watchArticle"></review>
@@ -61,6 +61,7 @@
 //      payWay:'账户余额',
 //      payPrice:'299',
       sn:'',
+      hasTable:false,
     }
     },
     components: {
@@ -185,6 +186,9 @@
                       })
                     }
                   })
+                  if(!utils.isNull(response.data.forms)){
+                    _this.hasTable = true;
+                  }
                   _this.$set(response.data.templates, 'previewList', previewList);
                   _this.watchTemplates = response.data.templates;
 //                  alert(JSON.stringify(_this.watchTemplates))
@@ -292,7 +296,9 @@
       },
       buyNow:function (id) {
         if(utils.isweex()==true){
-          this.$refs.toast.show('请分享到微信进行购买');
+//          this.$refs.toast.show('请分享到微信进行购买');
+
+          location.href =  'mopian://buyGood?id=' + id;
           return;
         }
 

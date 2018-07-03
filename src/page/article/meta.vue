@@ -1,5 +1,5 @@
 <template>
-  <div class="article_meta" v-if="article.title != '样例'">
+  <div class="article_meta" v-if="article.title != '点击设置标题'">
     <h1 class="meta_title">{{article.title}}</h1>
     <div class="meta clearfix">
       <span>{{article.createDate | datetimefmt}}</span>
@@ -27,8 +27,8 @@
 //        },
         article: {
           default: function () {
-//           配合v-if控制渲染 title应该全设置为   点击设置标题  ，但是涉及太多模版，暂使用样例
-            return {hits: 0, title: "样例", nickName: "author", createDate: null}
+//           配合v-if控制渲染 title应该全设置为   点击设置标题  ，但是涉及太多模版，暂使用样例  6.19更改为点击设置标题
+            return {hits: 0, title: "点击设置标题", nickName: "author", createDate: null}
           }
         },
       },

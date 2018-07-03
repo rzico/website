@@ -7,7 +7,7 @@
       <div class="article root bgStyle">
         <div class="main marginNega140" >
           <music :musicData="watchMusicData" @judgeMusic="judgeMusic" ref="musicTemplete" :downloadShow="downloadShow"></music>
-          <article_content @buyNow="buyNow"  :templates="watchTemplates" :htmlStr="htmlStr" templateId=1003></article_content>
+          <article_content @buyNow="buyNow" :article="watchArticle" :hasTable="hasTable" :templates="watchTemplates" :htmlStr="htmlStr" templateId=1003></article_content>
           <!--<vote  :article="watchArticle"></vote>-->
           <reward ref="reward" :article="watchArticle" @showDialog="showRewardDialog"></reward>
           <report  :article="watchArticle.hits"></report>
@@ -69,6 +69,7 @@
       isPublish:true,
 //      payWay:'账户余额',
 //      payPrice:'299',
+      hasTable:false,
       sn:'',
     }
     },
@@ -192,6 +193,9 @@
                       })
                     }
                   })
+                  if(!utils.isNull(response.data.forms)){
+                    _this.hasTable = true;
+                  }
                   _this.$set(response.data.templates, 'previewList', previewList);
                   _this.watchTemplates = response.data.templates;
                 }
@@ -298,7 +302,9 @@
       },
       buyNow:function (id) {
         if(utils.isweex()==true){
-          this.$refs.toast.show('请分享到微信进行购买');
+
+          location.href =  'mopian://buyGood?id=' + id;
+//          this.$refs.toast.show('请分享到微信进行购买');
           return;
         }
         let _this = this;

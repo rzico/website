@@ -1,6 +1,6 @@
 <template>
-    <div class="footer" :class="[templateId == 1003 ? 't1003_Bg_bottom' : '',templateId == 1002 ? 't1002_Bg_bottom' : '']">
-        <div class="wrap" style="background-color: #fff;">
+    <div class="footer"  :class="[templateId == 1003 ? 't1003_Bg_bottom' : '',templateId == 1002 ? 't1002_Bg_bottom' : '']" v-if="showAd">
+        <div class="wrap" style="background-color: #fff;" >
           <img style="width: 100%;display: block;" :src="src" alt="" @click="jump()"/>
         </div>
     </div>
@@ -10,7 +10,8 @@
     export default {
       data() {
         return {
-          src:"./static/mp_ad.jpg"
+          src:"./static/mp_ad.jpg",
+          showAd:false,
         }
       },
       props:{
@@ -18,6 +19,12 @@
           return {member:{id}}
         }},
         templateId:{default:1001}
+      },
+      created(){
+        let _this = this;
+        setTimeout(function () {
+            _this.showAd = true;
+        },2000)
       },
       methods:{
         jump() {
