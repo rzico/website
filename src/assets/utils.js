@@ -141,7 +141,7 @@ let utilsFunc = {
 
   //如果是今年 就不返回年份
   if(res.y == tds.y){
-    return res.m + '-' + res.d + '  ' + res.h + ':' + res.i + day;
+    return  res.m + '-' + res.d + '  ' + res.h + ':' + res.i + day;
   }else{
     return  res.y + '-' + res.m + '-' + res.d + '  ' + res.h + ':' + res.i + day;
   }
@@ -177,7 +177,7 @@ let utilsFunc = {
     return date.getFullYear() + '-' + (date.getMonth() + 1) + '  ' +date.getDay();
     },
     // 返回处理后的值 2017-01-01
-      timeDatefmt(value) {
+    timeDatefmt(value) {
       value = value + '';
       if(value.length == 10){
         value = parseInt(value) * 1000;
@@ -260,8 +260,6 @@ let utilsFunc = {
       }
     }
   },
-
-
   // /*
     // 返回处理后的值 2017-01-01 00:00:00
   datetimehms(value) {
@@ -284,6 +282,7 @@ let utilsFunc = {
 
     return timeObj.y +'/'+ timeObj.m + '/' + timeObj.d;
   },
+
   // 返回处理后的值 2017年01月01日 00:00
   datedayhms(value) {
     if(value == '' || value == null || value == undefined){
