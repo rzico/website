@@ -1,16 +1,16 @@
 const config = {
   logo:'./static/logo.png',
-  siteName:'芸店',
-  appUrl:'http://a.app.qq.com/o/simple.jsp?pkgname=com.rzico.assistant',
+  siteName:'水达人',
+  appUrl:'http://a.app.qq.com/o/simple.jsp?pkgname=com.rzico.sdar',
   title:"芸店",
-  link:"http://weixin.rzico.com",
+  link:"http://water.rzico.com",
   thumbnail:'./static/logo.png',
   desc:'超强图文小视频分享社区,中国版Facebook.',
-  baseURL:"http://weixin.rzico.com/",
-  wxAppid:"wx88a1ec3b5c3bc9c3"
+  baseURL:"http://water.rzico.com/",
+  wxAppid:"wx7a4615121f5daee1"
 }
 //伪链接主体。  mopian  或 yundian
-const dummyHost = 'yundian';
+const dummyHost = 'sdar';
 
 let utilsFunc = {
     //跳转的伪链接路径
