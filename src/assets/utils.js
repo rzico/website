@@ -1,11 +1,11 @@
 const config = {
   logo:'./static/logo.png',
   siteName:'水达人',
-  appUrl:'http://a.app.qq.com/o/simple.jsp?pkgname=com.rzico.sdar',
+  appUrl:'http://cdn.rzico.com/water/andriod327.apk',
   title:"芸店",
   link:"http://water.rzico.com",
   thumbnail:'./static/logo.png',
-  desc:'超强图文小视频分享社区,中国版Facebook.',
+  desc:'水生活配送综合服务平台',
   baseURL:"http://water.rzico.com/",
   wxAppid:"wx7a4615121f5daee1"
 }
