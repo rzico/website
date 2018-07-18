@@ -58,12 +58,12 @@
         this.$refs.loadmore.onBottomLoaded();// 固定方法，查询完要调用一次，用于重新定位
       },
       download:function () {
-        AUTH(utils.getConfig().appUrl,function (authed) {
-            if (authed) {
+       // AUTH(utils.getConfig().appUrl,function (authed) {
+       //     if (authed) {
                location.href = utils.getConfig().appUrl;
-            }
-          }
-        )
+       //     }
+        //  }
+       // )
       }
     }
   }
