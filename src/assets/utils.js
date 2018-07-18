@@ -2,7 +2,7 @@ const config = {
   logo:'./static/logo.png',
   siteName:'水达人',
   appUrl:'http://cdn.rzico.com/water/andriod327.apk',
-  title:"芸店",
+  title:"水达人",
   link:"http://water.rzico.com",
   thumbnail:'./static/logo.png',
   desc:'水生活配送综合服务平台',
