@@ -17,6 +17,7 @@
           <report  :article="watchArticle.hits"></report>
           <coupon ref="coupon"></coupon>
           <recommend ref="recommend" v-if="isPublish" :article="watchArticle" @go="fetchData"></recommend>
+          <redBag @notify="onPayNotify" :article="watchArticle"></redBag>
           <ad v-if="noWeex" :article="watchArticle"></ad>
           <rewardDialog  ref="rwd"  @rewardNumber="rewardNumber"></rewardDialog>
           <payment  ref="pay" @notify="onPayNotify"></payment>
@@ -60,6 +61,7 @@
   import banner from './article/t1006/banner.vue';
   import recommend from './article/recommend.vue';
   import review from './article/t1006/review.vue';
+  import redBag from './article/redBag.vue';
   import ad from './article/ad.vue';
   import rewardDialog from './article/rewardDialog.vue';
   import Toast from '../widget/toast.vue';
@@ -100,6 +102,7 @@
       auther,
       recommend,
       review,
+      redBag,
       ad,
       rewardDialog,
       payment,
@@ -309,6 +312,13 @@
           this.musicPlay = 1;
           this.$refs.musicTemplete.openPlayer();
         }
+      },
+      //      content组件控制音乐组件播放或者暂停
+      controlMusic:function(status){
+        if(this.musicPlay == 0){
+          return;
+        }
+        this.$refs.musicTemplete.openPlayer(status);
       },
       judgeMusic:function () {//控制判断音乐。来判断从未触发音乐时滚动触发音乐，而在触发过音乐后滚动时不触发音乐事件。
         this.musicPlay = 1;

@@ -1,8 +1,8 @@
 <template>
   <div  :class="[templateId == 1003 ? 't1003_content_margin_LR_15' : '',templateId == 1002 ? 't1002_content_padding_10' : '']" >
     <div class="content"  :class="[templateId == 1003 ? 't1003_content_padding_LR_16' : '',templateId == 1006 ? 't1006_content_margin_top10' : '']">
-      <div  v-for="(template,index) in templatesList">
-        <div class="margin-section section section-on section-border text-up fill" v-if="isShow(index)">
+      <div  v-for="(template,index) in templatesList" v-if="isShow(index)">
+        <div class="margin-section section section-on section-border text-up fill">
           <!--template里没有title的字段-->
           <div class="text"><h3>{{template.title}}</h3></div>
           <!--判断是否是商品-->
@@ -21,7 +21,7 @@
           </div>
         </div>
         <div v-if="template.mediaType == 'audio'">
-          <audio :src="template.url" controls="controls" style="width: 100%;"></audio>
+          <audio :src="template.url" class="audioClass"  controls="controls" style="width: 100%;"></audio>
         </div>
         <div v-if="template.mediaType == 'product'" class="goodsLineBox" :class="[templateId == 1003 ? 't1003_content_padding_0' : '']">
           <div class="goodsLineInside boderStyle" :class="[templateId == 1003 ? 't1003_goods_borderColor' : '',templateId == 1002 ? 't1002_goods_borderColor' : '']"  @click="buyNow(template.id)">
@@ -138,16 +138,28 @@
     },
     created() {
       this.goodsHeight = document.documentElement.clientWidth * 0.2;
+    },
+    mounted(){
+//      监听是否播放语音
       let _this = this;
-//      alert(JSON.stringify(this.templates));
-
+//      要加延迟，
+      setTimeout(function () {
+        var audio = document.querySelectorAll('.audioClass');
+        for(var i = 0; i < audio.length ; i++){
+          audio[i].addEventListener("playing", function(){
+            _this.$emit('controlMusic','open');
+          });
+          audio[i].addEventListener("pause", function(){
+            _this.$emit('controlMusic','close');
+          });
+        }
+      },300)
     },
     methods: {
 //      判断是否有图片
       hasImage(template,index){
         if(!utils.isNull(template.original) && (template.mediaType == 'image' || template.mediaType == 'product')){
           return true;
-
         }else{
           return false;
         }

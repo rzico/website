@@ -16,7 +16,8 @@
   export default {
     data () {
       return {
-        isPlay:false
+        isPlay:false,
+        hasPlay:false,
       }
     },
     components: {
@@ -41,29 +42,53 @@
           return true;
         }
       },
-      openPlayer: function(){
+      openPlayer: function(status){
+        console.log('2---status:');
+        console.log(status);
         let _this = this;
         var audio = this.$el.querySelector('audio');
         if(this.isPlay){
+          //close就是暂停播放录音。
+          if(status == 'close'){
+            return;
+          }
+          if(status == 'open'){
+//            hasPlay 来记录播放录音前是否正在播放音乐
+            _this.hasPlay = true;
+          }else{
+            this.hasPlay = false;
+          }
           this.isPlay = false;
           audio.pause();
         }else{
+          //open就是开始播放录音。
+          if(status == 'open'){
+            return;
+          }
+          if((status == 'open' || status == 'close') && !this.hasPlay ){
+            console.log('===' + status);
+            return;
+          }
           audio.play();
           if (audio.paused) {
             // 暂停中
             audio.play();
+            console.log('播放1');
             if (audio.paused) {
               // 暂停中
               audio.play();
+              console.log('播放2');
             } else {
               // 播放中
               this.$emit("judgeMusic");
               _this.isPlay = true;
+//              播放音乐时会走到该处
             }
           } else {
             // 播放中
             this.$emit("judgeMusic");
             _this.isPlay = true;
+            _this.hasPlay = true;
           }
         }
       },

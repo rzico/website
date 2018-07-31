@@ -49,6 +49,7 @@ html, body {
   border-radius: 50%;
   cursor: pointer;
 }
+
 .root .vote .well .option-area ul.unvote li > p.title {
   font-size: 16px;
   line-height: 24px;
@@ -152,7 +153,7 @@ button, input {
   outline: none;
   border:none;
 }
-.root .table .well .option-area ul.unvote li > i.radio {
+.root .table .well .option-area ul.unvote li div > i.radio {
   position: absolute;
   top: 19px;
   left: 0;
@@ -162,6 +163,9 @@ button, input {
   border: 1px solid #D7D9DE;
   border-radius: 50%;
   cursor: pointer;
+}
+.root .table .well .option-area ul.unvote li div{
+  position: relative;
 }
 i, i * {
   font-style: italic;
@@ -174,9 +178,10 @@ i, i * {
   overflow: hidden;
   word-wrap: break-word;
 }
-.root .table .well .option-area ul.unvote li:first-child {
-  border-top: none;
-}
+/*
+//.root .table .well .option-area ul.unvote li:first-child {
+//  border-top: none;
+//}*/
 .root .table .well .option-area ul.unvote li {
   list-style: none;
   padding: 15px 25px;

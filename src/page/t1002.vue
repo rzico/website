@@ -9,7 +9,7 @@
           <div class="mp-content">
             <div class="mp-bg-blur"></div>
             <article_meta :article="watchArticle"></article_meta>
-            <article_content @buyNow="buyNow" :article="watchArticle" :hasTable="hasTable" :templates="watchTemplates" :htmlStr="htmlStr" templateId=1002></article_content>
+            <article_content @buyNow="buyNow" @controlMusic="controlMusic" :article="watchArticle" :hasTable="hasTable" :templates="watchTemplates" :htmlStr="htmlStr" templateId=1002></article_content>
           </div>
           <reward ref="reward" :article="watchArticle" @showDialog="showRewardDialog"></reward>
           <report  :article="watchArticle.hits"></report>
@@ -17,6 +17,7 @@
           <auther ref="auther" :article="watchArticle"  templateId=1002></auther>
           <review ref="review" :article="watchArticle" templateId=1002 ></review>
           <recommend ref="recommend" v-if="isPublish" article="watchArticle"  templateId=1002 @go="fetchData" ></recommend>
+          <redBag @notify="onPayNotify" :article="watchArticle"></redBag>
           <ad v-if="noWeex" :article="watchArticle" templateId=1002 ></ad>
           <rewardDialog  ref="rwd"  @rewardNumber="rewardNumber"  templateId=1002></rewardDialog>
           <payment  ref="pay" @notify="onPayNotify"></payment>
@@ -49,6 +50,7 @@
   import auther from './article/auther.vue';
   import recommend from './article/recommend.vue';
   import review from './article/review.vue';
+  import redBag from './article/redBag.vue';
   import ad from './article/ad.vue';
   import rewardDialog from './article/rewardDialog.vue';
   import Toast from '../widget/toast.vue';
@@ -88,6 +90,7 @@
       auther,
       recommend,
       review,
+      redBag,
       ad,
       rewardDialog,
       payment,
@@ -298,6 +301,13 @@
           this.$refs.musicTemplete.openPlayer();
         }
       },
+      //      content组件控制音乐组件播放或者暂停
+      controlMusic:function(status){
+        if(this.musicPlay == 0){
+          return;
+        }
+        this.$refs.musicTemplete.openPlayer(status);
+      },
       judgeMusic:function () {//控制判断音乐。来判断从未触发音乐时滚动触发音乐，而在触发过音乐后滚动时不触发音乐事件。
         this.musicPlay = 1;
       },
@@ -314,12 +324,6 @@
             _this.$refs.buy.show(id,_this.watchArticle.id);
           }
         })
-      },
-      onscroll(e){
-        if(this.musicPlay == 0){//控制判断音乐。来判断从未触发音乐时滚动触发音乐，而在触发过音乐后滚动时不触发音乐事件。
-          this.musicPlay = 1;
-          this.$refs.musicTemplete.openPlayer();
-        }
       },
 //      payConfirm:function (payInfo) {
 //        alert(payInfo);

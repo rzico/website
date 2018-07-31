@@ -7,6 +7,26 @@ import wx from 'weixin-js-sdk';
 Vue.use(Router);
 Vue.use(VueResource);
 
+const fetchConfig = {
+  hasShare:false,
+}
+
+
+//判断是否分享了朋友圈
+export function getShowTimeLine(){
+  return fetchConfig.hasShare;
+}
+//设置分享朋友圈选项为false
+export function setShowTimeLine(){
+  fetchConfig.hasShare = false;
+}
+
+//设置分享朋友圈选项为true
+export function setShowTimeLineTrue(){
+  fetchConfig.hasShare = true;
+}
+
+
 
 //检查静默授权  不传url时是默认登录,用户不需要知道。只能获取openid 不能获取头像跟用户信息,一般用在支付场景下。
 export function AUTH(redirectURL,func) {
@@ -89,7 +109,7 @@ export function SHARE(url) {
               link:  utils.getConfig().link, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
               imgUrl: utils.getConfig().thumbnail, // 分享图标
               success: function (res) {
-
+                fetchConfig.hasShare = true;
               },
               cancel: function (res) {
               }

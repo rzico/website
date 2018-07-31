@@ -7,7 +7,7 @@
       <div class="article root bgStyle">
         <div class="main marginNega140" >
           <music :musicData="watchMusicData" @judgeMusic="judgeMusic" ref="musicTemplete" :downloadShow="downloadShow"></music>
-          <article_content @buyNow="buyNow" :article="watchArticle" :hasTable="hasTable" :templates="watchTemplates" :htmlStr="htmlStr" templateId=1003></article_content>
+          <article_content @buyNow="buyNow" @controlMusic="controlMusic" :article="watchArticle" :hasTable="hasTable" :templates="watchTemplates" :htmlStr="htmlStr" templateId=1003></article_content>
           <!--<vote  :article="watchArticle"></vote>-->
           <reward ref="reward" :article="watchArticle" @showDialog="showRewardDialog"></reward>
           <report  :article="watchArticle.hits"></report>
@@ -15,6 +15,7 @@
           <auther ref="auther" :article="watchArticle" templateId=1003></auther>
           <review ref="review" :article="watchArticle" templateId=1003></review>
           <recommend ref="recommend" v-if="isPublish" article="watchArticle" @go="fetchData" templateId=1003></recommend>
+          <redBag @notify="onPayNotify" :article="watchArticle"></redBag>
           <ad v-if="noWeex" :article="watchArticle" templateId=1003></ad>
           <rewardDialog  ref="rwd"  @rewardNumber="rewardNumber" templateId=1003></rewardDialog>
           <payment  ref="pay" @notify="onPayNotify"></payment>
@@ -45,6 +46,7 @@
   import auther from './article/auther.vue';
   import recommend from './article/recommend.vue';
   import review from './article/review.vue';
+  import redBag from './article/redBag.vue';
   import ad from './article/ad.vue';
   import rewardDialog from './article/rewardDialog.vue';
   import Toast from '../widget/toast.vue';
@@ -86,6 +88,7 @@
       auther,
       recommend,
       review,
+      redBag,
       ad,
       rewardDialog,
       payment,
@@ -296,6 +299,13 @@
           this.musicPlay = 1;
           this.$refs.musicTemplete.openPlayer();
         }
+      },
+      //      content组件控制音乐组件播放或者暂停
+      controlMusic:function(status){
+        if(this.musicPlay == 0){
+          return;
+        }
+        this.$refs.musicTemplete.openPlayer(status);
       },
       judgeMusic:function () {//控制判断音乐。来判断从未触发音乐时滚动触发音乐，而在触发过音乐后滚动时不触发音乐事件。
         this.musicPlay = 1;

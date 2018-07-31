@@ -1,8 +1,8 @@
 <template>
   <div  :class="[templateId == 1003 ? 't1003_content_margin_LR_15' : '',templateId == 1002 ? 't1002_content_padding_10' : '']" >
     <div class="content"  :class="[templateId == 1003 ? 't1003_content_padding_LR_16' : '']">
-      <div  v-for="(template,index) in templatesList">
-        <div class="margin-section section section-on section-border text-up fill" v-if="isShow(index)">
+      <div  v-for="(template,index) in templatesList"  v-if="isShow(index)">
+        <div class="margin-section section section-on section-border text-up fill" >
           <!--template里没有title的字段-->
           <div class="text"><h3>{{template.title}}</h3></div>
           <!--判断是否是商品-->

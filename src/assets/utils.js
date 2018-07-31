@@ -4,7 +4,7 @@ const config = {
   appUrl:'http://a.app.qq.com/o/simple.jsp?pkgname=com.yixiang.mopian&fromcase=40003',
   title:"魔篇",
   link:"https://mopian.1xx.me",
-  // link:"https://dev.1xx.me",··
+  // link:"https://dev.1xx.me",
   thumbnail:'./static/mopian.png',
   desc:'超强图文小视频分享社区,中国版Facebook.',
   baseURL:"https://mopian.1xx.me/",
@@ -22,11 +22,6 @@ let utilsFunc = {
       return dummyHost + '://'+ page +'?id=' + id;
     },
     getConfig () {
-      //5.26 kzj 区分ios跟安卓系统，以此来兼容ios的旧版本。
-      // if(this.isIos()){
-      //   config.link = "http://mopian.1xx.me";
-      //   config.baseURL = "http://mopian.1xx.e/";
-      // }
       return config
     },
     setConfig (conf) {

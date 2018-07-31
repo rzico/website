@@ -9,7 +9,7 @@
         <div class="main">
           <article_meta :article="watchArticle"></article_meta>
           <music :musicData="watchMusicData" @judgeMusic="judgeMusic" ref="musicTemplete" :downloadShow="downloadShow"></music>
-          <article_content @buyNow="buyNow" :article="watchArticle" :hasTable="hasTable" :templates="watchTemplates" :htmlStr="htmlStr"></article_content>
+          <article_content @buyNow="buyNow" :article="watchArticle" :hasTable="hasTable" :templates="watchTemplates" @controlMusic="controlMusic" :htmlStr="htmlStr"></article_content>
           <!--<vote  :article="watchArticle"></vote>-->
           <!--<tableList :article="watchArticle" v-if="hasTable"></tableList>-->
           <reward ref="reward" :article="watchArticle" @showDialog="showRewardDialog"></reward>
@@ -18,6 +18,7 @@
           <auther ref="auther" :article="watchArticle"></auther>
           <review ref="review" :article="watchArticle"></review>
           <recommend ref="recommend" v-if="isPublish" :article="watchArticle" @go="fetchData"></recommend>
+          <redBag @notify="onPayNotify" :article="watchArticle"></redBag>
           <ad v-if="noWeex" :article="watchArticle"></ad>
           <rewardDialog  ref="rwd"  @rewardNumber="rewardNumber"></rewardDialog>
           <payment  ref="pay" @notify="onPayNotify"></payment>
@@ -57,6 +58,7 @@
   import auther from './article/auther.vue';
   import recommend from './article/recommend.vue';
   import review from './article/review.vue';
+  import redBag from './article/redBag.vue';
   import ad from './article/ad.vue';
   import rewardDialog from './article/rewardDialog.vue';
   import Toast from '../widget/toast.vue';
@@ -96,6 +98,7 @@
       auther,
       recommend,
       review,
+      redBag,
       ad,
       rewardDialog,
       payment,
@@ -135,17 +138,22 @@
       }
       let id = utils.getUrlParameter("id");
       this.go(id);
+
     },
 //    beforeDestory(){
 //      this.$refs.musicTemplete.stopMuisc();
 //    },
     methods: {
+      toastContent:function () {
+
+      },
       loadTop:function() { //组件提供的下拉触发方法
         this.$refs.loadmore.onTopLoaded();// 固定方法，查询完要调用一次，用于重新定位
       },
       loadBottom:function() {
         this.$refs.loadmore.onBottomLoaded();// 固定方法，查询完要调用一次，用于重新定位
       },
+//      弹起错误信息
       onPayNotify:function (data) {
         if ("success"==data.type) {
         } else {
@@ -167,6 +175,8 @@
               response.data.title = decodeURIComponent(response.data.title);
               _this.watchArticle = response.data;
               _this.isPublish = response.data.isPublish;
+              console.log('我是文章data');
+              console.log(_this.watchArticle);
 //              _this.$refs.coupon.open(response.data.member.id);
               //设置分享标题
               utils.setConfig({
@@ -310,6 +320,13 @@
           this.musicPlay = 1;
           this.$refs.musicTemplete.openPlayer();
         }
+      },
+//      content组件控制音乐组件播放或者暂停
+      controlMusic:function(status){
+        if(this.musicPlay == 0){
+          return;
+        }
+        this.$refs.musicTemplete.openPlayer(status);
       },
       judgeMusic:function () {//控制判断音乐。来判断从未触发音乐时滚动触发音乐，而在触发过音乐后滚动时不触发音乐事件。
         this.musicPlay = 1;

@@ -207,6 +207,7 @@
           this.$refs.musicTemplete.openPlayer();
         }
       },
+
       judgeMusic:function () {//控制判断音乐。来判断从未触发音乐时滚动触发音乐，而在触发过音乐后滚动时不触发音乐事件。
         this.musicPlay = 1;
       },

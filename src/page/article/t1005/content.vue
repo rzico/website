@@ -1,8 +1,8 @@
 <template>
   <div >
     <div class="content">
-      <div  v-for="(template,index) in templatesList">
-        <div class="margin-section section section-on section-border text-up fill" v-if="isShow(index)">
+      <div  v-for="(template,index) in templatesList"  v-if="isShow(index)">
+        <div class="margin-section section section-on section-border text-up fill">
           <!--template里没有title的字段-->
           <div class="text"><h3>{{template.title}}</h3></div>
           <!--判断是否是商品-->
@@ -22,7 +22,7 @@
             <div class="positionAbsolute videoBgc"></div>
           </div>
           <div v-if="template.mediaType == 'audio'">
-            <audio :src="template.url" controls="controls" style="width: 100%;"></audio>
+            <audio :src="template.url" controls="controls"  class="audioClass" style="width: 100%;"></audio>
           </div>
         </div>
         <div v-if="template.mediaType == 'product'" class="goodsLineBox" >
@@ -277,6 +277,22 @@
     },
     created() {
       this.goodsHeight = document.documentElement.clientWidth * 0.2;
+    },
+    mounted(){
+//      监听是否播放语音
+      let _this = this;
+//      要加延迟，
+      setTimeout(function () {
+        var audio = document.querySelectorAll('.audioClass');
+        for(var i = 0; i < audio.length ; i++){
+          audio[i].addEventListener("playing", function(){
+            _this.$emit('controlMusic','open');
+          });
+          audio[i].addEventListener("pause", function(){
+            _this.$emit('controlMusic','close');
+          });
+        }
+      },300)
     },
     methods: {
 //      判断是否有图片

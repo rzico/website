@@ -5,11 +5,12 @@
         <article_cover :article="watchArticle"></article_cover>
         <download_bar :isShow="downloadShow" templateId=1002 :authorId="watchArticle.member.id" @closeDownload="closeDownload"></download_bar>
         <music :musicData="watchMusicData" @judgeMusic="judgeMusic" ref="musicTemplete" templateId=1002 :downloadShow="false"></music>
-        <article_content @buyNow="buyNow"  :article="watchArticle" :hasTable="hasTable"  :templates="watchTemplates" :htmlStr="htmlStr"   ></article_content>
+        <article_content @buyNow="buyNow"  :article="watchArticle" :hasTable="hasTable"  :templates="watchTemplates" @controlMusic="controlMusic" :htmlStr="htmlStr"   ></article_content>
           <report  :article="watchArticle.hits"></report>
           <auther ref="auther" :article="watchArticle"></auther>
           <review ref="review" :article="watchArticle"></review>
           <recommend ref="recommend" v-if="isPublish" :article="watchArticle" @go="fetchData"></recommend>
+        <redBag @notify="onPayNotify" :article="watchArticle"></redBag>
           <ad v-if="noWeex" :article="watchArticle"></ad>
           <rewardDialog  ref="rwd"  @rewardNumber="rewardNumber"></rewardDialog>
           <yezi_animation></yezi_animation>
@@ -40,6 +41,7 @@
   import recommend from './article/seasonsPublic/recommend.vue';
   import yezi_animation from './article/t1021/leaves.vue';
   import review from './article/seasonsPublic/review.vue';
+  import redBag from './article/redBag.vue';
   import ad from './article/ad.vue';
   import rewardDialog from './article/rewardDialog.vue';
   import Toast from '../widget/toast.vue';
@@ -79,6 +81,7 @@
       auther,
       recommend,
       review,
+      redBag,
       ad,
       rewardDialog,
       payment,
@@ -289,6 +292,13 @@
           this.$refs.musicTemplete.openPlayer();
         }
       },
+      //      content组件控制音乐组件播放或者暂停
+      controlMusic:function(status){
+        if(this.musicPlay == 0){
+          return;
+        }
+        this.$refs.musicTemplete.openPlayer(status);
+      },
       judgeMusic:function () {//控制判断音乐。来判断从未触发音乐时滚动触发音乐，而在触发过音乐后滚动时不触发音乐事件。
         this.musicPlay = 1;
       },
@@ -307,12 +317,6 @@
           }
         })
 
-      },
-      onscroll(e){
-        if(this.musicPlay == 0){//控制判断音乐。来判断从未触发音乐时滚动触发音乐，而在触发过音乐后滚动时不触发音乐事件。
-          this.musicPlay = 1;
-          this.$refs.musicTemplete.openPlayer();
-        }
       },
 //      payConfirm:function (payInfo) {
 //        alert(payInfo);

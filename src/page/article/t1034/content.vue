@@ -6,8 +6,8 @@
       <div class="bg-logo3"></div>
       <div class="bg-logo4"></div>
     </div>
-    <div  v-for="(template,index) in templatesList" >
-      <div class="margin-section section section-on section-border text-up fill" v-if="isShow(index)">
+    <div  v-for="(template,index) in templatesList"  v-if="isShow(index)">
+      <div class="margin-section section section-on section-border text-up fill">
         <!--判断是否是商品-->
         <div class="text-box" v-html="template.content" :class="[templateId == 1003 ? 't1003_content_padding_0' : '']" v-if="template.content !== ''  && template.content != 'null' && template.content != null && template.content != undefined && template.content != 'undefined'"></div>
         <!--判断类型是图文还是小视频-->
@@ -25,7 +25,7 @@
           <!--<div class="positionAbsolute videoBg"></div>-->
         </div>
         <div v-if="template.mediaType == 'audio'">
-          <audio :src="template.url" controls="controls" style="width: 100%;"></audio>
+          <audio :src="template.url" controls="controls" class="audioClass"  style="width: 100%;"></audio>
         </div>
       </div>
       <div v-if="template.mediaType == 'product'" class="goodsLineBox" :class="[templateId == 1003 ? 't1003_content_padding_0' : '']">
@@ -55,6 +55,9 @@
       <div>展开阅读全文</div>
       <i class="iconfont icon-xiajiantou icon-arrow"></i>
     </div>
+    <div v-else>
+      <tableList :article="article"  v-if="hasTable "></tableList>
+    </div>
     <preview ref="vuePreview"></preview>
   </div>
 </template>
@@ -62,6 +65,7 @@
   import { POST, GET } from '../../../assets/fetch.js';
   import utils from '../../../assets/utils.js';
   import preview from '../../../widget/preview.vue';
+  import tableList from '../table.vue';
   export default {
     data() {
       return {
@@ -78,6 +82,11 @@
       htmlStr: {
         default:""
       },
+      hasTable:{default:false,
+      },
+      article: { default: function () {
+        return {hits:0,title:"样例",nickName:"author",createDate:null}
+      }},
       templateId:{default:1016}
     },
     computed:{
@@ -86,7 +95,7 @@
       }
     },
     components: {
-      preview
+      preview,tableList
     },
     filters:{
 //        用原图去阿里云获取缩略图
@@ -107,6 +116,22 @@
       this.goodsHeight = document.documentElement.clientWidth * 0.2;
       let _this = this;
 //      alert(JSON.stringify(this.templates));
+    },
+    mounted(){
+//      监听是否播放语音
+      let _this = this;
+//      要加延迟，
+      setTimeout(function () {
+        var audio = document.querySelectorAll('.audioClass');
+        for(var i = 0; i < audio.length ; i++){
+          audio[i].addEventListener("playing", function(){
+            _this.$emit('controlMusic','open');
+          });
+          audio[i].addEventListener("pause", function(){
+            _this.$emit('controlMusic','close');
+          });
+        }
+      },300)
     },
     methods: {
 //      判断是否有图片

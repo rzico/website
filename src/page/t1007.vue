@@ -31,7 +31,7 @@
       </div>
       <div class="">
         <music :musicData="watchMusicData" @judgeMusic="judgeMusic" ref="musicTemplete" :downloadShow="downloadShow"></music>
-        <article_content @buyNow="buyNow"  :templates="watchTemplates" :htmlStr="htmlStr" templateId=1006></article_content>
+        <article_content @buyNow="buyNow" @controlMusic="controlMusic"  :templates="watchTemplates" :htmlStr="htmlStr" templateId=1006></article_content>
         <!--<vote  :article="watchArticle"></vote>-->
         <!--<reward ref="reward" :article="watchArticle" @showDialog="showRewardDialog"></reward>-->
         <giveLike></giveLike>

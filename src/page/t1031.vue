@@ -5,11 +5,12 @@
         <article_cover :article="watchArticle"></article_cover>
         <download_bar :isShow="downloadShow" templateId=1002 :authorId="watchArticle.member.id" @closeDownload="closeDownload"></download_bar>
         <music :musicData="watchMusicData" @judgeMusic="judgeMusic" ref="musicTemplete" templateId=1002 :downloadShow="false"></music>
-        <article_content @buyNow="buyNow"  :templates="watchTemplates" :htmlStr="htmlStr"   ></article_content>
+        <article_content @buyNow="buyNow" @controlMusic="controlMusic" :article="watchArticle" :hasTable="hasTable" :templates="watchTemplates" :htmlStr="htmlStr" ></article_content>
         <report  :article="watchArticle.hits"></report>
         <auther ref="auther" :article="watchArticle"></auther>
         <review ref="review" :article="watchArticle"></review>
         <recommend ref="recommend" v-if="isPublish" :article="watchArticle" @go="fetchData"></recommend>
+        <redBag @notify="onPayNotify" :article="watchArticle"></redBag>
         <ad v-if="noWeex" :article="watchArticle"></ad>
         <rewardDialog  ref="rwd"  @rewardNumber="rewardNumber"></rewardDialog>
         <payment  ref="pay" @notify="onPayNotify"></payment>
@@ -37,6 +38,7 @@
   import auther from './article/seasonsPublic/auther.vue';
   import recommend from './article/seasonsPublic/recommend.vue';
   import review from './article/seasonsPublic/review.vue';
+  import redBag from './article/redBag.vue';
   import ad from './article/ad.vue';
   import rewardDialog from './article/rewardDialog.vue';
   import Toast from '../widget/toast.vue';
@@ -60,7 +62,8 @@
 //      payWay:'账户余额',
 //      payPrice:'299',
       sn:'',
-    }
+      hasTable:false,
+      }
     },
     components: {
       'v-loadmore':Loadmore, // 为组件起别名，vue转换template标签时不会区分大小写，例如：loadMore这种标签转换完就会变成loadmore，容易出现一些匹配问题
@@ -179,6 +182,9 @@
                       })
                     }
                   })
+                  if(!utils.isNull(response.data.forms)){
+                    _this.hasTable = true;
+                  }
                   _this.$set(response.data.templates, 'previewList', previewList);
                   _this.watchTemplates = response.data.templates;
                 }
@@ -280,6 +286,13 @@
           this.$refs.musicTemplete.openPlayer();
         }
       },
+      //      content组件控制音乐组件播放或者暂停
+      controlMusic:function(status){
+        if(this.musicPlay == 0){
+          return;
+        }
+        this.$refs.musicTemplete.openPlayer(status);
+      },
       judgeMusic:function () {//控制判断音乐。来判断从未触发音乐时滚动触发音乐，而在触发过音乐后滚动时不触发音乐事件。
         this.musicPlay = 1;
       },
@@ -298,12 +311,6 @@
           }
         })
 
-      },
-      onscroll(e){
-        if(this.musicPlay == 0){//控制判断音乐。来判断从未触发音乐时滚动触发音乐，而在触发过音乐后滚动时不触发音乐事件。
-          this.musicPlay = 1;
-          this.$refs.musicTemplete.openPlayer();
-        }
       },
 //      payConfirm:function (payInfo) {
 //        alert(payInfo);
