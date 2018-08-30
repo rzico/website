@@ -32,7 +32,6 @@
       downloadShow: {default:true}
     },
     created () {
-      console.log(this.musicData);
     },
     methods: {
       hasMusic:function () {
@@ -43,8 +42,6 @@
         }
       },
       openPlayer: function(status){
-        console.log('2---status:');
-        console.log(status);
         let _this = this;
         var audio = this.$el.querySelector('audio');
         if(this.isPlay){
@@ -73,11 +70,9 @@
           if (audio.paused) {
             // 暂停中
             audio.play();
-            console.log('播放1');
             if (audio.paused) {
               // 暂停中
               audio.play();
-              console.log('播放2');
             } else {
               // 播放中
               this.$emit("judgeMusic");

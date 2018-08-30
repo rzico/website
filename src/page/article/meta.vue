@@ -33,7 +33,6 @@
         },
       },
       created(){
-//        console.log(this.template);
       },
        methods:{
          hasArticle:function () {

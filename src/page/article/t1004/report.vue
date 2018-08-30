@@ -116,8 +116,6 @@
       this.goodsHeight = document.documentElement.clientWidth * 0.2;
     },
     mounted(){
-      console.log(this.article);
-      console.log('1');
       let _this = this;
       setTimeout(function () {
         console.log(_this.article);

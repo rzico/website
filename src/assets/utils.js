@@ -30,7 +30,6 @@ let utilsFunc = {
         // conf.link = conf.link.substring(0,conf.link.indexOf('p:')) + 'ps:' + conf.link.substring(conf.link.indexOf('p:') + 2);
         conf.link = conf.link.replace(/http:/,"https:")
       }
-
       config.title =conf.title;
       config.link =conf.link;
       config.thumbnail =conf.thumbnail;

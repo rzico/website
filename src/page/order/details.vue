@@ -458,12 +458,9 @@
       open:function () {
         let _this = this;
         GET('website/member/order/view.jhtml?sn=' + this.orderSn).then(function (data) {
-          console.log(data.data);
           if(data.type == 'success'){
             _this.ordersList = [];
             _this.ordersList.push(data.data);
-            console.log('===');
-            console.log(_this.ordersList[0].status);
           }else{
             _this.$refs.toast.show("服务器繁忙");
           }

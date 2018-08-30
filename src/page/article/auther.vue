@@ -26,6 +26,7 @@
         twoSecond:1,
         hadLoad:0,
         articleTempId:this.templateId,
+        clicked:false,
       }
     },
     props: {
@@ -43,6 +44,14 @@
     },
     methods:{
       jump:function (url,id) {
+        var _this = this;
+        if (this.clicked) {
+          return;
+        }
+        this.clicked = true;
+        setTimeout(function () {
+          _this.clicked = false;
+        }, 1500);
         if(utils.isweex()){
           location.href = utils.setDummyUrl('topic',id);
         }else{

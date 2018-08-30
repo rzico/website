@@ -248,7 +248,6 @@
 //        weixinOcPayPlugin    weixinPayPlugin
         POST("payment/submit.jhtml?sn="+sn+"&paymentPluginId=weixinOcPayPlugin").then(
           function (res) {
-            console.log(res)
             if (res.type=="success") {
               let jsApiCall = function () {
                 WeixinJSBridge.invoke('getBrandWCPayRequest',{
@@ -313,7 +312,6 @@
       },
       buyNow:function (id) {
         if(utils.isweex()==true){
-
           location.href =  'mopian://buyGood?id=' + id;
 //          this.$refs.toast.show('请分享到微信进行购买!');
           return;

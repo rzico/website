@@ -37,8 +37,6 @@
 //      }
 //    },
     created(){
-      console.log('1212');
-      console.log(this.article);
     },
     props: {
       article: { default: function () {

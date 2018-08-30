@@ -46,6 +46,7 @@ export function AUTH(redirectURL,func) {
           func(true);
         } else {
           if (utils.isweixin()) {
+            // 不弹出微信授权页面：scope=snsapi_base，弹出微信授权页面：scope=snsapi_userinfo。
             if (utils.isNull(redirectURL)) {
               scope = "snsapi_base";
               redirectURL = location.href;
@@ -53,7 +54,7 @@ export function AUTH(redirectURL,func) {
               scope = "snsapi_userinfo";
             }
             let state = b64safe(redirectURL);
-            location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + utils.getConfig().wxAppid + "&redirect_uri=" + encodeURIComponent(utils.getConfig().baseURL+"website/login/weixin.jhtml?redirectURL="+state+"&xuid="+utils.getUrlParameter("xuid")) + "&response_type=code&scope="+scope+"&state=state#wechat_redirect";
+            location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + utils.getConfig().wxAppid + "&redirect_uri=" + encodeURIComponent(utils.getConfig().baseURL+"website/login/weixin.jhtml?redirectURL="+state+"&xuid="+utils.getUrlParameter("xuid")) + "&response_type=code&scope="+scope+"&connect_redirect=1&state=state#wechat_redirect";
           } else if (utils.isalipay()) {
             if (utils.isNull(redirectURL)) {
               scope = "auth_base";
@@ -77,7 +78,7 @@ export function AUTH(redirectURL,func) {
   )
 }
 
-//检查静默授权
+//设置微信分享
 export function SHARE(url) {
   var _this = this;
   if (utils.isweixin()) {

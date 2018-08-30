@@ -107,9 +107,6 @@
     created() {
       this.goodsHeight = document.documentElement.clientWidth * 0.2;
       let _this = this;
-      console.log('===');
-      console.log(this.templates);
-      console.log('+++');
 //      alert(JSON.stringify(this.templates));
     },
     mounted(){

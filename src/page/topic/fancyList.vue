@@ -665,7 +665,6 @@
     methods:{
       loadTop:function(idx) { //组件提供的下拉触发方法
         this.pageStart =0;
-        console.log("loadtop");
         //下拉加载
         this.getAllArticle(this.idx);
       },

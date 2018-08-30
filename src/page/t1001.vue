@@ -1,7 +1,7 @@
 <template>
   <!-- v-if="watchArticle.title != '点击设置标题'"-->
   <div @touchmove="onscroll" offset-accuracy="0">
-    <div class="slideIn" >
+    <div class="slideIn t1001" >
       <download_bar :isShow="downloadShow" :authorId="watchArticle.member.id" @closeDownload="closeDownload"></download_bar>
       <div class="article root" :class="[downloadShow ? '':'noMt']">
         <!--<div class="bg">-->
@@ -138,7 +138,6 @@
       }
       let id = utils.getUrlParameter("id");
       this.go(id);
-
     },
 //    beforeDestory(){
 //      this.$refs.musicTemplete.stopMuisc();
@@ -175,8 +174,6 @@
               response.data.title = decodeURIComponent(response.data.title);
               _this.watchArticle = response.data;
               _this.isPublish = response.data.isPublish;
-              console.log('我是文章data');
-              console.log(_this.watchArticle);
 //              _this.$refs.coupon.open(response.data.member.id);
               //设置分享标题
               utils.setConfig({
@@ -270,7 +267,6 @@
 //        weixinOcPayPlugin    weixinPayPlugin
         POST("payment/submit.jhtml?sn="+sn+"&paymentPluginId=weixinOcPayPlugin").then(
           function (res) {
-            console.log(res)
             if (res.type=="success") {
               let jsApiCall = function () {
                 WeixinJSBridge.invoke('getBrandWCPayRequest',{

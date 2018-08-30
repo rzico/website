@@ -246,7 +246,6 @@
 //        weixinOcPayPlugin    weixinPayPlugin
         POST("payment/submit.jhtml?sn="+sn+"&paymentPluginId=weixinOcPayPlugin").then(
           function (res) {
-            console.log(res)
             if (res.type=="success") {
               let jsApiCall = function () {
                 WeixinJSBridge.invoke('getBrandWCPayRequest',{
