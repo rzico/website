@@ -46,7 +46,7 @@
         if(utils.isweex()){
           location.href = utils.setDummyUrl('topic',id);
         }else{
-          this.$router.push(utils.router(url));
+//          this.$router.push(utils.router(url));
         }
       },
 //      jump:function (url,id) {

@@ -1,7 +1,7 @@
 const config = {
   logo:'./static/logo.png',
   siteName:'珍农在线',
-  appUrl:'http://a.app.qq.com/o/simple.jsp?pkgname=com.rzico.assistant',
+  appUrl:'http://cdn.rzico.com/znzx/znzx_assistant.apk',
   title:"珍农在线",
   link:"https://znzx.rzico.com",
   thumbnail:'./static/logo.png',
@@ -10,7 +10,7 @@ const config = {
   wxAppid:"wx88a1ec3b5c3bc9c3"
 }
 //伪链接主体。  mopian  或 yundian
-const dummyHost = 'yundian';
+const dummyHost = 'znzx';
 
 let utilsFunc = {
     //跳转的伪链接路径
