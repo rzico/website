@@ -10,53 +10,50 @@ Vue.use(VueResource);
 
 //检查静默授权  不传url时是默认登录,用户不需要知道。只能获取openid 不能获取头像跟用户信息,一般用在支付场景下。
 export function AUTH(redirectURL,func) {
-  var _this = this;
-  var scope = "base";
-  if (!utils.isNull(redirectURL)) {
-      scope = "user"
-  }
-  GET("/website/login/isAuthenticated.jhtml?scope="+scope).then(
-    function (data) {
-      if (data.type == "success") {
-        var logined = false;
-        if (data.data.loginStatus) {
-            logined = true;
-        }
-        if (logined) {
-            func(true);
-        }
-        else {
-          if (utils.isweixin()) {
-            if (utils.isNull(redirectURL)) {
-              scope = "snsapi_base";
-              redirectURL = location.href;
-            } else {
-              scope = "snsapi_userinfo";
-            }
-            let state = b64safe(redirectURL);
-            location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + utils.getConfig().wxAppid + "&redirect_uri=" + encodeURIComponent(utils.getConfig().baseURL+"website/login/weixin.jhtml?redirectURL="+state+"&xuid="+utils.getUrlParameter("xuid")) + "&response_type=code&scope="+scope+"&state=state#wechat_redirect";
-          } else
-          if (utils.isalipay()) {
-            if (utils.isNull(redirectURL)) {
-              scope = "auth_base";
-              redirectURL = location.href;
-            } else {
-              scope = "auth_user";
-            }
-            let state = b64safe(redirectURL);
-            location.href = "https://openauth.alipay.com/oauth2/publicAppAuthorize.htm?app_id=" + utils.getConfig().alAppid + "&redirect_uri=" + encodeURIComponent(utils.getConfig().baseURL+"website/login/alipay.jhtml?redirectURL="+state+"&xuid="+utils.getUrlParameter("xuid")) + "&scope="+scope+"&state=state";
-          } else {
-          }
-          func(false);
-        }
-      } else {
-        func(false);
-      }
-    },
-    function (err) {
-      func(false);
-    }
-  )
+  //
+  func(true);
+  // GET("/website/login/isAuthenticated.jhtml?scope="+scope).then(
+  //   function (data) {
+  //     if (data.type == "success") {
+  //       var logined = false;
+  //       if (data.data.loginStatus) {
+  //           logined = true;
+  //       }
+  //       if (logined) {
+  //           func(true);
+  //       }
+  //       else {
+  //         if (utils.isweixin()) {
+  //           if (utils.isNull(redirectURL)) {
+  //             scope = "snsapi_base";
+  //             redirectURL = location.href;
+  //           } else {
+  //             scope = "snsapi_userinfo";
+  //           }
+  //           let state = b64safe(redirectURL);
+  //           location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + utils.getConfig().wxAppid + "&redirect_uri=" + encodeURIComponent(utils.getConfig().baseURL+"website/login/weixin.jhtml?redirectURL="+state+"&xuid="+utils.getUrlParameter("xuid")) + "&response_type=code&scope="+scope+"&state=state#wechat_redirect";
+  //         } else
+  //         if (utils.isalipay()) {
+  //           if (utils.isNull(redirectURL)) {
+  //             scope = "auth_base";
+  //             redirectURL = location.href;
+  //           } else {
+  //             scope = "auth_user";
+  //           }
+  //           let state = b64safe(redirectURL);
+  //           location.href = "https://openauth.alipay.com/oauth2/publicAppAuthorize.htm?app_id=" + utils.getConfig().alAppid + "&redirect_uri=" + encodeURIComponent(utils.getConfig().baseURL+"website/login/alipay.jhtml?redirectURL="+state+"&xuid="+utils.getUrlParameter("xuid")) + "&scope="+scope+"&state=state";
+  //         } else {
+  //         }
+  //         func(false);
+  //       }
+  //     } else {
+  //       func(false);
+  //     }
+  //   },
+  //   function (err) {
+  //     func(false);
+  //   }
+  // )
 }
 
 //检查静默授权
