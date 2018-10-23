@@ -1,16 +1,16 @@
 const config = {
   logo:'./static/logo.png',
-  siteName:'芸店',
+  siteName:'珍农在线',
   appUrl:'http://a.app.qq.com/o/simple.jsp?pkgname=com.rzico.assistant',
-  title:"芸店",
-  link:"http://weixin.rzico.com",
+  title:"珍农在线",
+  link:"https://znzx.rzico.com",
   thumbnail:'./static/logo.png',
-  desc:'超强图文小视频分享社区,中国版Facebook.',
-  baseURL:"http://weixin.rzico.com/",
+  desc:'同城生活服务配送平台',
+  baseURL:"https://znzx.rzico.com/",
   wxAppid:"wx88a1ec3b5c3bc9c3"
 }
 //伪链接主体。  mopian  或 yundian
-const dummyHost = 'mopian';
+const dummyHost = 'yundian';
 
 let utilsFunc = {
     //跳转的伪链接路径
