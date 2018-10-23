@@ -9,6 +9,7 @@ const config = {
   baseURL:"https://znzx.rzico.com/",
   wxAppid:"wx88a1ec3b5c3bc9c3"
 }
+
 //伪链接主体。  mopian  或 yundian
 const dummyHost = 'znzx';
 
