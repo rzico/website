@@ -1,5 +1,5 @@
 <template>
-  <div class="article-meta" style="position: relative;">
+  <div class="article-meta" v-if="article.title != ''" style="position: relative;">
     <div class="well">
       <h1 class="title">{{article.title}}</h1>
       <p class="time-read">
@@ -32,7 +32,7 @@
     props: {
       article: {
         default: function () {
-          return {hits: 0, title: "样例", nickName: "author", createDate: null}
+          return {hits: 0, title: "", nickName: "author", createDate: null}
         }
       },
     },

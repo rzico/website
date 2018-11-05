@@ -1,5 +1,5 @@
 <template>
-  <div class="ani-header" >
+  <div class="ani-header"  v-if="article.title != ''" >
     <div class="header__root">
       <div class="avatar-stand-alone" @click="jump(article.member.url,article.member.id)" :class="[downloadShow ? '' : 'top19']">
         <a class="clearfix">
@@ -37,7 +37,7 @@
     props: {
       article: {
         default: function () {
-          return {hits: 0, title: "样例", nickName: "author", createDate: null}
+          return {hits: 0, title: "", nickName: "author", createDate: null}
         }
       },
       musicData: { default: function () {

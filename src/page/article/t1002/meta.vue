@@ -1,12 +1,12 @@
 <template>
-  <div class="article-meta">
+  <div class="article-meta" v-if="article.title != ''">
     <div class="well">
       <h1 class="title">{{article.title}}</h1>
-      <span>阅读 <span class="read-count">{{article.hits}}</span></span>
-      <p class="nickname" >
-                <span >
+        <span>阅读 <span class="read-count">{{article.hits}}</span></span>
+      <p class="nickname">
+                <span>
                     <span class="nigname" @click="jump(article.member.url,article.member.id)">{{article.author}}</span>
-                    <!--<span class="focus__root"><div class="focus"><a class="clearfix">关注</a></div></span>-->
+                  <!--<span class="focus__root"><div class="focus"><a class="clearfix">关注</a></div></span>-->
                 </span>
       </p>
       <div class="sign__root"><div class="sign"></div></div>
@@ -28,7 +28,7 @@
     props: {
       article: {
         default: function () {
-          return {hits: 0, title: "样例", nickName: "author", createDate: null}
+          return {hits: 0, title: "", nickName: "author", createDate: null}
         }
       },
     },

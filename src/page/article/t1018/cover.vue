@@ -1,5 +1,5 @@
 <template>
-  <div class="cover">
+  <div class="cover" v-if="article.title != ''">
     <div class="leaf-l-1"></div>
     <div class="leaf-l-2"></div>
     <div class="leaf-l-3"></div>
@@ -51,7 +51,7 @@
       article: {
         default: function () {
 //           配合v-if控制渲染 title应该全设置为   点击设置标题  ，但是涉及太多模版，暂使用样例
-          return {hits: 0, title: "样例", nickName: "author", createDate: null}
+          return {hits: 0, title: "", nickName: "author", createDate: null}
         }
       },
     },

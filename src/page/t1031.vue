@@ -88,7 +88,7 @@
     },
     props: {
       article: { default: function () {
-        return {hits:0,title:"样例",nickName:"author",createDate:null,member:{autograph:""}}
+        return {hits:0,title:"",nickName:"author",createDate:null,member:{autograph:""}}
       }
       },
       musicData: { default: function () {

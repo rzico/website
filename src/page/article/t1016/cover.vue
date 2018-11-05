@@ -1,46 +1,50 @@
 <template>
-<div class="cover">
-  <div class="cloud-wrapper">
-    <div class="cloud1">
-      <div class="img1"></div>
-      <div class="img1"></div>
+  <div class="cover"  v-if="article.title != ''">
+    <div class="cloud-wrapper">
+      <div class="cloud1">
+        <div class="img1"></div>
+        <div class="img1"></div>
+      </div>
+      <div class="cloud2">
+        <div class="img2"></div>
+        <div class="img2"></div>
+      </div>
     </div>
-    <div class="cloud2">
-      <div class="img2"></div>
-      <div class="img2"></div>
-    </div>
-  </div>
-  <div class="small-bird"></div>
-  <div class="big-bird"></div>
-  <div class="container">
-    <div class="header">
-      <div class="img-container">
-        <div class="avatar">
-          <img :src="article.member.logo" alt="">
+    <div class="small-bird"></div>
+    <div class="big-bird"></div>
+    <div class="container">
+      <div class="header">
+        <div class="img-container">
+          <div class="avatar">
+            <img :src="article.member.logo" alt="">
+          </div>
         </div>
       </div>
-    </div>
-    <div class="article-meta">
-      <div class="well">
-        <p class="nickname" >
-                        <span  @click="jump(article.member.url,article.member.id)">
-                            <span class="nigname">{{article.author}}</span>
-                            <span class="focus__root"><div class="focus"><a class="clearfix">关注</a></div></span>
-                        </span>
+      <div class="article-meta">
+        <div class="well">
+          <p class="nickname" >
+            <span  @click="jump(article.member.url,article.member.id)">
+              <span class="nigname">{{article.author}}</span>
+               <span class="focus__root">
+                <div class="focus">
+                   <a class="clearfix">关注</a>
+                </div>
+               </span>
+              </span>
+          </p>
+        </div>
+      </div>
+      <div class="article-info">
+        <h1 class="title">{{article.title}}</h1>
+        <hr class="line">
+        <p class="time-read">
+          <span>{{article.createDate | datetimefmt}}</span>
+          <span>阅读 <span class="read-count">{{article.hits}}</span></span>
         </p>
+        <div class="sign__root"><div class="sign"></div></div>
       </div>
     </div>
-    <div class="article-info">
-      <h1 class="title">{{article.title}}</h1>
-      <hr class="line">
-      <p class="time-read">
-        <span>{{article.createDate | datetimefmt}}</span>
-        <span>阅读 <span class="read-count">{{article.hits}}</span></span>
-      </p>
-      <div class="sign__root"><div class="sign"></div></div>
-    </div>
   </div>
-</div>
 </template>
 <script>
   import utils from '../../../assets/utils.js';
@@ -62,12 +66,13 @@
       article: {
         default: function () {
 //           配合v-if控制渲染 title应该全设置为   点击设置标题  ，但是涉及太多模版，暂使用样例
-          return {hits: 0, title: "样例", nickName: "author", createDate: null}
+          return {hits: 0, title: "", nickName: "author", createDate: null}
         }
       },
     },
     created(){
 //        console.log(this.template);
+      console.log(this.article);
     },
     methods:{
       hasArticle:function () {
