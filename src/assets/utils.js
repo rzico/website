@@ -1,7 +1,7 @@
 const config = {
   logo:'./static/logo.png',
   siteName:'珍农在线',
-  appUrl:'http://cdn.rzico.com/znzx/release/assistant.apk',
+  appUrl:'http://a.app.qq.com/o/simple.jsp?pkgname=com.rzico.znzx',
   title:"珍农在线",
   link:"https://znzx.rzico.com",
   thumbnail:'./static/logo.png',
