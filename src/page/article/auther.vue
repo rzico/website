@@ -43,11 +43,11 @@
     },
     methods:{
       jump:function (url,id) {
-        if(utils.isweex()){
-          location.href = utils.setDummyUrl('topic',id);
-        }else{
-          this.$router.push(utils.router(url));
-        }
+//        if(utils.isweex()){
+//          location.href = utils.setDummyUrl('topic',id);
+//        }else{
+//          this.$router.push(utils.router(url));
+//        }
       },
 //      jump:function (url,id) {
 //        var _this = this;

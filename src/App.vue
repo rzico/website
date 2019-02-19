@@ -28,7 +28,7 @@ export default {
     }
     utils.setConfig({
       title:utils.getConfig().siteName,
-      desc:"超强图文小视频分享社区,中国版Facebook.",
+      desc:"超强图文小视频营销工具,重构实体产业生态圈",
       link:utils.getConfig().baseURL,
       thumbnail:utils.getConfig().logo
     });

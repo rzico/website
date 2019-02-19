@@ -5,12 +5,12 @@ const config = {
   title:"芸店",
   link:"https://small.rzico.com",
   thumbnail:'./static/logo.png',
-  desc:'超强图文小视频分享社区,中国版Facebook.',
+  desc:'超强图文小视频营销工具,重构实体产业生态圈.',
   baseURL:"http://small.rzico.com/",
   wxAppid:"wx88a1ec3b5c3bc9c3"
 }
 //伪链接主体。  mopian  或 yundian
-const dummyHost = 'mopian';
+const dummyHost = 'yundian';
 
 let utilsFunc = {
     //跳转的伪链接路径
