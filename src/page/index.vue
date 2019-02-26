@@ -12,7 +12,7 @@
     </div>
     <div class="banner">
       <div class="warp">
-        <div class="title"><span class="only-pc">超强图文小视频营销工具,重构实体产业生态圈</span></div>
+        <div class="title"><span class="only-pc">超强图文小视频营销工具</span></div>
         <div class="video-warp">
           <div id="articleNum">{{count}}</div>
           <p>篇文章使用{{conf.siteName}}创作</p>
@@ -45,7 +45,7 @@
       //设置分享标题
       utils.setConfig({
         title:"【"+utils.getConfig().siteName+"】追求极致创新。",
-        desc:"超强图文小视频营销工具,重构实体产业生态圈.",
+        desc:"超强图文小视频营销工具.",
         link:location.href,
         logo:".static/logo.png"
       });
