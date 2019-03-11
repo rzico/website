@@ -1,5 +1,4 @@
 <style scoped>
-  @import './less/page.less';
 
 </style>
 
@@ -20,19 +19,6 @@ export default {
      }
   },
   created () {
-    //      重新组建url
-    let url = location.href;
-    if(url.indexOf('/#/') == -1){
-      location.href = url.substring(0,url.indexOf('?')) + url.substring(url.indexOf('#/'));
-      return;
-    }
-    utils.setConfig({
-      title:utils.getConfig().siteName,
-      desc:"超强图文小视频分享社区,中国版Facebook.",
-      link:utils.getConfig().baseURL,
-      thumbnail:utils.getConfig().logo
-    });
-    SHARE(location.href);
   },
   mounted() {
   },
