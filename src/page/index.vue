@@ -22,7 +22,7 @@
         <span style="color: #000;font-size: 15px;">服务条款</span>
       </div>
     </div>
-    <div class="registered-button">
+    <div class="registered-button" @click="submit()">
       <span>注册</span>
     </div>
     <div class="registered-footer">
@@ -260,21 +260,30 @@
         if(this.timer!=null){
           return;
         }
-        let _this =this;
-        POST('weex/login/send_mobile.jhtml?mobile=' + message.data).then(
+        if(utils.isNull(this.telPhone)){
+          alert('请填写手机号码')
+          return
+        }
+        let _this = this;
+        GET("weex/common/public_key.jhtml").then(
           function (data) {
-            if (data.type == "success") {
-              event.openURL(utils.locate('pages/login/captcha.js?mobile=' +_this.value),function (e) {
-                event.closeURL(e);
-              });
-            } else {
-              event.toast(data.content);
-            }
-          }, function (err) {
-            event.toast("网络不稳定");
+            POST("weex/login/send_mobile.jhtml?mobile="+utils.encrypt(_this.telPhone,data.data)).then(
+              function (res) {
+                _this.beginTimer();
+              },
+              function (err) {
+                alert(err.content)
+              }
+
+            )
+          },
+          function (err) {
+            alert("加密失败")
           }
         )
-        this.beginTimer()
+      },
+      submit(){
+
       },
       doAgree(){
         this.isAgree = !this.isAgree
