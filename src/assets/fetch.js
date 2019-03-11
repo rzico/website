@@ -1,6 +1,7 @@
 import Vue from 'vue';
+import VueResource from 'vue-resource';
 import utils from '../assets/utils.js';
-
+Vue.use(VueResource);
 export function POST (path,body) {
   return new Promise((resolve, reject) => {
       Vue.http.post(utils.getConfig().baseURL+path,body).then(

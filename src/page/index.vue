@@ -13,8 +13,8 @@
         <span @click="send()">{{time==0?'获取验证码':'剩余'+time+'秒'}}</span>
       </div>
     </div>
-    <input type="text" placeholder="密码(长度6～16位，数字、字母)" class="registered-keyword" v-model="password">
-    <input type="text" placeholder="重复密码(长度6～16位，数字、字母)" class="registered-keyword" v-model="passwordTwo">
+    <input type="password" placeholder="密码(长度6～16位，数字、字母)" class="registered-keyword" v-model="password">
+    <input type="password" placeholder="重复密码(长度6～16位，数字、字母)" class="registered-keyword" v-model="passwordTwo">
     <div class="registered-rule">
       <span class="demo2 " @click="doAgree()" :class="[isAgree ? 'demo3' : '']"></span>
       <div style="flex-direction: row">
@@ -28,17 +28,45 @@
     <div class="registered-footer">
       <span>点击下方链接下载APP</span>
     </div>
-    <div >
-      <div class="ios" style="margin-top: 15px;text-align: left"><a @click="downApp" href="#"><i class="iconfont">&#xe632;</i> ios下载</a></div>
-      <div class="android" style="margin-top: 15px"><a @click="downApp" href="#"><i class="iconfont">&#xe633;</i> 安卓下载</a></div>
+    <div class="downBox" style="margin-top: 10%;">
+      <div class="ios" style="margin-right: 15%;" @click="downApp"><i class="iconfont" style="margin-right: 10px">&#xe632;</i> ios下载</div>
+      <div class="ios"  @click="downApp"><i class="iconfont" style="margin-right: 10px">&#xe633;</i> 安卓下载</div>
     </div>
+    <img class="guideImg" :src="guide" v-if="isGuide" @click="downImg"/>
   </div>
 
 
 </template>
 
 <style>
-
+  .guideImg{
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top:0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+  .downBox{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  }
+  .ios{
+    background-color: #5379de;
+    border-radius: 5px;
+    width: 30%;
+    height: 40px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    color: #ffffff;
+  }
   @font-face {
     font-family: 'iconfont';  /* project id 983937 */
     src: url('//at.alicdn.com/t/font_983937_xqmg0us3baq.eot');
@@ -222,6 +250,7 @@
   export default {
     data() {
       return {
+        checked:false,
         title: '注册',
         timer:null,
         time:0,
@@ -230,11 +259,18 @@
         telPhone:'',
         registered:'',
         password:'',
-        passwordTwo:''
+        passwordTwo:'',
+        xuid:'',
+        guide:'./static/guide.png',
+        isGuide:false
       }
     },
+    created() {
+      this.xuid = utils.getUrlParameter("xuid");
+    },
     methods: {
-      jump() {
+      downImg() {
+        this.isGuide =false
       },
       beginTimer:function () {
         var _this = this;
@@ -260,39 +296,94 @@
         if(this.timer!=null){
           return;
         }
+        if(this.checked){
+          return
+        }
+        this.checked = true
         if(utils.isNull(this.telPhone)){
           alert('请填写手机号码')
           return
         }
         let _this = this;
-        GET("weex/common/public_key.jhtml").then(
+        GET("common/public_key.jhtml").then(
           function (data) {
-            POST("weex/login/send_mobile.jhtml?mobile="+utils.encrypt(_this.telPhone,data.data)).then(
+            POST("weex/register/send_mobile.jhtml?mobile="+encodeURIComponent(utils.encrypt(_this.telPhone,data.data))).then(
               function (res) {
-                _this.beginTimer();
+                _this.checked = false
+                if (res.type == "success") {
+                  _this.beginTimer();
+                } else {
+                  alert(res.content)
+                }
+
               },
               function (err) {
+                _this.checked = false
                 alert(err.content)
               }
 
             )
           },
           function (err) {
+            _this.checked = false
             alert("加密失败")
           }
         )
       },
       submit(){
+        let _this = this;
+        if(utils.isNull(this.registered)){
+          alert('请填写手机获取验证码')
+          return
+        }else  if(utils.isNull(this.password)){
+          alert('请输入密码')
+          return
+        }else  if(utils.isNull(this.passwordTwo)){
+          alert('请输入密码')
+          return
+        }else if(/^[\u3220-\uFA29]+$/.test(this.password)){
+          alert('请输入数字或字母')
+          return true;
+        }else if(/^[\u3220-\uFA29]+$/.test(this.passwordTwo)){
+          alert('请输入数字或字母')
+          return true;
+        }else  if(this.password != this.passwordTwo){
+          alert('请输入相同的密码')
+          return
+        }else  if(!this.isAgree){
+          alert('请同意服务条款')
+          return
+        }
+        GET("weex/common/public_key.jhtml").then(
+          function (data) {
+            POST('weex/register/submit.jhtml?captcha=' + _this.registered  +'&enPassword='+utils.encrypt(_this.passwordTwo,data.data) +'&xuid='+ _this.xuid).then(
+              function (res) {
+                if (res.type == "success") {
+                  alert('注册成功,请下载APP')
+                } else {
+                  alert(res.content)
+                }
+              },function (err) {
+                alert("网络不稳定请重试")
+              }
+            )
+          },
+          function (err) {
+            alert("加密失败")
+          }
+        )
 
       },
       doAgree(){
         this.isAgree = !this.isAgree
       },
       downApp(){
-
+        if(utils.isweixin()){
+          this.isGuide = true
+        }else {
+          window.open('http://www.baidu.com')
+        }
       },
-      goRule(){
-      }
     }
   }
 </script>

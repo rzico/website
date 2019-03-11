@@ -1,7 +1,10 @@
 const config = {
+  baseURL:"http://dev.rzico.com/"
 }
 let utilsFunc = {
-
+    getConfig () {
+       return config
+    },
     //获取URL参数
     getUrlParameter(name) {
         let url = window.location.href;
