@@ -5,22 +5,21 @@
     </div>
     <div class="registered-phone">
       <span>+86</span>
-      <input type="tel" placeholder="手机号">
+      <input type="tel" placeholder="手机号"  v-model="telPhone">
     </div>
     <div class="registered-code registered-cell">
-      <input type="tel" placeholder="短信验证码">
+      <input type="tel" placeholder="短信验证码" v-model="registered">
       <div>
         <span @click="send()">{{time==0?'获取验证码':'剩余'+time+'秒'}}</span>
       </div>
     </div>
-    <input type="text" placeholder="密码(长度6～16位，数字、字母)" class="registered-keyword">
-
-    <input type="text" placeholder="重复密码(长度6～16位，数字、字母)" class="registered-keyword">
+    <input type="text" placeholder="密码(长度6～16位，数字、字母)" class="registered-keyword" v-model="password">
+    <input type="text" placeholder="重复密码(长度6～16位，数字、字母)" class="registered-keyword" v-model="passwordTwo">
     <div class="registered-rule">
       <span class="demo2 " @click="doAgree()" :class="[isAgree ? 'demo3' : '']"></span>
       <div style="flex-direction: row">
         <span style="color: #444;font-size: 15px;margin-left: 5px" @click="doAgree()">我已阅读并同意遵守 </span>
-        <span style="color: #000;font-size: 15px;" @click="goRule">服务条款</span>
+        <span style="color: #000;font-size: 15px;">服务条款</span>
       </div>
     </div>
     <div class="registered-button">
@@ -218,14 +217,20 @@
 </style>
 
 <script>
+  import {POST, GET} from '../assets/fetch';
+  import utils from '../assets/utils'
   export default {
     data() {
       return {
         title: '注册',
         timer:null,
         time:0,
-        isAgree:false,
-        mode:50
+        isAgree:true,
+        mode:50,
+        telPhone:'',
+        registered:'',
+        password:'',
+        passwordTwo:''
       }
     },
     methods: {
@@ -255,6 +260,20 @@
         if(this.timer!=null){
           return;
         }
+        let _this =this;
+        POST('weex/login/send_mobile.jhtml?mobile=' + message.data).then(
+          function (data) {
+            if (data.type == "success") {
+              event.openURL(utils.locate('pages/login/captcha.js?mobile=' +_this.value),function (e) {
+                event.closeURL(e);
+              });
+            } else {
+              event.toast(data.content);
+            }
+          }, function (err) {
+            event.toast("网络不稳定");
+          }
+        )
         this.beginTimer()
       },
       doAgree(){
