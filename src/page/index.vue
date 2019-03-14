@@ -1,8 +1,8 @@
 <template>
   <div class="registered-page">
-    <div class="registered-header">
-      <span>注册</span>
-    </div>
+    <!--<div class="registered-header">-->
+      <!--<span>注册</span>-->
+    <!--</div>-->
     <div class="registered-phone">
       <span>+86</span>
       <input type="tel" placeholder="手机号"  v-model="telPhone">
@@ -378,11 +378,11 @@
         this.isAgree = !this.isAgree
       },
       downApp(){
-        if(utils.isweixin()){
-          this.isGuide = true
-        }else {
-          window.open('http://www.baidu.com')
-        }
+//        if(utils.isweixin()){
+//          this.isGuide = true
+//        }else {
+          window.open('https://app.zs056.com/app.php/877')
+//        }
       },
     }
   }

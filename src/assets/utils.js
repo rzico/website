@@ -1,5 +1,5 @@
 const config = {
-  baseURL:"http://dev.rzico.com/"
+  baseURL:"http://weex.qmslico.com/"
 }
 let utilsFunc = {
     getConfig () {
