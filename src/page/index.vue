@@ -1,20 +1,20 @@
 <template>
-  <div class="registered-page">
+  <div class="registered-page" style="position:fixed;">
     <!--<div class="registered-header">-->
       <!--<span>注册</span>-->
     <!--</div>-->
     <div class="registered-phone">
       <span>+86</span>
-      <input type="tel" placeholder="手机号"  v-model="telPhone">
+      <input type="number" placeholder="手机号"  v-model="telPhone">
     </div>
     <div class="registered-code registered-cell">
-      <input type="tel" placeholder="短信验证码" v-model="registered">
+      <input type="number" placeholder="短信验证码" v-model="registered">
       <div>
         <span @click="send()">{{time==0?'获取验证码':'剩余'+time+'秒'}}</span>
       </div>
     </div>
-    <input type="password" placeholder="密码(长度6～16位，数字、字母)" class="registered-keyword" v-model="password">
-    <input type="password" placeholder="重复密码(长度6～16位，数字、字母)" class="registered-keyword" v-model="passwordTwo">
+    <!--<input type="password" placeholder="密码(长度6～16位，数字、字母)" class="registered-keyword" v-model="password">-->
+    <!--<input type="password" placeholder="重复密码(长度6～16位，数字、字母)" class="registered-keyword" v-model="passwordTwo">-->
     <div class="registered-rule">
       <span class="demo2 " @click="doAgree()" :class="[isAgree ? 'demo3' : '']"></span>
       <div style="flex-direction: row">
@@ -335,28 +335,28 @@
         if(utils.isNull(this.registered)){
           alert('请填写手机获取验证码')
           return
-        }else  if(utils.isNull(this.password)){
-          alert('请输入密码')
-          return
-        }else  if(utils.isNull(this.passwordTwo)){
-          alert('请输入密码')
-          return
-        }else if(/^[\u3220-\uFA29]+$/.test(this.password)){
-          alert('请输入数字或字母')
-          return true;
-        }else if(/^[\u3220-\uFA29]+$/.test(this.passwordTwo)){
-          alert('请输入数字或字母')
-          return true;
-        }else  if(this.password != this.passwordTwo){
-          alert('请输入相同的密码')
-          return
+//        }else  if(utils.isNull(this.password)){
+//          alert('请输入密码')
+//          return
+//        }else  if(utils.isNull(this.passwordTwo)){
+//          alert('请输入密码')
+//          return
+//        }else if(/^[\u3220-\uFA29]+$/.test(this.password)){
+//          alert('请输入数字或字母')
+//          return true;
+//        }else if(/^[\u3220-\uFA29]+$/.test(this.passwordTwo)){
+//          alert('请输入数字或字母')
+//          return true;
+//        }else  if(this.password != this.passwordTwo){
+//          alert('请输入相同的密码')
+//          return
         }else  if(!this.isAgree){
           alert('请同意服务条款')
           return
         }
         GET("weex/common/public_key.jhtml").then(
           function (data) {
-            POST('weex/register/submit.jhtml?captcha=' + _this.registered  +'&enPassword='+utils.encrypt(_this.passwordTwo,data.data) +'&xuid='+ _this.xuid).then(
+            POST('weex/register/submit.jhtml?captcha=' + _this.registered  +'&enPassword='+encodeURIComponent(utils.encrypt("123456",data.data)) +'&xuid='+ _this.xuid).then(
               function (res) {
                 if (res.type == "success") {
                   alert('注册成功,请下载APP')
