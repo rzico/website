@@ -1,8 +1,9 @@
 <template>
-  <div class="registered-page" style="position:fixed;">
+  <div class="registered-page">
     <!--<div class="registered-header">-->
       <!--<span>注册</span>-->
     <!--</div>-->
+    <div style="position:fixed">
     <div class="registered-phone">
       <span>+86</span>
       <input type="number" placeholder="手机号"  v-model="telPhone">
@@ -33,6 +34,7 @@
       <div class="ios"  @click="downApp"><i class="iconfont" style="margin-right: 10px">&#xe633;</i> 安卓下载</div>
     </div>
     <img class="guideImg" :src="guide" v-if="isGuide" @click="downImg"/>
+    </div>
   </div>
 
 
@@ -381,7 +383,8 @@
 //        if(utils.isweixin()){
 //          this.isGuide = true
 //        }else {
-          window.open('http://qmsl.wapxk.com')
+        window.open('https://fir.im/8ldu')
+//          window.open('http://qmsl.wapxk.com')
 //        }
       },
     }
