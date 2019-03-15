@@ -381,7 +381,7 @@
 //        if(utils.isweixin()){
 //          this.isGuide = true
 //        }else {
-          window.open('https://app.zs056.com/app.php/877')
+          window.open('http://qmsl.wapxk.com')
 //        }
       },
     }
