@@ -383,7 +383,7 @@
 //        if(utils.isweixin()){
 //          this.isGuide = true
 //        }else {
-        window.open('https://fir.im/8ldu')
+        window.open('https://fir.im/s4da')
 //          window.open('http://qmsl.wapxk.com')
 //        }
       },
