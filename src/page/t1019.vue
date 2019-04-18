@@ -107,9 +107,9 @@
     },
     created() {
       var _this = this;
-      AUTH("",function (authed) {
-        _this.logined  = authed;
-      })
+//      AUTH("",function (authed) {
+//        _this.logined  = authed;
+//      })
       if(utils.isweex()==true){
         this.downloadShow = false;
         this.noWeex = false;
@@ -291,19 +291,19 @@
         this.musicPlay = 1;
       },
       buyNow:function (id) {
-        if(utils.isweex()==true){
-
-//          location.href =  'mopian://buyGood?id=' + id;
-          this.$refs.toast.show('请分享到微信进行购买!');
-          return;
-        }
+//        if(utils.isweex()==true){
+//
+////          location.href =  'mopian://buyGood?id=' + id;
+//          this.$refs.toast.show('请分享到微信进行购买!');
+//          return;
+//        }
 
         let _this = this;
-        AUTH(location.href,function (authed) {
-          if (authed) {
+//        AUTH(location.href,function (authed) {
+//          if (authed) {
             _this.$refs.buy.show(id,_this.watchArticle.id);
-          }
-        })
+//          }
+//        })
 
       },
       onscroll(e){

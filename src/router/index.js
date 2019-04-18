@@ -79,6 +79,8 @@ const C1003memberIndex = resolve => require(['../page/c1003/memberIndex'], resol
 const giveLike = resolve => require(['../page/article/giveLike'], resolve)
 const coupon = resolve => require(['../widget/coupon'], resolve)
 const list = resolve => require(['../page/c1003/list'], resolve)
+const orderConfirm = resolve => require(['../page/order/confirm'], resolve)
+const orderCity = resolve => require(['../page/order/city'], resolve)
 
 // import T1003 from '../page/t1003'
 // import T1004 from '../page/t1004'
@@ -402,6 +404,19 @@ var router = new Router({
       meta: {requireAuth:true},
       component: list
     },
+    {
+      path: '/orderConfirm',
+      name: 'orderConfirm',
+      meta: {requireAuth:true},
+      component: orderConfirm
+    },
+    {
+      path: '/orderCity',
+      name: 'orderCity',
+      meta: {requireAuth:true},
+      component: orderCity
+    },
+
    ]
 })
 

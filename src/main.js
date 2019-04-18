@@ -7,6 +7,12 @@ import '../static/iconfont.css';
 import 'mint-ui/lib/style.css';
 import utils from './assets/utils.js';
 
+import { Option,Input, Select,Button } from 'element-ui';
+Vue.use(Select)
+Vue.use(Option)
+Vue.use(Input)
+Vue.use(Button)
+
   // //预览插件
   // import VuePreview from 'vue-preview'
   // Vue.use(VuePreview)

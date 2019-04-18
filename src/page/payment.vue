@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div class="page msg">
+    <div class="page msg payment">
       <Message :icon="pageIcon" :title="title">
         <div slot="content" class="money">
           <!--<div class="goodsNameBox">-->
@@ -8,15 +8,18 @@
           <!--</div>-->
           <div v-if="hasAmount()">
             <span class="moneyIcon">¥ </span>
-            <span>
-          {{amount | watchAmount}}</span>
-          </div>
+            <span>{{amount | watchAmount}}</span></div>
         </div>
         <!--<button-area slot="operation">-->
         <!--<weui-button type="primary" @onclick="close()">确定</weui-button>-->
         <!--&lt;!&ndash;<weui-button type="default">取消</weui-button>&ndash;&gt;-->
         <!--</button-area>-->
       </Message>
+      <div class="payment-qrCode-box" v-if="isSuccess && showCode()">
+        <img class="payment-qrCode" src="https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1552562162&di=55d23484d535f2bd6d997ab78dda8a9c&src=http://pic.qqtn.com/up/2018-1/2018012710125472621.jpg" alt="">
+        <p>长按图片识别二维码</p>
+        <p>进入小程序,查看订单详情</p>
+      </div>
       <div class="footer">
         <div class="goodsNameBox" v-if="hasPayWay()">
           <span class="gray">付款方式: {{this.payWay | watchPayWay}}</span>
@@ -44,6 +47,38 @@
 </template>
 
 <style scoped>
+  .payment{
+    width: 100%;
+    height:100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 30px 0;
+    align-items: center;
+  }
+  .payment .payment-qrCode-box{
+    margin-top: -35px;
+  }
+  .payment .pt70{
+    padding-top: 0px !important;
+  }
+  .payment .weui_msg .weui_text_area .money{
+    margin-top: 0px !important;
+  }
+  .payment-qrCode{
+    width:200px;
+    height:200px;
+  }
+  .payment-qrCode-box p{
+    font-size: 12px;
+    color: gray;
+  }
+  .payment-qrCode-box{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
   [v-clock]{
     display:none
   }
@@ -62,7 +97,7 @@
   .complete{
     /*padding: 7px 60px;*/
     padding: 7px 0px;
-    border: 1px solid #EB4E40;
+    border: 1px solid #0bb20c;
     font-size: 13px;
     line-height: 13px;
     color: #0bb20c;
@@ -75,15 +110,16 @@
     font-size: 25px;
   }
   .money {
-    margin-top: 50px;
-    margin-bottom: 40px;
+    /*margin-top: 50px;*/
+    /*margin-bottom: 40px;*/
+    margin-top: 20px;
     font-size: 43px;
     line-height: 48px;
     color:#000;
   }
   .footer {
-    position: absolute;
-    bottom:60px;
+    /*position: absolute;*/
+    /*bottom:20px;*/
     text-align: center;
     width:100%;
   }
@@ -109,7 +145,8 @@
         isSuccess:false,
         paymentId:'',
         payType:"",
-        payWay:''
+        payWay:'',
+        payMemo:''
       }
     },
     components: {
@@ -144,6 +181,8 @@
           return '微信支付';
         }else if(value == 'alipay'){
           return '支付宝付款';
+        }else if(value == 'h5pay'){
+          return '网页付款';
         }else{
           return value;
         }
@@ -153,6 +192,13 @@
       }
     },
     created() {
+      /*****
+       *
+//      h5支付取消后返回到本页面，应将location.href打印出来 看看是否有回调。
+       *
+      *****/
+
+
 //      将数据存到 session中，不管前进后退还是刷新，数据依然还在，关闭窗口后再进页面才会清空session数据，可以控制页面只刷新一次
 //      if(utils.isIos()){//判断是否是ios
 //        if (sessionStorage.getItem('flag')) {
@@ -245,6 +291,8 @@
         }else if(payType == 'alipay'){
 //          _this.payWay = payType;
           _this.alipay(this.sn);
+        }else if(payType == 'h5pay'){
+          _this.h5pay(this.sn)
         }else{
           if(_this.payWay == '余额支付'){
             _this.paymentId = 'balancePayPlugin'
@@ -276,6 +324,30 @@
             }
           )
         }
+      },
+      h5pay:function(sn) {
+        var _this = this;
+//        weixinOcPayPlugin    weixinPayPlugin
+        POST("payment/submit.jhtml?sn="+sn+"&paymentPluginId=weixinH5Plugin").then(
+          function (res) {
+            if (res.type=="success") {
+//              replace
+              location.href = res.data.mweb_url;
+            }
+            else {
+              _this.title = '支付失败';
+              _this.isCancel = true;
+//              _this.pageIcon = 'cancel';
+              _this.$refs.toast.show("网络不稳定");
+            }
+          },
+          function (err) {
+            _this.title = '支付失败';
+//            _this.pageIcon = 'cancel';
+            _this.isCancel = true;
+            _this.$refs.toast.show("网络不稳定");
+          }
+        )
       },
       alipay:function (sn) {
         var _this = this;
@@ -389,8 +461,13 @@
       },
       goComplete(){
         let _this = this;
+//    前往下载页
+        this.$router.replace({
+          name: "index",
+        });
+        return;
 //        if(utils.isNull(this.articleId)){
-        _this.$router.go(-1);
+//        _this.$router.go(-1);
 //        }else{
 //          _this.$router.push({
 //            name: "t1001",
@@ -400,6 +477,7 @@
       },
 //      再次支付
       payAgain(){
+
         this.title = '支付中';
 //        this.pageIcon = 'waiting';
         if(this.payWay == 'weixin'){
@@ -444,6 +522,9 @@
           }
         )
       },
+      showCode(){
+        return utils.isweixin();
+      }
     }
   }
 </script>

@@ -67,8 +67,10 @@
 </template>
 
 <script>
-  import PhotoSwipe from  "../../node_modules/_vue-preview@1.0.5@vue-preview/node_modules/photoswipe/dist/photoswipe";
-  import UI from  "../../node_modules/_vue-preview@1.0.5@vue-preview/node_modules/photoswipe/dist/photoswipe-ui-default";
+//  import PhotoSwipe from  "../../node_modules/_vue-preview@1.0.5@vue-preview/node_modules/photoswipe/dist/photoswipe";
+//  import UI from  "../../node_modules/_vue-preview@1.0.5@vue-preview/node_modules/photoswipe/dist/photoswipe-ui-default";
+  import PhotoSwipe from  "../../node_modules/_vue-preview@1.1.3@vue-preview/node_modules/photoswipe/dist/photoswipe";
+  import UI from  "../../node_modules/_vue-preview@1.1.3@vue-preview/node_modules/photoswipe/dist/photoswipe-ui-default";
   export default {
     data(){
       return{
@@ -109,8 +111,10 @@
 </script>
 
 <style>
-  @import "../../node_modules/_vue-preview@1.0.5@vue-preview/node_modules/photoswipe/dist/photoswipe.css";
-  @import "../../node_modules/_vue-preview@1.0.5@vue-preview/node_modules/photoswipe/dist/default-skin/default-skin.css";
+  @import "../../node_modules/_vue-preview@1.1.3@vue-preview/node_modules/photoswipe/dist/photoswipe.css";
+  @import "../../node_modules/_vue-preview@1.1.3@vue-preview/node_modules/photoswipe/dist/default-skin/default-skin.css";
+  /*@import "../../node_modules/_vue-preview@1.0.5@vue-preview/node_modules/photoswipe/dist/photoswipe.css";*/
+  /*@import "../../node_modules/_vue-preview@1.0.5@vue-preview/node_modules/photoswipe/dist/default-skin/default-skin.css";*/
   .zIndex{
     z-index: 99999999999991 !important;
   }

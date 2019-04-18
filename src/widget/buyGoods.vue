@@ -29,7 +29,7 @@
             <div class="specName" >
               <span class="fontSize16">规格1</span>
             </div>
-            <div >
+            <div>
               <span v-for="(spec1,index) in item.products"  v-if="isSpec1Rrepeat(index,item.products)" :class="[spec1Name == spec1.spec1 ? 'specChoose' : '',spec1.isSpec1 != '1' ? '' : 'grayColor']" class="specStyle" @click="spec1Choose(spec1,item.products)">{{spec1.spec1}}</span>
             </div>
           </div>
@@ -49,15 +49,15 @@
         <!--<cell-footer ><span class="arrow" style="color:red;font-size: 14px;padding-right: 10px">-¥ 3.00</span></cell-footer>-->
         <!--</div>-->
         <!--</cells>-->
-        <div class="address"  v-for="(item,index) in receiverList" v-if="hasReceiver()" @click="goAddress()">
-          <p class="fontSize18">{{item.consignee}} {{item.phone}}</p>
-          <p class="fontSize18" style="font-size: 14px">{{item.areaName}}{{item.address}}</p>
-          <p class="rightArrow"></p>
-        </div>
-        <div class="address noAddress" v-else @click="goAddress()">
-          <p class="fontSize18 fontSize14" >点击选择收货地址</p>
-          <p class="rightArrow top18" ></p>
-        </div>
+        <!--<div class="address"  v-for="(item,index) in receiverList" v-if="hasReceiver()" @click="goAddress()">-->
+          <!--<p class="fontSize18">{{item.consignee}} {{item.phone}}</p>-->
+          <!--<p class="fontSize18" style="font-size: 14px">{{item.areaName}}{{item.address}}</p>-->
+          <!--<p class="rightArrow"></p>-->
+        <!--</div>-->
+        <!--<div class="address noAddress" v-else @click="goAddress()">-->
+          <!--<p class="fontSize18 fontSize14">点击选择收货地址</p>-->
+          <!--<p class="rightArrow top18" ></p>-->
+        <!--</div>-->
         <div class="flexRow preferentialBox" v-if="couponName != ''">
           <span class="preferential">{{couponName}}</span>
         </div>
@@ -72,8 +72,8 @@
         </div>
       </div>
     </div>
-    <AddressList ref="address" @selectAddress="selectAddress" @addressAdd="addressAdd" @toastShow="toastShow"></AddressList>
-    <AddressAdd ref="addressAdd" @selectAddress="selectAddress" @toastShow="toastShow"></AddressAdd>
+    <!--<AddressList ref="address" @selectAddress="selectAddress" @addressAdd="addressAdd" @toastShow="toastShow"></AddressList>-->
+    <!--<AddressAdd ref="addressAdd" @selectAddress="selectAddress" @toastShow="toastShow"></AddressAdd>-->
     <!--免密支付-->
     <weui-dialog ref="dialog" type="confirm" title="免密支付" confirmButton="确认支付" cancelButton="取消"
                  @weui-dialog-confirm="activate()"
@@ -383,10 +383,27 @@
           this.$refs.toast.show('请选择规格2');
           return ;
         }
-        if(utils.isNull(this.receiverList[0].id) || utils.isNull(this.receiverList[0].id)){
-          this.$refs.toast.show('请选择地址');
-          return ;
+//        if(utils.isNull(this.receiverList[0].id) || utils.isNull(this.receiverList[0].id)){
+//          this.$refs.toast.show('请选择地址');
+//          return ;
+//        }
+
+        let product = {
+          spec1Name:this.spec1Name,
+          spec2Name:this.spec2Name,
+          buyNum:this.buyNum,
+          finallPrice:this.finallPrice,
+          thumbnail:this.goodsData[0].thumbnail,
+          name:this.goodsData[0].name,
+          price:this.goodsData[0].price
         }
+
+        _this.$router.push({
+          name: "orderConfirm",
+          query: {productId: _this.productId,product:JSON.stringify(product),buyNum:  _this.buyNum,xuid:utils.getUrlParameter("xuid"),dragonId:_this.dragonId}
+        });
+        return;
+
         POST("website/member/order/create.jhtml?id=" + this.productId + '&quantity=' + this.buyNum + '&receiverId=' + this.receiverList[0].id+'&xuid='+utils.getUrlParameter("xuid")+'&dragonId='+_this.dragonId).then(
           function (data) {
             if (data.type=="success") {
@@ -737,6 +754,8 @@
         let _this = this;
         GET('website/product/view.jhtml?id='+id).then(
           function (data) {
+            console.log('11`1`1---')
+            console.log(data);
             if(data.type == 'success'){
               _this.goodsData = [];
 //              _this.finallPrice = data.data.products[0].price;
@@ -805,14 +824,14 @@
         }
       },
       goAddress:function () {
-        this.$refs.address.show();
+//        this.$refs.address.show();
 //        this.$router.push({
 //          name: "receiverList",
 //          query: {type:'buyGoods'}
 //        });
       },
       addressAdd:function () {
-        this.$refs.addressAdd.showAddressAdd();
+//        this.$refs.addressAdd.showAddressAdd();
       },
       selectAddress:function (address) {
         address = JSON.parse(address);
