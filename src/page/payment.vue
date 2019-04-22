@@ -1,32 +1,35 @@
 <template>
   <div class="container">
-    <div class="page msg payment">
+    <div class="page msg payment" :class="[paymentPage()]">
+      <div class="messageBox">
       <Message :icon="pageIcon" :title="title">
         <div slot="content" class="money">
           <!--<div class="goodsNameBox">-->
             <!--<span>订单付款</span>-->
           <!--</div>-->
-          <div v-if="hasAmount()">
+          <div v-if="hasAmount()" class="moneyWeight">
             <span class="moneyIcon">¥ </span>
-            <span>{{amount | watchAmount}}</span></div>
+            <span>{{amount | watchAmount}}</span>
+          </div>
         </div>
         <!--<button-area slot="operation">-->
         <!--<weui-button type="primary" @onclick="close()">确定</weui-button>-->
         <!--&lt;!&ndash;<weui-button type="default">取消</weui-button>&ndash;&gt;-->
         <!--</button-area>-->
       </Message>
+      </div>
       <div class="payment-qrCode-box" v-if="isSuccess && showCode()">
         <img class="payment-qrCode" src="https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1552562162&di=55d23484d535f2bd6d997ab78dda8a9c&src=http://pic.qqtn.com/up/2018-1/2018012710125472621.jpg" alt="">
         <p>长按图片识别二维码</p>
         <p>进入小程序,查看订单详情</p>
       </div>
       <div class="footer">
-        <div class="goodsNameBox" v-if="hasPayWay()">
-          <span class="gray">付款方式: {{this.payWay | watchPayWay}}</span>
-        </div>
-        <div class="goodsNameBox" v-if="hasPayMemo()">
-          <span class="gray">商品说明: {{this.payMemo}}</span>
-        </div>
+        <!--<div class="goodsNameBox" v-if="hasPayWay()">-->
+          <!--<span class="gray">付款方式: {{this.payWay | watchPayWay}}</span>-->
+        <!--</div>-->
+        <!--<div class="goodsNameBox" v-if="hasPayMemo()">-->
+          <!--<span class="gray">商品说明: {{this.payMemo}}</span>-->
+        <!--</div>-->
         <span @click="payAgain()" v-if="isCancel" class="complete redStyle">继续支付</span>
         <span @click="goComplete()" v-if="isSuccess" class="complete">完成</span>
       </div>
@@ -47,17 +50,30 @@
 </template>
 
 <style scoped>
+  .messageBox{
+    position: relative;
+    display: flex;
+    flex-shrink: 0;
+    /*background-color: #fff;*/
+    z-index: 99;
+  }
+  .moneyWeight{
+    font-weight: 450;
+  }
   .payment{
     width: 100%;
     height:100%;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    padding: 30px 0;
+    /*justify-content: space-between;*/
+    /*padding: 30px 0;*/
+    /*padding: 50px 0;*/
     align-items: center;
   }
   .payment .payment-qrCode-box{
     margin-top: -35px;
+    display: flex;
+    flex-shrink: 0;
   }
   .payment .pt70{
     padding-top: 0px !important;
@@ -123,6 +139,14 @@
     text-align: center;
     width:100%;
   }
+  .paymentSuccess{
+    justify-content: space-around;
+  }
+  .paymentNoSuccess{
+    justify-content: space-between;
+    padding: 80px 0 40px 0;
+
+  }
 </style>
 
 <script>
@@ -137,16 +161,21 @@
       return {
 //        waiting cancel
         amount:'',
+//        amount:'140.00',
         sn:'',
 //        goodsName:'',
         title:'支付中',
+//        title:'支付成功',
 //        articleId:'',
         isCancel:false,
         isSuccess:false,
+//        isSuccess:true,
         paymentId:'',
         payType:"",
         payWay:'',
-        payMemo:''
+        payMemo:'',
+//        payWay:'微信支付',
+//        payMemo:'线下支付'
       }
     },
     components: {
@@ -199,6 +228,7 @@
       *****/
 
 
+
 //      将数据存到 session中，不管前进后退还是刷新，数据依然还在，关闭窗口后再进页面才会清空session数据，可以控制页面只刷新一次
 //      if(utils.isIos()){//判断是否是ios
 //        if (sessionStorage.getItem('flag')) {
@@ -243,14 +273,13 @@
         }
       }
       this.payType = utils.getUrlParameter('type');
-
       if(!utils.isNull(utils.getUrlParameter("memo"))){
         _this.payMemo = decodeURI(utils.getUrlParameter('memo'));
       }
       if(!utils.isNull(this.payType)){
         _this.payWay = decodeURI(this.payType);
       }
-
+//      alert(location.href)
     },
     mounted() {
       var _this = this;
@@ -523,7 +552,15 @@
         )
       },
       showCode(){
+//        return true
         return utils.isweixin();
+      },
+      paymentPage(){
+        if(this.isSuccess && this.showCode()){
+          return 'paymentSuccess'
+        }else{
+          return 'paymentNoSuccess'
+        }
       }
     }
   }

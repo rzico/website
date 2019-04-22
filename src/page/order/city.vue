@@ -446,7 +446,6 @@
           })
       },
       chooseEstate(item){
-
         let _this = this;
         if (this.clicked) {
           return;
@@ -459,16 +458,16 @@
           let localCity = localStorage.getItem('ydAddress');
 //        判断是否已有本地缓存
           if(!utils.isNull(localCity)){
-            let jsonLocalCity = JSON.parse(localCity)
-            jsonLocalCity.id = item.id,
-              jsonLocalCity.address = item.address;
+            let jsonLocalCity = JSON.parse(localCity);
+            jsonLocalCity.id = item.id;
+            jsonLocalCity.address = item.address;
             jsonLocalCity.areaId = _this.areaId;
             jsonLocalCity.name  = item.name;
             jsonLocalCity.addressName = item.address + item.name;
             jsonLocalCity.areaName = _this.areaName;
             jsonLocalCity.latitude = _this.latitude;
             jsonLocalCity.longitude = _this.longitude;
-            localStorage.setItem("ydAddress",JSON.stringify(jsonLocalCity))
+            localStorage.setItem("ydAddress",JSON.stringify(jsonLocalCity));
           }else{
             let a = {
               id:item.id,
