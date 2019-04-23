@@ -13,6 +13,9 @@ Vue.use(Option)
 Vue.use(Input)
 Vue.use(Button)
 
+
+import { Toast } from 'mint-ui';
+Vue.component(Toast.name,Toast);
   // //预览插件
   // import VuePreview from 'vue-preview'
   // Vue.use(VuePreview)

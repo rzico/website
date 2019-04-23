@@ -2,21 +2,21 @@
   <div class="container">
     <div class="page msg payment" :class="[paymentPage()]">
       <div class="messageBox">
-      <Message :icon="pageIcon" :title="title">
-        <div slot="content" class="money">
-          <!--<div class="goodsNameBox">-->
+        <Message :icon="pageIcon" :title="title" >
+          <div slot="content" class="money">
+            <!--<div class="goodsNameBox">-->
             <!--<span>订单付款</span>-->
-          <!--</div>-->
-          <div v-if="hasAmount()" class="moneyWeight">
-            <span class="moneyIcon">¥ </span>
-            <span>{{amount | watchAmount}}</span>
+            <!--</div>-->
+            <div v-if="hasAmount()" class="moneyWeight">
+              <span class="moneyIcon">¥ </span>
+              <span>{{amount | watchAmount}}</span>
+            </div>
           </div>
-        </div>
-        <!--<button-area slot="operation">-->
-        <!--<weui-button type="primary" @onclick="close()">确定</weui-button>-->
-        <!--&lt;!&ndash;<weui-button type="default">取消</weui-button>&ndash;&gt;-->
-        <!--</button-area>-->
-      </Message>
+          <!--<button-area slot="operation">-->
+          <!--<weui-button type="primary" @onclick="close()">确定</weui-button>-->
+          <!--&lt;!&ndash;<weui-button type="default">取消</weui-button>&ndash;&gt;-->
+          <!--</button-area>-->
+        </Message>
       </div>
       <div class="payment-qrCode-box" v-if="isSuccess && showCode()">
         <img class="payment-qrCode" src="https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1552562162&di=55d23484d535f2bd6d997ab78dda8a9c&src=http://pic.qqtn.com/up/2018-1/2018012710125472621.jpg" alt="">
@@ -25,10 +25,10 @@
       </div>
       <div class="footer">
         <!--<div class="goodsNameBox" v-if="hasPayWay()">-->
-          <!--<span class="gray">付款方式: {{this.payWay | watchPayWay}}</span>-->
+        <!--<span class="gray">付款方式: {{this.payWay | watchPayWay}}</span>-->
         <!--</div>-->
         <!--<div class="goodsNameBox" v-if="hasPayMemo()">-->
-          <!--<span class="gray">商品说明: {{this.payMemo}}</span>-->
+        <!--<span class="gray">商品说明: {{this.payMemo}}</span>-->
         <!--</div>-->
         <span @click="payAgain()" v-if="isCancel" class="complete redStyle">继续支付</span>
         <span @click="goComplete()" v-if="isSuccess" class="complete">完成</span>
@@ -45,10 +45,8 @@
         <p style="text-align: center;width: 100%;font-size: 25px;color: #000">¥{{amount}}</p>
       </div>
     </weui-dialog>
-    <Toast ref="toast"></Toast>
   </div>
 </template>
-
 <style scoped>
   .messageBox{
     position: relative;
@@ -150,7 +148,7 @@
 </style>
 
 <script>
-  import Toast from '../widget/toast.vue';
+  import { Indicator } from 'mint-ui';
   import { POST, GET, AUTH} from '../assets/fetch.js';
   import Message from '../widget/message.vue';
   import Button from '../widget/button.vue';
@@ -180,9 +178,9 @@
     },
     components: {
       Message,
-      Toast,
       'weui-button': Button,
       'weui-dialog':Dialog,
+      Indicator
     },
     computed:{
       pageIcon: function () {
@@ -223,11 +221,12 @@
     created() {
       /*****
        *
-//      h5支付取消后返回到本页面，应将location.href打印出来 看看是否有回调。
+       //      h5支付取消后返回到本页面，应将location.href打印出来 看看是否有回调。
        *
-      *****/
+       *****/
+//      console.log('12')s
 
-
+        this.showLoading();
 
 //      将数据存到 session中，不管前进后退还是刷新，数据依然还在，关闭窗口后再进页面才会清空session数据，可以控制页面只刷新一次
 //      if(utils.isIos()){//判断是否是ios
@@ -280,6 +279,7 @@
         _this.payWay = decodeURI(this.payType);
       }
 //      alert(location.href)
+      console.log('===')
     },
     mounted() {
       var _this = this;
@@ -289,14 +289,29 @@
         }
         ,500);
     },
-    methods:{
-      hasPayMemo(){
-      if(utils.isNull(this.payMemo)){
-        return false;
-      }else {
-        return true;
+    watch: {
+//      控制页面切换动画效果
+      $route(to, from) {
+        console.log('===')
+        console.log(to);
+        console.log(from);
       }
     },
+    methods:{
+      showLoading(){
+//      加载框 http://mint-ui.github.io/docs/#/zh-cn2/indicator
+        Indicator.open({
+          text:'支付中',
+          spinnerType: 'triple-bounce'
+        });
+      },
+      hasPayMemo(){
+        if(utils.isNull(this.payMemo)){
+          return false;
+        }else {
+          return true;
+        }
+      },
       hasPayWay(){
         if(utils.isNull(this.payWay)){
           return false;
@@ -362,19 +377,57 @@
             if (res.type=="success") {
 //              replace
               location.href = res.data.mweb_url;
-            }
-            else {
+//setInterval 每隔1000ms执行一次
+              var snQuery = setInterval(function(){
+                POST("payment/query.jhtml?sn="+sn).then(
+                  function (res) {
+                    if(res.type == 'success' && res.data == '0000'){
+                      _this.title = '支付成功';
+                      _this.isCancel = false;
+                      _this.isSuccess = true;
+                      Indicator.close();
+                      if(!utils.isNull(snQuery)){
+                        clearTimeout(snQuery);
+                        snQuery = null;
+                      }
+                    }else{
+                      _this.title = '支付失败';
+                      _this.isCancel = true;
+                      Indicator.close();
+                      utils.showToast('支付失败','icon-shibai');
+//                    _this.pageIcon = 'cancel';
+                      if(!utils.isNull(snQuery)){
+                        clearTimeout(snQuery);
+                        snQuery = null;
+                      }
+                    }
+                  },
+                  function (err) {
+                    _this.title = '支付失败';
+                    _this.isCancel = true;
+                    Indicator.close();
+                    utils.showToast('支付失败','icon-shibai');
+                    if(!utils.isNull(snQuery)){
+                      clearTimeout(snQuery);
+                      snQuery = null;
+                    }
+                  }
+                )
+              },5000)
+            } else {
               _this.title = '支付失败';
               _this.isCancel = true;
 //              _this.pageIcon = 'cancel';
-              _this.$refs.toast.show("网络不稳定");
+              Indicator.close();
+              utils.showToast();
             }
           },
           function (err) {
             _this.title = '支付失败';
 //            _this.pageIcon = 'cancel';
             _this.isCancel = true;
-            _this.$refs.toast.show("网络不稳定");
+            Indicator.close();
+            utils.showToast();
           }
         )
       },
@@ -389,6 +442,7 @@
                 }, function(result){
                   if(result.resultCode == '9000'){
                     _this.title = '支付成功';
+                    Indicator.close();
 //                  _this.pageIcon = 'success';
                     _this.isCancel = false;
                     _this.isSuccess = true;
@@ -397,7 +451,9 @@
                       _this.query()
                     },2000)
                   } else {
-                    _this.$refs.toast.show('支付取消');
+
+                    Indicator.close();
+                    utils.showToast('支付取消');
                     _this.title = '支付取消';
 //                  _this.pageIcon = 'cancel';
                     _this.isCancel = true;
@@ -419,14 +475,16 @@
               _this.title = '支付失败';
               _this.isCancel = true;
 //              _this.pageIcon = 'cancel';
-              _this.$refs.toast.show("网络不稳定");
+              Indicator.close();
+              utils.showToast();
             }
           },
           function (err) {
             _this.title = '支付失败';
             _this.isCancel = true;
 //            _this.pageIcon = 'cancel';
-            _this.$refs.toast.show("网络不稳定");
+            Indicator.close();
+            utils.showToast();
           }
         )
       },
@@ -447,6 +505,7 @@
                 },function(result){
                   if(result.err_msg == "get_brand_wcpay_request:ok" ) {
                     _this.title = '支付成功';
+                    Indicator.close();
 //                  _this.pageIcon = 'success';
                     _this.isSuccess = true;
                     _this.isCancel = false;
@@ -454,7 +513,8 @@
                       _this.query()
                     },2000)
                   } else {
-                    _this.$refs.toast.show("支付取消");
+                    Indicator.close();
+                    utils.showToast('支付取消');
 //                  _this.$refs.toast.show(result.memo);
                     _this.title = '支付取消';
 //                  _this.pageIcon = 'cancel';
@@ -476,15 +536,17 @@
             else {
               _this.title = '支付失败';
               _this.isCancel = true;
+              Indicator.close();
 //              _this.pageIcon = 'cancel';
-              _this.$refs.toast.show("网络不稳定");
+              utils.showToast();
             }
           },
           function (err) {
             _this.title = '支付失败';
 //            _this.pageIcon = 'cancel';
             _this.isCancel = true;
-            _this.$refs.toast.show("网络不稳定");
+            Indicator.close();
+            utils.showToast();
           }
         )
       },
@@ -506,14 +568,17 @@
       },
 //      再次支付
       payAgain(){
-
         this.title = '支付中';
+        this.showLoading();
 //        this.pageIcon = 'waiting';
         if(this.payWay == 'weixin'){
           this.weixin(this.sn);
         }else if(this.payWay == 'alipay'){
           this.alipay(this.sn);
+        }else if(this.payWay == 'h5pay'){
+          this.h5pay(this.sn)
         }else{
+          Indicator.close();
           this.$refs.dialog.show();
         }
       },
@@ -521,7 +586,7 @@
 //       取消免密支付
       closeConfirm:function () {
         this.title = '支付取消';
-        _this.$refs.toast.show("支付取消");
+        utils.showToast('支付取消');
         this.$refs.dialog.close();
       },
 //      确定免密支付
@@ -530,7 +595,7 @@
         POST('payment/submit.jhtml?sn='+ this.sn + '&paymentPluginId='+ this.paymentId + '&safeKey=free').then(
           function (data) {
             if (data.type=="success") {
-              _this.$refs.toast.show('支付成功');
+              utils.showToast('支付成功','icon-chenggong');
               _this.title = '支付成功';
               _this.isSuccess = true;
               _this.isCancel = false;
@@ -538,13 +603,13 @@
               _this.title = '支付失败';
               _this.isCancel = true;
 //              _this.pageIcon = 'cancel';
-              _this.$refs.toast.show("网络不稳定");
+              utils.showToast();
             }
             this.$refs.dialog.close();
 //            _this.disabledButton = false;
           },
           function (err) {
-            _this.$refs.toast.show("网络不稳定");
+            utils.showToast();
             this.$refs.dialog.close();
             _this.title = '支付失败';
             _this.isCancel = true;
@@ -561,7 +626,7 @@
         }else{
           return 'paymentNoSuccess'
         }
-      }
+      },
     }
   }
 </script>

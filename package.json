@@ -16,7 +16,7 @@
     "element-ui": "^2.6.1",
     "less": "^2.7.3",
     "less-loader": "^4.0.5",
-    "mint-ui": "^2.2.9",
+    "mint-ui": "^2.2.13",
     "store": "^2.0.12",
     "swiper": "^3.4.1",
     "v-distpicker": "^1.0.14",

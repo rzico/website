@@ -97,8 +97,8 @@
 
       <!--item.id = B024F02CAQ-->
       <!--整个小区列表-->
-      <p style="font-size: 15px;position: absolute;left: 10px;" v-if="estateList.length != 0"  :style="{bottom:canGetLocation ? '81%' : '71%'}">小区列表:</p>
-      <div style="position: absolute;bottom: 0px;width: 100%;overflow: scroll;padding-top: 10px;box-sizing: border-box" :style="{height:canGetLocation ? '80%' : '70%'}">
+      <p style="font-size: 15px;position: absolute;left: 10px;" v-if="estateList.length != 0"  :style="{bottom:canGetLocation ? '81%' : '69%'}">小区列表:</p>
+      <div style="position: absolute;bottom: 0px;width: 100%;overflow: scroll;padding-top: 10px;box-sizing: border-box" :style="{height:canGetLocation ? '80%' : '68%'}">
         <div class="city-estate city-bottomBorder" v-for="(item,index) in estateList" :class="[index == 0  ? 'city-topBorder' : '']" @click="chooseEstate(item)">
           <p class="city-estate-name">{{item.name}}</p>
           <p class="city-estate-address">{{item.address}}</p>
@@ -183,6 +183,7 @@
   }
 </style>
 <script>
+  import { Indicator } from 'mint-ui';
   import Toast from '../../widget/toast.vue';
   import utils from '../../assets/utils';
   import { POST, GET } from '../../assets/fetch';
@@ -224,10 +225,15 @@
 //      进页面，首先获取位置信息
 //      1.如果成功获取经纬度，用经纬度去获取城市Id 跟 小区，显示出来。并可以通过搜索框搜索所在城市id的小区。 此时不让用户选择 省份 城市 地区。
 //      2.如果获取经纬度失败。此时让用户选择 省份 城市 地区，选完城区后用城区id获取经纬度、小区列表并显示出来，并可以通过搜索框搜索小区。
+      Indicator.open({
+        text:'加载中',
+        spinnerType: 'triple-bounce'
+      });
       this.getLocation();
     },
     components: {
-      Toast
+      Toast,
+      Indicator
     },
     methods:{
       doSearch(){
@@ -241,9 +247,13 @@
         },1500)
         if(utils.isNull(this.searchInput) || utils.isNull(this.areaId)){
           return;
-        }
+        }Indicator.open({
+          text:'搜索中',
+          spinnerType: 'triple-bounce'
+        });
         GET('lbs/geoQuery.jhtml?areaId=' + this.areaId + '&keyword=' + this.searchInput + '&xmid=').then(
           function (res) {
+            Indicator.close();
             if(res.type == 'success'){
               _this.estateList = res.data.pois;
             }else{
@@ -251,7 +261,7 @@
               _this.close(res);
             }
           },function (err) {
-
+            Indicator.close();
             _this.close(err);
           }
         )
@@ -318,6 +328,7 @@
         let _this = this;
         GET('common/area.jhtml?parentId=').then(
           function (res) {
+            Indicator.close();
             if (res.type=="success") {
 //              将map转为JSON数组
               for(var key in res.data){
@@ -327,11 +338,10 @@
                 })
               }
             } else {
-
               _this.close(res);
             }
           }, function (err) {
-
+            Indicator.close();
             _this.close(err);
           })
       },
@@ -429,6 +439,7 @@
         let _this = this;
         GET('lbs/regeoCode.jhtml?lng=' + this.longitude +'&lat=' +this.latitude + '&xmid=').then(
           function (res) {
+            Indicator.close();
             if (res.type=="success") {
               _this.estateList = res.data.pois;
               _this.areaId = res.data.areaId;
@@ -441,6 +452,7 @@
             }
 
           }, function (err) {
+            Indicator.close();
             _this.close(err);
 //            alert(JSON.stringify(err))
           })

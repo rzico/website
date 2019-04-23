@@ -17,6 +17,7 @@
 </style>
 <script>
 
+  import utils from '../assets/utils.js';
 export default {
   data () {
     return {
@@ -28,14 +29,15 @@ export default {
   },
   methods: {
     show (val) {
-        this.isShow = true;
-        this.msg = val;
-        if (this.timeout!=null) {
-           clearTimeout(this.timeout)
-        }
-        this.timeout = setTimeout(() => {
-          this.isShow = false
-        }, 2000)
+      utils.showToast(val);
+//        this.isShow = true;
+//        this.msg = val;
+//        if (this.timeout!=null) {
+//           clearTimeout(this.timeout)
+//        }
+//        this.timeout = setTimeout(() => {
+//          this.isShow = false
+//        }, 2000)
     },
     loading () {
       this.isShow = true;

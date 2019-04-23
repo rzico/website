@@ -12,6 +12,8 @@ const config = {
 //伪链接主体。  mopian  或 yundian
 const dummyHost = 'yundian';
 
+import { Toast } from 'mint-ui';
+
 let utilsFunc = {
     //跳转的伪链接路径
     setDummyUrl(page,id){
@@ -404,7 +406,14 @@ let utilsFunc = {
     var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
     // alert('是否是Android：'+isAndroid);
     return isiOS;
+  },
+  //弹窗 http://mint-ui.github.io/docs/#/zh-cn2/toast
+  showToast(title = '网络不稳定',iconType = 'icon-tishi'){
+    Toast({
+      message: title,
+      iconClass: 'mint-toast-icon-custom iconfont ' + iconType,
+      duration:1200
+    })
   }
 };
-
 export default utilsFunc;

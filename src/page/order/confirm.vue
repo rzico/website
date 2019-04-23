@@ -76,11 +76,6 @@
           <span style="font-size:15px;color:#ffffff">提交订单</span>
         </div>
       </div>
-
-
-
-      <Toast ref="toast"></Toast>
-
     </div>
   </div>
 </template>
@@ -199,7 +194,7 @@
 </style>
 <script>
 
-  import Toast from '../../widget/toast.vue';
+  import { Indicator } from 'mint-ui';
   import utils from '../../assets/utils';
   import { POST, GET , AUTH} from '../../assets/fetch';
   export default {
@@ -230,7 +225,8 @@
       }
     },
     components: {
-      Toast
+
+      Indicator,
     },
     computed:{
     },
@@ -283,17 +279,21 @@
           _this.clicked = false;
         },1500)
         if(utils.isNull(this.ydAddress.consignee)){
-          this.$refs.toast.show('请输入收货人');
+          utils.showToast('请输入收货人');
           return;
         }
         if(utils.isNull(this.ydAddress.phone)){
-          this.$refs.toast.show('请输入联系电话');
+          utils.showToast('请输入联系电话');
           return;
         }
         if(utils.isNull(this.ydAddress.id)){
-          this.$refs.toast.show('请选择地址');
+          utils.showToast('请选择地址');
           return;
         }
+        Indicator.open({
+          text:'加载中',
+          spinnerType: 'triple-bounce'
+        });
 //        '&receiverId=' + this.receiverList[0].id+
         let address = this.ydAddress.areaName + this.ydAddress.addressName ;
 //        alert("website/member/order/create.jhtml?id=" + utils.getUrlParameter('productId') + '&quantity=' + utils.getUrlParameter('buyNum') + '&areaId=' + this.ydAddress.areaId+ '&phone=' + this.ydAddress.phone + '&consignee=' + encodeURIComponent(this.ydAddress.consignee) + '&address=' + encodeURIComponent(address) + '&lat=' + this.ydAddress.latitude + '&lng=' + this.ydAddress.longitude +'&xuid=' + utils.getUrlParameter("xuid") + '&dragonId='+ utils.getUrlParameter('dragonId'));
@@ -313,19 +313,23 @@
 
               _this.goPay(data.data.sn);
             } else {
-              _this.close(data);
+              Indicator.close();
+              utils.showToast();
             }
             _this.disabledButton = false;
           },
           function (err) {
             _this.disabledButton = false;
-            _this.close(utils.message("error","网络不稳定"));
+            Indicator.close();
+            utils.showToast();
+
           }
         )
       },
 //      发起支付
       goPay(sn){
         let _this = this;
+        Indicator.close();
         if(utils.isweixin()){
           _this.$router.replace({
             name: "payment",
@@ -342,83 +346,8 @@
             name: "payment",
             query: {psn: sn, amount:  _this.product.finallPrice,type:'h5pay',memo:encodeURI('购买商品')}
           });
-
         }
       },
-////      发起支付
-//      goPay(sn){
-//        let _this = this;
-////        alert('website/member/order/payment.jhtml?sn=' + sn);
-//        POST('website/member/order/payment.jhtml?sn=' + sn).then(
-//          function (data) {
-//            if (data.type=="success") {
-////              判断支付方式,为null值时就是微信支付或者支付宝支付
-//              if(utils.isNull(data.data.paymentPluginId)){
-//                if(utils.isweixin()){
-//                  _this.$router.push({
-//                    name: "payment",
-//                    query: {psn: data.data.sn, amount:  _this.product.finallPrice,type:'weixin',memo:encodeURI(data.data.memo)}
-//                  });
-//                }else if(utils.isalipay()){
-//                  _this.$router.push({
-//                    name: "payment",
-//                    query: {psn: data.data.sn, amount:  _this.product.finallPrice,type:'alipay',memo:encodeURI(data.data.memo)}
-//                  });
-//                }
-//              }else if(data.data.paymentPluginId == 'cardPayPlugin'){//会员卡支付
-////                var payInfo = {
-////                  way:'会员卡支付',
-////                  price:_this.product.finallPrice,
-////                  sn:data.data.sn
-////                };
-////                payInfo = JSON.stringify(payInfo);
-////                _this.$emit('payConfirm',payInfo);
-//                _this.sn = data.data.sn;
-//                _this.payWay = '会员卡支付';
-//                _this.paymentId = 'cardPayPlugin';
-//                _this.payMemo = data.data.memo;
-//                _this.$refs.dialog.show();
-//              }else if(data.data.paymentPluginId == 'balancePayPlugin'){//余额支付
-////                var payInfo2 = {
-////                  way:'余额支付',
-////                  price:_this.product.finallPrice,
-////                  sn:data.data.sn
-////                };
-////                payInfo2 = JSON.stringify(payInfo2);
-////                _this.$emit('payConfirm',payInfo2);
-////                _this.payPrice = _this.product.finallPrice;
-//                _this.paymentId = 'balancePayPlugin';
-//                _this.sn = data.data.sn;
-//                _this.payWay = '余额支付';
-//                _this.payMemo = data.data.memo;
-//                _this.$refs.dialog.show();
-//              }else{
-//                _this.close(utils.message("error","网络不稳定"));
-//              }
-//            } else {
-//              _this.close(data);
-////              alert('1')
-//            }
-//            _this.disabledButton = false;
-//          },
-//          function (err) {
-////            alert('2')
-////            err = JSON.stringify(err);
-////            alert(err);
-//            _this.disabledButton = false;
-//            _this.close(utils.message("error","网络不稳定"));
-//          }
-//        )
-//      },
-      close(data){
-        if(data.type == 'error'){
-          if(!utils.isNull(data.content)){
-            this.$refs.toast.show(data.content);
-          }else{
-            this.$refs.toast.show('网络不稳定');
-          }
-        }
-      }
     }
   }
 </script>
