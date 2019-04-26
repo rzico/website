@@ -383,7 +383,7 @@
 //        if(utils.isweixin()){
 //          this.isGuide = true
 //        }else {
-        window.open('http://qml.wapxk.com')
+        window.open('https://leaa.fun/app.php/8231')
 //          window.open('http://qmsl.wapxk.com')
 //        }
       },
