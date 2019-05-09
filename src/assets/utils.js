@@ -15,6 +15,33 @@ const dummyHost = 'yundian';
 import { Toast } from 'mint-ui';
 
 let utilsFunc = {
+  setXmid(xmid){
+    localStorage.setItem('setXmid', xmid);
+  },
+  //set xuid
+  setXuid(xuid){
+    localStorage.setItem('setXuid', xuid);
+  },
+  //get xmid
+  getXmid(){
+    let xmid = localStorage.getItem('setXmid');
+    if(!this.isNull(xmid)){
+      return xmid
+    }else {
+      return''
+    }
+
+  },
+  //get xuid
+  getXuid(){
+    let xuid = localStorage.getItem('setXuid');
+    if(!this.isNull(xuid)){
+      return xuid
+    }else {
+      return ''
+    }
+
+  },
     //跳转的伪链接路径
     setDummyUrl(page,id){
       return dummyHost + '://'+ page +'?id=' + id;

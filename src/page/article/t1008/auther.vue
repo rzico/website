@@ -11,7 +11,7 @@
           <p class="wsign"  v-if="article.member.autograph != '' " >
             {{article.member.autograph==null?"留下签名有助于提升知名度":article.member.autograph}}  </p>
         </div>
-        <img v-if="article.member.qrcode != null" :src='article.member.qrcode'  alt="" class="qrcode">
+        <!--<img v-if="article.member.qrcode != null" :src='article.member.qrcode'  alt="" class="qrcode">-->
         <div class="right iconfont icon-xiangyoujiantou icon-arrow"></div>
       </a>
     </div>
@@ -42,7 +42,7 @@
     display: block;
     padding-left: 86px;
     padding-right: 28px;
-    height: 100%;
+    height: 86px;
     width: 100%;
     box-sizing: border-box;
     position: relative;

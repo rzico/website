@@ -20,6 +20,14 @@ export default {
      }
   },
   created () {
+    let xmid = utils.getUrlParameter("xmid");
+    let xuid = utils.getUrlParameter("xuid");
+    if (!utils.isNull(xuid)) {
+      utils.setXuid(xuid)
+    }
+    if (!utils.isNull(xmid)) {
+      utils.setXmid(xmid)
+    }
     //      重新组建url
     let url = location.href;
     if(url.indexOf('/#/') == -1){
