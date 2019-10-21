@@ -7,7 +7,6 @@
         <!--</div>-->
         <div class="">
           <banner  :id="bannerId" :article="watchArticle"></banner>
-          <auther ref="auther" :article="watchArticle"></auther>
           <review ref="review" :article="watchArticle"></review>
           <metaTitle :article="watchArticle"></metaTitle>
           <music :musicData="watchMusicData" @judgeMusic="judgeMusic" ref="musicTemplete" :downloadShow="downloadShow"></music>
@@ -37,7 +36,6 @@
   import music from './article/music.vue';
   import article_content from './article/content.vue';
   import report from './article/report.vue';
-  import auther from './article/auther.vue';
   import banner from './article/t1006/banner.vue';
   import recommend from './article/recommend.vue';
   import review from './article/t1006/review.vue';
@@ -68,7 +66,6 @@
       music,
       article_content,
       report,
-      auther,
       recommend,
       review,
       ad,

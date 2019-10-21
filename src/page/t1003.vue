@@ -9,7 +9,6 @@
           <music :musicData="watchMusicData" @judgeMusic="judgeMusic" ref="musicTemplete" :downloadShow="downloadShow"></music>
           <article_content @buyNow="buyNow"  :templates="watchTemplates" :htmlStr="htmlStr" templateId=1003></article_content>
           <report  :article="watchArticle.hits"></report>
-          <auther ref="auther" :article="watchArticle" templateId=1003></auther>
           <review ref="review" :article="watchArticle" templateId=1003></review>
           <recommend ref="recommend" v-if="isPublish" article="watchArticle" @go="fetchData" templateId=1003></recommend>
           <ad v-if="noWeex" :article="watchArticle" templateId=1003></ad>
@@ -33,7 +32,6 @@
   import music from './article/music.vue';
   import article_content from './article/content.vue';
   import report from './article/report.vue';
-  import auther from './article/auther.vue';
   import recommend from './article/recommend.vue';
   import review from './article/review.vue';
   import ad from './article/ad.vue';
@@ -65,7 +63,6 @@
       music,
       article_content,
       report,
-      auther,
       recommend,
       review,
       ad,

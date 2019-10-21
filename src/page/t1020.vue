@@ -8,7 +8,6 @@
         <article_content   :templates="watchTemplates" :htmlStr="htmlStr"   ></article_content>
         <div class="foot-bg">
           <report  :article="watchArticle.hits"></report>
-          <auther ref="auther" :article="watchArticle"></auther>
           <review ref="review" :article="watchArticle"></review>
           <recommend ref="recommend" v-if="isPublish" :article="watchArticle" @go="fetchData"></recommend>
           <ad v-if="noWeex" :article="watchArticle"></ad>
@@ -31,7 +30,6 @@
   import music from './article/music.vue';
   import article_content from './article/t1018/content.vue';
   import report from './article/seasonsPublic/report.vue';
-  import auther from './article/seasonsPublic/auther.vue';
   import recommend from './article/seasonsPublic/recommend.vue';
   import review from './article/seasonsPublic/review.vue';
   import ad from './article/ad.vue';
@@ -60,7 +58,6 @@
       music,
       article_content,
       report,
-      auther,
       recommend,
       review,
       ad,

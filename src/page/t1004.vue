@@ -24,7 +24,6 @@
   import music from './article/music.vue';
   import article_content from './article/t1004/content.vue';
   import report from './article/t1004/report.vue';
-  import auther from './article/auther.vue';
   import Toast from '../widget/toast.vue';
   export default {
     data () { return {
@@ -51,7 +50,6 @@
       music,
       article_content,
       report,
-      auther,
     },
     props: {
       article: { default: function () {

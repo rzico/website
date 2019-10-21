@@ -31,7 +31,6 @@
 
         <article_content @buyNow="buyNow"  :templates="watchTemplates" :htmlStr="htmlStr" templateId=1002></article_content>
         <report  :article="watchArticle.hits"></report>
-        <auther ref="auther" :article="watchArticle" ></auther>
         <review ref="review" :article="watchArticle" ></review>
         <recommend ref="recommend" v-if="isPublish" article="watchArticle"  @go="fetchData" ></recommend>
         <ad v-if="noWeex" :article="watchArticle" ></ad>
@@ -684,7 +683,6 @@
   import music from './article/music.vue';
   import article_content from './article/t1005/content.vue';
   import report from './article/t1005/report.vue';
-  import auther from './article/t1005/auther.vue';
   import recommend from './article/t1005/recommend.vue';
   import review from './article/t1005/review.vue';
   import ad from './article/t1005/ad.vue';
@@ -714,7 +712,6 @@
       music,
       article_content,
       report,
-      auther,
       recommend,
       review,
       ad,

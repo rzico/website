@@ -10,7 +10,6 @@
           <music :musicData="watchMusicData" @judgeMusic="judgeMusic" ref="musicTemplete" :downloadShow="downloadShow"></music>
           <article_content  :templates="watchTemplates" :htmlStr="htmlStr"></article_content>
           <report  :article="watchArticle.hits"></report>
-          <auther ref="auther" :article="watchArticle"></auther>
           <review ref="review" :article="watchArticle"></review>
           <recommend ref="recommend" v-if="isPublish" :article="watchArticle" @go="fetchData"></recommend>
           <ad v-if="noWeex" :article="watchArticle"></ad>
@@ -34,7 +33,6 @@
   import music from './article/music.vue';
   import article_content from './article/content.vue';
   import report from './article/report.vue';
-  import auther from './article/auther.vue';
   import recommend from './article/recommend.vue';
   import review from './article/review.vue';
   import ad from './article/ad.vue';
@@ -66,7 +64,6 @@
       music,
       article_content,
       report,
-      auther,
       recommend,
       review,
       ad,
@@ -105,10 +102,17 @@
       this.xuid = utils.getUrlParameter("xuid");
       this.go(id);
     },
-//    beforeDestory(){
-//      this.$refs.musicTemplete.stopMuisc();
-//    },
+    beforeRouteLeave(to, from, next){
+      alert(888)
+      if(to.name ==='index' ){
+
+        next({name: 'index'});
+      }else {
+        next(); // 注意：这边next必须要写
+      }
+    },
     methods: {
+
       loadTop:function() { //组件提供的下拉触发方法
         this.$refs.loadmore.onTopLoaded();// 固定方法，查询完要调用一次，用于重新定位
       },

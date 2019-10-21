@@ -9,13 +9,7 @@
         </div>
         <img class="img" src="../img/index/3.png"/>
         <img class="img" src="../img/index/4.png"/>
-        <div class="buttonBox">
-          <img class="img" src="../img/index/5.png"/>
-          <div class="articleBox">
-            <div id="articleNum">{{count}}</div>
-            <p>篇文章使用{{conf.siteName}}创作</p>
-          </div>
-        </div>
+        <img class="img" src="../img/index/5.png"/>
         <div class="maskBox" id="mask"  @click="downMask()">
           <div class="mask">
             <div class="mask-sign">
@@ -29,23 +23,6 @@
   </div>
 </template>
 <style scoped>
-  .articleBox {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    position: absolute;
-    bottom: 517px;
-  }
-  .articleBox > p {
-    font-family: PingFangSC-Regular;
-    font-size: 12px;
-    color: #333333;
-    letter-spacing: 0;
-    line-height: 12px;
-  }
   .img{
     width: 100%;
   }
