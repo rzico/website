@@ -5,9 +5,8 @@
         <!--顶部下载栏-->
         <download_bar :isShow="downloadShow" :authorId="watchArticle.member.id" @closeDownload="closeDownload"></download_bar>
         <article_meta :article="watchArticle" :musicData="watchMusicData" @judgeMusic="judgeMusic" ref="musicTemplete" :downloadShow="downloadShow"></article_meta>
-        <report  :article="watchArticle"  @buyNow="buyNow" :animationIndex="animationIndex"></report>
+        <report  :article="watchArticle"   :animationIndex="animationIndex"></report>
         <article_content  :article="watchArticle" @sendAnimationIndex="sendAnimationIndex"  :htmlStr="htmlStr"></article_content>
-        <buyGoods  ref="buy" @notify="onPayNotify"></buyGoods>
       </div>
     </div>
     <Toast ref="toast"></Toast>
@@ -27,8 +26,6 @@
   import report from './article/t1004/report.vue';
   import auther from './article/auther.vue';
   import Toast from '../widget/toast.vue';
-  import payment from '../widget/payment.vue';
-  import buyGoods from '../widget/buyGoods.vue';
   export default {
     data () { return {
       logined:false,
@@ -55,8 +52,6 @@
       article_content,
       report,
       auther,
-      payment,
-      buyGoods,
     },
     props: {
       article: { default: function () {
@@ -99,13 +94,6 @@
           this.$refs.toast.show(data.content);
         }
       },
-//      fetchData:function (id) {
-//        this.go(id);
-//        this.$refs.review.open(id);
-//        this.$refs.cardImg.open(id);
-//        document.documentElement.scrollTop = 0;
-//        document.body.scrollTop = 0;
-//      },
       go:function (id) {
         var _this = this;
         GET('website/article/view.jhtml?id='+id).then(
@@ -114,7 +102,6 @@
             if (response.type=="success") {
               _this.watchArticle = response.data;
               _this.isPublish = response.data.isPublish;
-//              _this.$refs.coupon.open(response.data.member.id);
               console.log('watchArticle');
               console.log(response.data);
               //设置分享标题

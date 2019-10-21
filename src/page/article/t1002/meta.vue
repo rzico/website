@@ -5,7 +5,7 @@
       <span>阅读 <span class="read-count">{{article.hits}}</span></span>
       <p class="nickname" >
                 <span >
-                    <span class="nigname" @click="jump(article.member.url,article.member.id)">{{article.author}}</span>
+                    <span class="nigname" >{{article.author}}</span>
                     <!--<span class="focus__root"><div class="focus"><a class="clearfix">关注</a></div></span>-->
                 </span>
       </p>

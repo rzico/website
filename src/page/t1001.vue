@@ -8,33 +8,16 @@
         <div class="main">
           <article_meta :article="watchArticle"></article_meta>
           <music :musicData="watchMusicData" @judgeMusic="judgeMusic" ref="musicTemplete" :downloadShow="downloadShow"></music>
-          <article_content @buyNow="buyNow"  :templates="watchTemplates" :htmlStr="htmlStr"></article_content>
-          <!--<vote  :article="watchArticle"></vote>-->
-          <reward ref="reward" :article="watchArticle" @showDialog="showRewardDialog"></reward>
-          <dragon ref="dragon" :article="watchArticle"></dragon>
+          <article_content  :templates="watchTemplates" :htmlStr="htmlStr"></article_content>
           <report  :article="watchArticle.hits"></report>
-          <coupon ref="coupon"></coupon>
           <auther ref="auther" :article="watchArticle"></auther>
           <review ref="review" :article="watchArticle"></review>
           <recommend ref="recommend" v-if="isPublish" :article="watchArticle" @go="fetchData"></recommend>
           <ad v-if="noWeex" :article="watchArticle"></ad>
-          <rewardDialog  ref="rwd"  @rewardNumber="rewardNumber"></rewardDialog>
-          <payment  ref="pay" @notify="onPayNotify"></payment>
-          <buyGoods  ref="buy" @notify="onPayNotify" :dragonId="dragonId"></buyGoods>
         </div>
       </div>
-      <bottom_bar :article="watchArticle"  :templates="watchTemplates" @buyNow="buyNow"></bottom_bar>
+      <bottom_bar :article="watchArticle"  :templates="watchTemplates" ></bottom_bar>
     </div>
-    <!--<weui-dialog ref="dialog" type="confirm" title="免密支付" confirmButton="确认支付" cancelButton="取消"-->
-    <!--@weui-dialog-confirm="activate()"-->
-    <!--@weui-dialog-cancel="closeConfirm()" style="z-index: 300000000111">-->
-    <!--<div >-->
-    <!--<p style="text-align: center;width: 100%;font-size: 13px;color: #444">{{payWay}}</p>-->
-    <!--</div>-->
-    <!--<div >-->
-    <!--<p style="text-align: center;width: 100%;font-size: 25px;color: #000">¥{{payPrice}}</p>-->
-    <!--</div>-->
-    <!--</weui-dialog>-->
     <Toast ref="toast"></Toast>
   </div>
 </template>
@@ -50,23 +33,13 @@
   import article_meta from './article/meta.vue';
   import music from './article/music.vue';
   import article_content from './article/content.vue';
-  import vote from './article/vote.vue';
-  import reward from './article/reward.vue';
-  import dragon from './article/dragon.vue';
   import report from './article/report.vue';
-  import coupon from './article/coupon.vue';
   import auther from './article/auther.vue';
   import recommend from './article/recommend.vue';
   import review from './article/review.vue';
   import ad from './article/ad.vue';
-  import rewardDialog from './article/rewardDialog.vue';
   import Toast from '../widget/toast.vue';
   import payment from '../widget/payment.vue';
-  import buyGoods from '../widget/buyGoods.vue';
-  import card from './member/card.vue';
-  import getCoupon from './coupon/activate.vue';
-  import Dialog from '../widget/dialog.vue';
-  //  import Dialog from '../widget/dialog.vue';
   export default {
     data () { return {
       logined:false,
@@ -92,21 +65,12 @@
       article_meta,
       music,
       article_content,
-      reward,
-      dragon,
       report,
-      coupon,
       auther,
       recommend,
       review,
       ad,
-      rewardDialog,
-      payment,
-      vote,
-      card,
-      buyGoods,
       bottom_bar
-//      'weui-dialog':Dialog,
     },
     props: {
       article: { default: function () {
@@ -160,7 +124,6 @@
       fetchData:function (id) {
         this.go(id);
         this.$refs.review.open(id);
-//        this.$refs.cardImg.open(id);
         document.documentElement.scrollTop = 0;
         document.body.scrollTop = 0;
       },
@@ -171,7 +134,6 @@
             if (response.type=="success") {
               _this.watchArticle = response.data;
               _this.isPublish = response.data.isPublish;
-              _this.$refs.coupon.open(response.data.member.id);
               _this.dragonId = response.data.dragonId;
 
               //设置分享标题
@@ -232,9 +194,6 @@
 
           });
       },
-      showRewardDialog:function () {
-        this.$refs.rwd.show();
-      },
       rewardNumber:function (m) {
         var _this = this;
         _this.$refs.toast.loading();
@@ -277,9 +236,6 @@
                 },function(result){
                   if(result.err_msg == "get_brand_wcpay_request:ok" ) {
 
-                    setTimeout(function () {
-                      _this.$refs.reward.open()
-                    },2000)
                   } else {
                     _this.$refs.toast.show("支付取消");
 //                  _this.$refs.toast.show(result.memo);
@@ -320,26 +276,10 @@
         this.musicPlay = 1;
       },
       buyNow:function (id) {
-//        if(utils.isweex()==true){
-////          location.href =  'mopian://buyGood?id=' + id;
-//          this.$refs.toast.show('请分享到微信进行购买');
-//          return;
-//        }
-        let _this = this;
-//        AUTH(location.href,function (authed) {
-//            if (authed) {
-              _this.$refs.buy.show(id,_this.watchArticle.id);
-//            }
-//          })
+
+
       },
-//      payConfirm:function (payInfo) {
-//        alert(payInfo);
-//        payInfo = JSON.parse(payInfo);
-//        this.payWay = payInfo.way;
-//        this.payPrice = payInfo.price;
-//        this.sn = payInfo.sn;
-//        this.$refs.dialog.show();
-//      },
+
     }
   }
 

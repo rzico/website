@@ -8,7 +8,7 @@
       </p>
       <p class="nickname" >
                 <span>
-                    <span class="nigname" @click="jump(article.member.url,article.member.id)">{{article.shareNickName}}给您拜年了!</span>
+                    <span class="nigname" >{{article.shareNickName}}给您拜年了!</span>
                   <!--<span class="focus__root"><div class="focus"><a class="clearfix">关注</a></div></span>-->
                 </span>
       </p>

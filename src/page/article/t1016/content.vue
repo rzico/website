@@ -25,32 +25,6 @@
           <!--<div class="positionAbsolute videoBg"></div>-->
         </div>
       </div>
-      <div v-if="template.mediaType == 'product'" class="goodsLineBox" :class="[templateId == 1003 ? 't1003_content_padding_0' : '']">
-        <div class="goodsLineInside boderStyle" @click="buyNow(template.id)">
-          <!--商品图片-->
-          <img class="goodsImg" :src="template.original | watchGoodsImg" :style="'height:' + goodsHeight + 'px;' + 'width:' + (goodsHeight -10)+ 'px'"/>
-          <!--商品描述内容-->
-          <div class="infoBox"  :style="'height:' + goodsHeight + 'px'">
-            <p class="linesCtrl"  style="-webkit-box-orient: vertical;overflow: hidden;-webkit-line-clamp: 2;line-height: 23px;display: -webkit-box;text-overflow: ellipsis;height: 66%;font-size: 16px">{{template.name}}</p>
-            <div class="goodsPrice"  style="height: 34%">
-              <div>
-                <span>
-                ¥ {{template.price | watchPrice}}
-                </span>
-                <!--<span class=" sub_title" style="font-size: 14px;text-decoration:line-through;">-->
-                <!--¥ 160.00-->
-                <!--</span>-->
-              </div>
-              <span class="doBuy">立即购买</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!--展开阅读全文.-->
-    <div class="readmore" style="display: block;" @click="readMore()" v-if="hasMore()">
-      <div>展开阅读全文</div>
-      <i class="iconfont icon-xiajiantou icon-arrow"></i>
     </div>
     <preview ref="vuePreview"></preview>
   </div>
@@ -62,7 +36,7 @@
   export default {
     data() {
       return {
-        more:false,
+        more:true,
         goodsHeight:'',
         testData:'',
       }

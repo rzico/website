@@ -39,7 +39,7 @@
           <div class="auther-header">
             <img class="user-image" :src="article.member.logo" >                         </div>
           <div class="nickname" data-author-id="12119279" data-author-url="https://www.meipian.cn/c/12119279">
-                            <span @click="jump(article.member.url,article.member.id)">
+                            <span >
                                 <span class="nigname">{{article.author}}</span>
                                 <span class="focus__root"><div class="focus"><a class="clearfix">关注</a></div></span>
                             </span>

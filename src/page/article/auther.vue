@@ -1,5 +1,5 @@
 <template>
-  <div class="auther" v-if="article.member.autograph !=''" :class="[articleTempId == 1003 ? 't1003_Bg_bottom' : '',articleTempId == 1002 ? 't1002_Bg_bottom' : '']" @click="jump(article.member.url,article.member.id)">
+  <div class="auther" v-if="article.member.autograph !=''" :class="[articleTempId == 1003 ? 't1003_Bg_bottom' : '',articleTempId == 1002 ? 't1002_Bg_bottom' : '']">
     <div class="autherwrap" style="min-height: 96px;" :class="[articleTempId == 1003 ? 't1003_Bg_up' : '',articleTempId == 1002 ? 't1002_Bg_up' : '']">
       <a class="toappuser">
         <div class="autherHead">

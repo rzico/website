@@ -5,7 +5,7 @@
         <span>{{article.createDate | datetimefmt}}</span>
       </p>
       <div class="img-container">
-        <div class="avatar" @click="jump(article.member.url,article.member.id)">
+        <div class="avatar" >
           <img :src="article.member.logo" alt="">
         </div>
       </div>

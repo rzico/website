@@ -2,7 +2,7 @@
   <div  :class="[templateId == 1003 ? 't1003_content_margin_LR_15' : '',templateId == 1002 ? 't1002_content_padding_10' : '']" >
     <div class="content"  :class="[templateId == 1003 ? 't1003_content_padding_LR_16' : '']">
       <div  v-for="(template,index) in templatesList">
-        <div class="margin-section section section-on section-border text-up fill" v-if="isShow(index)">
+        <div class="margin-section section section-on section-border text-up fill" >
           <!--template里没有title的字段-->
           <div class="text"><h3>{{template.title}}</h3></div>
           <!--判断是否是商品-->
@@ -23,11 +23,6 @@
       </div>
       <div v-if="isHtml()">{{htmlStr}}</div>
     </div>
-    <!--展开阅读全文.-->
-    <div class="readmore" style="display: block;" @click="readMore()" v-if="hasMore()">
-      <div>展开阅读全文</div>
-      <i class="iconfont icon-xiajiantou icon-arrow"></i>
-    </div>
     <preview ref="vuePreview"></preview>
   </div>
 </template>
@@ -38,7 +33,7 @@
   export default {
     data() {
       return {
-        more:false,
+        more:true,
         goodsHeight:'',
         testData:'',
       }

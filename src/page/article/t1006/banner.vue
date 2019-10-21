@@ -6,12 +6,6 @@
           <img class="swipeImg" :src="template.original | watchGoodsImg" />
       </mt-swipe-item>
     </mt-swipe>
-    <div class="buyArea">
-      <span class="money">¥{{template.price | watchPrice}}</span>
-      <div class="buy" @click="buyNow(template.id)">
-        <span class="buyText">立即购买</span>
-      </div>
-    </div>
     <div class="goodsTitle">
       <div class="trademark"><span class="trademarkText">芸店</span></div>
       <span class="titleText">{{template.name}}</span>

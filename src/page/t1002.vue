@@ -11,16 +11,11 @@
             <article_meta :article="watchArticle"></article_meta>
             <article_content @buyNow="buyNow"  :templates="watchTemplates" :htmlStr="htmlStr" templateId=1002></article_content>
           </div>
-          <reward ref="reward" :article="watchArticle" @showDialog="showRewardDialog"></reward>
           <report  :article="watchArticle.hits"></report>
-          <coupon ref="coupon"></coupon>
           <auther ref="auther" :article="watchArticle"  templateId=1002></auther>
           <review ref="review" :article="watchArticle" templateId=1002 ></review>
           <recommend ref="recommend" v-if="isPublish" article="watchArticle"  templateId=1002 @go="fetchData" ></recommend>
           <ad v-if="noWeex" :article="watchArticle" templateId=1002 ></ad>
-          <rewardDialog  ref="rwd"  @rewardNumber="rewardNumber"  templateId=1002></rewardDialog>
-          <payment  ref="pay" @notify="onPayNotify"></payment>
-          <buyGoods  ref="buy" @notify="onPayNotify"></buyGoods>
         </div>
       </div>
     </div>
@@ -42,22 +37,12 @@
   import article_cover from './article/t1002/cover.vue';
   import music from './article/music.vue';
   import article_content from './article/content.vue';
-  import vote from './article/vote.vue';
-  import reward from './article/reward.vue';
   import report from './article/report.vue';
-  import coupon from './article/t1002/coupon.vue';
   import auther from './article/auther.vue';
   import recommend from './article/recommend.vue';
   import review from './article/review.vue';
   import ad from './article/ad.vue';
-  import rewardDialog from './article/rewardDialog.vue';
   import Toast from '../widget/toast.vue';
-  import payment from '../widget/payment.vue';
-  import buyGoods from '../widget/buyGoods.vue';
-  import card from './member/card.vue';
-  import getCoupon from './coupon/activate.vue';
-  import Dialog from '../widget/dialog.vue';
-  //  import Dialog from '../widget/dialog.vue';
   export default {
     data () { return {
       logined:false,
@@ -81,20 +66,12 @@
       article_meta,
       music,
       article_content,
-      reward,
       report,
-      coupon,
       auther,
       recommend,
       review,
       ad,
-      rewardDialog,
-      payment,
-      vote,
-      card,
-      buyGoods,
       article_cover
-//      'weui-dialog':Dialog,
     },
     props: {
       article: { default: function () {
@@ -150,7 +127,6 @@
             if (response.type=="success") {
               _this.watchArticle = response.data;
               _this.isPublish = response.data.isPublish;
-              _this.$refs.coupon.open(response.data.member.id);
               //设置分享标题
               utils.setConfig({
                 title:_this.watchArticle.title,

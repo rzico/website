@@ -29,13 +29,7 @@
       console.log(this.template);
     },
     methods:{
-      jump:function (url,id) {
-        if(utils.isweex()){
-          location.href = utils.setDummyUrl('topic',id);
-        }else{
-          this.$router.push(utils.router(url));
-        }
-      }
+
     }
   }
 </script>

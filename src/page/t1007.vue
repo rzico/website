@@ -23,7 +23,7 @@
             <p class="nickname" data-author-id="34351379" data-author-url="https://www.meipian.cn/c/34351379">
                     <span>
                         <span class="nigname">{{watchArticle.author}}</span>
-                        <span class="focus__root"><div class="focus"@click="jump(watchArticle.member.url,watchArticle.member.id)"><a class="clearfix">关注</a></div></span>
+                        <span class="focus__root"><div class="focus"><a class="clearfix">关注</a></div></span>
                     </span>
             </p>
           </div>
@@ -31,19 +31,12 @@
       </div>
       <div class="">
         <music :musicData="watchMusicData" @judgeMusic="judgeMusic" ref="musicTemplete" :downloadShow="downloadShow"></music>
-        <article_content @buyNow="buyNow"  :templates="watchTemplates" :htmlStr="htmlStr" templateId=1006></article_content>
-        <!--<vote  :article="watchArticle"></vote>-->
-        <!--<reward ref="reward" :article="watchArticle" @showDialog="showRewardDialog"></reward>-->
-        <giveLike></giveLike>
+        <article_content   :templates="watchTemplates" :htmlStr="htmlStr" templateId=1006></article_content>
         <report  :article="watchArticle.hits"></report>
-        <coupon ref="coupon"></coupon>
         <auther ref="auther" :article="watchArticle"></auther>
         <review ref="review" :article="watchArticle"></review>
         <recommend ref="recommend" v-if="isPublish" :article="watchArticle" @go="fetchData"></recommend>
         <ad v-if="noWeex" :article="watchArticle"></ad>
-        <rewardDialog  ref="rwd"  @rewardNumber="rewardNumber"></rewardDialog>
-        <payment  ref="pay" @notify="onPayNotify"></payment>
-        <buyGoods  ref="buy" @notify="onPayNotify"></buyGoods>
       </div>
     </div>
     </div>
@@ -598,24 +591,13 @@
   import article_meta from './article/meta.vue';
   import music from './article/music.vue';
   import article_content from './article/content.vue';
-  import vote from './article/vote.vue';
-  import reward from './article/reward.vue';
   import report from './article/report.vue';
-  import coupon from './article/coupon.vue';
   import auther from './article/auther.vue';
   import banner from './article/t1006/banner.vue';
   import recommend from './article/recommend.vue';
   import review from './article/review.vue';
   import ad from './article/ad.vue';
-  import rewardDialog from './article/rewardDialog.vue';
   import Toast from '../widget/toast.vue';
-  import payment from '../widget/payment.vue';
-  import buyGoods from '../widget/buyGoods.vue';
-  import card from './member/card.vue';
-  import getCoupon from './coupon/activate.vue';
-  import Dialog from '../widget/dialog.vue';
-  import giveLike from './article/giveLike.vue';
-  //  import Dialog from '../widget/dialog.vue';
   export default {
     data () { return {
       logined:false,
@@ -640,21 +622,12 @@
       article_meta,
       music,
       article_content,
-      reward,
       report,
-      coupon,
       auther,
       recommend,
       review,
       ad,
-      rewardDialog,
-      payment,
-      vote,
-      card,
-      buyGoods,
       banner,
-      giveLike
-//      'weui-dialog':Dialog,
     },
     props: {
       article: { default: function () {
@@ -726,7 +699,6 @@
             if (response.type=="success") {
               _this.watchArticle = response.data;
               _this.isPublish = response.data.isPublish;
-              _this.$refs.coupon.open(response.data.member.id);
               //设置分享标题
               utils.setConfig({
                 title:_this.watchArticle.title,

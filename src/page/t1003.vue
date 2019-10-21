@@ -8,17 +8,11 @@
         <div class="main marginNega140" >
           <music :musicData="watchMusicData" @judgeMusic="judgeMusic" ref="musicTemplete" :downloadShow="downloadShow"></music>
           <article_content @buyNow="buyNow"  :templates="watchTemplates" :htmlStr="htmlStr" templateId=1003></article_content>
-          <!--<vote  :article="watchArticle"></vote>-->
-          <reward ref="reward" :article="watchArticle" @showDialog="showRewardDialog"></reward>
           <report  :article="watchArticle.hits"></report>
-          <coupon ref="coupon"></coupon>
           <auther ref="auther" :article="watchArticle" templateId=1003></auther>
           <review ref="review" :article="watchArticle" templateId=1003></review>
           <recommend ref="recommend" v-if="isPublish" article="watchArticle" @go="fetchData" templateId=1003></recommend>
           <ad v-if="noWeex" :article="watchArticle" templateId=1003></ad>
-          <rewardDialog  ref="rwd"  @rewardNumber="rewardNumber" templateId=1003></rewardDialog>
-          <payment  ref="pay" @notify="onPayNotify"></payment>
-          <buyGoods  ref="buy" @notify="onPayNotify"></buyGoods>
         </div>
       </div>
       <screenAniamtion></screenAniamtion>
@@ -38,21 +32,12 @@
   import article_meta from './article/t1003/meta.vue';
   import music from './article/music.vue';
   import article_content from './article/content.vue';
-  import vote from './article/vote.vue';
-  import reward from './article/reward.vue';
   import report from './article/report.vue';
-  import coupon from './article/coupon.vue';
   import auther from './article/auther.vue';
   import recommend from './article/recommend.vue';
   import review from './article/review.vue';
   import ad from './article/ad.vue';
-  import rewardDialog from './article/rewardDialog.vue';
   import Toast from '../widget/toast.vue';
-  import payment from '../widget/payment.vue';
-  import buyGoods from '../widget/buyGoods.vue';
-  import card from './member/card.vue';
-  import getCoupon from './coupon/activate.vue';
-  import Dialog from '../widget/dialog.vue';
   import coverAnimation from './article/t1003/cover-animation.vue';
   import screenAniamtion from './article/t1003/screen-Animation.vue';
   //  import Dialog from '../widget/dialog.vue';
@@ -79,21 +64,13 @@
       article_meta,
       music,
       article_content,
-      reward,
       report,
-      coupon,
       auther,
       recommend,
       review,
       ad,
-      rewardDialog,
-      payment,
-      vote,
-      card,
-      buyGoods,
       coverAnimation,
       screenAniamtion
-//      'weui-dialog':Dialog,
     },
     props: {
       article: { default: function () {
@@ -149,7 +126,7 @@
             if (response.type=="success") {
               _this.watchArticle = response.data;
               _this.isPublish = response.data.isPublish;
-              _this.$refs.coupon.open(response.data.member.id);
+
               //设置分享标题
               utils.setConfig({
                 title:_this.watchArticle.title,

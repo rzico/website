@@ -5,15 +5,12 @@
         <article_cover :article="watchArticle"></article_cover>
         <download_bar :isShow="downloadShow" templateId=1002 :authorId="watchArticle.member.id" @closeDownload="closeDownload"></download_bar>
         <music :musicData="watchMusicData" @judgeMusic="judgeMusic" ref="musicTemplete" templateId=1002 :downloadShow="false"></music>
-        <article_content @buyNow="buyNow"  :templates="watchTemplates" :htmlStr="htmlStr"   ></article_content>
+        <article_content   :templates="watchTemplates" :htmlStr="htmlStr"   ></article_content>
         <report  :article="watchArticle.hits"></report>
         <auther ref="auther" :article="watchArticle"></auther>
         <review ref="review" :article="watchArticle"></review>
         <recommend ref="recommend" v-if="isPublish" :article="watchArticle" @go="fetchData"></recommend>
         <ad v-if="noWeex" :article="watchArticle"></ad>
-        <rewardDialog  ref="rwd"  @rewardNumber="rewardNumber"></rewardDialog>
-        <payment  ref="pay" @notify="onPayNotify"></payment>
-        <buyGoods  ref="buy" @notify="onPayNotify"></buyGoods>
       </div>
     </div>
   </div>
@@ -31,22 +28,12 @@
   import article_cover from './article/t1018/cover.vue';
   import music from './article/music.vue';
   import article_content from './article/t1018/content.vue';
-  import vote from './article/vote.vue';
-  import reward from './article/reward.vue';
   import report from './article/seasonsPublic/report.vue';
-  import coupon from './article/coupon.vue';
   import auther from './article/seasonsPublic/auther.vue';
   import recommend from './article/seasonsPublic/recommend.vue';
   import review from './article/seasonsPublic/review.vue';
   import ad from './article/ad.vue';
-  import rewardDialog from './article/rewardDialog.vue';
   import Toast from '../widget/toast.vue';
-  import payment from '../widget/payment.vue';
-  import buyGoods from '../widget/buyGoods.vue';
-  import card from './member/card.vue';
-  import getCoupon from './coupon/activate.vue';
-  import Dialog from '../widget/dialog.vue';
-  //  import Dialog from '../widget/dialog.vue';
   export default {
     data () { return {
       logined:false,
@@ -70,20 +57,12 @@
       article_meta,
       music,
       article_content,
-      reward,
       report,
-      coupon,
       auther,
       recommend,
       review,
       ad,
-      rewardDialog,
-      payment,
-      vote,
-      card,
-      buyGoods,
       article_cover,
-//      'weui-dialog':Dialog,
     },
     props: {
       article: { default: function () {
@@ -138,7 +117,6 @@
             if (response.type=="success") {
               _this.watchArticle = response.data;
               _this.isPublish = response.data.isPublish;
-//              _this.$refs.coupon.open(response.data.member.id);
               //设置分享标题
               utils.setConfig({
                 title:_this.watchArticle.title,
@@ -196,9 +174,6 @@
 
           });
       },
-      showRewardDialog:function () {
-        this.$refs.rwd.show();
-      },
       rewardNumber:function (m) {
         var _this = this;
         _this.$refs.toast.loading();
@@ -240,10 +215,6 @@
                   "paySign" : res.data.paySign,
                 },function(result){
                   if(result.err_msg == "get_brand_wcpay_request:ok" ) {
-
-                    setTimeout(function () {
-                      _this.$refs.reward.open()
-                    },2000)
                   } else {
                     _this.$refs.toast.show("支付取消");
 //                  _this.$refs.toast.show(result.memo);
@@ -293,13 +264,6 @@
 //          return;
 //        }
 
-        let _this = this;
-//        AUTH(location.href,function (authed) {
-//          if (authed) {
-            _this.$refs.buy.show(id,_this.watchArticle.id);
-//          }
-//        })
-
       },
       onscroll(e){
         if(this.musicPlay == 0){//控制判断音乐。来判断从未触发音乐时滚动触发音乐，而在触发过音乐后滚动时不触发音乐事件。
@@ -307,14 +271,6 @@
           this.$refs.musicTemplete.openPlayer();
         }
       },
-//      payConfirm:function (payInfo) {
-//        alert(payInfo);
-//        payInfo = JSON.parse(payInfo);
-//        this.payWay = payInfo.way;
-//        this.payPrice = payInfo.price;
-//        this.sn = payInfo.sn;
-//        this.$refs.dialog.show();
-//      },
     }
   }
 

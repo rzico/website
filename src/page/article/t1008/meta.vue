@@ -5,7 +5,7 @@
         <h1 class="title">{{article.title}}</h1>
         <p class="time-read">
           <span>{{article.createDate | datetimefmt}}</span>
-          <span class="nickname"   @click="jump(article.member.url,article.member.id)">{{article.author}}</span>
+          <span class="nickname" >{{article.author}}</span>
           <span class="read">阅读&nbsp;<span class="read-count">{{article.hits}}</span></span>
           <span class="sign__root"><div class="sign"></div></span>
         </p>

@@ -11,7 +11,7 @@
     <div class="article-meta">
       <div class="well">
         <p class="nickname" >
-                    <span @click="jump(article.member.url,article.member.id)">
+                    <span >
                         <span class="nigname">{{article.author}}</span>
                         <span class="focus__root"><div class="focus"><a class="clearfix">关注</a></div></span>
                     </span>

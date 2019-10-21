@@ -12,7 +12,6 @@
       <span class="iconfont" :style="{fontFamily:'iconfont'}">&#xe65c;</span>
       <span class="smallBoxText">评论 {{article.review}}</span>
     </div>
-    <div class="buttonBox" v-if="productNumber==1"><div class="button" @click="buyNow()">参与接龙</div></div>
   </div>
 </template>
 <style scoped>

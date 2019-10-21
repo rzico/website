@@ -9,14 +9,14 @@
     </div>
     <div class="article-meta">
       <div class="well">
-        <p class="nickname"  @click="jump(article.member.url,article.member.id)">
+        <p class="nickname" >
           {{article.author}}
         </p>
         <p class="time-read">
           <span>{{article.createDate | datetimefmt}}</span>
           <span>阅读 <span class="read-count">{{article.hits}}</span></span>
         </p>
-        <span class="focus__root"  @click="jump(article.member.url,article.member.id)">
+        <span class="focus__root"  >
           <div class="focus">
             <a class="clearfix">关注</a></div></span>
 

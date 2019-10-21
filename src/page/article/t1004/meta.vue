@@ -1,7 +1,7 @@
 <template>
   <div class="ani-header" >
     <div class="header__root">
-      <div class="avatar-stand-alone" @click="jump(article.member.url,article.member.id)" :class="[downloadShow ? '' : 'top19']">
+      <div class="avatar-stand-alone" :class="[downloadShow ? '' : 'top19']">
         <a class="clearfix">
           <img :src="article.member.logo" alt="" class="avatar">
         </a>

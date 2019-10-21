@@ -6,34 +6,18 @@
         <!--<div class="bg">-->
         <!--</div>-->
         <div class="">
-          <banner @buyNow="buyNow" :id="bannerId" :article="watchArticle"></banner>
+          <banner  :id="bannerId" :article="watchArticle"></banner>
           <auther ref="auther" :article="watchArticle"></auther>
           <review ref="review" :article="watchArticle"></review>
           <metaTitle :article="watchArticle"></metaTitle>
           <music :musicData="watchMusicData" @judgeMusic="judgeMusic" ref="musicTemplete" :downloadShow="downloadShow"></music>
-          <article_content @buyNow="buyNow"  :templates="watchTemplates" :htmlStr="htmlStr" templateId=1006></article_content>
-          <!--<vote  :article="watchArticle"></vote>-->
-          <reward ref="reward" :article="watchArticle" @showDialog="showRewardDialog"></reward>
+          <article_content  :templates="watchTemplates" :htmlStr="htmlStr" templateId=1006></article_content>
           <report  :article="watchArticle.hits"></report>
-          <coupon ref="coupon"></coupon>
           <recommend ref="recommend" v-if="isPublish" :article="watchArticle" @go="fetchData"></recommend>
           <ad v-if="noWeex" :article="watchArticle"></ad>
-          <rewardDialog  ref="rwd"  @rewardNumber="rewardNumber"></rewardDialog>
-          <payment  ref="pay" @notify="onPayNotify"></payment>
-          <buyGoods  ref="buy" @notify="onPayNotify"></buyGoods>
         </div>
       </div>
     </div>
-    <!--<weui-dialog ref="dialog" type="confirm" title="免密支付" confirmButton="确认支付" cancelButton="取消"-->
-    <!--@weui-dialog-confirm="activate()"-->
-    <!--@weui-dialog-cancel="closeConfirm()" style="z-index: 300000000111">-->
-    <!--<div >-->
-    <!--<p style="text-align: center;width: 100%;font-size: 13px;color: #444">{{payWay}}</p>-->
-    <!--</div>-->
-    <!--<div >-->
-    <!--<p style="text-align: center;width: 100%;font-size: 25px;color: #000">¥{{payPrice}}</p>-->
-    <!--</div>-->
-    <!--</weui-dialog>-->
     <Toast ref="toast"></Toast>
   </div>
 </template>
@@ -52,24 +36,13 @@
   import article_meta from './article/meta.vue';
   import music from './article/music.vue';
   import article_content from './article/content.vue';
-  import vote from './article/vote.vue';
-  import reward from './article/reward.vue';
   import report from './article/report.vue';
-  import coupon from './article/coupon.vue';
   import auther from './article/auther.vue';
   import banner from './article/t1006/banner.vue';
   import recommend from './article/recommend.vue';
   import review from './article/t1006/review.vue';
   import ad from './article/ad.vue';
-  import rewardDialog from './article/rewardDialog.vue';
   import Toast from '../widget/toast.vue';
-  import payment from '../widget/payment.vue';
-  import buyGoods from '../widget/buyGoods.vue';
-  import card from './member/card.vue';
-  import getCoupon from './coupon/activate.vue';
-  import Dialog from '../widget/dialog.vue';
-  import giveLike from './article/giveLike.vue';
-  //  import Dialog from '../widget/dialog.vue';
   export default {
     data () { return {
       logined:false,
@@ -94,21 +67,12 @@
       metaTitle,
       music,
       article_content,
-      reward,
       report,
-      coupon,
       auther,
       recommend,
       review,
       ad,
-      rewardDialog,
-      payment,
-      vote,
-      card,
-      buyGoods,
-      banner,
-      giveLike
-//      'weui-dialog':Dialog,
+      banner
     },
     props: {
       article: { default: function () {
@@ -165,7 +129,6 @@
             if (response.type=="success") {
               _this.watchArticle = response.data;
               _this.isPublish = response.data.isPublish;
-              _this.$refs.coupon.open(response.data.member.id);
               //设置分享标题
               utils.setConfig({
                 title:_this.watchArticle.title,
