@@ -102,15 +102,6 @@
       this.xuid = utils.getUrlParameter("xuid");
       this.go(id);
     },
-    beforeRouteLeave(to, from, next){
-      alert(888)
-      if(to.name ==='index' ){
-
-        next({name: 'index'});
-      }else {
-        next(); // 注意：这边next必须要写
-      }
-    },
     methods: {
 
       loadTop:function() { //组件提供的下拉触发方法
