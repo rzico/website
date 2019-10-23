@@ -5,11 +5,15 @@
                   ref="loadmore">
         <div class="buttonBox" @click="download()">
           <img class="img" src="../img/index/1.png"/>
-          <div id="btn" class="downButton" ></div>
+          <div id="btn" class="downButton" >
+            <span class="downButtonText">立即下载</span>
+          </div>
         </div>
         <img class="img" src="../img/index/3.png"/>
         <img class="img" src="../img/index/4.png"/>
         <img class="img" src="../img/index/5.png"/>
+        <img class="img" src="../img/index/6.png"/>
+        <img class="img" src="../img/index/2.png"/>
         <div class="maskBox" id="mask"  @click="downMask()">
           <div class="mask">
             <div class="mask-sign">
@@ -38,14 +42,21 @@
     align-content: center;
   }
   .downButton {
-    width: 35%;
-    height:6%;
+    width: 120px;
+    height: 35px;
+    border-radius: 35px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
+    background-image: linear-gradient(to right, #89BE1F,#F6E900);
     top: 33%;
-    left: 13%;
+    left: 12%;
     position: absolute;
+  }
+  .downButtonText{
+    font-size: 16px;
+    color: #ffffff;
   }
   .mask{
     position: fixed;
@@ -153,7 +164,7 @@
           }
           this.disBlock()
         } else {
-          window.location.href = "http://a.app.qq.com/o/simple.jsp?pkgname=com.rzico.znzx"
+          window.location.href = utils.getConfig().appUrl
         }
       },
 
